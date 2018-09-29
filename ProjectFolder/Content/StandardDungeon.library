@@ -1,0 +1,8 @@
+[Version:1]
+ContentLibrary 
+{
+	var Name = "StandardDungeon"
+	var LibraryId = 0x5bd4803dfe0ce691
+	var SourceControlType = ""
+	var ReadOnly = false
+}
