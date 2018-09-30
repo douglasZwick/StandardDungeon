@@ -1,0 +1,9 @@
+[Version:1]
+TextContent 
+{
+	ZilchScriptBuilder 
+	{
+		var Name = "TimeDisplayer"
+		var ResourceId = 0x5bd4ad4dd8b59271
+	}
+}

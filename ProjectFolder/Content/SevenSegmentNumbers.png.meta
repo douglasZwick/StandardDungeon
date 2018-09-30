@@ -1,0 +1,20 @@
+[Version:1]
+ImageContent 
+{
+	SpriteSourceBuilder 
+	{
+		var Name = "SevenSegmentNumbers"
+		var ResourceId = 0x5bd4b401b5a2d0a5
+		var FrameSizeX = 32
+		var FrameSizeY = 64
+		var FrameCount = 16
+		var FrameDelay = 0.5
+		var OriginX = 16
+		var OriginY = 32
+		var PixelsPerUnit = 64
+		var Sampling = SpriteSampling.Linear
+		var Looping = true
+		var Slices = Real4{0, 0, 0, 0}
+		var Fill = SpriteFill.Stretch
+	}
+}

@@ -1,0 +1,263 @@
+[RunInEditor]
+class TimeDisplayer : ZilchComponent
+{
+  var Time_ : Real = 0;
+  [Property]
+  var Time : Real
+  {
+    get { return this.Time_; }
+    
+    set
+    {
+      value = Math.FMod(value, 60 * 60 * 24);
+      this.Time_ = value;
+      
+      if (!this.Initialized) return;
+      
+      this.SetClock();
+    }
+  }
+  
+  var TwentyFourHourTime_ : Boolean = false;
+  [Property]
+  var TwentyFourHourTime : Boolean
+  {
+    get { return this.TwentyFourHourTime_; }
+    
+    set
+    {
+      this.TwentyFourHourTime_ = value;
+      
+      if (!this.Initialized) return;
+      
+      this.SetClock();
+    }
+  }
+  
+  [Property]
+  var Hours : Integer
+  {
+    get
+    {
+      var s = this.Time_ as Integer;
+      var m = s / 60;
+      var h = (m / 60) % 24;
+      
+      if (!this.TwentyFourHourTime_)
+      {
+        h %= 12;
+        
+        if (h == 0)
+          h = 12;
+      }
+      
+      return h;
+    }
+    
+    set
+    {
+      this.Time = value * 60 * 60 + this.Minutes * 60 + this.Seconds + this.Period as Integer * 60 * 60 * 12;
+    }
+  }
+  
+  [Property]
+  var Minutes : Integer
+  {
+    get
+    {
+      var s = this.Time_ as Integer;
+      var m = (s / 60) % 60;
+      
+      return m;
+    }
+    
+    set
+    {
+      this.Time = this.Hours24H * 60 * 60 + value * 60 + this.Seconds;
+    }
+  }
+  
+  [Property]
+  var Seconds : Integer
+  {
+    get
+    {
+      var s = this.Time_ as Integer % 60;
+      
+      return s;
+    }
+    
+    set
+    {
+      this.Time = this.Hours24H * 60 * 60 + this.Minutes * 60 + value;
+    }
+  }
+  
+  [Property]
+  var Period : Period
+  {
+    get
+    {
+      if (this.TwentyFourHourTime_)
+        return Period.AM;
+      
+      if (this.Hours24H < 12)
+        return Period.AM;
+      else
+        return Period.PM;
+    }
+    
+    set
+    {
+      if (this.TwentyFourHourTime_) return;
+      
+      var currentPeriod = this.Period;
+      
+      if (value == Period.AM && currentPeriod == Period.PM)
+        this.Time -= 60 * 60 * 12;
+      else if (value == Period.PM && currentPeriod == Period.AM)
+        this.Time += 60 * 60 * 12;
+    }
+  }
+  
+  var Hours24H : Integer
+  {
+    get
+    {
+      var s = this.Time_ as Integer;
+      var m = s / 60;
+      var h = (m / 60) % 24;
+      
+      return h;
+    }
+  }
+  
+  var DH : Sprite;
+  var Dh : Sprite;
+  var Colon : Sprite;
+  var DM : Sprite;
+  var Dm : Sprite;
+  var AMPM : Sprite;
+  
+  var Initialized : Boolean = false;
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    this.Initialized = true;
+    
+    this.DH = this.Owner.ChildrenArray[0].Sprite;
+    this.Dh = this.Owner.ChildrenArray[1].Sprite;
+    this.Colon = this.Owner.ChildrenArray[2].Sprite;
+    this.DM = this.Owner.ChildrenArray[3].Sprite;
+    this.Dm = this.Owner.ChildrenArray[4].Sprite;
+    this.AMPM = this.Owner.ChildrenArray[5].Sprite;
+  }
+  
+  
+  function SetClock()
+  {
+    var t = this.Time_ as Integer / 60;
+    var m = t % 60;
+    t /= 60;
+    var h = t % 24;
+    
+    if (this.TwentyFourHourTime)
+    {
+      this.SetVisible(this.AMPM, false);
+      this.SetDigit(this.AMPM, ExtraCharacters.Full);
+    }
+    else
+    {
+      var am = h < 12;
+      
+      h %= 12;
+      
+      if (h == 0)
+        h = 12;
+      
+      this.SetVisible(this.DH, h / 10 > 0);
+      
+      this.SetVisible(this.AMPM, true);
+      var ampmFrame = ExtraCharacters.AM + ((!am) as Integer);
+      this.SetDigit(this.AMPM, ampmFrame);
+    }
+    
+    this.SetDigit(this.DH, h / 10);
+    this.SetDigit(this.Dh, h % 10);
+    this.SetDigit(this.Colon, ExtraCharacters.Colon);
+    this.SetDigit(this.DM, m / 10);
+    this.SetDigit(this.Dm, m % 10);
+  }
+  
+  
+  [Display]
+  function Reset()
+  {
+    this.Time = 0;
+  }
+  
+  
+  [Display]
+  function Break()
+  {
+    this.SetVisible(this.DH, true);
+    this.SetVisible(this.AMPM, true);
+    this.SetDigit(this.DH, ExtraCharacters.Full);
+    this.SetDigit(this.Dh, ExtraCharacters.Full);
+    this.SetDigit(this.Colon, ExtraCharacters.Full);
+    this.SetDigit(this.DM, ExtraCharacters.Full);
+    this.SetDigit(this.Dm, ExtraCharacters.Full);
+    this.SetDigit(this.AMPM, ExtraCharacters.Full);
+  }
+  
+  
+  function SetDigit(sprite : Sprite, value : Integer)
+  {
+    sprite.SetFrame(value);
+    
+    var shadowCog = sprite.Owner.Children.Current;
+    var shadowSprite = shadowCog.Sprite;
+    
+    if (shadowSprite != null)
+      shadowSprite.SetFrame(value);
+  }
+  
+  
+  function SetVisible(sprite : Sprite, value : Boolean)
+  {
+    sprite.Visible = value;
+    
+    var shadowCog = sprite.Owner.Children.Current;
+    var shadowSprite = shadowCog.Sprite;
+    
+    if (shadowSprite != null)
+      shadowSprite.Visible = value;
+  }
+  
+  
+  [Extension(typeid(Sprite))]
+  function SetFrame(frame : Integer)
+  {
+    this.StartFrame = frame;
+    this.CurrentFrame = frame;
+  }
+}
+
+
+enum ExtraCharacters
+{
+  Minus = 10,
+  Colon,
+  Period,
+  AM,
+  PM,
+  Full,
+}
+
+
+enum Period
+{
+  AM = 0,
+  PM = 1,
+}

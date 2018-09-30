@@ -1,0 +1,20 @@
+[Version:1]
+ImageContent 
+{
+	SpriteSourceBuilder 
+	{
+		var Name = "BellIcon"
+		var ResourceId = 0x5bcb53354c7d670e
+		var FrameSizeX = 32
+		var FrameSizeY = 32
+		var FrameCount = 1
+		var FrameDelay = 0.0833333358
+		var OriginX = 16
+		var OriginY = 16
+		var PixelsPerUnit = 64
+		var Sampling = SpriteSampling.Linear
+		var Looping = true
+		var Slices = Real4{0, 0, 0, 0}
+		var Fill = SpriteFill.Stretch
+	}
+}

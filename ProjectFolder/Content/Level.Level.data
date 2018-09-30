@@ -1,10 +1,9 @@
 [Version:1]
 Level 
 {
-	Cog 
+	Cog [ContextId:1]
 	{
 		var Name = "LevelSettings"
-		var LinkId = 1
 		GravityEffect 
 		{
 			var Active = true
@@ -40,10 +39,9 @@ Level
 			var FollowEditorCamera = false
 		}
 	}
-	Cog 
+	Cog [ContextId:2]
 	{
 		var Name = "Renderer"
-		var LinkId = 2
 		ForwardRenderer 
 		{
 			var EditorDebugDraw = true
@@ -52,11 +50,11 @@ Level
 			var RenderSpecular = true
 			var RenderSkybox = false
 			var Skybox = "5822dec85e380cf1:SimpleSkybox"
-			var ClearColor = Real4{0, 0, 0, 1}
+			var ClearColor = Real4{0.564705908, 0.752941251, 0.611764729, 1}
 			var DirectLighting = true
 			var IndirectLighting = true
 			var IndirectIntensity = 1
-			var ToneMap = true
+			var ToneMap = false
 			var DirectionalLight = CogPath
 			{
 				var Path = ""
@@ -67,32 +65,27 @@ Level
 				var UpdatePathOnCogChange = true
 				var UpdateCogOnInitialize = true
 				var ResolvedNullErrorOccurred = false
-				var ResolvedCog = 4294967293
+				var Cog = 4294967293
 				var PathPreference0 = CogPathPreference.CogRelative
 				var PathPreference1 = CogPathPreference.SpaceRelative
 				var PathPreference2 = CogPathPreference.Absolute
 			}
 		}
 	}
-	Cog 
+	Cog [ContextId:3]
 	{
 		var Name = "EditorCamera"
-		var LinkId = 3
 		Transform 
 		{
-			var Translation = Real3{0, 0, 10}
+			var Translation = Real3{-5.03904581, 3.36151338, 5.87384367}
 			var Scale = Real3{1, 1, 1}
-			var Rotation = Quaternion{0, 0, 0, 1}
+			var Rotation = Quaternion{-0.142994508, -0.337228686, -0.051904425, 0.929050803}
 		}
 		CameraViewport 
 		{
 			var RenderInEditor = true
 			var RenderInGame = false
-			var RenderToViewport = true
-			var ForwardViewportEvents = false
 			var RenderOrder = 0
-			var NormalizedSize = Real2{1, 1}
-			var NormalizedOffset = Real2{0, 0}
 			var CameraPath = CogPath
 			{
 				var Path = "."
@@ -103,7 +96,7 @@ Level
 				var UpdatePathOnCogChange = true
 				var UpdateCogOnInitialize = true
 				var ResolvedNullErrorOccurred = false
-				var ResolvedCog = 3
+				var Cog = 3
 				var PathPreference0 = CogPathPreference.CogRelative
 				var PathPreference1 = CogPathPreference.SpaceRelative
 				var PathPreference2 = CogPathPreference.Absolute
@@ -118,41 +111,44 @@ Level
 				var UpdatePathOnCogChange = true
 				var UpdateCogOnInitialize = true
 				var ResolvedNullErrorOccurred = false
-				var ResolvedCog = 2
+				var Cog = 2
 				var PathPreference0 = CogPathPreference.CogRelative
 				var PathPreference1 = CogPathPreference.SpaceRelative
 				var PathPreference2 = CogPathPreference.Absolute
 			}
-			var Resolution = Real2{1920, 1080}
+			var ResolutionOrAspect = Integer2{1920, 1080}
+			var RenderToViewport = true
+			var ForwardViewportEvents = false
 			var ViewportScaling = ViewportScaling.Fill
 			var MarginColor = Real4{0, 0, 0, 1}
+			var NormalizedSize = Real2{1, 1}
+			var NormalizedOffset = Real2{0, 0}
 		}
 		Camera 
 		{
 			var NearPlane = 0.5
 			var FarPlane = 500
-			var PerspectiveMode = PerspectiveMode.Orthographic
+			var PerspectiveMode = PerspectiveMode.Perspective
 			var FieldOfView = 45
-			var Size = 19.9999905
+			var Size = 14.8163624
 		}
 		EditorCameraController 
 		{
-			var ControlMode = ControlMode.ZPlane
+			var ControlMode = ControlMode.Orbit
 			var Previous3DMode = ControlMode.Orbit
-			var LookDistance = 20
-			var VerticalAngle = 0
-			var HorizontalAngle = 0
-			var LookTarget = Real3{0, 0, 0}
+			var LookDistance = 8.98658657
+			var VerticalAngle = 0.305432439
+			var HorizontalAngle = 0.696385801
+			var LookTarget = Real3{0.458597481, 0.659196079, -0.701271415}
 			var MoveSensitivity = 1
 		}
 	}
-	Cog 
+	Cog [ContextId:4]
 	{
 		var Name = "GameCamera"
-		var LinkId = 4
 		Transform 
 		{
-			var Translation = Real3{0, 0, 10}
+			var Translation = Real3{0, 0, 6}
 			var Scale = Real3{1, 1, 1}
 			var Rotation = Quaternion{0, 0, 0, 1}
 		}
@@ -169,11 +165,7 @@ Level
 		{
 			var RenderInEditor = false
 			var RenderInGame = true
-			var RenderToViewport = true
-			var ForwardViewportEvents = false
 			var RenderOrder = 0
-			var NormalizedSize = Real2{1, 1}
-			var NormalizedOffset = Real2{0, 0}
 			var CameraPath = CogPath
 			{
 				var Path = "."
@@ -184,7 +176,7 @@ Level
 				var UpdatePathOnCogChange = true
 				var UpdateCogOnInitialize = true
 				var ResolvedNullErrorOccurred = false
-				var ResolvedCog = 4
+				var Cog = 4
 				var PathPreference0 = CogPathPreference.CogRelative
 				var PathPreference1 = CogPathPreference.SpaceRelative
 				var PathPreference2 = CogPathPreference.Absolute
@@ -199,26 +191,557 @@ Level
 				var UpdatePathOnCogChange = true
 				var UpdateCogOnInitialize = true
 				var ResolvedNullErrorOccurred = false
-				var ResolvedCog = 2
+				var Cog = 2
 				var PathPreference0 = CogPathPreference.CogRelative
 				var PathPreference1 = CogPathPreference.SpaceRelative
 				var PathPreference2 = CogPathPreference.Absolute
 			}
-			var Resolution = Real2{1920, 1080}
+			var ResolutionOrAspect = Integer2{1920, 1080}
+			var RenderToViewport = true
+			var ForwardViewportEvents = false
 			var ViewportScaling = ViewportScaling.Letterbox
 			var MarginColor = Real4{0, 0, 0, 1}
+			var NormalizedSize = Real2{1, 1}
+			var NormalizedOffset = Real2{0, 0}
 		}
 		Camera 
 		{
 			var NearPlane = 0.100000001
 			var FarPlane = 200
-			var PerspectiveMode = PerspectiveMode.Orthographic
+			var PerspectiveMode = PerspectiveMode.Perspective
 			var FieldOfView = 60
-			var Size = 20
+			var Size = 8
 		}
 		SoundListener 
 		{
 			var Active = true
+			var AttenuationScale = 1
+		}
+	}
+	Cog [ContextId:5]
+	{
+		var Name = "Hero"
+		Transform 
+		{
+			var Translation = Real3{0, 0, 0}
+			var Scale = Real3{1, 1, 1}
+			var Rotation = Quaternion{0, 0, 0, 1}
+		}
+		Sprite 
+		{
+			var Visible = true
+			var ViewCulling = true
+			var VisibilityEvents = true
+			var OverrideBoundingBox = false
+			var LocalAabbCenter = Real3{0, 0, 0}
+			var LocalAabbHalfExtents = Real3{1, 1, 1}
+			var GroupSortValue = 0
+			var Material = "582c575af53d18c9:AlphaSprite"
+			var VertexColor = Real4{0, 0, 0, 1}
+			var GeometryMode = SpriteGeometryMode.ZPlane
+			var SpriteSource = "5bd489d3726373da:Hero"
+			var FlipX = false
+			var FlipY = false
+			var AnimationActive = true
+			var AnimationSpeed = 1
+			var StartFrame = 0
+		}
+		PlaceholderCharacterController 
+		{
+		}
+		Hierarchy 
+		{
+			Cog [Id:0x5bd48a622eba1c6b][ContextId:6]
+			{
+				var Name = "Shadow"
+				Transform 
+				{
+					var Translation = Real3{0, 0, -0.100000001}
+					var Scale = Real3{1, 1, 1}
+					var Rotation = Quaternion{0, 0, 0, 1}
+				}
+				Sprite 
+				{
+					var Visible = true
+					var ViewCulling = true
+					var VisibilityEvents = true
+					var OverrideBoundingBox = false
+					var LocalAabbCenter = Real3{0, 0, 0}
+					var LocalAabbHalfExtents = Real3{1, 1, 1}
+					var GroupSortValue = 0
+					var Material = "582c575af53d18c9:AlphaSprite"
+					var VertexColor = Real4{0, 0, 0, 0.25}
+					var GeometryMode = SpriteGeometryMode.ZPlane
+					var SpriteSource = "5bd489d3726373da:Hero"
+					var FlipX = false
+					var FlipY = false
+					var AnimationActive = true
+					var AnimationSpeed = 1
+					var StartFrame = 0
+				}
+			}
+		}
+	}
+	Cog [ContextId:7]
+	{
+		var Name = "Alarm"
+		Transform 
+		{
+			var Translation = Real3{0, 2.5, 0}
+			var Scale = Real3{1, 1, 1}
+			var Rotation = Quaternion{0, 0, 0, 1}
+		}
+		Hierarchy 
+		{
+			Cog [Id:0x5bcb530155868b37][ContextId:8]
+			{
+				var Name = "Time"
+				Transform 
+				{
+					var Translation = Real3{0, 0, 0}
+					var Scale = Real3{1, 1, 1}
+					var Rotation = Quaternion{0, 0, 0, 1}
+				}
+				TimeDisplayer 
+				{
+					var Time = 0
+					var TwentyFourHourTime = false
+					var Hours = 12
+					var Minutes = 0
+					var Seconds = 0
+					var Period = Period.AM
+				}
+				Hierarchy 
+				{
+					Cog [Id:0x5bd4aeefa8803e46][ContextId:9]
+					{
+						var Name = "Digit"
+						Transform 
+						{
+							var Translation = Real3{0.25, 0, 0}
+							var Scale = Real3{1, 1, 1}
+							var Rotation = Quaternion{0, 0, 0, 1}
+						}
+						Sprite 
+						{
+							var Visible = true
+							var ViewCulling = true
+							var VisibilityEvents = true
+							var OverrideBoundingBox = false
+							var LocalAabbCenter = Real3{0, 0, 0}
+							var LocalAabbHalfExtents = Real3{1, 1, 1}
+							var GroupSortValue = 0
+							var Material = "582c575af53d18c9:AlphaSprite"
+							var VertexColor = Real4{0, 0, 0, 1}
+							var GeometryMode = SpriteGeometryMode.ZPlane
+							var SpriteSource = "5bd4b401b5a2d0a5:SevenSegmentNumbers"
+							var FlipX = false
+							var FlipY = false
+							var AnimationActive = false
+							var AnimationSpeed = 1
+							var StartFrame = 1
+						}
+						Hierarchy 
+						{
+							Cog [Id:0x5bcb5eccca10eb7b][ContextId:10]
+							{
+								var Name = "Shadow"
+								Transform 
+								{
+									var Translation = Real3{0, 0, -0.100000001}
+									var Scale = Real3{1, 1, 1}
+									var Rotation = Quaternion{0, 0, 0, 1}
+								}
+								Sprite 
+								{
+									var Visible = true
+									var ViewCulling = true
+									var VisibilityEvents = true
+									var OverrideBoundingBox = false
+									var LocalAabbCenter = Real3{0, 0, 0}
+									var LocalAabbHalfExtents = Real3{1, 1, 1}
+									var GroupSortValue = 0
+									var Material = "582c575af53d18c9:AlphaSprite"
+									var VertexColor = Real4{0, 0, 0, 0.25}
+									var GeometryMode = SpriteGeometryMode.ZPlane
+									var SpriteSource = "5bd4b401b5a2d0a5:SevenSegmentNumbers"
+									var FlipX = false
+									var FlipY = false
+									var AnimationActive = false
+									var AnimationSpeed = 1
+									var StartFrame = 1
+								}
+							}
+						}
+					}
+					Cog [Id:0x5bd4aee7afc2ab81][ContextId:11]
+					{
+						var Name = "Digit"
+						Transform 
+						{
+							var Translation = Real3{0.75, 0, 0}
+							var Scale = Real3{1, 1, 1}
+							var Rotation = Quaternion{0, 0, 0, 1}
+						}
+						Sprite 
+						{
+							var Visible = true
+							var ViewCulling = true
+							var VisibilityEvents = true
+							var OverrideBoundingBox = false
+							var LocalAabbCenter = Real3{0, 0, 0}
+							var LocalAabbHalfExtents = Real3{1, 1, 1}
+							var GroupSortValue = 0
+							var Material = "582c575af53d18c9:AlphaSprite"
+							var VertexColor = Real4{0, 0, 0, 1}
+							var GeometryMode = SpriteGeometryMode.ZPlane
+							var SpriteSource = "5bd4b401b5a2d0a5:SevenSegmentNumbers"
+							var FlipX = false
+							var FlipY = false
+							var AnimationActive = false
+							var AnimationSpeed = 1
+							var StartFrame = 2
+						}
+						Hierarchy 
+						{
+							Cog [Id:0x5bcb5e6adb7c9202][ContextId:12]
+							{
+								var Name = "Shadow"
+								Transform 
+								{
+									var Translation = Real3{0, 0, -0.100000001}
+									var Scale = Real3{1, 1, 1}
+									var Rotation = Quaternion{0, 0, 0, 1}
+								}
+								Sprite 
+								{
+									var Visible = true
+									var ViewCulling = true
+									var VisibilityEvents = true
+									var OverrideBoundingBox = false
+									var LocalAabbCenter = Real3{0, 0, 0}
+									var LocalAabbHalfExtents = Real3{1, 1, 1}
+									var GroupSortValue = 0
+									var Material = "582c575af53d18c9:AlphaSprite"
+									var VertexColor = Real4{0, 0, 0, 0.25}
+									var GeometryMode = SpriteGeometryMode.ZPlane
+									var SpriteSource = "5bd4b401b5a2d0a5:SevenSegmentNumbers"
+									var FlipX = false
+									var FlipY = false
+									var AnimationActive = false
+									var AnimationSpeed = 1
+									var StartFrame = 2
+								}
+							}
+						}
+					}
+					Cog [Id:0x5bd4aeddaefd2734][ContextId:13]
+					{
+						var Name = "Digit"
+						Transform 
+						{
+							var Translation = Real3{1.25, 0, 0}
+							var Scale = Real3{1, 1, 1}
+							var Rotation = Quaternion{0, 0, 0, 1}
+						}
+						Sprite 
+						{
+							var Visible = true
+							var ViewCulling = true
+							var VisibilityEvents = true
+							var OverrideBoundingBox = false
+							var LocalAabbCenter = Real3{0, 0, 0}
+							var LocalAabbHalfExtents = Real3{1, 1, 1}
+							var GroupSortValue = 0
+							var Material = "582c575af53d18c9:AlphaSprite"
+							var VertexColor = Real4{0, 0, 0, 1}
+							var GeometryMode = SpriteGeometryMode.ZPlane
+							var SpriteSource = "5bd4b401b5a2d0a5:SevenSegmentNumbers"
+							var FlipX = false
+							var FlipY = false
+							var AnimationActive = false
+							var AnimationSpeed = 1
+							var StartFrame = 11
+						}
+						Hierarchy 
+						{
+							Cog [Id:0x5bcb5e67d927e840][ContextId:14]
+							{
+								var Name = "Shadow"
+								Transform 
+								{
+									var Translation = Real3{0, 0, -0.100000001}
+									var Scale = Real3{1, 1, 1}
+									var Rotation = Quaternion{0, 0, 0, 1}
+								}
+								Sprite 
+								{
+									var Visible = true
+									var ViewCulling = true
+									var VisibilityEvents = true
+									var OverrideBoundingBox = false
+									var LocalAabbCenter = Real3{0, 0, 0}
+									var LocalAabbHalfExtents = Real3{1, 1, 1}
+									var GroupSortValue = 0
+									var Material = "582c575af53d18c9:AlphaSprite"
+									var VertexColor = Real4{0, 0, 0, 0.25}
+									var GeometryMode = SpriteGeometryMode.ZPlane
+									var SpriteSource = "5bd4b401b5a2d0a5:SevenSegmentNumbers"
+									var FlipX = false
+									var FlipY = false
+									var AnimationActive = false
+									var AnimationSpeed = 1
+									var StartFrame = 11
+								}
+							}
+						}
+					}
+					Cog [Id:0x5bd4aedfad30945a][ContextId:15]
+					{
+						var Name = "Digit"
+						Transform 
+						{
+							var Translation = Real3{1.75, 0, 0}
+							var Scale = Real3{1, 1, 1}
+							var Rotation = Quaternion{0, 0, 0, 1}
+						}
+						Sprite 
+						{
+							var Visible = true
+							var ViewCulling = true
+							var VisibilityEvents = true
+							var OverrideBoundingBox = false
+							var LocalAabbCenter = Real3{0, 0, 0}
+							var LocalAabbHalfExtents = Real3{1, 1, 1}
+							var GroupSortValue = 0
+							var Material = "582c575af53d18c9:AlphaSprite"
+							var VertexColor = Real4{0, 0, 0, 1}
+							var GeometryMode = SpriteGeometryMode.ZPlane
+							var SpriteSource = "5bd4b401b5a2d0a5:SevenSegmentNumbers"
+							var FlipX = false
+							var FlipY = false
+							var AnimationActive = false
+							var AnimationSpeed = 1
+							var StartFrame = 0
+						}
+						Hierarchy 
+						{
+							Cog [Id:0x5bcb5e5fd8692c71][ContextId:16]
+							{
+								var Name = "Shadow"
+								Transform 
+								{
+									var Translation = Real3{0, 0, -0.100000001}
+									var Scale = Real3{1, 1, 1}
+									var Rotation = Quaternion{0, 0, 0, 1}
+								}
+								Sprite 
+								{
+									var Visible = true
+									var ViewCulling = true
+									var VisibilityEvents = true
+									var OverrideBoundingBox = false
+									var LocalAabbCenter = Real3{0, 0, 0}
+									var LocalAabbHalfExtents = Real3{1, 1, 1}
+									var GroupSortValue = 0
+									var Material = "582c575af53d18c9:AlphaSprite"
+									var VertexColor = Real4{0, 0, 0, 0.25}
+									var GeometryMode = SpriteGeometryMode.ZPlane
+									var SpriteSource = "5bd4b401b5a2d0a5:SevenSegmentNumbers"
+									var FlipX = false
+									var FlipY = false
+									var AnimationActive = false
+									var AnimationSpeed = 1
+									var StartFrame = 0
+								}
+							}
+						}
+					}
+					Cog [Id:0x5bd4aedead45e646][ContextId:17]
+					{
+						var Name = "Digit"
+						Transform 
+						{
+							var Translation = Real3{2.25, 0, 0}
+							var Scale = Real3{1, 1, 1}
+							var Rotation = Quaternion{0, 0, 0, 1}
+						}
+						Sprite 
+						{
+							var Visible = true
+							var ViewCulling = true
+							var VisibilityEvents = true
+							var OverrideBoundingBox = false
+							var LocalAabbCenter = Real3{0, 0, 0}
+							var LocalAabbHalfExtents = Real3{1, 1, 1}
+							var GroupSortValue = 0
+							var Material = "582c575af53d18c9:AlphaSprite"
+							var VertexColor = Real4{0, 0, 0, 1}
+							var GeometryMode = SpriteGeometryMode.ZPlane
+							var SpriteSource = "5bd4b401b5a2d0a5:SevenSegmentNumbers"
+							var FlipX = false
+							var FlipY = false
+							var AnimationActive = false
+							var AnimationSpeed = 1
+							var StartFrame = 0
+						}
+						Hierarchy 
+						{
+							Cog [Id:0x5bcb5e50df1e225d][ContextId:18]
+							{
+								var Name = "Shadow"
+								Transform 
+								{
+									var Translation = Real3{0, 0, -0.100000001}
+									var Scale = Real3{1, 1, 1}
+									var Rotation = Quaternion{0, 0, 0, 1}
+								}
+								Sprite 
+								{
+									var Visible = true
+									var ViewCulling = true
+									var VisibilityEvents = true
+									var OverrideBoundingBox = false
+									var LocalAabbCenter = Real3{0, 0, 0}
+									var LocalAabbHalfExtents = Real3{1, 1, 1}
+									var GroupSortValue = 0
+									var Material = "582c575af53d18c9:AlphaSprite"
+									var VertexColor = Real4{0, 0, 0, 0.25}
+									var GeometryMode = SpriteGeometryMode.ZPlane
+									var SpriteSource = "5bd4b401b5a2d0a5:SevenSegmentNumbers"
+									var FlipX = false
+									var FlipY = false
+									var AnimationActive = false
+									var AnimationSpeed = 1
+									var StartFrame = 0
+								}
+							}
+						}
+					}
+					Cog [Id:0x5bd4b6d77d557c0a][ContextId:19]
+					{
+						var Name = "Digit"
+						Transform 
+						{
+							var Translation = Real3{2.75, 0, 0}
+							var Scale = Real3{1, 1, 1}
+							var Rotation = Quaternion{0, 0, 0, 1}
+						}
+						Sprite 
+						{
+							var Visible = true
+							var ViewCulling = true
+							var VisibilityEvents = true
+							var OverrideBoundingBox = false
+							var LocalAabbCenter = Real3{0, 0, 0}
+							var LocalAabbHalfExtents = Real3{1, 1, 1}
+							var GroupSortValue = 0
+							var Material = "582c575af53d18c9:AlphaSprite"
+							var VertexColor = Real4{0, 0, 0, 1}
+							var GeometryMode = SpriteGeometryMode.ZPlane
+							var SpriteSource = "5bd4b401b5a2d0a5:SevenSegmentNumbers"
+							var FlipX = false
+							var FlipY = false
+							var AnimationActive = false
+							var AnimationSpeed = 1
+							var StartFrame = 13
+						}
+						Hierarchy 
+						{
+							Cog [Id:0x5bcb5e56dfec7745][ContextId:20]
+							{
+								var Name = "Shadow"
+								Transform 
+								{
+									var Translation = Real3{0, 0, -0.100000001}
+									var Scale = Real3{1, 1, 1}
+									var Rotation = Quaternion{0, 0, 0, 1}
+								}
+								Sprite 
+								{
+									var Visible = true
+									var ViewCulling = true
+									var VisibilityEvents = true
+									var OverrideBoundingBox = false
+									var LocalAabbCenter = Real3{0, 0, 0}
+									var LocalAabbHalfExtents = Real3{1, 1, 1}
+									var GroupSortValue = 0
+									var Material = "582c575af53d18c9:AlphaSprite"
+									var VertexColor = Real4{0, 0, 0, 0.25}
+									var GeometryMode = SpriteGeometryMode.ZPlane
+									var SpriteSource = "5bd4b401b5a2d0a5:SevenSegmentNumbers"
+									var FlipX = false
+									var FlipY = false
+									var AnimationActive = false
+									var AnimationSpeed = 1
+									var StartFrame = 13
+								}
+							}
+						}
+					}
+				}
+			}
+			Cog [Id:0x5bcb53595e1431bb][ContextId:21]
+			{
+				var Name = "AlarmIcon"
+				Transform 
+				{
+					var Translation = Real3{3.25, 0, 0}
+					var Scale = Real3{1, 1, 1}
+					var Rotation = Quaternion{0, 0, -0.258819044, 0.965925813}
+				}
+				Sprite 
+				{
+					var Visible = true
+					var ViewCulling = true
+					var VisibilityEvents = true
+					var OverrideBoundingBox = false
+					var LocalAabbCenter = Real3{0, 0, 0}
+					var LocalAabbHalfExtents = Real3{1, 1, 1}
+					var GroupSortValue = 0
+					var Material = "582c575af53d18c9:AlphaSprite"
+					var VertexColor = Real4{0, 0, 0, 1}
+					var GeometryMode = SpriteGeometryMode.ZPlane
+					var SpriteSource = "5bcb53354c7d670e:BellIcon"
+					var FlipX = false
+					var FlipY = false
+					var AnimationActive = true
+					var AnimationSpeed = 1
+					var StartFrame = 0
+				}
+				Hierarchy 
+				{
+					Cog [Id:0x5bcb5faba1abcacf][ContextId:22]
+					{
+						var Name = "Shadow"
+						Transform 
+						{
+							var Translation = Real3{0, 0, -0.100000001}
+							var Scale = Real3{1, 1, 1}
+							var Rotation = Quaternion{0, 0, 0, 1}
+						}
+						Sprite 
+						{
+							var Visible = true
+							var ViewCulling = true
+							var VisibilityEvents = true
+							var OverrideBoundingBox = false
+							var LocalAabbCenter = Real3{0, 0, 0}
+							var LocalAabbHalfExtents = Real3{1, 1, 1}
+							var GroupSortValue = 0
+							var Material = "582c575af53d18c9:AlphaSprite"
+							var VertexColor = Real4{0, 0, 0, 0.25}
+							var GeometryMode = SpriteGeometryMode.ZPlane
+							var SpriteSource = "5bcb53354c7d670e:BellIcon"
+							var FlipX = false
+							var FlipY = false
+							var AnimationActive = true
+							var AnimationSpeed = 1
+							var StartFrame = 0
+						}
+					}
+				}
+			}
 		}
 	}
 }
