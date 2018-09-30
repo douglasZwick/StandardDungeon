@@ -77,9 +77,9 @@ Level
 		var Name = "EditorCamera"
 		Transform 
 		{
-			var Translation = Real3{-5.03904581, 3.36151338, 5.87384367}
+			var Translation = Real3{-2.71398473, 2.67829728, 16.9204216}
 			var Scale = Real3{1, 1, 1}
-			var Rotation = Quaternion{-0.142994508, -0.337228686, -0.051904425, 0.929050803}
+			var Rotation = Quaternion{-0.0686873794, -0.0756683424, -0.00522488728, 0.994750798}
 		}
 		CameraViewport 
 		{
@@ -136,10 +136,10 @@ Level
 		{
 			var ControlMode = ControlMode.Orbit
 			var Previous3DMode = ControlMode.Orbit
-			var LookDistance = 8.98658657
-			var VerticalAngle = 0.305432439
-			var HorizontalAngle = 0.696385801
-			var LookTarget = Real3{0.458597481, 0.659196079, -0.701271415}
+			var LookDistance = 18.0967503
+			var VerticalAngle = 0.137880817
+			var HorizontalAngle = 0.151842833
+			var LookTarget = Real3{-0.00264827814, 0.191001281, -0.798338532}
 			var MoveSensitivity = 1
 		}
 	}
@@ -246,7 +246,10 @@ Level
 			var AnimationSpeed = 1
 			var StartFrame = 0
 		}
-		PlaceholderCharacterController 
+		CharacterController 
+		{
+		}
+		MovementBlinker 
 		{
 		}
 		Hierarchy 

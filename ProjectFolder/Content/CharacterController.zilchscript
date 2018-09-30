@@ -1,0 +1,134 @@
+class CharacterController : ZilchComponent
+{
+  sends MovementStarted : MovementEvent;
+  sends MovementEnded : MovementEvent;
+  
+  
+  [Dependency]
+  var Transform : Transform;
+  
+  
+  var MovementDuration : Real = 4 / 60.0;
+  var MovementSequence : ActionSequence;
+  var CanMove : Boolean
+  {
+    get
+    {
+      var sequenceRunning = this.MovementSequence != null && this.MovementSequence.Started && !this.MovementSequence.Completed;
+      var attacking = Zero.Keyboard.KeyIsDown(Keys.Space);
+      
+      return !sequenceRunning && !attacking;
+    }
+  }
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    this.MovementSequence = Action.Sequence(this.Owner.Actions);
+    
+    Zero.Connect(Zero.Keyboard, Events.KeyDown, this.OnKeyDown);
+  }
+  
+  
+  function OnKeyDown(event : KeyboardEvent)
+  {
+    if (event.Key == Keys.Left)
+      this.AttemptMoveLeft();
+    if (event.Key == Keys.Right)
+      this.AttemptMoveRight();
+    if (event.Key == Keys.Up)
+      this.AttemptMoveUp();
+    if (event.Key == Keys.Down)
+      this.AttemptMoveDown();
+  }
+  
+  
+  function AttemptMoveLeft()
+  {
+    if (this.CanMove)
+      this.MoveLeft();
+  }
+  
+  
+  function AttemptMoveRight()
+  {
+    if (this.CanMove)
+      this.MoveRight();
+  }
+  
+  
+  function AttemptMoveUp()
+  {
+    if (this.CanMove)
+      this.MoveUp();
+  }
+  
+  
+  function AttemptMoveDown()
+  {
+    if (this.CanMove)
+      this.MoveDown();
+  }
+  
+  
+  function MoveLeft()
+  {
+    var me = MovementEvent();
+    me.OldPosition = this.Transform.WorldTranslation;
+    me.NewPosition = me.OldPosition - Real3.XAxis;
+    this.Owner.DispatchEvent(Events.MovementStarted, me);
+    
+    this.Move(me);
+  }
+  
+  
+  function MoveRight()
+  {
+    var me = MovementEvent();
+    me.OldPosition = this.Transform.WorldTranslation;
+    me.NewPosition = me.OldPosition + Real3.XAxis;
+    this.Owner.DispatchEvent(Events.MovementStarted, me);
+    
+    this.Move(me);
+  }
+  
+  
+  function MoveUp()
+  {
+    var me = MovementEvent();
+    me.OldPosition = this.Transform.WorldTranslation;
+    me.NewPosition = me.OldPosition + Real3.YAxis;
+    this.Owner.DispatchEvent(Events.MovementStarted, me);
+    
+    this.Move(me);
+  }
+  
+  
+  function MoveDown()
+  {
+    var me = MovementEvent();
+    me.OldPosition = this.Transform.WorldTranslation;
+    me.NewPosition = me.OldPosition - Real3.YAxis;
+    this.Owner.DispatchEvent(Events.MovementStarted, me);
+    
+    this.Move(me);
+  }
+  
+  
+  function Move(me : MovementEvent)
+  {
+    this.MovementSequence.Cancel();
+    this.MovementSequence = Action.Sequence(this.Owner.Actions);
+      
+      Action.Delay(this.MovementSequence, this.MovementDuration);
+      Action.Property(this.MovementSequence, @this.Transform.WorldTranslation, me.NewPosition, 0, Ease.Linear);
+      Action.Event(this.MovementSequence, this.Owner, Events.MovementEnded, me);
+  }
+}
+
+
+class MovementEvent : ZilchEvent
+{
+  var OldPosition : Real3;
+  var NewPosition : Real3;
+}
