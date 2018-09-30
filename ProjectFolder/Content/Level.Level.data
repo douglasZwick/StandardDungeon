@@ -77,9 +77,9 @@ Level
 		var Name = "EditorCamera"
 		Transform 
 		{
-			var Translation = Real3{-5.03904581, 3.36151338, 5.87384367}
+			var Translation = Real3{-0.457603633, -7.27981138, 11.775012}
 			var Scale = Real3{1, 1, 1}
-			var Rotation = Quaternion{-0.142994508, -0.337228686, -0.051904425, 0.929050803}
+			var Rotation = Quaternion{0.278803647, -0.0351887345, 0.0102232713, 0.959648848}
 		}
 		CameraViewport 
 		{
@@ -136,9 +136,9 @@ Level
 		{
 			var ControlMode = ControlMode.Orbit
 			var Previous3DMode = ControlMode.Orbit
-			var LookDistance = 8.98658657
-			var VerticalAngle = 0.305432439
-			var HorizontalAngle = 0.696385801
+			var LookDistance = 14.8163729
+			var VerticalAngle = -0.565486491
+			var HorizontalAngle = 0.0733038411
 			var LookTarget = Real3{0.458597481, 0.659196079, -0.701271415}
 			var MoveSensitivity = 1
 		}
@@ -249,6 +249,10 @@ Level
 		PlaceholderCharacterController 
 		{
 		}
+		PlayerSword 
+		{
+			var SwordHitBoxArchetype = "5be0dd32705115c4:PlayerSwordHitbox"
+		}
 		Hierarchy 
 		{
 			Cog [Id:0x5bd48a622eba1c6b][ContextId:6]
@@ -305,8 +309,8 @@ Level
 				TimeDisplayer 
 				{
 					var Time = 0
-					var TwentyFourHourTime = false
-					var Hours = 12
+					var TwentyFourHourTime = true
+					var Hours = 0
 					var Minutes = 0
 					var Seconds = 0
 					var Period = Period.AM
@@ -339,7 +343,7 @@ Level
 							var FlipY = false
 							var AnimationActive = false
 							var AnimationSpeed = 1
-							var StartFrame = 1
+							var StartFrame = 15
 						}
 						Hierarchy 
 						{
@@ -369,7 +373,7 @@ Level
 									var FlipY = false
 									var AnimationActive = false
 									var AnimationSpeed = 1
-									var StartFrame = 1
+									var StartFrame = 15
 								}
 							}
 						}
@@ -400,7 +404,7 @@ Level
 							var FlipY = false
 							var AnimationActive = false
 							var AnimationSpeed = 1
-							var StartFrame = 2
+							var StartFrame = 15
 						}
 						Hierarchy 
 						{
@@ -430,7 +434,7 @@ Level
 									var FlipY = false
 									var AnimationActive = false
 									var AnimationSpeed = 1
-									var StartFrame = 2
+									var StartFrame = 15
 								}
 							}
 						}
@@ -461,7 +465,7 @@ Level
 							var FlipY = false
 							var AnimationActive = false
 							var AnimationSpeed = 1
-							var StartFrame = 11
+							var StartFrame = 15
 						}
 						Hierarchy 
 						{
@@ -491,7 +495,7 @@ Level
 									var FlipY = false
 									var AnimationActive = false
 									var AnimationSpeed = 1
-									var StartFrame = 11
+									var StartFrame = 15
 								}
 							}
 						}
@@ -522,7 +526,7 @@ Level
 							var FlipY = false
 							var AnimationActive = false
 							var AnimationSpeed = 1
-							var StartFrame = 0
+							var StartFrame = 15
 						}
 						Hierarchy 
 						{
@@ -552,7 +556,7 @@ Level
 									var FlipY = false
 									var AnimationActive = false
 									var AnimationSpeed = 1
-									var StartFrame = 0
+									var StartFrame = 15
 								}
 							}
 						}
@@ -583,7 +587,7 @@ Level
 							var FlipY = false
 							var AnimationActive = false
 							var AnimationSpeed = 1
-							var StartFrame = 0
+							var StartFrame = 15
 						}
 						Hierarchy 
 						{
@@ -613,7 +617,7 @@ Level
 									var FlipY = false
 									var AnimationActive = false
 									var AnimationSpeed = 1
-									var StartFrame = 0
+									var StartFrame = 15
 								}
 							}
 						}
@@ -644,7 +648,7 @@ Level
 							var FlipY = false
 							var AnimationActive = false
 							var AnimationSpeed = 1
-							var StartFrame = 13
+							var StartFrame = 15
 						}
 						Hierarchy 
 						{
@@ -674,7 +678,7 @@ Level
 									var FlipY = false
 									var AnimationActive = false
 									var AnimationSpeed = 1
-									var StartFrame = 13
+									var StartFrame = 15
 								}
 							}
 						}

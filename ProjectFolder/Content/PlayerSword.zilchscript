@@ -1,0 +1,60 @@
+class PlayerSword : ZilchComponent
+{
+  var SwordReady : Boolean = false;
+  [Property]
+  var SwordHitBoxArchetype : Archetype;
+  
+  function Initialize(init : CogInitializer)
+  {
+    //Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
+    Zero.Connect(Zero.Keyboard, Events.KeyDown, this.OnKeyDown);
+  }
+
+  function OnLogicUpdate(event : UpdateEvent)
+  {
+    
+  }
+  
+  function OnKeyDown(event : KeyboardEvent)
+  {
+    if(event.Key == Keys.Space)
+    {
+      this.SwordReady = true;
+    }
+    if(this.SwordReady)
+    {
+      if(event.Key == Keys.Left)
+      {
+        //Attack left
+        this.Owner.Sprite.SpriteSource = SpriteSource.HeroAttack;
+        var spawnLocation = this.Owner.Transform.Translation + Real3(-1, 0, 0);
+        this.Space.CreateAtPosition(this.SwordHitBoxArchetype, spawnLocation);
+      } 
+      else if(event.Key == Keys.Right)
+      {
+        var spawnLocation = this.Owner.Transform.Translation + Real3(1, 0, 0);
+        this.Space.CreateAtPosition(this.SwordHitBoxArchetype, spawnLocation);
+  
+      }
+      else if(event.Key == Keys.Up)
+      {
+        var spawnLocation = this.Owner.Transform.Translation + Real3(0, 1, 0);
+        this.Space.CreateAtPosition(this.SwordHitBoxArchetype, spawnLocation);
+      }
+      else if(event.Key == Keys.Down)
+      {
+        var spawnLocation = this.Owner.Transform.Translation + Real3(0, -1, 0);
+        this.Space.CreateAtPosition(this.SwordHitBoxArchetype, spawnLocation);
+      }
+    }
+  }
+  
+  function OnKeyUp(event : KeyboardEvent)
+  {
+    if(event.Key == Keys.Space)
+    {
+      this.SwordReady = false;
+      this.Owner.Sprite.SpriteSource = SpriteSource.Hero;
+    }
+  }
+}

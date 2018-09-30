@@ -1,0 +1,11 @@
+[Version:1]
+DataContent 
+{
+	DataBuilder 
+	{
+		var Name = "PlayerSwordHitbox"
+		var ResourceId = 0x5be0dd32705115c4
+		var LoaderType = "Cog"
+		var Version = 0
+	}
+}

@@ -1,0 +1,20 @@
+class PlayerSwordHitboxBehavior : ZilchComponent
+{
+  [Property]
+  var Lifetime : Real = 0.5;
+  var Timer : Real = 0;
+    
+  function Initialize(init : CogInitializer)
+  {
+    Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
+  }
+
+  function OnLogicUpdate(event : UpdateEvent)
+  {
+    this.Timer += event.Dt;
+    if(this.Timer >= this.Lifetime)
+    {
+      this.Owner.Destroy();
+    }
+  }
+}

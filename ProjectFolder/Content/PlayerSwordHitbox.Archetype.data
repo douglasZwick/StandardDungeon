@@ -1,0 +1,42 @@
+[Version:1]
+Cog 
+{
+	var Name = "PlayerSwordHitbox"
+	Transform 
+	{
+		var Translation = Real3{1.83750618, -0.456633091, -1.31004429}
+		var Scale = Real3{1, 1, 1}
+		var Rotation = Quaternion{0, 0, 0, 1}
+	}
+	BoxCollider 
+	{
+		var Ghost = false
+		var SendsEvents = true
+		var Material = "4de020863e872da8:DefaultPhysicsMaterial"
+		var CollisionGroup = "4e740859314e5515:DefaultGroup"
+		var Offset = Real3{0, 0, 0}
+		var HalfSize = Real3{0.400000006, 0.400000006, 0.400000006}
+	}
+	PlayerSwordHitboxBehavior 
+	{
+		var Lifetime = 0.5
+	}
+	SpriteText 
+	{
+		var Visible = true
+		var ViewCulling = true
+		var VisibilityEvents = true
+		var OverrideBoundingBox = false
+		var LocalAabbCenter = Real3{0, 0, 0}
+		var LocalAabbHalfExtents = Real3{1, 1, 1}
+		var GroupSortValue = 0
+		var Material = "582c575af53d18c9:AlphaSprite"
+		var VertexColor = Real4{1, 1, 1, 1}
+		var GeometryMode = SpriteGeometryMode.ZPlane
+		var Text = "SLASH"
+		var Font = "57343753bb4eaaec:NotoSans-Regular"
+		var FontSize = 32
+		var PixelsPerUnit = 128
+		var TextAlign = TextAlign.Center
+	}
+}
