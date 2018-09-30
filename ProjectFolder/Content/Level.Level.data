@@ -246,12 +246,15 @@ Level
 			var AnimationSpeed = 1
 			var StartFrame = 0
 		}
-		PlaceholderCharacterController 
-		{
-		}
 		PlayerSword 
 		{
 			var SwordHitBoxArchetype = "5be0dd32705115c4:PlayerSwordHitbox"
+		}
+		CharacterController 
+		{
+		}
+		MovementBlinker 
+		{
 		}
 		Hierarchy 
 		{
