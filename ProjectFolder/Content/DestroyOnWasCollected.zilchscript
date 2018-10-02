@@ -1,0 +1,42 @@
+class DestroyOnWasCollected : ZilchComponent
+{
+  [Dependency]
+  var Sprite : Sprite;
+  
+  var FadeDuration : Real = 10 / 60.0;
+  var FadeColor : Real4;
+  var Shadow : Sprite;
+  var ShadowFadeColor : Real4;
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    this.FadeColor = this.Sprite.VertexColor;
+    this.FadeColor.W = 0;
+    
+    var shadowCog = this.Owner.FindChildByName("Shadow");
+    
+    if (shadowCog != null)
+      this.Shadow = shadowCog.Sprite;
+    
+    if (this.Shadow != null)
+      this.ShadowFadeColor = this.Shadow.VertexColor;
+    
+    this.ShadowFadeColor.W = 0;
+    
+    Zero.Connect(this.Owner, Events.WasCollected, this.OnWasCollected);
+  }
+  
+  
+  function OnWasCollected(event : ZilchEvent)
+  {
+    var seq = Action.Sequence(this.Owner.Actions);
+      
+      var grp = Action.Group(seq);
+        
+        Action.Property(grp, @this.Sprite.VertexColor, this.FadeColor, this.FadeDuration, Ease.QuadInOut);
+        Action.Property(grp, @this.Shadow.VertexColor, this.ShadowFadeColor, this.FadeDuration, Ease.QuadInOut);
+      
+      Action.Call(seq, this.Owner.Destroy);
+  }
+}

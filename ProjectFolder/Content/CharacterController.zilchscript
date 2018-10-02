@@ -3,6 +3,7 @@ class CharacterController : ZilchComponent
   sends MovementStarted : MovementEvent;
   sends MovementEnded : MovementEvent;
   sends MovementFailed : MovementEvent;
+  sends AttemptCollect : CollectionEvent;
   
   
   [Dependency]
@@ -14,7 +15,8 @@ class CharacterController : ZilchComponent
   
   var WallCollider : Collider;
   
-  var CastFilter : CastFilter = CastFilter();
+  var WallFilter : CastFilter = CastFilter();
+  var CollectionFilter : CastFilter = CastFilter();
   var MovementDuration : Real = 4 / 60.0;
   var MovementSequence : ActionSequence;
   var CanMove : Boolean
@@ -27,11 +29,15 @@ class CharacterController : ZilchComponent
     }
   }
   
+  var Gold : Integer = 0;
+  var Keys : Integer = 0;
+  
   
   function Initialize(init : CogInitializer)
   {
     this.WallCollider = this.WallColliderPath.Collider;
     this.MovementSequence = Action.Sequence(this.Owner.Actions);
+    this.CollectionFilter.IgnoreGhost = false;
     
     Zero.Connect(Zero.Keyboard, Events.KeyDown, this.OnKeyDown);
   }
@@ -124,13 +130,14 @@ class CharacterController : ZilchComponent
   
   function Move(me : MovementEvent)
   {
-    var results = this.Space.PhysicsSpace.CastCollider(me.NewPosition - me.OldPosition, this.WallCollider, this.CastFilter);
+    var offset = me.NewPosition - me.OldPosition;
+    var moveResults = this.Space.PhysicsSpace.CastCollider(offset, this.WallCollider, this.WallFilter);
+    var solid = moveResults.IsNotEmpty;
+    var collectResults = this.Space.PhysicsSpace.CastCollider(offset, this.WallCollider, this.CollectionFilter);
     
-    var solid = false;
-    
-    foreach (var result in results)
+    foreach (var result in collectResults)
     {
-      solid = true;
+      this.AttemptCollect(result.ObjectHit);
     }
     
     this.MovementSequence.Cancel();
@@ -162,6 +169,34 @@ class CharacterController : ZilchComponent
     me.OldPosition = oldPosition;
     me.NewPosition = newPosition;
     this.Owner.DispatchEvent(Events.MovementFailed, me);
+  }
+  
+  
+  function AttemptCollect(cog : Cog)
+  {
+    var ce = CollectionEvent();
+    cog.DispatchEvent(Events.AttemptCollect, ce);
+    
+    var collectable = ce.Collectable;
+    
+    if (collectable != null)
+    {
+      if (collectable.Keys > 0)
+      {
+        // TODO:
+        // dispatch feedback for getting keys
+        
+        this.Keys += collectable.Keys;
+      }
+      
+      if (collectable.Gold > 0)
+      {
+        // TODO:
+        // dispatch feedback for getting gold
+        
+        this.Gold += collectable.Gold;
+      }
+    }
   }
 }
 
