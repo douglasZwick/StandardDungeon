@@ -1,0 +1,19 @@
+class CounterDisplay : ZilchComponent
+{
+  [Property]
+  var DigitsRootPath : CogPath = CogPath(".");
+  
+  var Digits : Array[Sprite] = Array[Sprite]();
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    foreach (var child in this.DigitsRootPath.Cog.Children)
+    {
+      var sprite = child.Sprite;
+      
+      if (sprite != null)
+        this.Digits.Add(sprite);
+    }
+  }
+}

@@ -1,0 +1,34 @@
+class Collectable : ZilchComponent
+{
+  sends WasCollected : ZilchEvent;
+  
+  
+  [Dependency]
+  var Collider : Collider;
+  
+  
+  [Property]
+  var Gold : Integer;
+  [Property]
+  var Keys : Integer;
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    Zero.Connect(this.Owner, Events.AttemptCollect, this.OnAttemptCollect);
+  }
+  
+  
+  function OnAttemptCollect(event : CollectionEvent)
+  {
+    event.Collectable = this;
+    
+    this.Owner.DispatchEvent(Events.WasCollected, event);
+  }
+}
+
+
+class CollectionEvent : ZilchEvent
+{
+  var Collectable : Collectable;
+}
