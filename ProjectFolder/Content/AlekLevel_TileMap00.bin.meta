@@ -1,0 +1,13 @@
+[Version:1]
+BinaryContent 
+{
+	BinaryBuilder 
+	{
+		var Name = "AlekLevel_TileMap00"
+		var ResourceId = 0x5be396f514f65399
+		var LoaderType = "TileMapSource"
+		var Version = 0
+		var FilterTag = ""
+		var ResourceOwner = "5be2558d722de427:AlekLevel"
+	}
+}
