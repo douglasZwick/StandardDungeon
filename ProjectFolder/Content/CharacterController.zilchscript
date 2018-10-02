@@ -8,6 +8,8 @@ class CharacterController : ZilchComponent
   
   [Dependency]
   var Transform : Transform;
+  [Dependency]
+  var PlayerSword : PlayerSword;
   
   
   [Property]
@@ -105,7 +107,6 @@ class CharacterController : ZilchComponent
     this.Move(me);
   }
   
-  
   function MoveUp()
   {
     var me = MovementEvent();
@@ -115,7 +116,6 @@ class CharacterController : ZilchComponent
     
     this.Move(me);
   }
-  
   
   function MoveDown()
   {
@@ -148,7 +148,9 @@ class CharacterController : ZilchComponent
       if (solid)
         Action.Call(this.MovementSequence, this.DispatchMovementFailed, me.OldPosition, me.NewPosition);
       else
+      {
         Action.Property(this.MovementSequence, @this.Transform.WorldTranslation, me.NewPosition, 0, Ease.Linear);
+      }
       
       Action.Call(this.MovementSequence, this.EndOfMovement, me.OldPosition, me.NewPosition);
   }
