@@ -19,9 +19,21 @@ class SkellyController : ZilchComponent
   {
     Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
     Zero.Connect(this.Owner, Events.SkellyTick, this.OnSkellyTick);
+    Zero.Connect(this.Owner, Events.WasDamaged, this.OnWasDamaged);
+    Zero.Connect(this.Owner, Events.Death, this.OnDeath);
     
     this.PlayerRef = this.Space.FindObjectByName("Hero");
     this.MovementSequence = Action.Sequence(this.Owner.Actions);
+  }
+
+  function OnDeath(event : HealthEvent)
+  {
+    this.Owner.Destroy();
+  }
+
+  function OnWasDamaged(event : HealthEvent)
+  {
+    Console.WriteLine("I just took `event.Damage` damage!!!");
   }
 
   function OnSkellyTick(event : ZilchEvent)

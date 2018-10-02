@@ -1,0 +1,36 @@
+class Health : ZilchComponent
+{
+  sends DamageRequest : HealthEvent;
+  sends WasDamaged : HealthEvent;
+  sends Death : HealthEvent;
+  
+  [Property]
+  var MaxHealth : Integer = 1;
+  var CurrentHealth : Integer;
+  function Initialize(init : CogInitializer)
+  {
+    this.CurrentHealth = this.MaxHealth;
+    //Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
+    Zero.Connect(this.Owner, Events.DamageRequest, this.OnDamageRequest);
+  }
+
+  function OnDamageRequest(event : HealthEvent)
+  {
+    this.CurrentHealth -= event.Damage;
+    if(this.CurrentHealth <= 0)
+    {
+      this.Owner.DispatchEvent(Events.Death, event);
+    }
+    this.Owner.DispatchEvent(Events.WasDamaged, event);
+  }
+
+  function OnLogicUpdate(event : UpdateEvent)
+  {
+    
+  }
+}
+
+class HealthEvent : ZilchEvent
+{
+  var Damage : Integer;
+}

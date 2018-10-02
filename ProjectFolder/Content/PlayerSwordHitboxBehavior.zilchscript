@@ -3,10 +3,19 @@ class PlayerSwordHitboxBehavior : ZilchComponent
   [Property]
   var Lifetime : Real = 0.5;
   var Timer : Real = 0;
+  var AttackPower : Integer = 1;
     
   function Initialize(init : CogInitializer)
   {
     Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
+    Zero.Connect(this.Owner, Events.CollisionStarted, this.OnCollisionStarted);
+  }
+
+  function OnCollisionStarted(event : CollisionEvent)
+  {
+    var he : HealthEvent = HealthEvent();
+    he.Damage = this.AttackPower;
+    event.OtherObject.DispatchEvent(Events.DamageRequest, he);
   }
 
   function OnLogicUpdate(event : UpdateEvent)

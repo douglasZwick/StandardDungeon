@@ -3,6 +3,7 @@ class PlayerSword : ZilchComponent
   var SwordReady : Boolean = false;
   [Property]
   var SwordHitBoxArchetype : Archetype;
+  var HitboxRef : Cog;
   
   function Initialize(init : CogInitializer)
   {
@@ -26,26 +27,25 @@ class PlayerSword : ZilchComponent
     {
       if(event.Key == Keys.Left)
       {
-        //Attack left
         this.Owner.Sprite.SpriteSource = SpriteSource.HeroAttack;
         var spawnLocation = this.Owner.Transform.Translation + Real3(-1, 0, 0);
-        this.Space.CreateAtPosition(this.SwordHitBoxArchetype, spawnLocation);
+        this.HitboxRef = this.Space.CreateAtPosition(this.SwordHitBoxArchetype, spawnLocation);
       } 
       else if(event.Key == Keys.Right)
       {
         var spawnLocation = this.Owner.Transform.Translation + Real3(1, 0, 0);
-        this.Space.CreateAtPosition(this.SwordHitBoxArchetype, spawnLocation);
+        this.HitboxRef = this.Space.CreateAtPosition(this.SwordHitBoxArchetype, spawnLocation);
   
       }
       else if(event.Key == Keys.Up)
       {
         var spawnLocation = this.Owner.Transform.Translation + Real3(0, 1, 0);
-        this.Space.CreateAtPosition(this.SwordHitBoxArchetype, spawnLocation);
+        this.HitboxRef = this.Space.CreateAtPosition(this.SwordHitBoxArchetype, spawnLocation);
       }
       else if(event.Key == Keys.Down)
       {
         var spawnLocation = this.Owner.Transform.Translation + Real3(0, -1, 0);
-        this.Space.CreateAtPosition(this.SwordHitBoxArchetype, spawnLocation);
+        this.HitboxRef = this.Space.CreateAtPosition(this.SwordHitBoxArchetype, spawnLocation);
       }
     }
   }

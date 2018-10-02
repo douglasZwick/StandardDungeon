@@ -77,9 +77,9 @@ Level
 		var Name = "EditorCamera"
 		Transform 
 		{
-			var Translation = Real3{1.68698931, 3.12083888, 20.4645576}
+			var Translation = Real3{0.652322352, -14.9724865, 14.1527414}
 			var Scale = Real3{1, 1, 1}
-			var Rotation = Quaternion{-0.0558057912, 0.023521658, 0.00131505739, 0.9981637}
+			var Rotation = Quaternion{0.382683456, -1.18282166e-08, 8.36381275e-09, 0.923879504}
 		}
 		CameraViewport 
 		{
@@ -137,8 +137,8 @@ Level
 			var ControlMode = ControlMode.Orbit
 			var Previous3DMode = ControlMode.Orbit
 			var LookDistance = 22.1034336
-			var VerticalAngle = 0.111700632
-			var HorizontalAngle = -6.33030653
+			var VerticalAngle = -0.785398245
+			var HorizontalAngle = 0
 			var LookTarget = Real3{0.652322352, 0.657002509, -1.47674465}
 			var MoveSensitivity = 1
 		}
@@ -357,6 +357,10 @@ Level
 			var CollisionGroup = "4e740859314e5515:DefaultGroup"
 			var Offset = Real3{0, 0, 0}
 			var HalfSize = Real3{0.449999988, 0.449999988, 0.449999988}
+		}
+		Health [LocallyAdded]
+		{
+			var MaxHealth = 5
 		}
 	}
 	Cog [InheritId:"5bc988820b0ca921:Clock"][ContextId:10]
