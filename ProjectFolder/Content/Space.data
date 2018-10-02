@@ -2,7 +2,6 @@
 Space 
 {
 	var Name = ""
-	var LinkId = 1
 	TimeSpace 
 	{
 		var MaxDt = 0.300000012
@@ -26,7 +25,7 @@ Space
 		var Mode2D = true
 		var Deterministic = true
 		var SubStepCount = 1
-		var CollisionTable = "4e66a5c0b9dc59b9:DefaultCollisionTable"
+		var CollisionTable = "5bcb31961e4148f4:StandardCollisionTable"
 		var PhysicsSolverConfig = "5391c496ad3459b8:PostStabilization"
 		var DynamicBroadphaseType = "DynamicAabbTree"
 		var StaticBroadphaseType = "StaticAabbTree"
@@ -38,12 +37,33 @@ Space
 	}
 	ReactiveSpace 
 	{
+		var Raycaster = Object
+		{
+			PhysicsRaycastProvider 
+			{
+				var Active = true
+				var DynamicColliders = true
+				var SelectGhosts = true
+				var StaticColliders = true
+				var MultiSelectStatic = false
+				var MultiSelectKinematic = false
+			}
+			GraphicsRaycastProvider 
+			{
+				var Active = true
+				var MultiSelectGraphical = true
+				var VisibleOnly = true
+			}
+		}
 	}
 	NetSpace 
 	{
 		var DetectOutgoingChanges = true
 		var AcceptIncomingChanges = true
 		var AllowNapping = true
+		var AccurateTimestampOnOnline = true
+		var AccurateTimestampOnChange = true
+		var AccurateTimestampOnOffline = true
 		var AutomaticChannel = "56f22bdc94800e65:Default"
 		var NetPropertyInfos = Array
 		{

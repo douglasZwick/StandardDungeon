@@ -1,0 +1,11 @@
+[Version:1]
+DataContent 
+{
+	DataBuilder 
+	{
+		var Name = "Clock"
+		var ResourceId = 0x5bc988820b0ca921
+		var LoaderType = "Cog"
+		var Version = 0
+	}
+}

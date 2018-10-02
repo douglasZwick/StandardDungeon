@@ -1,0 +1,17 @@
+class WriteLineOnAlarmRing : ZilchComponent
+{
+  [Property]
+  var String : String = "All your base are belong to us";
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    Zero.Connect(this.Owner, Events.AlarmRing, this.OnAlarmRing);
+  }
+  
+  
+  function OnAlarmRing(event : ZilchEvent)
+  {
+    Console.WriteLine(this.String);
+  }
+}

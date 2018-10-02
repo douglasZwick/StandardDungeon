@@ -1,6 +1,12 @@
-[RunInEditor]
-class TimeDisplayer : ZilchComponent
+class AlarmClock : ZilchComponent
 {
+  sends AlarmRing : ZilchEvent;
+  
+  
+  [Dependency]
+  var WebRequester : WebRequester;
+  
+  
   var Time_ : Real = 0;
   [Property]
   var Time : Real
@@ -11,8 +17,6 @@ class TimeDisplayer : ZilchComponent
     {
       value = Math.FMod(value, 60 * 60 * 24);
       this.Time_ = value;
-      
-      if (!this.Initialized) return;
       
       this.SetClock();
     }
@@ -27,8 +31,6 @@ class TimeDisplayer : ZilchComponent
     set
     {
       this.TwentyFourHourTime_ = value;
-      
-      if (!this.Initialized) return;
       
       this.SetClock();
     }
@@ -120,6 +122,28 @@ class TimeDisplayer : ZilchComponent
     }
   }
   
+  var AlarmActive_ : Boolean = false;
+  [Property]
+  var AlarmActive : Boolean
+  {
+    get { return this.AlarmActive_; }
+    
+    set
+    {
+      this.AlarmActive_ = value;
+      
+      this.SetVisible(this.Bell, value);
+    }
+  }
+  [Property]
+  var AlarmHours : Integer = 0;
+  [Property]
+  var AlarmMinutes : Integer = 0;
+  [Property]
+  var AlarmPeriod : Period = Period.AM;
+  [Property]
+  var SetOnInitialize : Boolean = true;
+  
   var Hours24H : Integer
   {
     get
@@ -132,26 +156,117 @@ class TimeDisplayer : ZilchComponent
     }
   }
   
-  var DH : Sprite;
-  var Dh : Sprite;
-  var Colon : Sprite;
-  var DM : Sprite;
-  var Dm : Sprite;
-  var AMPM : Sprite;
+  [Property][Group("Paths")]
+  var DH : CogPath;
+  [Property][Group("Paths")]
+  var Dh : CogPath;
+  [Property][Group("Paths")]
+  var Colon : CogPath;
+  [Property][Group("Paths")]
+  var DM : CogPath;
+  [Property][Group("Paths")]
+  var Dm : CogPath;
+  [Property][Group("Paths")]
+  var AMPM : CogPath;
+  [Property][Group("Paths")]
+  var Bell : CogPath;
   
-  var Initialized : Boolean = false;
+  var Running : Boolean = false;
+  var BlinkTimer : Real = 0;
+  var BlinkDuration : Real = 1;
+  var Blinking : Boolean = false;
   
   
   function Initialize(init : CogInitializer)
   {
-    this.Initialized = true;
+    Zero.Connect(Zero.Keyboard, Events.KeyDown, this.OnKeyDown);
+    Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
+    Zero.Connect(this.Owner, Events.WebResponse, this.OnWebResponse);
     
-    this.DH = this.Owner.ChildrenArray[0].Sprite;
-    this.Dh = this.Owner.ChildrenArray[1].Sprite;
-    this.Colon = this.Owner.ChildrenArray[2].Sprite;
-    this.DM = this.Owner.ChildrenArray[3].Sprite;
-    this.Dm = this.Owner.ChildrenArray[4].Sprite;
-    this.AMPM = this.Owner.ChildrenArray[5].Sprite;
+    if (this.SetOnInitialize)
+      this.RequestTime();
+  }
+  
+  
+  function OnKeyDown(event : KeyboardEvent)
+  {
+    if (event.CtrlPressed && event.Key == Keys.Back)
+      this.RequestTime();
+  }
+  
+  
+  function OnLogicUpdate(event : UpdateEvent)
+  {
+    if (this.Running)
+    {
+      this.Time += event.Dt;
+      
+      this.SetVisible(this.Colon, this.Seconds % 2 == 0);
+      
+      if (this.AlarmActive_)
+      {
+        if (this.Hours == this.AlarmHours && this.Minutes == this.AlarmMinutes && this.Period == this.AlarmPeriod)
+        {
+          this.Owner.DispatchEvent(Events.AlarmRing, ZilchEvent());
+          
+          this.AlarmActive = false;
+        }
+      }
+    }
+    else
+    {
+      if (this.BlinkTimer >= this.BlinkDuration)
+      {
+        this.BlinkTimer -= this.BlinkDuration;
+        
+        this.SetVisible(this.DH, this.Blinking);
+        this.SetVisible(this.Dh, this.Blinking);
+        this.SetVisible(this.Colon, this.Blinking);
+        this.SetVisible(this.DM, this.Blinking);
+        this.SetVisible(this.Dm, this.Blinking);
+        this.SetVisible(this.AMPM, this.Blinking);
+        this.SetVisible(this.Bell, this.Blinking);
+        
+        this.Blinking = !this.Blinking;
+      }
+      
+      this.BlinkTimer += event.Dt;
+    }
+  }
+  
+  
+  function OnWebResponse(event : WebResponseEvent)
+  {
+    var data = event.Data;
+    
+    var range = data.FindRangeExclusive("\"currentDateTime\":\"", "\",\"");
+    var timeString = range.FindRangeInclusive("T", "-");
+    var hoursString = timeString.FindRangeExclusive("T", ":");
+    var minutesString = timeString.FindRangeExclusive(":", "-");
+    
+    var hours = Integer.Parse(hoursString);
+    var minutes = Integer.Parse(minutesString);
+    var seconds = 0;
+    var period = Period.AM;
+    
+    if (hours > 12)
+    {
+      hours -= 12;
+      period = Period.PM;
+    }
+    
+    this.Hours = hours;
+    this.Minutes = minutes;
+    this.Seconds = seconds;
+    this.Period = period;
+    
+    this.Running = true;
+  }
+  
+  
+  function RequestTime()
+  {
+    this.WebRequester.Run();
   }
   
   
@@ -164,6 +279,7 @@ class TimeDisplayer : ZilchComponent
     
     if (this.TwentyFourHourTime)
     {
+      this.SetVisible(this.DH, true);
       this.SetVisible(this.AMPM, false);
       this.SetDigit(this.AMPM, ExtraCharacters.Full);
     }
@@ -212,8 +328,12 @@ class TimeDisplayer : ZilchComponent
   }
   
   
-  function SetDigit(sprite : Sprite, value : Integer)
+  function SetDigit(spritePath : CogPath, value : Integer)
   {
+    if (spritePath == null) return;
+    var sprite = spritePath.Sprite;
+    if (sprite == null) return;
+    
     sprite.SetFrame(value);
     
     var shadowCog = sprite.Owner.Children.Current;
@@ -224,8 +344,12 @@ class TimeDisplayer : ZilchComponent
   }
   
   
-  function SetVisible(sprite : Sprite, value : Boolean)
+  function SetVisible(spritePath : CogPath, value : Boolean)
   {
+    if (spritePath == null) return;
+    var sprite = spritePath.Sprite;
+    if (sprite == null) return;
+    
     sprite.Visible = value;
     
     var shadowCog = sprite.Owner.Children.Current;

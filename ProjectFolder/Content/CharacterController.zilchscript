@@ -2,28 +2,35 @@ class CharacterController : ZilchComponent
 {
   sends MovementStarted : MovementEvent;
   sends MovementEnded : MovementEvent;
+  sends MovementFailed : MovementEvent;
   
   
   [Dependency]
   var Transform : Transform;
   
   
+  [Property]
+  var WallColliderPath : CogPath;
+  
+  var WallCollider : Collider;
+  
+  var CastFilter : CastFilter = CastFilter();
   var MovementDuration : Real = 4 / 60.0;
   var MovementSequence : ActionSequence;
   var CanMove : Boolean
   {
     get
     {
-      var sequenceRunning = this.MovementSequence != null && this.MovementSequence.Started && !this.MovementSequence.Completed;
       var attacking = Zero.Keyboard.KeyIsDown(Keys.Space);
       
-      return !sequenceRunning && !attacking;
+      return !attacking;
     }
   }
   
   
   function Initialize(init : CogInitializer)
   {
+    this.WallCollider = this.WallColliderPath.Collider;
     this.MovementSequence = Action.Sequence(this.Owner.Actions);
     
     Zero.Connect(Zero.Keyboard, Events.KeyDown, this.OnKeyDown);
@@ -117,12 +124,44 @@ class CharacterController : ZilchComponent
   
   function Move(me : MovementEvent)
   {
+    var results = this.Space.PhysicsSpace.CastCollider(me.NewPosition - me.OldPosition, this.WallCollider, this.CastFilter);
+    
+    var solid = false;
+    
+    foreach (var result in results)
+    {
+      solid = true;
+    }
+    
     this.MovementSequence.Cancel();
     this.MovementSequence = Action.Sequence(this.Owner.Actions);
       
       Action.Delay(this.MovementSequence, this.MovementDuration);
-      Action.Property(this.MovementSequence, @this.Transform.WorldTranslation, me.NewPosition, 0, Ease.Linear);
-      Action.Event(this.MovementSequence, this.Owner, Events.MovementEnded, me);
+      
+      if (solid)
+        Action.Call(this.MovementSequence, this.DispatchMovementFailed, me.OldPosition, me.NewPosition);
+      else
+        Action.Property(this.MovementSequence, @this.Transform.WorldTranslation, me.NewPosition, 0, Ease.Linear);
+      
+      Action.Call(this.MovementSequence, this.EndOfMovement, me.OldPosition, me.NewPosition);
+  }
+  
+  
+  function EndOfMovement(oldPosition : Real3, newPosition : Real3)
+  {
+    var me = MovementEvent();
+    me.OldPosition = oldPosition;
+    me.NewPosition = newPosition;
+    this.Owner.DispatchEvent(Events.MovementEnded, me);
+  }
+  
+  
+  function DispatchMovementFailed(oldPosition : Real3, newPosition : Real3)
+  {
+    var me = MovementEvent();
+    me.OldPosition = oldPosition;
+    me.NewPosition = newPosition;
+    this.Owner.DispatchEvent(Events.MovementFailed, me);
   }
 }
 
