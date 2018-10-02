@@ -1,0 +1,124 @@
+class SkellyController : ZilchComponent
+{
+  sends SkellyTick : ZilchEvent;
+  [Dependency]
+  var Collider : Collider;
+  
+  [Property]
+  var BaseTickTime : Real = 1.0;
+  var TickTimer : Real = 0;
+  var PlayerRef : Cog;
+  [Property]
+  var ShadowPath : CogPath;
+  var CastFilter : CastFilter = CastFilter();
+  var MovementDuration : Real = 4 / 60.0;
+  
+  var MovementSequence : ActionSequence;
+  
+  function Initialize(init : CogInitializer)
+  {
+    Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
+    Zero.Connect(this.Owner, Events.SkellyTick, this.OnSkellyTick);
+    
+    this.PlayerRef = this.Space.FindObjectByName("Hero");
+    this.MovementSequence = Action.Sequence(this.Owner.Actions);
+  }
+
+  function OnSkellyTick(event : ZilchEvent)
+  {
+    var hDiff : Real = this.PlayerRef.Transform.Translation.X - this.Owner.Transform.Translation.X;
+    var vDiff : Real = this.PlayerRef.Transform.Translation.Y - this.Owner.Transform.Translation.Y;
+    if(Math.Abs(hDiff) > Math.Abs(vDiff))
+    {
+      //Move horizontally
+      if(hDiff < 0)
+      {
+        //Move left
+        var results = this.Space.PhysicsSpace.CastCollider(-Real3.XAxis, this.Collider, this.CastFilter);
+        if(results.IsEmpty)
+        {
+          this.Owner.Transform.Translation += -Real3.XAxis;
+          this.Owner.Sprite.FlipX = !this.Owner.Sprite.FlipX;
+          this.ShadowPath.Sprite.FlipX = !this.ShadowPath.Sprite.FlipX;
+          
+          this.Owner.DispatchEvent(Events.MovementStarted, MovementEvent());
+          this.MovementSequence.Cancel();
+          this.MovementSequence = Action.Sequence(this.Owner.Actions);
+          Action.Delay(this.MovementSequence, this.MovementDuration);
+          Action.Call(this.MovementSequence, this.DispatchMovementEnded);
+          
+        }
+      }
+      else
+      {
+        //Move right
+        var results = this.Space.PhysicsSpace.CastCollider(Real3.XAxis, this.Collider, this.CastFilter);
+        if(results.IsEmpty)
+        {
+          this.Owner.Transform.Translation += Real3.XAxis;
+          this.Owner.Sprite.FlipX = !this.Owner.Sprite.FlipX;
+          this.ShadowPath.Sprite.FlipX = !this.ShadowPath.Sprite.FlipX;
+          
+          this.Owner.DispatchEvent(Events.MovementStarted, MovementEvent());
+          this.MovementSequence.Cancel();
+          this.MovementSequence = Action.Sequence(this.Owner.Actions);
+          Action.Delay(this.MovementSequence, this.MovementDuration);
+          Action.Call(this.MovementSequence, this.DispatchMovementEnded);
+        }
+      }
+    }
+    else
+    {
+      //Move vertically
+      if(vDiff < 0)
+      {
+        //Move down
+        var results = this.Space.PhysicsSpace.CastCollider(-Real3.YAxis, this.Collider, this.CastFilter);
+        if(results.IsEmpty)
+        {
+          this.Owner.Transform.Translation += -Real3.YAxis;
+          this.Owner.Sprite.FlipX = !this.Owner.Sprite.FlipX;
+          this.ShadowPath.Sprite.FlipX = !this.ShadowPath.Sprite.FlipX;
+          
+          this.Owner.DispatchEvent(Events.MovementStarted, MovementEvent());
+          this.MovementSequence.Cancel();
+          this.MovementSequence = Action.Sequence(this.Owner.Actions);
+          Action.Delay(this.MovementSequence, this.MovementDuration);
+          Action.Call(this.MovementSequence, this.DispatchMovementEnded);
+        }
+      }
+      else
+      {
+        //Move up
+        var results = this.Space.PhysicsSpace.CastCollider(Real3.YAxis, this.Collider, this.CastFilter);
+        if(results.IsEmpty)
+        {
+          this.Owner.Transform.Translation += Real3.YAxis;
+          this.Owner.Sprite.FlipX = !this.Owner.Sprite.FlipX;
+          this.ShadowPath.Sprite.FlipX = !this.ShadowPath.Sprite.FlipX;
+          
+          this.Owner.DispatchEvent(Events.MovementStarted, MovementEvent());
+          this.MovementSequence.Cancel();
+          this.MovementSequence = Action.Sequence(this.Owner.Actions);
+          Action.Delay(this.MovementSequence, this.MovementDuration);
+          Action.Call(this.MovementSequence, this.DispatchMovementEnded);
+        }
+      }
+    }
+  }
+  
+  function DispatchMovementEnded()
+  {
+    this.Owner.DispatchEvent(Events.MovementEnded, MovementEvent());
+  }
+
+  function OnLogicUpdate(event : UpdateEvent)
+  {
+    this.TickTimer += event.Dt;
+    if(this.TickTimer >= this.BaseTickTime)
+    {
+      this.TickTimer = 0;
+      this.Owner.DispatchEvent(Events.SkellyTick, ZilchEvent());
+    }
+  }
+}
