@@ -4,16 +4,96 @@ class CounterDisplay : ZilchComponent
   var DigitsRootPath : CogPath = CogPath(".");
   
   var Digits : Array[Sprite] = Array[Sprite]();
+  var MaxValue : Integer;
+  var DigitsCount : Integer;
+  
+  var Value_ : Integer;
+  var Value : Integer
+  {
+    get { return this.Value_; }
+    
+    set
+    {
+      this.Value_ = value;
+      
+      this.SetDigits(value);
+    }
+  }
+  
+  var Sequence : ActionSequence;
+  var RollSpeed : Real = 100; // value / sec
   
   
   function Initialize(init : CogInitializer)
   {
+    this.Sequence = Action.Sequence(this.Owner.Actions);
+    
     foreach (var child in this.DigitsRootPath.Cog.Children)
     {
       var sprite = child.Sprite;
       
       if (sprite != null)
         this.Digits.Add(sprite);
+    }
+    
+    this.DigitsCount = this.Digits.Count;
+    this.MaxValue = 10 ^ this.DigitsCount - 1;
+    
+    Zero.Connect(Zero.Keyboard, Events.KeyDown, this.OnKeyDown);
+  }
+  
+  
+  function OnKeyDown(event : KeyboardEvent)
+  {
+    if (event.Key == Keys.M)
+    {
+      if (event.ShiftPressed)
+        this.SetWithRollUp(0);
+      else
+        this.SetWithRollUp(250);
+    }
+  }
+  
+  
+  function SetWithRollUp(value : Integer)
+  {
+    this.Sequence.Cancel();
+    this.Sequence = Action.Sequence(this.Owner.Actions);
+      
+      Action.Property(this.Sequence, @this.Value, value, value / this.RollSpeed, Ease.Linear);
+  }
+  
+  
+  function SetDigits(value : Integer)
+  {
+    value = Math.Clamp(value, 0, this.MaxValue);
+    
+    var valueString = String.FormatC("%0`this.DigitsCount`d", value);
+    
+    for (var i = 0; i < this.DigitsCount; ++i)
+    {
+      var digitSprite = this.Digits[i];
+      var valueDigit = valueString.SubStringBytes(i, 1);
+      var digit = Integer.Parse("`valueDigit`");
+      this.SetFrame(digitSprite, digit);
+    }
+  }
+  
+  
+  function SetFrame(sprite : Sprite, frame : Integer)
+  {
+    if (sprite == null) return;
+    
+    sprite.SetFrame(frame);
+    
+    var shadowCog = sprite.Owner.Children.Current;
+    
+    if (shadowCog != null)
+    {
+      var shadowSprite = shadowCog.Sprite;
+      
+      if (shadowSprite != null)
+        shadowSprite.SetFrame(frame);
     }
   }
 }
