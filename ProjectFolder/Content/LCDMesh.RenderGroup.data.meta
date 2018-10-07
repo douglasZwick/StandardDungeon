@@ -1,0 +1,11 @@
+[Version:1]
+DataContent 
+{
+	DataBuilder 
+	{
+		var Name = "LCDMesh"
+		var ResourceId = 0x5bc27ba85f74a5e6
+		var LoaderType = "RenderGroup"
+		var Version = 0
+	}
+}

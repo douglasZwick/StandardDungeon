@@ -335,12 +335,6 @@ class AlarmClock : ZilchComponent
     if (sprite == null) return;
     
     sprite.SetFrame(value);
-    
-    var shadowCog = sprite.Owner.Children.Current;
-    var shadowSprite = shadowCog.Sprite;
-    
-    if (shadowSprite != null)
-      shadowSprite.SetFrame(value);
   }
   
   
@@ -351,12 +345,6 @@ class AlarmClock : ZilchComponent
     if (sprite == null) return;
     
     sprite.Visible = value;
-    
-    var shadowCog = sprite.Owner.Children.Current;
-    var shadowSprite = shadowCog.Sprite;
-    
-    if (shadowSprite != null)
-      shadowSprite.Visible = value;
   }
   
   

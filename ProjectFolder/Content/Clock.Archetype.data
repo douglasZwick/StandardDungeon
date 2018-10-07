@@ -155,7 +155,7 @@ Cog
 				var LocalAabbCenter = Real3{0, 0, 0}
 				var LocalAabbHalfExtents = Real3{1, 1, 1}
 				var GroupSortValue = 0
-				var Material = "582c575af53d18c9:AlphaSprite"
+				var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
 				var VertexColor = Real4{0, 0, 0, 1}
 				var GeometryMode = SpriteGeometryMode.ZPlane
 				var SpriteSource = "5bd4b401b5a2d0a5:SevenSegmentNumbers"
@@ -167,35 +167,6 @@ Cog
 			}
 			Hierarchy 
 			{
-				Cog [Id:0x5bcb5eccca10eb7b]
-				{
-					var Name = "Shadow"
-					Transform 
-					{
-						var Translation = Real3{0, 0, -0.100000001}
-						var Scale = Real3{1, 1, 1}
-						var Rotation = Quaternion{0, 0, 0, 1}
-					}
-					Sprite 
-					{
-						var Visible = true
-						var ViewCulling = true
-						var VisibilityEvents = true
-						var OverrideBoundingBox = false
-						var LocalAabbCenter = Real3{0, 0, 0}
-						var LocalAabbHalfExtents = Real3{1, 1, 1}
-						var GroupSortValue = 0
-						var Material = "582c575af53d18c9:AlphaSprite"
-						var VertexColor = Real4{0, 0, 0, 0.25}
-						var GeometryMode = SpriteGeometryMode.ZPlane
-						var SpriteSource = "5bd4b401b5a2d0a5:SevenSegmentNumbers"
-						var FlipX = false
-						var FlipY = false
-						var AnimationActive = false
-						var AnimationSpeed = 1
-						var StartFrame = 1
-					}
-				}
 			}
 		}
 		Cog [Id:0x5bd4aee7afc2ab81]
@@ -216,7 +187,7 @@ Cog
 				var LocalAabbCenter = Real3{0, 0, 0}
 				var LocalAabbHalfExtents = Real3{1, 1, 1}
 				var GroupSortValue = 0
-				var Material = "582c575af53d18c9:AlphaSprite"
+				var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
 				var VertexColor = Real4{0, 0, 0, 1}
 				var GeometryMode = SpriteGeometryMode.ZPlane
 				var SpriteSource = "5bd4b401b5a2d0a5:SevenSegmentNumbers"
@@ -228,35 +199,6 @@ Cog
 			}
 			Hierarchy 
 			{
-				Cog [Id:0x5bcb5e6adb7c9202]
-				{
-					var Name = "Shadow"
-					Transform 
-					{
-						var Translation = Real3{0, 0, -0.100000001}
-						var Scale = Real3{1, 1, 1}
-						var Rotation = Quaternion{0, 0, 0, 1}
-					}
-					Sprite 
-					{
-						var Visible = true
-						var ViewCulling = true
-						var VisibilityEvents = true
-						var OverrideBoundingBox = false
-						var LocalAabbCenter = Real3{0, 0, 0}
-						var LocalAabbHalfExtents = Real3{1, 1, 1}
-						var GroupSortValue = 0
-						var Material = "582c575af53d18c9:AlphaSprite"
-						var VertexColor = Real4{0, 0, 0, 0.25}
-						var GeometryMode = SpriteGeometryMode.ZPlane
-						var SpriteSource = "5bd4b401b5a2d0a5:SevenSegmentNumbers"
-						var FlipX = false
-						var FlipY = false
-						var AnimationActive = false
-						var AnimationSpeed = 1
-						var StartFrame = 2
-					}
-				}
 			}
 		}
 		Cog [Id:0x5bd4aeddaefd2734]
@@ -277,7 +219,7 @@ Cog
 				var LocalAabbCenter = Real3{0, 0, 0}
 				var LocalAabbHalfExtents = Real3{1, 1, 1}
 				var GroupSortValue = 0
-				var Material = "582c575af53d18c9:AlphaSprite"
+				var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
 				var VertexColor = Real4{0, 0, 0, 1}
 				var GeometryMode = SpriteGeometryMode.ZPlane
 				var SpriteSource = "5bd4b401b5a2d0a5:SevenSegmentNumbers"
@@ -289,35 +231,6 @@ Cog
 			}
 			Hierarchy 
 			{
-				Cog [Id:0x5bcb5e67d927e840]
-				{
-					var Name = "Shadow"
-					Transform 
-					{
-						var Translation = Real3{0, 0, -0.100000001}
-						var Scale = Real3{1, 1, 1}
-						var Rotation = Quaternion{0, 0, 0, 1}
-					}
-					Sprite 
-					{
-						var Visible = true
-						var ViewCulling = true
-						var VisibilityEvents = true
-						var OverrideBoundingBox = false
-						var LocalAabbCenter = Real3{0, 0, 0}
-						var LocalAabbHalfExtents = Real3{1, 1, 1}
-						var GroupSortValue = 0
-						var Material = "582c575af53d18c9:AlphaSprite"
-						var VertexColor = Real4{0, 0, 0, 0.25}
-						var GeometryMode = SpriteGeometryMode.ZPlane
-						var SpriteSource = "5bd4b401b5a2d0a5:SevenSegmentNumbers"
-						var FlipX = false
-						var FlipY = false
-						var AnimationActive = false
-						var AnimationSpeed = 1
-						var StartFrame = 11
-					}
-				}
 			}
 		}
 		Cog [Id:0x5bd4aedfad30945a]
@@ -338,7 +251,7 @@ Cog
 				var LocalAabbCenter = Real3{0, 0, 0}
 				var LocalAabbHalfExtents = Real3{1, 1, 1}
 				var GroupSortValue = 0
-				var Material = "582c575af53d18c9:AlphaSprite"
+				var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
 				var VertexColor = Real4{0, 0, 0, 1}
 				var GeometryMode = SpriteGeometryMode.ZPlane
 				var SpriteSource = "5bd4b401b5a2d0a5:SevenSegmentNumbers"
@@ -350,35 +263,6 @@ Cog
 			}
 			Hierarchy 
 			{
-				Cog [Id:0x5bcb5e5fd8692c71]
-				{
-					var Name = "Shadow"
-					Transform 
-					{
-						var Translation = Real3{0, 0, -0.100000001}
-						var Scale = Real3{1, 1, 1}
-						var Rotation = Quaternion{0, 0, 0, 1}
-					}
-					Sprite 
-					{
-						var Visible = true
-						var ViewCulling = true
-						var VisibilityEvents = true
-						var OverrideBoundingBox = false
-						var LocalAabbCenter = Real3{0, 0, 0}
-						var LocalAabbHalfExtents = Real3{1, 1, 1}
-						var GroupSortValue = 0
-						var Material = "582c575af53d18c9:AlphaSprite"
-						var VertexColor = Real4{0, 0, 0, 0.25}
-						var GeometryMode = SpriteGeometryMode.ZPlane
-						var SpriteSource = "5bd4b401b5a2d0a5:SevenSegmentNumbers"
-						var FlipX = false
-						var FlipY = false
-						var AnimationActive = false
-						var AnimationSpeed = 1
-						var StartFrame = 0
-					}
-				}
 			}
 		}
 		Cog [Id:0x5bd4aedead45e646]
@@ -399,7 +283,7 @@ Cog
 				var LocalAabbCenter = Real3{0, 0, 0}
 				var LocalAabbHalfExtents = Real3{1, 1, 1}
 				var GroupSortValue = 0
-				var Material = "582c575af53d18c9:AlphaSprite"
+				var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
 				var VertexColor = Real4{0, 0, 0, 1}
 				var GeometryMode = SpriteGeometryMode.ZPlane
 				var SpriteSource = "5bd4b401b5a2d0a5:SevenSegmentNumbers"
@@ -411,35 +295,6 @@ Cog
 			}
 			Hierarchy 
 			{
-				Cog [Id:0x5bcb5e50df1e225d]
-				{
-					var Name = "Shadow"
-					Transform 
-					{
-						var Translation = Real3{0, 0, -0.100000001}
-						var Scale = Real3{1, 1, 1}
-						var Rotation = Quaternion{0, 0, 0, 1}
-					}
-					Sprite 
-					{
-						var Visible = true
-						var ViewCulling = true
-						var VisibilityEvents = true
-						var OverrideBoundingBox = false
-						var LocalAabbCenter = Real3{0, 0, 0}
-						var LocalAabbHalfExtents = Real3{1, 1, 1}
-						var GroupSortValue = 0
-						var Material = "582c575af53d18c9:AlphaSprite"
-						var VertexColor = Real4{0, 0, 0, 0.25}
-						var GeometryMode = SpriteGeometryMode.ZPlane
-						var SpriteSource = "5bd4b401b5a2d0a5:SevenSegmentNumbers"
-						var FlipX = false
-						var FlipY = false
-						var AnimationActive = false
-						var AnimationSpeed = 1
-						var StartFrame = 0
-					}
-				}
 			}
 		}
 		Cog [Id:0x5bd4b6d77d557c0a]
@@ -460,7 +315,7 @@ Cog
 				var LocalAabbCenter = Real3{0, 0, 0}
 				var LocalAabbHalfExtents = Real3{1, 1, 1}
 				var GroupSortValue = 0
-				var Material = "582c575af53d18c9:AlphaSprite"
+				var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
 				var VertexColor = Real4{0, 0, 0, 1}
 				var GeometryMode = SpriteGeometryMode.ZPlane
 				var SpriteSource = "5bd4b401b5a2d0a5:SevenSegmentNumbers"
@@ -472,35 +327,6 @@ Cog
 			}
 			Hierarchy 
 			{
-				Cog [Id:0x5bcb5e56dfec7745]
-				{
-					var Name = "Shadow"
-					Transform 
-					{
-						var Translation = Real3{0, 0, -0.100000001}
-						var Scale = Real3{1, 1, 1}
-						var Rotation = Quaternion{0, 0, 0, 1}
-					}
-					Sprite 
-					{
-						var Visible = true
-						var ViewCulling = true
-						var VisibilityEvents = true
-						var OverrideBoundingBox = false
-						var LocalAabbCenter = Real3{0, 0, 0}
-						var LocalAabbHalfExtents = Real3{1, 1, 1}
-						var GroupSortValue = 0
-						var Material = "582c575af53d18c9:AlphaSprite"
-						var VertexColor = Real4{0, 0, 0, 0.25}
-						var GeometryMode = SpriteGeometryMode.ZPlane
-						var SpriteSource = "5bd4b401b5a2d0a5:SevenSegmentNumbers"
-						var FlipX = false
-						var FlipY = false
-						var AnimationActive = false
-						var AnimationSpeed = 1
-						var StartFrame = 13
-					}
-				}
 			}
 		}
 		Cog [Id:0x5bcb091e64502aee]
@@ -521,7 +347,7 @@ Cog
 				var LocalAabbCenter = Real3{0, 0, 0}
 				var LocalAabbHalfExtents = Real3{1, 1, 1}
 				var GroupSortValue = 0
-				var Material = "582c575af53d18c9:AlphaSprite"
+				var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
 				var VertexColor = Real4{0, 0, 0, 1}
 				var GeometryMode = SpriteGeometryMode.ZPlane
 				var SpriteSource = "5bcb53354c7d670e:BellIcon"
@@ -533,35 +359,6 @@ Cog
 			}
 			Hierarchy 
 			{
-				Cog [Id:0x5bcb5faba1abcacf]
-				{
-					var Name = "Shadow"
-					Transform 
-					{
-						var Translation = Real3{0, 0, -0.100000001}
-						var Scale = Real3{1, 1, 1}
-						var Rotation = Quaternion{0, 0, 0, 1}
-					}
-					Sprite 
-					{
-						var Visible = true
-						var ViewCulling = true
-						var VisibilityEvents = true
-						var OverrideBoundingBox = false
-						var LocalAabbCenter = Real3{0, 0, 0}
-						var LocalAabbHalfExtents = Real3{1, 1, 1}
-						var GroupSortValue = 0
-						var Material = "582c575af53d18c9:AlphaSprite"
-						var VertexColor = Real4{0, 0, 0, 0.25}
-						var GeometryMode = SpriteGeometryMode.ZPlane
-						var SpriteSource = "5bcb53354c7d670e:BellIcon"
-						var FlipX = false
-						var FlipY = false
-						var AnimationActive = true
-						var AnimationSpeed = 1
-						var StartFrame = 0
-					}
-				}
 			}
 		}
 	}

@@ -1,0 +1,168 @@
+[RunInEditor]
+class LCDRenderer : ZilchComponent
+{
+  // If DebugDraw RenderGroups are drawn in edit mode.
+  [Property] var EditorDebugDraw : Boolean = true;
+  // If DebugDraw RenderGroups are drawn in play mode.
+  [Property] var GameDebugDraw : Boolean = true;
+  // Color for the background if not using the skybox.
+  [Property] var ClearColor : Real4 = Real4(0.0, 0.0, 0.0, 1.0);
+  // Toggles output of dynamic area lights.
+  [Property] var DirectLighting : Boolean = true;
+  // Path to object with DirectionalLight component to use for direct lighting.
+  [Property] var DirectionalLight : CogPath = CogPath();
+  [Property] var ShadowDepth : Real = 0.25;
+  [Property] var ValueThreshold : Real = 0.5;
+  [Property] var ShadowColor : Real4 = Real4(0, 0, 0, 0.25);
+  [Property] var MeshSolidColor : Real4 = Colors.Black;
+  [Property] var MeshTransparentColor : Real4 = Real4.Zero;
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    Zero.Connect(this.Owner, Events.RenderTasksUpdate, this.OnRenderTasksUpdate);
+  }
+
+  function OnRenderTasksUpdate(event : RenderTasksEvent)
+  {
+    var viewportSize = event.ViewportSize;
+    var final = event.GetFinalTarget(viewportSize, TextureFormat.RGBA8);
+    
+    var colorTarget = event.GetRenderTarget(viewportSize, TextureFormat.RGBA16f);
+    var depthTarget = event.GetRenderTarget(viewportSize, TextureFormat.Depth32);
+    
+    var clearColor = Math.Pow(this.ClearColor, Real4(2.2.XXX, 1.0));
+    event.AddRenderTaskClearTarget(colorTarget, depthTarget, clearColor, 1.0);
+    
+    var forwardSettings = RenderSettings();
+    forwardSettings.ColorTarget = colorTarget;
+    forwardSettings.DepthTarget = depthTarget;
+    forwardSettings.CullMode = CullMode.BackFace;
+    forwardSettings.DepthSettings.DepthMode = DepthMode.Write;
+    forwardSettings.DepthSettings.DepthCompareFunc = TextureCompareFunc.LessEqual;
+    forwardSettings.BlendSettings.BlendMode = BlendMode.Separate;
+    forwardSettings.BlendSettings.BlendEquation = BlendEquation.Add;
+    forwardSettings.BlendSettings.SourceFactor = BlendFactor.SourceAlpha;
+    forwardSettings.BlendSettings.DestFactor = BlendFactor.InvSourceAlpha;
+    forwardSettings.BlendSettings.SourceFactorAlpha = BlendFactor.One;
+    forwardSettings.BlendSettings.DestFactorAlpha = BlendFactor.One;
+    
+    var spriteShaderInputs = ShaderInputs();
+    var meshShaderInputs = ShaderInputs();
+    spriteShaderInputs.Add("LCDSpriteVertex", "ShadowMode", true);
+    spriteShaderInputs.Add("LCDPixel", "ShadowMode", true);
+    meshShaderInputs.Add("LCDMeshVertex", "ShadowMode", true);
+    meshShaderInputs.Add("LCDPixel", "ShadowMode", true);
+    
+    // Get state of directional light
+    var activeLight = false;
+    var light = this.DirectionalLight.Cog;
+    var shadowOffset = -Real3.ZAxis * this.ShadowDepth;
+    if (light != null && light.DirectionalLight != null)
+    {
+      activeLight = true;
+      var lightDirection = light.DirectionalLight.LightDirection;
+      var z = Math.Abs(lightDirection.Z);
+      var scalar = this.ShadowDepth / z;
+      shadowOffset = lightDirection * scalar;
+    }
+    
+    spriteShaderInputs.Add("LCDSpriteVertex", "Offset", shadowOffset);
+    meshShaderInputs.Add("LCDMeshVertex", "Offset", shadowOffset);
+    
+    forwardSettings.GlobalShaderInputs = meshShaderInputs;
+    
+    var forwardPass = LCDMeshRenderPass();
+    forwardPass.ValueThreshold = this.ValueThreshold;
+    forwardPass.SolidColor = this.ShadowColor;
+    forwardPass.TransparentColor = this.MeshTransparentColor;
+    forwardPass.EnvironmentBrdfLut = Texture.EnvironmentBrdfLut;
+    forwardPass.DitherTexture = Texture.BlueNoise;
+    
+    forwardPass.DirectLightIntensity = 0.0;
+    
+    if (activeLight)
+    {
+      forwardPass.DirectLightColor = light.DirectionalLight.LightColor.XYZ;
+      forwardPass.DirectLightDirection = light.DirectionalLight.LightDirection;
+      forwardPass.DirectLightIntensity = light.DirectionalLight.LightIntensity;
+    }
+    
+    forwardPass.DirectLightIntensity *= this.DirectLighting as Real;
+    
+    event.AddRenderTaskRenderPass(forwardSettings, RenderGroup.LCDMesh, forwardPass);
+    forwardSettings.GlobalShaderInputs = null;
+    forwardPass.SolidColor = this.MeshSolidColor;
+    event.AddRenderTaskRenderPass(forwardSettings, RenderGroup.Opaque, forwardPass);
+    
+    forwardSettings.CullMode = CullMode.Disabled;
+    event.AddRenderTaskRenderPass(forwardSettings, RenderGroup.OpaqueDoubleSided, forwardPass);
+    
+    // Additive materials
+    var alphaSettings = RenderSettings();
+    alphaSettings.ColorTarget = colorTarget;
+    alphaSettings.DepthTarget = depthTarget;
+    alphaSettings.CullMode = CullMode.Disabled;
+    alphaSettings.BlendSettings.BlendMode = BlendMode.Separate;
+    alphaSettings.BlendSettings.BlendEquation = BlendEquation.Add;
+    alphaSettings.BlendSettings.SourceFactor = BlendFactor.SourceAlpha;
+    alphaSettings.BlendSettings.DestFactor = BlendFactor.One;
+    alphaSettings.BlendSettings.SourceFactorAlpha = BlendFactor.One;
+    alphaSettings.BlendSettings.DestFactorAlpha = BlendFactor.One;
+    alphaSettings.DepthSettings.DepthMode = DepthMode.Read;
+    alphaSettings.DepthSettings.DepthCompareFunc = TextureCompareFunc.LessEqual;
+    event.AddRenderTaskRenderPass(alphaSettings, RenderGroup.AdditiveBlend, ColorOutput());
+    
+    // Bloom
+    if (this.Owner.Bloom != null)
+      this.Owner.Bloom.AddRenderTasks(event, colorTarget);
+    
+    // Bring final lighting to gamma space for monitor display
+    this.LinearToGamma(event, colorTarget, final);
+    
+    // Alpha materials
+    alphaSettings.ColorTarget = final;
+    alphaSettings.BlendSettings.DestFactor = BlendFactor.InvSourceAlpha;
+    alphaSettings.GlobalShaderInputs = spriteShaderInputs;
+    var colorOutput = ColorOutput();
+    event.AddRenderTaskRenderPass(alphaSettings, RenderGroup.LCDSprite, colorOutput);
+    alphaSettings.GlobalShaderInputs = null;
+    event.AddRenderTaskRenderPass(alphaSettings, RenderGroup.AlphaBlend, colorOutput);
+    
+    this.DrawDebugObjects(event, final, depthTarget);
+  }
+  
+  function LinearToGamma(event : RenderTasksEvent, inputBuffer : RenderTarget, outputBuffer : RenderTarget)
+  {
+    var toGamma = ToGamma();
+    toGamma.Texture = inputBuffer.Texture;
+    event.AddRenderTaskPostProcess(outputBuffer, toGamma);
+  }
+  
+  function DrawDebugObjects(event : RenderTasksEvent, color : RenderTarget, depth : RenderTarget)
+  {
+    if (!this.EditorDebugDraw && this.Space.IsEditorMode || !this.GameDebugDraw && !this.Space.IsEditorMode)
+      return;
+    
+    var debugSettings = RenderSettings();
+    debugSettings.ColorTarget = color;
+    debugSettings.DepthTarget = depth;
+    
+    debugSettings.CullMode = CullMode.Disabled;
+    
+    debugSettings.BlendSettings.BlendMode = BlendMode.Separate;
+    debugSettings.BlendSettings.BlendEquation = BlendEquation.Add;
+    debugSettings.BlendSettings.SourceFactor = BlendFactor.SourceAlpha;
+    debugSettings.BlendSettings.DestFactor = BlendFactor.InvSourceAlpha;
+    debugSettings.BlendSettings.SourceFactorAlpha = BlendFactor.One;
+    debugSettings.BlendSettings.DestFactorAlpha = BlendFactor.One;
+    
+    debugSettings.DepthSettings.DepthMode = DepthMode.Read;
+    debugSettings.DepthSettings.DepthCompareFunc = TextureCompareFunc.LessEqual;
+    
+    event.AddRenderTaskRenderPass(debugSettings, RenderGroup.DebugDraw, ColorOutput());
+    
+    debugSettings.DepthSettings.DepthMode = DepthMode.Disabled;
+    event.AddRenderTaskRenderPass(debugSettings, RenderGroup.DebugDrawOnTop, ColorOutput());
+  }
+}

@@ -8,23 +8,14 @@ class MovementBlinker : ZilchComponent
   var FadeSequence : ActionSequence;
   var StartingColor : Real4;
   var FadeColor : Real4;
-  var Shadow : Sprite;
-  var ShadowStartingColor : Real4;
-  var ShadowFadeColor : Real4;
   
   
   function Initialize(init : CogInitializer)
   {
-    var shadowCog = this.Owner.FindChildByName("Shadow");
-    this.Shadow = shadowCog.Sprite;
-    
     this.FadeSequence = Action.Sequence(this.Owner.Actions);
     this.StartingColor = this.Sprite.VertexColor;
     this.FadeColor = this.StartingColor;
     this.FadeColor.W = 0;
-    this.ShadowStartingColor = this.Shadow.VertexColor;
-    this.ShadowFadeColor = this.ShadowStartingColor;
-    this.ShadowFadeColor.W = 0;
     
     Zero.Connect(this.Owner, Events.MovementStarted, this.OnMovementStarted);
     Zero.Connect(this.Owner, Events.MovementEnded, this.OnMovementEnded);
@@ -36,10 +27,7 @@ class MovementBlinker : ZilchComponent
     this.FadeSequence.Cancel();
     this.FadeSequence = Action.Sequence(this.Owner.Actions);
       
-      var fadeGrp = Action.Group(this.FadeSequence);
-        
-        Action.Property(this.FadeSequence, @this.Sprite.VertexColor, this.FadeColor, this.OutDuration, Ease.QuadInOut);
-        Action.Property(this.FadeSequence, @this.Shadow.VertexColor, this.ShadowFadeColor, this.OutDuration, Ease.QuadInOut);
+      Action.Property(this.FadeSequence, @this.Sprite.VertexColor, this.FadeColor, this.OutDuration, Ease.QuadInOut);
   }
   
   
@@ -48,9 +36,6 @@ class MovementBlinker : ZilchComponent
     this.FadeSequence.Cancel();
     this.FadeSequence = Action.Sequence(this.Owner.Actions);
       
-      var fadeGrp = Action.Group(this.FadeSequence);
-        
-        Action.Property(this.FadeSequence, @this.Sprite.VertexColor, this.StartingColor, this.InDuration, Ease.QuadInOut);
-        Action.Property(this.FadeSequence, @this.Shadow.VertexColor, this.ShadowStartingColor, this.InDuration, Ease.QuadInOut);
+      Action.Property(this.FadeSequence, @this.Sprite.VertexColor, this.StartingColor, this.InDuration, Ease.QuadInOut);
   }
 }

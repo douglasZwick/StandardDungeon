@@ -1,0 +1,64 @@
+[Vertex]
+struct LCDSpriteVertex
+{
+  [BuiltInInput] var WorldToView : Real4x4;
+  [BuiltInInput] var ViewToWorld : Real4x4;
+  [BuiltInInput] var ViewToPerspective : Real4x4;
+  
+  [FragmentInput][Output] var ViewPosition : Real3;
+  [Output] var PerspectivePosition : Real4;
+  
+  [Input] var ShadowMode : Boolean = false;
+  [Input] var Offset : Real3 = Real3.Zero;
+  
+  
+  function Main()
+  {
+    var worldPosition = Math.MultiplyPoint(this.ViewToWorld, this.ViewPosition);
+    
+    worldPosition += this.Offset;
+    
+    this.ViewPosition = Math.MultiplyPoint(this.WorldToView, worldPosition);
+    this.PerspectivePosition = Math.Multiply(this.ViewToPerspective, Real4(this.ViewPosition, 1.0));
+  }
+}
+
+
+[Vertex]
+struct LCDMeshVertex
+{
+  [BuiltInInput] var LocalToWorld : Real4x4;
+  [BuiltInInput] var WorldToLocal : Real4x4;
+  [BuiltInInput] var LocalToView : Real4x4;
+  [BuiltInInput] var ViewToLocal : Real4x4;
+  [BuiltInInput] var LocalToPerspective : Real4x4;
+  // Normal/tangents transforms (inverse transpose)
+  [BuiltInInput] var LocalToWorldNormal : Real3x3;
+  [BuiltInInput] var WorldToLocalNormal : Real3x3;
+  [BuiltInInput] var LocalToViewNormal : Real3x3;
+  [BuiltInInput] var ViewToLocalNormal : Real3x3;
+  // View and perspective transforms
+  [BuiltInInput] var WorldToView : Real4x4;
+  [BuiltInInput] var ViewToWorld : Real4x4;
+  [BuiltInInput] var ViewToPerspective : Real4x4;
+  [BuiltInInput] var PerspectiveToView : Real4x4;
+  
+  // Vertex Attributes
+  // Standard mesh attributes
+  [StageInput] var LocalPosition : Real3;
+  [Output] var PerspectivePosition : Real4;
+  
+  [Input] var ShadowMode : Boolean = false;
+  [Input] var Offset : Real3 = Real3.Zero;
+  
+  
+  function Main()
+  {
+    var worldPosition = Math.MultiplyPoint(this.LocalToWorld, this.LocalPosition);
+    
+    worldPosition += this.Offset;
+    
+    this.LocalPosition = Math.MultiplyPoint(this.WorldToLocal, worldPosition);
+    this.PerspectivePosition = Math.Multiply(this.LocalToPerspective, Real4(this.LocalPosition, 1.0));
+  }
+}

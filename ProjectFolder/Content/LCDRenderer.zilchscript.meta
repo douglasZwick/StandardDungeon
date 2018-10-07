@@ -1,0 +1,9 @@
+[Version:1]
+TextContent 
+{
+	ZilchScriptBuilder 
+	{
+		var Name = "LCDRenderer"
+		var ResourceId = 0x5bc3bdb2a94f5297
+	}
+}

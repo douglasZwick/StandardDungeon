@@ -1,0 +1,9 @@
+[Version:1]
+TextContent 
+{
+	ZilchScriptBuilder 
+	{
+		var Name = "TransformLink"
+		var ResourceId = 0x5bc20aa1d23e041c
+	}
+}

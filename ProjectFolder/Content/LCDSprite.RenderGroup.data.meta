@@ -1,0 +1,11 @@
+[Version:1]
+DataContent 
+{
+	DataBuilder 
+	{
+		var Name = "LCDSprite"
+		var ResourceId = 0x5bc20fa7578bee30
+		var LoaderType = "RenderGroup"
+		var Version = 0
+	}
+}

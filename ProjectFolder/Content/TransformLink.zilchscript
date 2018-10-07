@@ -1,0 +1,38 @@
+class TransformLink : ZilchComponent
+{
+  [Property]
+  var FromPath : CogPath = CogPath(".");
+  [Property]
+  var ToPath : CogPath;
+  [Property]
+  var CopyTranslation : Boolean = true;
+  [Property]
+  var CopyRotation : Boolean = true;
+  [Property]
+  var CopyScale : Boolean = true;
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    this.Copy();
+    
+    Zero.Connect(this.Owner, Events.TransformUpdated, this.OnTransformUpdated);
+  }
+  
+  
+  function OnTransformUpdated(event : ObjectEvent)
+  {
+    this.Copy();
+  }
+  
+  
+  function Copy()
+  {
+    if (this.CopyTranslation)
+      this.ToPath.Transform.LocalTranslation = this.FromPath.Transform.LocalTranslation;
+    if (this.CopyRotation)
+      this.ToPath.Transform.LocalRotation = this.FromPath.Transform.LocalRotation;
+    if (this.CopyScale)
+      this.ToPath.Transform.LocalScale = this.FromPath.Transform.LocalScale;
+  }
+}

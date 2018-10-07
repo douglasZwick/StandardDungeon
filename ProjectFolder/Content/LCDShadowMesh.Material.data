@@ -1,0 +1,33 @@
+[Version:1]
+Material 
+{
+	var RenderGroups = Array
+	{
+		"5bc27ba85f74a5e6:LCDMesh"
+		"581cffd64d449122:Opaque"
+	}
+	LCDMeshVertex 
+	{
+		var ShadowMode = false
+		var Offset = Real3{0, 0, 0}
+	}
+	AlbedoMap 
+	{
+		var AlbedoMap = "5827bc9481103535:ZeroAlbedo"
+	}
+	MetallicMap 
+	{
+		var MetallicMap = "5827acd640fecdcb:ZeroMetallic"
+	}
+	RoughnessMap 
+	{
+		var RoughnessMap = "5827b28df611775d:ZeroRoughness"
+	}
+	NormalMap 
+	{
+		var NormalMap = "5827b28df61127a4:ZeroNormal"
+		var Bumpiness = 1
+		var RedLeft = false
+		var GreenDown = false
+	}
+}

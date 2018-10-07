@@ -1,0 +1,23 @@
+[Version:1]
+Material 
+{
+	var RenderGroups = Array
+	{
+		"5bc20fa7578bee30:LCDSprite"
+		"5961eaa40f1649f6:ZSort"
+		"56dc0b2bbc86c4cb:AlphaBlend"
+	}
+	LCDSpriteVertex 
+	{
+		var ShadowMode = false
+		var Offset = Real3{0, 0, 0}
+	}
+	SpriteSourceColor 
+	{
+	}
+	LCDPixel 
+	{
+		var ShadowColor = Real4{0, 0, 0, 0.25}
+		var ShadowMode = false
+	}
+}
