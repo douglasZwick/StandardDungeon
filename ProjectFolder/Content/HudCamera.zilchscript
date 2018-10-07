@@ -1,0 +1,13 @@
+class HudCamera : ZilchComponent
+{
+  function Initialize(init : CogInitializer)
+  {
+    Zero.Connect(this.Space, Events.HudCameraRollCall, this.OnHudCameraRollCall);
+  }
+  
+  
+  function OnHudCameraRollCall(event : HudCameraEvent)
+  {
+    event.CameraCog = this.Owner;
+  }
+}

@@ -38,7 +38,6 @@ class LCDRenderer : ZilchComponent
     forwardSettings.ColorTarget = colorTarget;
     forwardSettings.DepthTarget = depthTarget;
     forwardSettings.CullMode = CullMode.BackFace;
-    forwardSettings.DepthSettings.DepthMode = DepthMode.Write;
     forwardSettings.DepthSettings.DepthCompareFunc = TextureCompareFunc.LessEqual;
     forwardSettings.BlendSettings.BlendMode = BlendMode.Separate;
     forwardSettings.BlendSettings.BlendEquation = BlendEquation.Add;
@@ -58,7 +57,7 @@ class LCDRenderer : ZilchComponent
     var activeLight = false;
     var light = this.DirectionalLight.Cog;
     var shadowOffset = -Real3.ZAxis * this.ShadowDepth;
-    if (light != null && light.DirectionalLight != null)
+    if (light != null && light.DirectionalLight != null && this.DirectLighting)
     {
       activeLight = true;
       var lightDirection = light.DirectionalLight.LightDirection;
@@ -90,7 +89,13 @@ class LCDRenderer : ZilchComponent
     
     forwardPass.DirectLightIntensity *= this.DirectLighting as Real;
     
-    event.AddRenderTaskRenderPass(forwardSettings, RenderGroup.LCDMesh, forwardPass);
+    if (activeLight)
+    {
+      forwardSettings.DepthSettings.DepthMode = DepthMode.Disabled;
+      event.AddRenderTaskRenderPass(forwardSettings, RenderGroup.LCDMesh, forwardPass);
+    }
+    
+    forwardSettings.DepthSettings.DepthMode = DepthMode.Write;
     forwardSettings.GlobalShaderInputs = null;
     forwardPass.SolidColor = this.MeshSolidColor;
     event.AddRenderTaskRenderPass(forwardSettings, RenderGroup.Opaque, forwardPass);
@@ -125,7 +130,12 @@ class LCDRenderer : ZilchComponent
     alphaSettings.BlendSettings.DestFactor = BlendFactor.InvSourceAlpha;
     alphaSettings.GlobalShaderInputs = spriteShaderInputs;
     var colorOutput = ColorOutput();
-    event.AddRenderTaskRenderPass(alphaSettings, RenderGroup.LCDSprite, colorOutput);
+    
+    if (activeLight)
+    {
+      event.AddRenderTaskRenderPass(alphaSettings, RenderGroup.LCDSprite, colorOutput);
+    }
+    
     alphaSettings.GlobalShaderInputs = null;
     event.AddRenderTaskRenderPass(alphaSettings, RenderGroup.AlphaBlend, colorOutput);
     

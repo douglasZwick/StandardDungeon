@@ -1,0 +1,13 @@
+[Version:1]
+BinaryContent 
+{
+	BinaryBuilder 
+	{
+		var Name = "DougLevel_TileMap01"
+		var ResourceId = 0x5bc13601e6ee4327
+		var LoaderType = "TileMapSource"
+		var Version = 0
+		var FilterTag = ""
+		var ResourceOwner = "5bcb30df3f98e655:DougLevel"
+	}
+}

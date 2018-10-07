@@ -1,0 +1,27 @@
+[Pixel]
+struct ExamplePixelFragment
+{
+  [PropertyInput] var AlbedoMap : Sampler2d;
+  [PropertyInput] var UvScale : Real2 = Real2.One;
+  [PropertyInput] var Mood : Real2 = Real2(6, 4);
+  [PropertyInput] var Intensity : Real = 1;
+  [PropertyInput] var ApplyColorModifications : Boolean = true;
+  
+  [FragmentInput][StageInput] var Uv : Real2;
+  [Output] var Albedo : Real3;
+  
+  function Main()
+  {
+    var uv = this.Uv * this.UvScale;
+    var standardAlbedo = this.AlbedoMap.Sample(uv).XYZ;
+    var modifiedAlbedo = standardAlbedo;
+    modifiedAlbedo.XY *= this.Mood;
+    modifiedAlbedo *= this.Intensity;
+    
+    var finalAlbedo = Math.Lerp(standardAlbedo,
+                                modifiedAlbedo,
+                                this.ApplyColorModifications as Real);
+    
+    this.Albedo = finalAlbedo;
+  }
+}

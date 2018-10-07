@@ -1,0 +1,29 @@
+class HudCameraLinker : ZilchComponent
+{
+  sends HudCameraRollCall : HudCameraEvent;
+  
+  
+  [Dependency]
+  var TransformLink : TransformLink;
+  [Dependency]
+  var HudMaster : HudMaster;
+  
+  
+  [Property]
+  var FromPath : CogPath;
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    var hce = HudCameraEvent();
+    this.HudMaster.Hud.DispatchEvent(Events.HudCameraRollCall, hce);
+    var to = hce.CameraCog;
+    this.TransformLink.Link(this.FromPath.Cog, to);
+  }
+}
+
+
+class HudCameraEvent : ZilchEvent
+{
+  var CameraCog : Cog;
+}

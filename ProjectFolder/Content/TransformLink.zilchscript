@@ -1,7 +1,7 @@
 class TransformLink : ZilchComponent
 {
   [Property]
-  var FromPath : CogPath = CogPath(".");
+  var FromPath : CogPath;
   [Property]
   var ToPath : CogPath;
   [Property]
@@ -16,7 +16,19 @@ class TransformLink : ZilchComponent
   {
     this.Copy();
     
-    Zero.Connect(this.Owner, Events.TransformUpdated, this.OnTransformUpdated);
+    var from = this.FromPath.Cog;
+    var to = this.ToPath.Cog;
+    
+    if (from != null && to != null)
+      Zero.Connect(from, Events.TransformUpdated, this.OnTransformUpdated);
+  }
+  
+  
+  function Link(from : Cog, to : Cog)
+  {
+    this.FromPath.Cog = from;
+    this.ToPath.Cog = to;
+    Zero.Connect(from, Events.TransformUpdated, this.OnTransformUpdated);
   }
   
   

@@ -82,6 +82,9 @@ struct LCDMeshRenderPass
     var finalValue = this.ComputeValue(finalColor);
     var interpolant = (finalValue >= this.ValueThreshold) as Real;
     
+    if (finalValue >= this.ValueThreshold)
+      Shader.Discard();
+    
     this.Target0 = Math.Lerp(this.SolidColor, this.TransparentColor, interpolant);
   }
   

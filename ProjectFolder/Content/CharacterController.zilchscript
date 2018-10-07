@@ -183,12 +183,16 @@ class CharacterController : ZilchComponent
     
     if (collectable != null)
     {
+      var counterEvent = CounterEvent();
+      
       if (collectable.Keys > 0)
       {
         // TODO:
         // dispatch feedback for getting keys
         
         this.Keys += collectable.Keys;
+        counterEvent.Value = this.Keys;
+        this.GameSession.DispatchEvent("`Events.CounterShouldSet`Keys", counterEvent);
       }
       
       if (collectable.Gold > 0)
@@ -197,6 +201,8 @@ class CharacterController : ZilchComponent
         // dispatch feedback for getting gold
         
         this.Gold += collectable.Gold;
+        counterEvent.Value = this.Gold;
+        this.GameSession.DispatchEvent("`Events.CounterShouldSet`Gold", counterEvent);
       }
     }
   }

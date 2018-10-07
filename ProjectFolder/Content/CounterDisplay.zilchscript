@@ -1,5 +1,10 @@
 class CounterDisplay : ZilchComponent
 {
+  sends CounterShouldSet : CounterEvent;
+  
+  
+  [Property]
+  var CounterName : String;
   [Property]
   var DigitsRootPath : CogPath = CogPath(".");
   
@@ -21,7 +26,7 @@ class CounterDisplay : ZilchComponent
   }
   
   var Sequence : ActionSequence;
-  var RollSpeed : Real = 100; // value / sec
+  var RollSpeed : Real = 103.38457; // value / sec
   
   
   function Initialize(init : CogInitializer)
@@ -40,6 +45,13 @@ class CounterDisplay : ZilchComponent
     this.MaxValue = 10 ^ this.DigitsCount - 1;
     
     Zero.Connect(Zero.Keyboard, Events.KeyDown, this.OnKeyDown);
+    Zero.Connect(this.GameSession, "`Events.CounterShouldSet``this.CounterName`", this.OnCounterShouldSet);
+  }
+  
+  
+  function OnCounterShouldSet(event : CounterEvent)
+  {
+    this.SetWithRollUp(event.Value);
   }
   
   
@@ -57,10 +69,11 @@ class CounterDisplay : ZilchComponent
   
   function SetWithRollUp(value : Integer)
   {
+    var delta = Math.Abs(value - this.Value_);
     this.Sequence.Cancel();
     this.Sequence = Action.Sequence(this.Owner.Actions);
       
-      Action.Property(this.Sequence, @this.Value, value, value / this.RollSpeed, Ease.Linear);
+      Action.Property(this.Sequence, @this.Value, value, delta / this.RollSpeed, Ease.Linear);
   }
   
   
@@ -82,18 +95,12 @@ class CounterDisplay : ZilchComponent
   
   function SetFrame(sprite : Sprite, frame : Integer)
   {
-    if (sprite == null) return;
-    
     sprite.SetFrame(frame);
-    
-    var shadowCog = sprite.Owner.Children.Current;
-    
-    if (shadowCog != null)
-    {
-      var shadowSprite = shadowCog.Sprite;
-      
-      if (shadowSprite != null)
-        shadowSprite.SetFrame(frame);
-    }
   }
+}
+
+
+class CounterEvent : ZilchEvent
+{
+  var Value : Integer;
 }

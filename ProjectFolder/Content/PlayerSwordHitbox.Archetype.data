@@ -4,7 +4,7 @@ Cog
 	var Name = "PlayerSwordHitbox"
 	Transform 
 	{
-		var Translation = Real3{1.83750618, -0.456633091, -1.31004429}
+		var Translation = Real3{-7.56559706, 1.58492374, 0}
 		var Scale = Real3{1, 1, 1}
 		var Rotation = Quaternion{0, 0, 0, 1}
 	}
@@ -30,11 +30,11 @@ Cog
 		var LocalAabbCenter = Real3{0, 0, 0}
 		var LocalAabbHalfExtents = Real3{1, 1, 1}
 		var GroupSortValue = 0
-		var Material = "582c575af53d18c9:AlphaSprite"
-		var VertexColor = Real4{1, 1, 1, 1}
+		var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
+		var VertexColor = Real4{0, 0, 0, 1}
 		var GeometryMode = SpriteGeometryMode.ZPlane
 		var Text = "SLASH"
-		var Font = "57343753bb4eaaec:NotoSans-Regular"
+		var Font = "587b2f7646ba23d5:NotoSans-Bold"
 		var FontSize = 32
 		var PixelsPerUnit = 128
 		var TextAlign = TextAlign.Center

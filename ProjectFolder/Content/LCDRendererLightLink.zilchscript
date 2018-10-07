@@ -1,0 +1,18 @@
+class LCDRendererLightLink : ZilchComponent
+{
+  [Dependency]
+  var LCDRenderer : LCDRenderer;
+  
+  
+  [Property]
+  var HudMasterPath : CogPath;
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    var hudSpace = this.HudMasterPath.HudMaster.Hud;
+    var hudRenderer = hudSpace.FindObjectByName("Renderer");
+    var hudLcdRenderer = hudRenderer.LCDRenderer;
+    hudLcdRenderer.DirectionalLight.Cog = this.LCDRenderer.DirectionalLight.Cog;
+  }
+}

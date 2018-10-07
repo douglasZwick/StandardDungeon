@@ -1,0 +1,30 @@
+[Version:1]
+Cog 
+{
+	var Name = "Door"
+	Transform 
+	{
+		var Translation = Real3{5, -1, 0}
+		var Scale = Real3{1, 1, 1}
+		var Rotation = Quaternion{0, 0, 0, 1}
+	}
+	Sprite 
+	{
+		var Visible = true
+		var ViewCulling = true
+		var VisibilityEvents = true
+		var OverrideBoundingBox = false
+		var LocalAabbCenter = Real3{0, 0, 0}
+		var LocalAabbHalfExtents = Real3{1, 1, 1}
+		var GroupSortValue = 0
+		var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
+		var VertexColor = Real4{0, 0, 0, 1}
+		var GeometryMode = SpriteGeometryMode.ZPlane
+		var SpriteSource = "5bc12b7a69291895:Doors"
+		var FlipX = false
+		var FlipY = false
+		var AnimationActive = false
+		var AnimationSpeed = 1
+		var StartFrame = 1
+	}
+}

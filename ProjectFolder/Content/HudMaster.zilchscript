@@ -1,0 +1,14 @@
+class HudMaster : ZilchComponent
+{
+  [Property]
+  var HudLevel : Level;
+  
+  var Hud : Space;
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    this.Hud = this.GameSession.CreateNamedSpace("Hud", Archetype.DefaultSpace);
+    this.Hud.LoadLevel(this.HudLevel);
+  }
+}
