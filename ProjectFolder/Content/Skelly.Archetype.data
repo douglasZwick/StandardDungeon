@@ -4,7 +4,7 @@ Cog
 	var Name = "Skelly"
 	Transform 
 	{
-		var Translation = Real3{6, 1, -0.25}
+		var Translation = Real3{-6, 1, -0.25}
 		var Scale = Real3{1, 1, 1}
 		var Rotation = Quaternion{0, 0, 0, 1}
 	}
@@ -35,10 +35,6 @@ Cog
 		var CollisionGroup = "4e740859314e5515:DefaultGroup"
 		var Offset = Real3{0, 0, 0}
 		var HalfSize = Real3{0.400000006, 0.400000006, 0.5}
-	}
-	MovementBlinker 
-	{
-		var GhostArchetype = "5bb5eee0a7631b8e:MovementGhost"
 	}
 	RigidBody 
 	{
@@ -71,6 +67,10 @@ Cog
 	SkellyController 
 	{
 		var BaseTickTime = 1
+	}
+	MovementBlinker 
+	{
+		var GhostArchetype = "5bb5eee0a7631b8e:MovementGhost"
 	}
 	FlipSpriteOnMovementStarted 
 	{

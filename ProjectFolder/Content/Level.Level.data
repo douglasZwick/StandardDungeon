@@ -218,90 +218,13 @@ Level
 			var AttenuationScale = 1
 		}
 	}
-	Cog [ContextId:5]
+	Cog [InheritId:"5bb5fb804ed9a45d:Hero"][ContextId:5]
 	{
-		var Name = "Hero"
 		Transform 
 		{
 			var Translation = Real3{0, 0, 0}
-			var Scale = Real3{1, 1, 1}
 			var Rotation = Quaternion{0, 0, 0, 1}
-		}
-		Sprite 
-		{
-			var Visible = true
-			var ViewCulling = true
-			var VisibilityEvents = true
-			var OverrideBoundingBox = false
-			var LocalAabbCenter = Real3{0, 0, 0}
-			var LocalAabbHalfExtents = Real3{1, 1, 1}
-			var GroupSortValue = 0
-			var Material = "582c575af53d18c9:AlphaSprite"
-			var VertexColor = Real4{0, 0, 0, 1}
-			var GeometryMode = SpriteGeometryMode.ZPlane
-			var SpriteSource = "5bd489d3726373da:Hero"
-			var FlipX = false
-			var FlipY = false
-			var AnimationActive = true
-			var AnimationSpeed = 1
-			var StartFrame = 0
-		}
-		PlayerSword 
-		{
-			var SwordHitBoxArchetype = "5be0dd32705115c4:PlayerSwordHitbox"
-		}
-		CharacterController 
-		{
-			var WallColliderPath = CogPath
-			{
-				var Path = ""
-				var ErrorOnResolveToNull = false
-				var ErrorOnPathCantCompute = false
-				var ErrorOnDirectLinkFail = false
-				var UpdateCogOnPathChange = true
-				var UpdatePathOnCogChange = true
-				var UpdateCogOnInitialize = true
-				var ResolvedNullErrorOccurred = false
-				var Cog = 4294967293
-				var PathPreference0 = CogPathPreference.CogRelative
-				var PathPreference1 = CogPathPreference.SpaceRelative
-				var PathPreference2 = CogPathPreference.Absolute
-			}
-		}
-		MovementBlinker 
-		{
-		}
-		Hierarchy 
-		{
-			Cog [Id:0x5bd48a622eba1c6b][ContextId:6]
-			{
-				var Name = "Shadow"
-				Transform 
-				{
-					var Translation = Real3{0, 0, -0.100000001}
-					var Scale = Real3{1, 1, 1}
-					var Rotation = Quaternion{0, 0, 0, 1}
-				}
-				Sprite 
-				{
-					var Visible = true
-					var ViewCulling = true
-					var VisibilityEvents = true
-					var OverrideBoundingBox = false
-					var LocalAabbCenter = Real3{0, 0, 0}
-					var LocalAabbHalfExtents = Real3{1, 1, 1}
-					var GroupSortValue = 0
-					var Material = "582c575af53d18c9:AlphaSprite"
-					var VertexColor = Real4{0, 0, 0, 0.25}
-					var GeometryMode = SpriteGeometryMode.ZPlane
-					var SpriteSource = "5bd489d3726373da:Hero"
-					var FlipX = false
-					var FlipY = false
-					var AnimationActive = true
-					var AnimationSpeed = 1
-					var StartFrame = 0
-				}
-			}
+			var Scale = Real3{1, 1, 1}
 		}
 	}
 }

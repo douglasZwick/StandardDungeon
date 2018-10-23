@@ -69,9 +69,3 @@ class MovementEvent : ZilchEvent
   // where you would have gone if movement hadn't failed (for MovementFailed)
   var FailedPosition : Real3;
 }
-
-
-// TODO: genericize this component. it really wouldn't be very hard to make it so that
-// this component can be used to move any creature. skelly could use this and interface
-// into it, and it could have another component that responds to its movement events to
-// change its sprite animation frame

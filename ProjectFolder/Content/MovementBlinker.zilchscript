@@ -32,14 +32,12 @@ class MovementBlinker : ZilchComponent
   
   function OnMovementStarted(event : MovementEvent)
   {
-    // TODO: maybe do something with an old ghost if it's still there when you move onto it
-    // though i dunno if that would even be possible with how fast these things fade out
-    // and how you aren't allowed to move again right away =\
-    
     var ghost = this.Space.CreateAtPosition(this.GhostArchetype, event.OldPosition);
     ghost.Sprite.SpriteSource = this.Sprite.SpriteSource;
     ghost.Sprite.SetFrame(this.Sprite.CurrentFrame);
     ghost.Sprite.VertexColor = this.Sprite.VertexColor;
+    ghost.Sprite.FlipX = this.Sprite.FlipX;
+    ghost.Sprite.FlipY = this.Sprite.FlipY;
     
     var ghostSeq = Action.Sequence(ghost.Actions);
       

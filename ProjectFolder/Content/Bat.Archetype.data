@@ -36,10 +36,6 @@ Cog
 		var Offset = Real3{0, 0, 0}
 		var HalfSize = Real3{0.400000006, 0.400000006, 0.5}
 	}
-	MovementBlinker 
-	{
-		var GhostArchetype = "5bb5eee0a7631b8e:MovementGhost"
-	}
 	RigidBody 
 	{
 		var Velocity = Real3{0, 0, 0}
@@ -70,7 +66,11 @@ Cog
 	}
 	BatController 
 	{
-		var BaseTickTime = 0.600000024
+		var BaseTickTime = 0.518999994
+	}
+	MovementBlinker 
+	{
+		var GhostArchetype = "5bb5eee0a7631b8e:MovementGhost"
 	}
 	FlipSpriteOnMovementStarted 
 	{

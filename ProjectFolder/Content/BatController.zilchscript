@@ -4,6 +4,8 @@ class BatController : ZilchComponent
   
   
   [Dependency]
+  var Transform : Transform;
+  [Dependency]
   var Mover : DiscreteMover;
   
   
@@ -13,7 +15,7 @@ class BatController : ZilchComponent
   var TickTimer : Real = 0;
   var PlayerRef : Cog;
   var RNG : Random = Random();
-  var Randomness : Real = 0.8;
+  var Randomness : Real = 0.5;
   
   
   function Initialize(init : CogInitializer)
@@ -39,8 +41,9 @@ class BatController : ZilchComponent
     
     if (r > this.Randomness)
     {
-      var hDiff : Real = this.PlayerRef.Transform.Translation.X - this.Owner.Transform.Translation.X;
-      var vDiff : Real = this.PlayerRef.Transform.Translation.Y - this.Owner.Transform.Translation.Y;
+      var diff = this.PlayerRef.Transform.WorldTranslation - this.Transform.WorldTranslation;
+      var hDiff = diff.X;
+      var vDiff = diff.Y;
       
       if(Math.Abs(hDiff) > Math.Abs(vDiff))
       {
@@ -59,11 +62,11 @@ class BatController : ZilchComponent
         //Move vertically
         if(vDiff < 0)
         {
-          this.MoveDown;
+          this.MoveDown();
         }
         else
         {
-          this.MoveDown();
+          this.MoveUp();
         }
       }
     }
