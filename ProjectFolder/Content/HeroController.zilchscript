@@ -1,0 +1,38 @@
+class HeroController : ZilchComponent
+{
+  [Dependency]
+  var Mover : DiscreteMover;
+  
+  
+  var CanMove : Boolean
+  {
+    get
+    {
+      // TODO: do this better
+      var attacking = Zero.Keyboard.KeyIsDown(Keys.Space);
+      
+      return !attacking;
+    }
+  }
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    Zero.Connect(Zero.Keyboard, Events.KeyDown, this.OnKeyDown);
+  }
+  
+  
+  function OnKeyDown(event : KeyboardEvent)
+  {
+    if (!this.CanMove) return;
+    
+    if      (event.Key == Keys.Right)
+      this.Mover.Move(+Real3.XAxis);
+    else if (event.Key == Keys.Left)
+      this.Mover.Move(-Real3.XAxis);
+    else if (event.Key == Keys.Up)
+      this.Mover.Move(+Real3.YAxis);
+    else if (event.Key == Keys.Down)
+      this.Mover.Move(-Real3.YAxis);
+  }
+}

@@ -1,0 +1,77 @@
+class DiscreteMover : ZilchComponent
+{
+  sends MovementStarted : MovementEvent;
+  sends MovementFailed : MovementEvent;
+  
+  
+  [Dependency]
+  var Transform : Transform;
+  
+  
+  [Property]
+  var WallColliderPath : CogPath = CogPath(".");
+  
+  var WallCollider : Collider;
+  
+  var WallFilter : CastFilter = CastFilter();
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    this.WallCollider = this.WallColliderPath.Collider;
+  }
+  
+  
+  function Move(movement : Real3)
+  {
+    // here's how movement works:
+    // 
+    // 1. check to see if the desired movement is possible
+    // 2a. if it is:
+    //   3a. dispatch the MovementStarted event to this.Owner
+    //   4a. immediately move the character to the new position. this ensures that no other
+    //       characters can go to the same tile before movement is complete
+    // 2b. if movement is not possible:
+    //   3b. dispatch the MovementFailed event to this.Owner
+    // 
+    // that's it, that's all that's needed
+    
+    var moveResults = this.Space.PhysicsSpace.CastCollider(movement, this.WallCollider, this.WallFilter);
+    var solid = moveResults.IsNotEmpty;
+    
+    var me = MovementEvent();
+    me.OldPosition = this.Transform.WorldTranslation;
+    var moveToPosition = me.OldPosition + movement;
+    
+    if (solid)
+    {
+      me.NewPosition = me.OldPosition;
+      me.FailedPosition = moveToPosition;
+      this.Owner.DispatchEvent(Events.MovementFailed, me);
+    }
+    else
+    {
+      me.NewPosition = moveToPosition;
+      this.Owner.DispatchEvent(Events.MovementStarted, me);
+      
+      this.Transform.WorldTranslation = moveToPosition;
+    }
+  }
+}
+
+
+class MovementEvent : ZilchEvent
+{
+  // where you started
+  var OldPosition : Real3;
+  // where you ended up
+  var NewPosition : Real3;
+  // where you would have gone if movement hadn't failed (for MovementFailed)
+  var FailedPosition : Real3;
+}
+
+
+// TODO: genericize this component. it really wouldn't be very hard to make it so that
+// this component can be used to move any creature. skelly could use this and interface
+// into it, and it could have another component that responds to its movement events to
+// change its sprite animation frame

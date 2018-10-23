@@ -97,9 +97,9 @@ Level
 		var Name = "EditorCamera"
 		Transform 
 		{
-			var Translation = Real3{-1.51517344, 1.56983995, 13.901638}
+			var Translation = Real3{2.7826457, 2.3224411, 13.1050167}
 			var Scale = Real3{1, 1, 1}
-			var Rotation = Quaternion{9.77674297e-09, -0.0209423099, 2.04792489e-10, 0.999780655}
+			var Rotation = Quaternion{-0.0479767174, -0.00784428976, -0.000376788579, 0.998817623}
 		}
 		CameraViewport 
 		{
@@ -150,194 +150,117 @@ Level
 			var FarPlane = 500
 			var PerspectiveMode = PerspectiveMode.Perspective
 			var FieldOfView = 45
-			var Size = 14.8163691
+			var Size = 6.02388906
 		}
 		EditorCameraController 
 		{
 			var ControlMode = ControlMode.Orbit
 			var Previous3DMode = ControlMode.Orbit
-			var LookDistance = 14.8163691
-			var VerticalAngle = -1.95577741e-08
-			var HorizontalAngle = 0.0418876782
-			var LookTarget = Real3{-0.894731641, 1.56984019, -0.901735187}
+			var LookDistance = 13.4064064
+			var VerticalAngle = 0.0959932432
+			var HorizontalAngle = 0.0157068335
+			var LookTarget = Real3{2.99223995, 1.03749216, -0.23802419}
 			var MoveSensitivity = 1
 		}
 	}
 	Cog [ContextId:5]
 	{
-		var Name = "Hero"
+		var Name = "Dolly"
 		Transform 
 		{
 			var Translation = Real3{0, 0, 0}
 			var Scale = Real3{1, 1, 1}
 			var Rotation = Quaternion{0, 0, 0, 1}
 		}
-		Sprite 
-		{
-			var Visible = true
-			var ViewCulling = true
-			var VisibilityEvents = true
-			var OverrideBoundingBox = false
-			var LocalAabbCenter = Real3{0, 0, 0}
-			var LocalAabbHalfExtents = Real3{1, 1, 1}
-			var GroupSortValue = 0
-			var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
-			var VertexColor = Real4{0, 0, 0, 1}
-			var GeometryMode = SpriteGeometryMode.ZPlane
-			var SpriteSource = "5bd489d3726373da:Hero"
-			var FlipX = false
-			var FlipY = false
-			var AnimationActive = true
-			var AnimationSpeed = 1
-			var StartFrame = 0
-		}
-		PlayerSword 
-		{
-			var SwordHitBoxArchetype = "5be0dd32705115c4:PlayerSwordHitbox"
-		}
-		CharacterController 
-		{
-			var WallColliderPath = CogPath
-			{
-				var Path = "WallCollider"
-				var ErrorOnResolveToNull = false
-				var ErrorOnPathCantCompute = false
-				var ErrorOnDirectLinkFail = false
-				var UpdateCogOnPathChange = true
-				var UpdatePathOnCogChange = true
-				var UpdateCogOnInitialize = true
-				var ResolvedNullErrorOccurred = false
-				var Cog = 6
-				var PathPreference0 = CogPathPreference.CogRelative
-				var PathPreference1 = CogPathPreference.SpaceRelative
-				var PathPreference2 = CogPathPreference.Absolute
-			}
-		}
-		MovementBlinker 
-		{
-		}
-		RigidBody 
-		{
-			var Velocity = Real3{0, 0, 0}
-			var AngularVelocity = Real3{0, 0, 0}
-			var DynamicState = RigidBodyDynamicState.Kinematic
-			var AllowSleep = true
-			var Asleep = false
-			var RotationLocked = false
-			var Mode2D = Mode2DStates.InheritFromSpace
-		}
 		Hierarchy 
 		{
-			Cog [Id:0x5bca5a817de9e35f][ContextId:6]
+			Cog [Id:0x5bc13a43e5efe518][ContextId:6]
 			{
-				var Name = "WallCollider"
+				var Name = "GameCamera"
 				Transform 
 				{
-					var Translation = Real3{0, 0, 0}
+					var Translation = Real3{0, 0, 8}
 					var Scale = Real3{1, 1, 1}
 					var Rotation = Quaternion{0, 0, 0, 1}
 				}
-				BoxCollider 
+				SelectionIcon 
 				{
-					var Ghost = false
-					var SendsEvents = true
-					var Material = "4de020863e872da8:DefaultPhysicsMaterial"
-					var CollisionGroup = "5bcb31a31ae6d930:Player"
-					var Offset = Real3{0, 0, 0}
-					var HalfSize = Real3{0.449999988, 0.449999988, 0.449999988}
+					var Visible = true
+					var VisibilityEvents = true
+					var Material = "56581e2bb81777be:DebugDrawOnTop"
+					var SpriteSource = "58f8e4be7360cf7c:CameraIcon"
+					var ViewScale = 1
+					var OverrideSelections = true
 				}
-			}
-			Cog [Id:0x5bc13a43e5efe4a2][ContextId:7]
-			{
-				var Name = "Dolly"
-				Transform 
+				CameraViewport 
 				{
-					var Translation = Real3{0, 0, 0}
-					var Scale = Real3{1, 1, 1}
-					var Rotation = Quaternion{0, 0, 0, 1}
-				}
-				Hierarchy 
-				{
-					Cog [Id:0x5bc13a43e5efe518][ContextId:8]
+					var RenderInEditor = false
+					var RenderInGame = true
+					var RenderOrder = 0
+					var CameraPath = CogPath
 					{
-						var Name = "GameCamera"
-						Transform 
-						{
-							var Translation = Real3{0, 0, 8}
-							var Scale = Real3{1, 1, 1}
-							var Rotation = Quaternion{0, 0, 0, 1}
-						}
-						SelectionIcon 
-						{
-							var Visible = true
-							var VisibilityEvents = true
-							var Material = "56581e2bb81777be:DebugDrawOnTop"
-							var SpriteSource = "58f8e4be7360cf7c:CameraIcon"
-							var ViewScale = 1
-							var OverrideSelections = true
-						}
-						CameraViewport 
-						{
-							var RenderInEditor = false
-							var RenderInGame = true
-							var RenderOrder = 0
-							var CameraPath = CogPath
-							{
-								var Path = "."
-								var ErrorOnResolveToNull = false
-								var ErrorOnPathCantCompute = false
-								var ErrorOnDirectLinkFail = false
-								var UpdateCogOnPathChange = true
-								var UpdatePathOnCogChange = true
-								var UpdateCogOnInitialize = true
-								var ResolvedNullErrorOccurred = false
-								var Cog = 8
-								var PathPreference0 = CogPathPreference.CogRelative
-								var PathPreference1 = CogPathPreference.SpaceRelative
-								var PathPreference2 = CogPathPreference.Absolute
-							}
-							var RendererPath = CogPath
-							{
-								var Path = ":/Renderer"
-								var ErrorOnResolveToNull = false
-								var ErrorOnPathCantCompute = false
-								var ErrorOnDirectLinkFail = false
-								var UpdateCogOnPathChange = true
-								var UpdatePathOnCogChange = true
-								var UpdateCogOnInitialize = true
-								var ResolvedNullErrorOccurred = false
-								var Cog = 2
-								var PathPreference0 = CogPathPreference.CogRelative
-								var PathPreference1 = CogPathPreference.SpaceRelative
-								var PathPreference2 = CogPathPreference.Absolute
-							}
-							var ResolutionOrAspect = Integer2{1320, 1080}
-							var RenderToViewport = true
-							var ForwardViewportEvents = false
-							var ViewportScaling = ViewportScaling.Letterbox
-							var MarginColor = Real4{0, 0, 0, 1}
-							var NormalizedSize = Real2{0.6875, 1}
-							var NormalizedOffset = Real2{0.3125, 0}
-						}
-						Camera 
-						{
-							var NearPlane = 6.5315423
-							var FarPlane = 20
-							var PerspectiveMode = PerspectiveMode.Perspective
-							var FieldOfView = 60
-							var Size = 8
-						}
-						SoundListener 
-						{
-							var Active = true
-							var AttenuationScale = 1
-						}
+						var Path = "."
+						var ErrorOnResolveToNull = false
+						var ErrorOnPathCantCompute = false
+						var ErrorOnDirectLinkFail = false
+						var UpdateCogOnPathChange = true
+						var UpdatePathOnCogChange = true
+						var UpdateCogOnInitialize = true
+						var ResolvedNullErrorOccurred = false
+						var Cog = 6
+						var PathPreference0 = CogPathPreference.CogRelative
+						var PathPreference1 = CogPathPreference.SpaceRelative
+						var PathPreference2 = CogPathPreference.Absolute
 					}
+					var RendererPath = CogPath
+					{
+						var Path = ":/Renderer"
+						var ErrorOnResolveToNull = false
+						var ErrorOnPathCantCompute = false
+						var ErrorOnDirectLinkFail = false
+						var UpdateCogOnPathChange = true
+						var UpdatePathOnCogChange = true
+						var UpdateCogOnInitialize = true
+						var ResolvedNullErrorOccurred = false
+						var Cog = 2
+						var PathPreference0 = CogPathPreference.CogRelative
+						var PathPreference1 = CogPathPreference.SpaceRelative
+						var PathPreference2 = CogPathPreference.Absolute
+					}
+					var ResolutionOrAspect = Integer2{1320, 1080}
+					var RenderToViewport = true
+					var ForwardViewportEvents = false
+					var ViewportScaling = ViewportScaling.Letterbox
+					var MarginColor = Real4{0, 0, 0, 1}
+					var NormalizedSize = Real2{0.6875, 1}
+					var NormalizedOffset = Real2{0.3125, 0}
+				}
+				Camera 
+				{
+					var NearPlane = 6.5315423
+					var FarPlane = 20
+					var PerspectiveMode = PerspectiveMode.Perspective
+					var FieldOfView = 60
+					var Size = 8
+				}
+				SoundListener 
+				{
+					var Active = true
+					var AttenuationScale = 1
 				}
 			}
 		}
 	}
-	Cog [ContextId:9]
+	Cog [InheritId:"5bb5fb804ed9a45d:Hero"][ContextId:7]
+	{
+		Transform 
+		{
+			var Translation = Real3{0, 0, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+	}
+	Cog [ContextId:8]
 	{
 		var Name = "Cube"
 		Transform 
@@ -432,7 +355,7 @@ Level
 		{
 		}
 	}
-	Cog [ContextId:10]
+	Cog [ContextId:9]
 	{
 		var Name = "PieceOfTape"
 		Transform 
@@ -466,7 +389,7 @@ Level
 			var Origin = Location.Center
 		}
 	}
-	Cog [ContextId:11]
+	Cog [ContextId:10]
 	{
 		var Name = "WallsAndStuff"
 		Transform 
@@ -497,7 +420,7 @@ Level
 			var MeshThickness = 0.5
 		}
 	}
-	Cog [ContextId:12]
+	Cog [ContextId:11]
 	{
 		var Name = "Floor"
 		Transform 
@@ -528,7 +451,7 @@ Level
 			var MeshThickness = 1.20000005
 		}
 	}
-	Cog [InheritId:"5bc9b514e5f4a516:Key"][ContextId:13]
+	Cog [InheritId:"5bc9b514e5f4a516:Key"][ContextId:12]
 	{
 		Transform 
 		{
@@ -541,7 +464,7 @@ Level
 			var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
 		}
 	}
-	Cog [InheritId:"5bc9b514e5f4a516:Key"][ContextId:14]
+	Cog [InheritId:"5bc9b514e5f4a516:Key"][ContextId:13]
 	{
 		Transform 
 		{
@@ -559,7 +482,7 @@ Level
 			var Keys = 3
 		}
 	}
-	Cog [InheritId:"5bcf022c5cc4db25:Coin"][ContextId:15]
+	Cog [InheritId:"5bcf022c5cc4db25:Coin"][ContextId:14]
 	{
 		Transform 
 		{
@@ -572,7 +495,7 @@ Level
 			var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
 		}
 	}
-	Cog [InheritId:"5bcf022c5cc4db25:Coin"][ContextId:16]
+	Cog [InheritId:"5bcf022c5cc4db25:Coin"][ContextId:15]
 	{
 		Transform 
 		{
@@ -590,7 +513,7 @@ Level
 			var Gold = 20
 		}
 	}
-	Cog [InheritId:"5bc134b675a9af25:Door"][ContextId:17]
+	Cog [InheritId:"5bc134b675a9af25:Door"][ContextId:16]
 	{
 		var Name = "Door"
 		Transform 
@@ -607,6 +530,25 @@ Level
 			var CollisionGroup = "4e740859314e5515:DefaultGroup"
 			var Offset = Real3{0, 0, 0}
 			var HalfSize = Real3{0.449999988, 0.449999988, 0.449999988}
+		}
+	}
+	Cog [InheritId:"5be2494353a222bb:Skelly"][ContextId:17]
+	{
+		Transform 
+		{
+			var Translation = Real3{-1, 2, -0.25}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+	}
+	Cog [InheritId:"5bb58c71def18052:Bat"][ContextId:18]
+	{
+		var Name = "Bat"
+		Transform 
+		{
+			var Translation = Real3{2, 1, -0.25}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
 		}
 	}
 }

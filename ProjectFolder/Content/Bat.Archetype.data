@@ -1,10 +1,10 @@
 [Version:1]
 Cog 
 {
-	var Name = "Skelly"
+	var Name = "Bat"
 	Transform 
 	{
-		var Translation = Real3{6, 1, -0.25}
+		var Translation = Real3{2, 1, -0.25}
 		var Scale = Real3{1, 1, 1}
 		var Rotation = Quaternion{0, 0, 0, 1}
 	}
@@ -20,7 +20,7 @@ Cog
 		var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
 		var VertexColor = Real4{0, 0, 0, 1}
 		var GeometryMode = SpriteGeometryMode.ZPlane
-		var SpriteSource = "5be2578bfdba37e6:Skelly"
+		var SpriteSource = "5bb58c26d435cbd6:Bat"
 		var FlipX = false
 		var FlipY = false
 		var AnimationActive = true
@@ -68,18 +68,18 @@ Cog
 			var PathPreference2 = CogPathPreference.Absolute
 		}
 	}
-	SkellyController 
+	BatController 
 	{
-		var BaseTickTime = 1
+		var BaseTickTime = 0.600000024
 	}
 	FlipSpriteOnMovementStarted 
 	{
 		var OnFailedToo = true
-		var FlipYChance = 0.100000001
+		var FlipYChance = 0
 	}
 	Health 
 	{
-		var MaxHealth = 5
+		var MaxHealth = 2
 	}
 	Hierarchy 
 	{

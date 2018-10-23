@@ -1,0 +1,32 @@
+class FlipSpriteOnMovementStarted : ZilchComponent
+{
+  [Dependency]
+  var Sprite : Sprite;
+  
+  
+  [Property]
+  var OnFailedToo : Boolean = true;
+  [Property]
+  var FlipYChance : Real = 0.1;
+  
+  var RNG : Random = Random();
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    Zero.Connect(this.Owner, Events.MovementStarted, this.OnMovementStarted);
+    
+    if (this.OnFailedToo)
+      Zero.Connect(this.Owner, Events.MovementFailed, this.OnMovementStarted);
+  }
+  
+  
+  function OnMovementStarted(event : MovementEvent)
+  {
+    this.Sprite.FlipX = !this.Sprite.FlipX;
+    
+    var r = this.RNG.Real();
+    
+    this.Sprite.FlipY = r < this.FlipYChance;
+  }
+}

@@ -1,0 +1,120 @@
+class BatController : ZilchComponent
+{
+  sends BatTick : ZilchEvent;
+  
+  
+  [Dependency]
+  var Mover : DiscreteMover;
+  
+  
+  [Property]
+  var BaseTickTime : Real = 1;
+  
+  var TickTimer : Real = 0;
+  var PlayerRef : Cog;
+  var RNG : Random = Random();
+  var Randomness : Real = 0.8;
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
+    Zero.Connect(this.Owner, Events.BatTick, this.OnBatTick);
+    Zero.Connect(this.Owner, Events.Death, this.OnDeath);
+    
+    this.PlayerRef = this.Space.FindObjectByName("Hero");
+  }
+  
+  
+  function OnDeath(event : HealthEvent)
+  {
+    // TODO: show alek the better way of doing this
+    this.Owner.Destroy();
+  }
+  
+  
+  function OnBatTick(event : ZilchEvent)
+  {
+    var r = this.RNG.Real();
+    
+    if (r > this.Randomness)
+    {
+      var hDiff : Real = this.PlayerRef.Transform.Translation.X - this.Owner.Transform.Translation.X;
+      var vDiff : Real = this.PlayerRef.Transform.Translation.Y - this.Owner.Transform.Translation.Y;
+      
+      if(Math.Abs(hDiff) > Math.Abs(vDiff))
+      {
+        //Move horizontally
+        if(hDiff < 0)
+        {
+          this.MoveLeft();
+        }
+        else
+        {
+          this.MoveRight();
+        }
+      }
+      else
+      {
+        //Move vertically
+        if(vDiff < 0)
+        {
+          this.MoveDown;
+        }
+        else
+        {
+          this.MoveDown();
+        }
+      }
+    }
+    else
+    {
+      var directionIndex = this.RNG.DieRoll(4);
+      
+      if      (directionIndex == 1)
+        this.MoveRight();
+      else if (directionIndex == 2)
+        this.MoveLeft();
+      else if (directionIndex == 3)
+        this.MoveUp();
+      else // (directionIndex == 4)
+        this.MoveDown();
+    }
+  }
+  
+  
+  function MoveRight()
+  {
+    this.Mover.Move(Real3.XAxis);
+  }
+  
+  
+  function MoveLeft()
+  {
+    this.Mover.Move(-Real3.XAxis);
+  }
+  
+  
+  function MoveUp()
+  {
+    this.Mover.Move(Real3.YAxis);
+  }
+  
+  
+  function MoveDown()
+  {
+    this.Mover.Move(-Real3.YAxis);
+  }
+  
+  
+  function OnLogicUpdate(event : UpdateEvent)
+  {
+    this.TickTimer += event.Dt;
+    
+    if (this.TickTimer >= this.BaseTickTime)
+    {
+      this.TickTimer -= this.BaseTickTime;
+      this.Owner.DispatchEvent(Events.BatTick, ZilchEvent());
+    }
+  }
+}

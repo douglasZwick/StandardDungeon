@@ -1,0 +1,36 @@
+class Collector : ZilchComponent
+{
+  sends AttemptCollect : CollectionEvent;
+  sends DidCollect : CollectionEvent;
+  
+  
+  [Property]
+  var ColliderPath : CogPath = CogPath(".");
+  
+  var Gold : Integer = 0;
+  var Keys : Integer = 0;
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    Zero.Connect(this.ColliderPath.Cog, Events.CollisionStarted, this.OnCollisionStarted);
+  }
+  
+  
+  function OnCollisionStarted(event : CollisionEvent)
+  {
+    this.AttemptCollect(event.OtherObject);
+  }
+  
+  
+  function AttemptCollect(cog : Cog)
+  {
+    var ce = CollectionEvent();
+    cog.DispatchEvent(Events.AttemptCollect, ce);
+    
+    var collectable = ce.Collectable;
+    
+    if (collectable != null)
+      this.Owner.DispatchEvent(Events.DidCollect, ce);
+  }
+}

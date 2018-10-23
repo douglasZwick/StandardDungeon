@@ -1,10 +1,18 @@
 class MovementBlinker : ZilchComponent
 {
+  sends MovementBlinkEnded : ZilchEvent;
+  
+  
   [Dependency]
   var Sprite : Sprite;
   
-  var OutDuration : Real = 0.05;
-  var InDuration : Real = 0.06;
+  
+  [Property]
+  var GhostArchetype : Archetype = Archetype.MovementGhost;
+  
+  var OutDuration : Real = 6 / 60.0;
+  var InDelay     : Real = 3 / 60.0;
+  var InDuration  : Real = 6 / 60.0;
   var FadeSequence : ActionSequence;
   var StartingColor : Real4;
   var FadeColor : Real4;
@@ -18,24 +26,39 @@ class MovementBlinker : ZilchComponent
     this.FadeColor.W = 0;
     
     Zero.Connect(this.Owner, Events.MovementStarted, this.OnMovementStarted);
-    Zero.Connect(this.Owner, Events.MovementEnded, this.OnMovementEnded);
+    Zero.Connect(this.Owner, Events.MovementFailed, this.OnMovementStarted);
   }
   
   
   function OnMovementStarted(event : MovementEvent)
   {
+    // TODO: maybe do something with an old ghost if it's still there when you move onto it
+    // though i dunno if that would even be possible with how fast these things fade out
+    // and how you aren't allowed to move again right away =\
+    
+    var ghost = this.Space.CreateAtPosition(this.GhostArchetype, event.OldPosition);
+    ghost.Sprite.SpriteSource = this.Sprite.SpriteSource;
+    ghost.Sprite.SetFrame(this.Sprite.CurrentFrame);
+    ghost.Sprite.VertexColor = this.Sprite.VertexColor;
+    
+    var ghostSeq = Action.Sequence(ghost.Actions);
+      
+      Action.Property(ghostSeq, @ghost.Sprite.VertexColor, this.FadeColor, this.OutDuration, Ease.QuadInOut);
+      Action.Call(ghostSeq, ghost.Destroy);
+    
+    this.Sprite.VertexColor = this.FadeColor;
+    
     this.FadeSequence.Cancel();
     this.FadeSequence = Action.Sequence(this.Owner.Actions);
       
-      Action.Property(this.FadeSequence, @this.Sprite.VertexColor, this.FadeColor, this.OutDuration, Ease.QuadInOut);
+      Action.Delay(this.FadeSequence, this.InDelay);
+      Action.Property(this.FadeSequence, @this.Sprite.VertexColor, this.StartingColor, this.InDuration, Ease.QuadInOut);
+      Action.Call(this.FadeSequence, this.EndMovement);
   }
   
   
-  function OnMovementEnded(event : MovementEvent)
+  function EndMovement()
   {
-    this.FadeSequence.Cancel();
-    this.FadeSequence = Action.Sequence(this.Owner.Actions);
-      
-      Action.Property(this.FadeSequence, @this.Sprite.VertexColor, this.StartingColor, this.InDuration, Ease.QuadInOut);
+    this.Owner.DispatchEvent(Events.MovementBlinkEnded, ZilchEvent());
   }
 }

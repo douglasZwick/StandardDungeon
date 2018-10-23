@@ -1,0 +1,28 @@
+class InventoryCounterUpdater : ZilchComponent
+{
+  function Initialize(init : CogInitializer)
+  {
+    // TODO: consider genericizing this a bit. i could have the Intentory component
+    // figure out whether an event should be sent out, and then all that this
+    // component would do is just receive that and then forward it to the GameSesh
+    
+    Zero.Connect(this.Owner, Events.GoldTotalChanged, this.OnGoldTotalChanged);
+    Zero.Connect(this.Owner, Events.KeysTotalChanged, this.OnKeysTotalChanged);
+  }
+  
+  
+  function OnGoldTotalChanged(event : InventoryEvent)
+  {
+    var ce = CounterEvent();
+    ce.Value = event.NewTotal;
+    this.GameSession.DispatchEvent("`Events.CounterShouldSet`Gold", ce);
+  }
+  
+  
+  function OnKeysTotalChanged(event : InventoryEvent)
+  {
+    var ce = CounterEvent();
+    ce.Value = event.NewTotal;
+    this.GameSession.DispatchEvent("`Events.CounterShouldSet`Keys", ce);
+  }
+}

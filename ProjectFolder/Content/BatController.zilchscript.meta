@@ -1,0 +1,9 @@
+[Version:1]
+TextContent 
+{
+	ZilchScriptBuilder 
+	{
+		var Name = "BatController"
+		var ResourceId = 0x5bb58da5a897114b
+	}
+}

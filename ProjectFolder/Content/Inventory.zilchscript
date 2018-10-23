@@ -1,0 +1,52 @@
+class Inventory : ZilchComponent
+{
+  sends GoldTotalChanged : InventoryEvent;
+  sends KeysTotalChanged : InventoryEvent;
+  
+  
+  [Property]
+  var Gold : Integer = 0;
+  [Property]
+  var Keys : Integer = 0;
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    Zero.Connect(this.Owner, Events.DidCollect, this.OnDidCollect);
+  }
+  
+  
+  function OnDidCollect(event : CollectionEvent)
+  {
+    var collectable = event.Collectable;
+    
+    var oldGold = this.Gold;
+    var oldKeys = this.Keys;
+    
+    this.Gold += collectable.Gold;
+    this.Keys += collectable.Keys;
+    
+    var ie = InventoryEvent();
+    
+    if (oldGold != this.Gold)
+    {
+      ie.OldTotal = oldGold;
+      ie.NewTotal = this.Gold;
+      this.Owner.DispatchEvent(Events.GoldTotalChanged, ie);
+    }
+    
+    if (oldKeys != this.Keys)
+    {
+      ie.OldTotal = oldKeys;
+      ie.NewTotal = this.Keys;
+      this.Owner.DispatchEvent(Events.KeysTotalChanged, ie);
+    }
+  }
+}
+
+
+class InventoryEvent : ZilchEvent
+{
+  var OldTotal : Integer;
+  var NewTotal : Integer;
+}
