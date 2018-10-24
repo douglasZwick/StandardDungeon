@@ -1,5 +1,6 @@
 class DiscreteMover : ZilchComponent
 {
+  sends MovementAttempted : MovementEvent;
   sends MovementStarted : MovementEvent;
   sends MovementFailed : MovementEvent;
   
@@ -26,35 +27,39 @@ class DiscreteMover : ZilchComponent
   {
     // here's how movement works:
     // 
-    // 1. check to see if the desired movement is possible
-    // 2a. if it is:
-    //   3a. dispatch the MovementStarted event to this.Owner
-    //   4a. immediately move the character to the new position. this ensures that no other
+    // 1. dispatch the MovementAttempted event
+    // 2. check to see if the desired movement is possible
+    // 3a. if it is:
+    //   4a. dispatch the MovementStarted event to this.Owner
+    //   5a. immediately move the character to the new position. this ensures that no other
     //       characters can go to the same tile before movement is complete
-    // 2b. if movement is not possible:
-    //   3b. dispatch the MovementFailed event to this.Owner
+    // 3b. if movement is not possible:
+    //   4b. dispatch the MovementFailed event to this.Owner
     // 
     // that's it, that's all that's needed
+    
+    var me = MovementEvent();
+    me.OldPosition = this.Transform.WorldTranslation;
+    me.AttemptedPosition = me.OldPosition + movement;
+    this.Owner.DispatchEvent(Events.MovementAttempted, me);
     
     var moveResults = this.Space.PhysicsSpace.CastCollider(movement, this.WallCollider, this.WallFilter);
     var solid = moveResults.IsNotEmpty;
     
-    var me = MovementEvent();
-    me.OldPosition = this.Transform.WorldTranslation;
-    var moveToPosition = me.OldPosition + movement;
+    // TODO: if we want movers to seem like they "collide", and like get custom collision events
+    // and so forth, we could use a CustomCollisionEventTracker here and foreach through the results
     
     if (solid)
     {
       me.NewPosition = me.OldPosition;
-      me.FailedPosition = moveToPosition;
       this.Owner.DispatchEvent(Events.MovementFailed, me);
     }
     else
     {
-      me.NewPosition = moveToPosition;
+      me.NewPosition = me.AttemptedPosition;
       this.Owner.DispatchEvent(Events.MovementStarted, me);
       
-      this.Transform.WorldTranslation = moveToPosition;
+      this.Transform.WorldTranslation = me.NewPosition;
     }
   }
 }
@@ -64,8 +69,8 @@ class MovementEvent : ZilchEvent
 {
   // where you started
   var OldPosition : Real3;
-  // where you ended up
+  // where you ended up. not relevant during MovementAttempted, so don't use it then
   var NewPosition : Real3;
   // where you would have gone if movement hadn't failed (for MovementFailed)
-  var FailedPosition : Real3;
+  var AttemptedPosition : Real3;
 }

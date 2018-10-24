@@ -1,0 +1,23 @@
+[RunInEditor]
+class DebugDrawOnFrameUpdate : ZilchComponent
+{
+  [Property]
+  var DrawInEditor : Boolean = true;
+  [Property]
+  var DrawInGame : Boolean = false;
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    var editorMode = this.Space.IsEditorMode;
+    
+    if (editorMode && this.DrawInEditor || !editorMode && this.DrawInGame)
+      Zero.Connect(this.Space, Events.FrameUpdate, this.OnFrameUpdate);
+  }
+  
+  
+  function OnFrameUpdate(event : UpdateEvent)
+  {
+    this.Owner.DebugDraw();
+  }
+}

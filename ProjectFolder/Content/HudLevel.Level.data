@@ -215,13 +215,18 @@ Level
 			var Active = true
 			var AttenuationScale = 1
 		}
+		DebugDrawOnFrameUpdate 
+		{
+			var DrawInEditor = true
+			var DrawInGame = false
+		}
 	}
 	Cog [ContextId:5]
 	{
 		var Name = "Gold"
 		Transform 
 		{
-			var Translation = Real3{0, 3, 0}
+			var Translation = Real3{-1, 2, 0}
 			var Scale = Real3{1, 1, 1}
 			var Rotation = Quaternion{0, 0, 0, 1}
 		}
@@ -444,7 +449,7 @@ Level
 		var Name = "Keys"
 		Transform 
 		{
-			var Translation = Real3{0, 1.75, 0}
+			var Translation = Real3{1, 2, 0}
 			var Scale = Real3{1, 1, 1}
 			var Rotation = Quaternion{0, 0, 0, 1}
 		}
@@ -666,7 +671,7 @@ Level
 	{
 		Transform 
 		{
-			var Translation = Real3{-1.75, -3, 0}
+			var Translation = Real3{-1.75, 2.99999976, 0}
 			var Rotation = Quaternion{0, 0, 0, 1}
 			var Scale = Real3{1, 1, 1}
 		}

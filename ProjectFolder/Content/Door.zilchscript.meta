@@ -1,0 +1,9 @@
+[Version:1]
+TextContent 
+{
+	ZilchScriptBuilder 
+	{
+		var Name = "Door"
+		var ResourceId = 0x5bb49faff0cba538
+	}
+}

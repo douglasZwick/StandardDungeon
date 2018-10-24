@@ -1,0 +1,119 @@
+class Door : ZilchComponent
+{
+  [Dependency]
+  var Sprite : Sprite;
+  
+  
+  [Property]
+  var Locks : Integer = 0;
+  [Property]
+  var Opened : Boolean = false;
+  [Property]
+  var ColliderPath : CogPath = CogPath(".");
+  
+  var Collider : Collider;
+  var ActionSequence : ActionSequence;
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    this.ActionSequence = Action.Sequence(this.Owner.Actions);
+    
+    this.Collider = this.ColliderPath.Collider;
+    
+    if (this.Opened)
+    {
+      this.Locks = 0;
+      this.Collider.Ghost = true;
+      this.Sprite.SetFrame(DoorFrame.Opened);
+    }
+    else
+    {
+      this.Collider.Ghost = false;
+      this.Sprite.SetFrame(DoorFrame.Closed);
+    }
+    
+    Zero.Connect(this.Owner, Events.AttemptOpen, this.OnAttemptOpen);
+  }
+  
+  
+  function OnAttemptOpen(event : DoorEvent)
+  {
+    // here we go
+    
+    // if the door is already open
+    if (this.Opened)
+    {
+      // nothing happens. this may become impossible soon, with
+      // careful application of CollisionGroups
+    }
+    // if it's not already open
+    else
+    {
+      // if it's not locked
+      if (this.Locks <= 0)
+      {
+        // then it should open. no further questions, your honor
+        this.DelayedOpen();
+      }
+      // if it is locked
+      else
+      {
+        // grab the inventory of the opener
+        var inventory = event.Inventory;
+        
+        // if that inventory has enough keys to open the door
+        if (inventory.Keys >= this.Locks)
+        {
+          // then it should open, and the keys should be consumed
+        }
+        else
+        {
+          // then the door is not opened, and feedback should
+          // be presented to the player
+          
+          // TODO: do this feedback, probably via a console message
+        }
+      }
+    }
+  }
+  
+  
+  function DelayedOpen()
+  {
+    // because of interplay with the movement events, the door opening is
+    // buffered by a zero-frame delay. this results in it opening on the
+    // very next frame
+    
+    this.ActionSequence.Cancel();
+    this.ActionSequence = Action.Sequence(this.Owner.Actions);
+      
+      Action.Delay(this.ActionSequence, 0);
+      Action.Call(this.ActionSequence, this.Open);
+  }
+  
+  
+  function Open()
+  {
+    this.Opened = true;
+    this.Collider.Ghost = true;
+    this.Sprite.SetFrame(DoorFrame.Opened);
+  }
+}
+
+
+enum DoorFrame
+{
+  Opened,
+  Closed,
+}
+
+
+// TODO: instead of making an open door have a Ghost collider, it should change
+// its collision group from ClosedDoor to OpenedDoor. that way it won't impede
+// the player, but enemies won't be able to move through it
+
+// TODO: when the door opens in the MovementAttempted event, it causes the player
+// to move into the door when they're attempting to open it. i'm solving this by
+// using a 0-frame delay Action to open the door. the to-do is to assess whether
+// this is bad, and if so, fix it

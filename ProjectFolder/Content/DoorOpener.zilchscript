@@ -1,0 +1,49 @@
+class DoorOpener : ZilchComponent
+{
+  sends AttemptOpen : DoorEvent;
+  
+  
+  [Dependency]
+  var Inventory : Inventory;
+  
+  
+  [Property]
+  var ColliderPath : CogPath = CogPath(".");
+  
+  var Collider : Collider;
+  var CastFilter : CastFilter = CastFilter();
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    this.Collider = this.ColliderPath.Collider;
+    
+    Zero.Connect(this.Owner, Events.MovementAttempted, this.OnMovementAttempted);
+  }
+  
+  
+  function OnMovementAttempted(event : MovementEvent)
+  {
+    var colliderPosition = this.Collider.Owner.Transform.WorldTranslation;
+    var attemptedPosition = event.AttemptedPosition;
+    var offset = attemptedPosition - colliderPosition;
+    
+    var de = DoorEvent();
+    de.Opener = this;
+    de.Inventory = this.Inventory;
+    
+    var results = this.Space.PhysicsSpace.CastCollider(offset, this.Collider, this.CastFilter);
+    
+    foreach (var result in results)
+    {
+      result.ObjectHit.DispatchEvent(Events.AttemptOpen, de);
+    }
+  }
+}
+
+
+class DoorEvent : ZilchEvent
+{
+  var Opener : DoorOpener;
+  var Inventory : Inventory;
+}
