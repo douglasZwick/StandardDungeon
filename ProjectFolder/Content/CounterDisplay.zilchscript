@@ -79,6 +79,11 @@ class CounterDisplay : ZilchComponent
   
   function SetDigits(value : Integer)
   {
+    if (value < 0)
+    {
+      throw Exception("Attempted to set a counter to negative value `value`");
+    }
+    
     value = Math.Clamp(value, 0, this.MaxValue);
     
     var valueString = String.FormatC("%0`this.DigitsCount`d", value);

@@ -4,7 +4,7 @@ Cog
 	var Name = "Skelly"
 	Transform 
 	{
-		var Translation = Real3{-6, 1, -0.25}
+		var Translation = Real3{-2, 3, 0}
 		var Scale = Real3{1, 1, 1}
 		var Rotation = Quaternion{0, 0, 0, 1}
 	}
@@ -80,6 +80,13 @@ Cog
 	Health 
 	{
 		var MaxHealth = 5
+	}
+	Inventory 
+	{
+		var Gold = 5
+		var Keys = 0
+		var DropOnDeath = true
+		var LootArchetype = "5bab4e400484619f:Loot"
 	}
 	Hierarchy 
 	{

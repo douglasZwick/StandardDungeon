@@ -46,4 +46,5 @@ class DoorEvent : ZilchEvent
 {
   var Opener : DoorOpener;
   var Inventory : Inventory;
+  var Door : Door;
 }

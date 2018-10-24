@@ -4,15 +4,25 @@ class Inventory : ZilchComponent
   sends KeysTotalChanged : InventoryEvent;
   
   
+  [Dependency]
+  var Transform : Transform;
+  
+  
   [Property]
   var Gold : Integer = 0;
   [Property]
   var Keys : Integer = 0;
+  [Property]
+  var DropOnDeath : Boolean = true;
+  [Property]
+  var LootArchetype : Archetype = Archetype.Loot;
   
   
   function Initialize(init : CogInitializer)
   {
     Zero.Connect(this.Owner, Events.DidCollect, this.OnDidCollect);
+    Zero.Connect(this.Owner, Events.DoorUnlocked, this.OnDoorUnlocked);
+    Zero.Connect(this.Owner, Events.Death, this.OnDeath);
   }
   
   
@@ -41,6 +51,39 @@ class Inventory : ZilchComponent
       ie.NewTotal = this.Keys;
       this.Owner.DispatchEvent(Events.KeysTotalChanged, ie);
     }
+  }
+  
+  
+  function OnDoorUnlocked(event : DoorEvent)
+  {
+    var locks = event.Door.Locks;
+    
+    var oldKeys = this.Keys;
+    
+    this.Keys -= locks;
+    
+    var ie = InventoryEvent();
+    ie.OldTotal = oldKeys;
+    ie.NewTotal = this.Keys;
+    this.Owner.DispatchEvent(Events.KeysTotalChanged, ie);
+  }
+  
+  
+  function OnDeath(event : HealthEvent)
+  {
+    // TODO: this approach will likely have a problem where enemies that
+    // can collect stuff might end up collecting this loot just before
+    // they get destroyed
+    
+    // TODO: make a new loot sprite
+    
+    // TODO: maybe factor this stuff out to some kind of DropOnDeath
+    // component
+    
+    var position = this.Transform.WorldTranslation;
+    var loot = this.Space.CreateAtPosition(this.LootArchetype, position);
+    loot.Collectable.Gold = this.Gold;
+    loot.Collectable.Keys = this.Keys;
   }
 }
 

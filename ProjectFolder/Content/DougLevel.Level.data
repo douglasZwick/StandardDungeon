@@ -97,9 +97,9 @@ Level
 		var Name = "EditorCamera"
 		Transform 
 		{
-			var Translation = Real3{2.7826457, 2.3224411, 13.1050167}
+			var Translation = Real3{-1.63380468, 2.0644145, 9.0802536}
 			var Scale = Real3{1, 1, 1}
-			var Rotation = Quaternion{-0.0479767174, -0.00784428976, -0.000376788579, 0.998817623}
+			var Rotation = Quaternion{-0.003477016, -0.088894248, -0.000310317148, 0.99603498}
 		}
 		CameraViewport 
 		{
@@ -156,10 +156,10 @@ Level
 		{
 			var ControlMode = ControlMode.Orbit
 			var Previous3DMode = ControlMode.Orbit
-			var LookDistance = 13.4064064
-			var VerticalAngle = 0.0959932432
-			var HorizontalAngle = 0.0157068335
-			var LookTarget = Real3{2.99223995, 1.03749216, -0.23802419}
+			var LookDistance = 9.22629261
+			var VerticalAngle = 0.00698168576
+			var HorizontalAngle = 0.178024575
+			var LookTarget = Real3{0, 2, 0}
 			var MoveSensitivity = 1
 		}
 	}
@@ -531,22 +531,32 @@ Level
 			var Offset = Real3{0, 0, 0}
 			var HalfSize = Real3{0.449999988, 0.449999988, 0.449999988}
 		}
+		Door [LocallyAdded]
+		{
+			var Locks = 1
+			var Opened = false
+			var ColliderPath = CogPath
+			{
+				var Path = "."
+				var ErrorOnResolveToNull = false
+				var ErrorOnPathCantCompute = false
+				var ErrorOnDirectLinkFail = false
+				var UpdateCogOnPathChange = true
+				var UpdatePathOnCogChange = true
+				var UpdateCogOnInitialize = true
+				var ResolvedNullErrorOccurred = false
+				var Cog = 16
+				var PathPreference0 = CogPathPreference.CogRelative
+				var PathPreference1 = CogPathPreference.SpaceRelative
+				var PathPreference2 = CogPathPreference.Absolute
+			}
+		}
 	}
 	Cog [InheritId:"5be2494353a222bb:Skelly"][ContextId:17]
 	{
 		Transform 
 		{
-			var Translation = Real3{-6, 1, -0.25}
-			var Rotation = Quaternion{0, 0, 0, 1}
-			var Scale = Real3{1, 1, 1}
-		}
-	}
-	Cog [InheritId:"5bb58c71def18052:Bat"][ContextId:18]
-	{
-		var Name = "Bat"
-		Transform 
-		{
-			var Translation = Real3{2, 1, -0.25}
+			var Translation = Real3{-2, 3, 0}
 			var Rotation = Quaternion{0, 0, 0, 1}
 			var Scale = Real3{1, 1, 1}
 		}
