@@ -22,28 +22,32 @@ class PlayerSword : ZilchComponent
     if(event.Key == Keys.Space)
     {
       this.SwordReady = true;
+      this.Owner.Sprite.SpriteSource = SpriteSource.PoochaReady;
     }
     if(this.SwordReady)
     {
       if(event.Key == Keys.Left)
       {
-        this.Owner.Sprite.SpriteSource = SpriteSource.HeroAttack;
+        this.Owner.Sprite.SpriteSource = SpriteSource.PoochaAttack;
         var spawnLocation = this.Owner.Transform.Translation + Real3(-1, 0, 0);
         this.HitboxRef = this.Space.CreateAtPosition(this.SwordHitBoxArchetype, spawnLocation);
       } 
       else if(event.Key == Keys.Right)
       {
+        this.Owner.Sprite.SpriteSource = SpriteSource.PoochaAttack;
         var spawnLocation = this.Owner.Transform.Translation + Real3(1, 0, 0);
         this.HitboxRef = this.Space.CreateAtPosition(this.SwordHitBoxArchetype, spawnLocation);
   
       }
       else if(event.Key == Keys.Up)
       {
+        this.Owner.Sprite.SpriteSource = SpriteSource.PoochaAttack;
         var spawnLocation = this.Owner.Transform.Translation + Real3(0, 1, 0);
         this.HitboxRef = this.Space.CreateAtPosition(this.SwordHitBoxArchetype, spawnLocation);
       }
       else if(event.Key == Keys.Down)
       {
+        this.Owner.Sprite.SpriteSource = SpriteSource.PoochaAttack;
         var spawnLocation = this.Owner.Transform.Translation + Real3(0, -1, 0);
         this.HitboxRef = this.Space.CreateAtPosition(this.SwordHitBoxArchetype, spawnLocation);
       }
@@ -55,7 +59,12 @@ class PlayerSword : ZilchComponent
     if(event.Key == Keys.Space)
     {
       this.SwordReady = false;
-      this.Owner.Sprite.SpriteSource = SpriteSource.Hero;
+      this.Owner.Sprite.SpriteSource = SpriteSource.PoochaIdle;
+    }
+    else if(event.Key == Keys.Left || event.Key == Keys.Right || event.Key == Keys.Up || event.Key == Keys.Down)
+    {
+      if(this.SwordReady)
+        this.Owner.Sprite.SpriteSource = SpriteSource.PoochaReady;
     }
   }
 }
