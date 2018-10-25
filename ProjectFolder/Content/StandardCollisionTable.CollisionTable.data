@@ -59,8 +59,8 @@ CollisionTable
 		{
 			var TypeA = "5bcb31a31ae6d930:Player"
 			var TypeB = "5bcb31a31ae6d930:Player"
-			var SkipResolution = true
-			var SkipDetectingCollision = false
+			var SkipResolution = false
+			var SkipDetectingCollision = true
 			var StartEvent = false
 			var EndEvent = false
 			var PersistedEvent = false

@@ -4,16 +4,16 @@ Cog
 	var Name = "PlayerSwordHitbox"
 	Transform 
 	{
-		var Translation = Real3{-7.56559706, 1.58492374, 0}
+		var Translation = Real3{0, 0, 0}
 		var Scale = Real3{1, 1, 1}
 		var Rotation = Quaternion{0, 0, 0, 1}
 	}
 	BoxCollider 
 	{
-		var Ghost = false
+		var Ghost = true
 		var SendsEvents = true
 		var Material = "4de020863e872da8:DefaultPhysicsMaterial"
-		var CollisionGroup = "4e740859314e5515:DefaultGroup"
+		var CollisionGroup = "5bcb31a31ae6d930:Player"
 		var Offset = Real3{0, 0, 0}
 		var HalfSize = Real3{0.400000006, 0.400000006, 0.400000006}
 	}

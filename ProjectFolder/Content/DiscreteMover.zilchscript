@@ -21,6 +21,7 @@ class DiscreteMover : ZilchComponent
     this.Collider = this.ColliderPath.Collider;
     
     this.CastFilter.CollisionGroup = this.Collider.CollisionGroup;
+    this.CastFilter.IgnoreGhost = true;
   }
   
   

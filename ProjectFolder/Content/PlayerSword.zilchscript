@@ -30,12 +30,14 @@ class PlayerSword : ZilchComponent
       {
         this.Owner.Sprite.SpriteSource = SpriteSource.PoochaAttack;
         var spawnLocation = this.Owner.Transform.Translation + Real3(-1, 0, 0);
+        this.DestroyOldSword();
         this.HitboxRef = this.Space.CreateAtPosition(this.SwordHitBoxArchetype, spawnLocation);
       } 
       else if(event.Key == Keys.Right)
       {
         this.Owner.Sprite.SpriteSource = SpriteSource.PoochaAttack;
         var spawnLocation = this.Owner.Transform.Translation + Real3(1, 0, 0);
+        this.DestroyOldSword();
         this.HitboxRef = this.Space.CreateAtPosition(this.SwordHitBoxArchetype, spawnLocation);
   
       }
@@ -43,14 +45,24 @@ class PlayerSword : ZilchComponent
       {
         this.Owner.Sprite.SpriteSource = SpriteSource.PoochaAttack;
         var spawnLocation = this.Owner.Transform.Translation + Real3(0, 1, 0);
+        this.DestroyOldSword();
         this.HitboxRef = this.Space.CreateAtPosition(this.SwordHitBoxArchetype, spawnLocation);
       }
       else if(event.Key == Keys.Down)
       {
         this.Owner.Sprite.SpriteSource = SpriteSource.PoochaAttack;
         var spawnLocation = this.Owner.Transform.Translation + Real3(0, -1, 0);
+        this.DestroyOldSword();
         this.HitboxRef = this.Space.CreateAtPosition(this.SwordHitBoxArchetype, spawnLocation);
       }
+    }
+  }
+  
+  function DestroyOldSword()
+  {
+    if(this.HitboxRef != null)
+    {
+      this.HitboxRef.Destroy();
     }
   }
   
