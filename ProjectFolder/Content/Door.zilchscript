@@ -27,12 +27,12 @@ class Door : ZilchComponent
     if (this.Opened)
     {
       this.Locks = 0;
-      this.Collider.Ghost = true;
+      this.Collider.CollisionGroup = CollisionGroup.OpenedDoor;
       this.Sprite.SetFrame(DoorFrame.Opened);
     }
     else
     {
-      this.Collider.Ghost = false;
+      this.Collider.CollisionGroup = CollisionGroup.ClosedDoor;
       this.Sprite.SetFrame(DoorFrame.Closed);
     }
     
@@ -103,7 +103,7 @@ class Door : ZilchComponent
   function Open()
   {
     this.Opened = true;
-    this.Collider.Ghost = true;
+    this.Collider.CollisionGroup = CollisionGroup.OpenedDoor;
     this.Sprite.SetFrame(DoorFrame.Opened);
   }
 }
@@ -115,10 +115,6 @@ enum DoorFrame
   Closed,
 }
 
-
-// TODO: instead of making an open door have a Ghost collider, it should change
-// its collision group from ClosedDoor to OpenedDoor. that way it won't impede
-// the player, but enemies won't be able to move through it
 
 // TODO: when the door opens in the MovementAttempted event, it causes the player
 // to move into the door when they're attempting to open it. i'm solving this by

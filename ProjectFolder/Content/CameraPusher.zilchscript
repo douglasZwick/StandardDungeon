@@ -1,0 +1,65 @@
+class CameraPusher : ZilchComponent
+{
+  [Dependency]
+  var Transform : Transform;
+  
+  
+  [Property]
+  var InputSpeed : Real = 0.1;  // distance per movement input
+  //[Property]
+  //var ReturnSpeed : Real = 0.5; // distance per second
+  [Property][Slider(0, 1, 0.01)]
+  var ReturnSnappiness : Real = 0.25;
+  [Property]
+  var MaxDistance : Real3 = Real3(2, 2, 1);
+  [Property]
+  var Exponent : Real = 3;
+  [Property][Group("Internal")]
+  var TargetPath : CogPath = CogPath("CameraFocusTarget");
+  
+  var TargetTransform : Transform;
+  var CurrentDistance : Real3 = Real3.Zero;
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    this.TargetTransform = this.TargetPath.Transform;
+    
+    Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
+    Zero.Connect(this.Owner, Events.MovementStarted, this.OnMovementStarted);
+  }
+  
+  
+  function OnLogicUpdate(event : UpdateEvent)
+  {
+    var currentDistance = this.CurrentDistance;
+    var normalizedDistance = currentDistance / this.MaxDistance;
+    var curvedNormalizedDistance = Math.Pow(normalizedDistance, this.Exponent.XXX);
+    var curvedPosition = curvedNormalizedDistance * this.MaxDistance;
+    
+    this.TargetTransform.LocalTranslation = curvedPosition;
+    
+    if (Math.LengthSq(currentDistance) >= 0.001)
+    {
+      var movement = -currentDistance * this.ReturnSnappiness;
+      
+      this.CurrentDistance = currentDistance + movement;
+    }
+    else
+    {
+      this.CurrentDistance = Real3.Zero;
+    }
+  }
+  
+  
+  function OnMovementStarted(event : MovementEvent)
+  {
+    var newPosition = event.NewPosition;
+    var oldPosition = event.OldPosition;
+    var difference = newPosition - oldPosition;
+    var direction = Math.Normalize(difference);
+    var pushVector = direction * this.InputSpeed;
+    
+    this.CurrentDistance = Math.Clamp(this.CurrentDistance + pushVector, -this.MaxDistance, this.MaxDistance);
+  }
+}

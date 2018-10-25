@@ -17,6 +17,7 @@ class DoorOpener : ZilchComponent
   function Initialize(init : CogInitializer)
   {
     this.Collider = this.ColliderPath.Collider;
+    this.CastFilter.CollisionGroup = this.Collider.CollisionGroup;
     
     Zero.Connect(this.Owner, Events.MovementAttempted, this.OnMovementAttempted);
   }

@@ -1,0 +1,9 @@
+[Version:1]
+TextContent 
+{
+	ZilchScriptBuilder 
+	{
+		var Name = "LerpToTarget"
+		var ResourceId = 0x5baa5a751e49f163
+	}
+}

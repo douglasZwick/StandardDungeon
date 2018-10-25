@@ -97,9 +97,9 @@ Level
 		var Name = "EditorCamera"
 		Transform 
 		{
-			var Translation = Real3{-1.63380468, 2.0644145, 9.0802536}
+			var Translation = Real3{-0.877105772, 1.06470847, 10.4450178}
 			var Scale = Real3{1, 1, 1}
-			var Rotation = Quaternion{-0.003477016, -0.088894248, -0.000310317148, 0.99603498}
+			var Rotation = Quaternion{-0.0505489372, -0.0418226607, -0.00211866107, 0.997843266}
 		}
 		CameraViewport 
 		{
@@ -156,10 +156,10 @@ Level
 		{
 			var ControlMode = ControlMode.Orbit
 			var Previous3DMode = ControlMode.Orbit
-			var LookDistance = 9.22629261
-			var VerticalAngle = 0.00698168576
-			var HorizontalAngle = 0.178024575
-			var LookTarget = Real3{0, 2, 0}
+			var LookDistance = 10.535717
+			var VerticalAngle = 0.101229846
+			var HorizontalAngle = 0.0837770477
+			var LookTarget = Real3{0, 0, 0}
 			var MoveSensitivity = 1
 		}
 	}
@@ -172,9 +172,43 @@ Level
 			var Scale = Real3{1, 1, 1}
 			var Rotation = Quaternion{0, 0, 0, 1}
 		}
+		LerpToTarget 
+		{
+			var MoverPath = CogPath
+			{
+				var Path = "."
+				var ErrorOnResolveToNull = false
+				var ErrorOnPathCantCompute = false
+				var ErrorOnDirectLinkFail = false
+				var UpdateCogOnPathChange = true
+				var UpdatePathOnCogChange = true
+				var UpdateCogOnInitialize = true
+				var ResolvedNullErrorOccurred = false
+				var Cog = 5
+				var PathPreference0 = CogPathPreference.CogRelative
+				var PathPreference1 = CogPathPreference.SpaceRelative
+				var PathPreference2 = CogPathPreference.Absolute
+			}
+			var FocusPath = CogPath
+			{
+				var Path = ":/Hero/CameraFocusTarget"
+				var ErrorOnResolveToNull = false
+				var ErrorOnPathCantCompute = false
+				var ErrorOnDirectLinkFail = false
+				var UpdateCogOnPathChange = true
+				var UpdatePathOnCogChange = true
+				var UpdateCogOnInitialize = true
+				var ResolvedNullErrorOccurred = false
+				var Cog = 6
+				var PathPreference0 = CogPathPreference.CogRelative
+				var PathPreference1 = CogPathPreference.SpaceRelative
+				var PathPreference2 = CogPathPreference.Absolute
+			}
+			var Snappiness = 0.099999994
+		}
 		Hierarchy 
 		{
-			Cog [Id:0x5bc13a43e5efe518][ContextId:6]
+			Cog [Id:0x5bc13a43e5efe518][ContextId:7]
 			{
 				var Name = "GameCamera"
 				Transform 
@@ -207,7 +241,7 @@ Level
 						var UpdatePathOnCogChange = true
 						var UpdateCogOnInitialize = true
 						var ResolvedNullErrorOccurred = false
-						var Cog = 6
+						var Cog = 7
 						var PathPreference0 = CogPathPreference.CogRelative
 						var PathPreference1 = CogPathPreference.SpaceRelative
 						var PathPreference2 = CogPathPreference.Absolute
@@ -251,7 +285,7 @@ Level
 			}
 		}
 	}
-	Cog [InheritId:"5bb5fb804ed9a45d:Hero"][ContextId:7]
+	Cog [InheritId:"5bb5fb804ed9a45d:Hero"][ContextId:8]
 	{
 		Transform 
 		{
@@ -259,8 +293,104 @@ Level
 			var Rotation = Quaternion{0, 0, 0, 1}
 			var Scale = Real3{1, 1, 1}
 		}
+		CameraPusher [LocallyAdded]
+		{
+			var InputSpeed = 0.5
+			var ReturnSnappiness = 0.00999999978
+			var MaxDistance = Real3{2, 2, 1}
+			var Exponent = 3
+			var TargetPath = CogPath
+			{
+				var Path = "CameraFocusTarget"
+				var ErrorOnResolveToNull = false
+				var ErrorOnPathCantCompute = false
+				var ErrorOnDirectLinkFail = false
+				var UpdateCogOnPathChange = true
+				var UpdatePathOnCogChange = true
+				var UpdateCogOnInitialize = true
+				var ResolvedNullErrorOccurred = false
+				var Cog = 6
+				var PathPreference0 = CogPathPreference.CogRelative
+				var PathPreference1 = CogPathPreference.SpaceRelative
+				var PathPreference2 = CogPathPreference.Absolute
+			}
+		}
+		Hierarchy 
+		{
+			Cog [Id:0x5baa61a7e6da21e3][LocallyAdded][ContextId:6]
+			{
+				var Name = "CameraFocusTarget"
+				Transform 
+				{
+					var Translation = Real3{0, 0, 0}
+					var Scale = Real3{1, 1, 1}
+					var Rotation = Quaternion{0, 0, 0, 1}
+				}
+				Hierarchy 
+				{
+					Cog [Id:0x5baa6112ffc654f9][ContextId:9]
+					{
+						var Name = "Sprite"
+						Transform 
+						{
+							var Translation = Real3{0, 0, 0.00999999978}
+							var Scale = Real3{0.25, 0.25, 0.25}
+							var Rotation = Quaternion{0, 0, 0, 1}
+						}
+						Sprite 
+						{
+							var Visible = true
+							var ViewCulling = true
+							var VisibilityEvents = true
+							var OverrideBoundingBox = false
+							var LocalAabbCenter = Real3{0, 0, 0}
+							var LocalAabbHalfExtents = Real3{1, 1, 1}
+							var GroupSortValue = 0
+							var Material = "582c575af53d18c9:AlphaSprite"
+							var VertexColor = Real4{1, 1, 1, 0.75}
+							var GeometryMode = SpriteGeometryMode.ZPlane
+							var SpriteSource = "5274db4c2e7c11f9:Circle"
+							var FlipX = false
+							var FlipY = false
+							var AnimationActive = true
+							var AnimationSpeed = 1
+							var StartFrame = 0
+						}
+					}
+					Cog [Id:0x5baa62b0cf5dced8][ContextId:10]
+					{
+						var Name = "Sprite"
+						Transform 
+						{
+							var Translation = Real3{0, 0, 0.0199999996}
+							var Scale = Real3{0.200000003, 0.200000003, 0.200000003}
+							var Rotation = Quaternion{0, 0, 0, 1}
+						}
+						Sprite 
+						{
+							var Visible = true
+							var ViewCulling = true
+							var VisibilityEvents = true
+							var OverrideBoundingBox = false
+							var LocalAabbCenter = Real3{0, 0, 0}
+							var LocalAabbHalfExtents = Real3{1, 1, 1}
+							var GroupSortValue = 0
+							var Material = "582c575af53d18c9:AlphaSprite"
+							var VertexColor = Real4{0.400000006, 0.400000006, 0.800000012, 0.5}
+							var GeometryMode = SpriteGeometryMode.ZPlane
+							var SpriteSource = "5274db4c2e7c11f9:Circle"
+							var FlipX = false
+							var FlipY = false
+							var AnimationActive = true
+							var AnimationSpeed = 1
+							var StartFrame = 0
+						}
+					}
+				}
+			}
+		}
 	}
-	Cog [ContextId:8]
+	Cog [ContextId:11]
 	{
 		var Name = "Cube"
 		Transform 
@@ -355,41 +485,7 @@ Level
 		{
 		}
 	}
-	Cog [ContextId:9]
-	{
-		var Name = "PieceOfTape"
-		Transform 
-		{
-			var Translation = Real3{1.75, 2.5, 0.0500000007}
-			var Scale = Real3{1, 1, 1}
-			var Rotation = Quaternion{0, 0, 0.0174524058, 0.99984771}
-		}
-		Sprite 
-		{
-			var Visible = false
-			var ViewCulling = true
-			var VisibilityEvents = true
-			var OverrideBoundingBox = false
-			var LocalAabbCenter = Real3{0, 0, 0}
-			var LocalAabbHalfExtents = Real3{1, 1, 1}
-			var GroupSortValue = 0
-			var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
-			var VertexColor = Real4{0.0941176489, 0.101960786, 0.0980392173, 1}
-			var GeometryMode = SpriteGeometryMode.ZPlane
-			var SpriteSource = "5275aa4d802dd6dc:Square"
-			var FlipX = false
-			var FlipY = false
-			var AnimationActive = true
-			var AnimationSpeed = 1
-			var StartFrame = 0
-		}
-		Area 
-		{
-			var Size = Real2{3.5, 1}
-			var Origin = Location.Center
-		}
-	}
-	Cog [ContextId:10]
+	Cog [ContextId:12]
 	{
 		var Name = "WallsAndStuff"
 		Transform 
@@ -420,7 +516,7 @@ Level
 			var MeshThickness = 0.5
 		}
 	}
-	Cog [ContextId:11]
+	Cog [ContextId:13]
 	{
 		var Name = "Floor"
 		Transform 
@@ -451,7 +547,7 @@ Level
 			var MeshThickness = 1.20000005
 		}
 	}
-	Cog [InheritId:"5bc9b514e5f4a516:Key"][ContextId:12]
+	Cog [InheritId:"5bc9b514e5f4a516:Key"][ContextId:14]
 	{
 		Transform 
 		{
@@ -464,7 +560,7 @@ Level
 			var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
 		}
 	}
-	Cog [InheritId:"5bc9b514e5f4a516:Key"][ContextId:13]
+	Cog [InheritId:"5bc9b514e5f4a516:Key"][ContextId:15]
 	{
 		Transform 
 		{
@@ -482,7 +578,7 @@ Level
 			var Keys = 3
 		}
 	}
-	Cog [InheritId:"5bcf022c5cc4db25:Coin"][ContextId:14]
+	Cog [InheritId:"5bcf022c5cc4db25:Coin"][ContextId:16]
 	{
 		Transform 
 		{
@@ -495,7 +591,7 @@ Level
 			var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
 		}
 	}
-	Cog [InheritId:"5bcf022c5cc4db25:Coin"][ContextId:15]
+	Cog [InheritId:"5bcf022c5cc4db25:Coin"][ContextId:17]
 	{
 		Transform 
 		{
@@ -513,7 +609,7 @@ Level
 			var Gold = 20
 		}
 	}
-	Cog [InheritId:"5bc134b675a9af25:Door"][ContextId:16]
+	Cog [InheritId:"5bc134b675a9af25:Door"][ContextId:18]
 	{
 		var Name = "Door"
 		Transform 
@@ -527,7 +623,7 @@ Level
 			var Ghost = false
 			var SendsEvents = true
 			var Material = "4de020863e872da8:DefaultPhysicsMaterial"
-			var CollisionGroup = "4e740859314e5515:DefaultGroup"
+			var CollisionGroup = "5baa5c5ee5ab503f:ClosedDoor"
 			var Offset = Real3{0, 0, 0}
 			var HalfSize = Real3{0.449999988, 0.449999988, 0.449999988}
 		}
@@ -545,14 +641,14 @@ Level
 				var UpdatePathOnCogChange = true
 				var UpdateCogOnInitialize = true
 				var ResolvedNullErrorOccurred = false
-				var Cog = 16
+				var Cog = 18
 				var PathPreference0 = CogPathPreference.CogRelative
 				var PathPreference1 = CogPathPreference.SpaceRelative
 				var PathPreference2 = CogPathPreference.Absolute
 			}
 		}
 	}
-	Cog [InheritId:"5be2494353a222bb:Skelly"][ContextId:17]
+	Cog [InheritId:"5be2494353a222bb:Skelly"][ContextId:19]
 	{
 		Transform 
 		{

@@ -4,9 +4,79 @@ CollisionTable
 	var RegisteredGroups = Array
 	{
 		"4e740859314e5515:DefaultGroup"
+		"5bcb31a31ae6d930:Player"
+		"5baa5c5ee5ab503f:ClosedDoor"
+		"5baa5c59e6947bde:OpenedDoor"
+		"5baa5c7ae3cb18d6:Enemy"
 	}
 	var CollisionFilters = Array
 	{
+		Object
+		{
+			var TypeA = "5baa5c5ee5ab503f:ClosedDoor"
+			var TypeB = "5baa5c59e6947bde:OpenedDoor"
+			var SkipResolution = false
+			var SkipDetectingCollision = true
+			var StartEvent = false
+			var EndEvent = false
+			var PersistedEvent = false
+			var PreSolveEvent = false
+		}
+		Object
+		{
+			var TypeA = "5baa5c5ee5ab503f:ClosedDoor"
+			var TypeB = "5baa5c5ee5ab503f:ClosedDoor"
+			var SkipResolution = false
+			var SkipDetectingCollision = true
+			var StartEvent = false
+			var EndEvent = false
+			var PersistedEvent = false
+			var PreSolveEvent = false
+		}
+		Object
+		{
+			var TypeA = "5baa5c7ae3cb18d6:Enemy"
+			var TypeB = "5baa5c59e6947bde:OpenedDoor"
+			var SkipResolution = false
+			var SkipDetectingCollision = false
+			var StartEvent = false
+			var EndEvent = false
+			var PersistedEvent = false
+			var PreSolveEvent = false
+		}
+		Object
+		{
+			var TypeA = "5baa5c59e6947bde:OpenedDoor"
+			var TypeB = "5baa5c59e6947bde:OpenedDoor"
+			var SkipResolution = false
+			var SkipDetectingCollision = true
+			var StartEvent = false
+			var EndEvent = false
+			var PersistedEvent = false
+			var PreSolveEvent = false
+		}
+		Object
+		{
+			var TypeA = "5bcb31a31ae6d930:Player"
+			var TypeB = "5bcb31a31ae6d930:Player"
+			var SkipResolution = true
+			var SkipDetectingCollision = false
+			var StartEvent = false
+			var EndEvent = false
+			var PersistedEvent = false
+			var PreSolveEvent = false
+		}
+		Object
+		{
+			var TypeA = "5baa5c59e6947bde:OpenedDoor"
+			var TypeB = "5bcb31a31ae6d930:Player"
+			var SkipResolution = false
+			var SkipDetectingCollision = true
+			var StartEvent = false
+			var EndEvent = false
+			var PersistedEvent = false
+			var PreSolveEvent = false
+		}
 	}
 	var AutoRegister = true
 }

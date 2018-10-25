@@ -10,16 +10,17 @@ class DiscreteMover : ZilchComponent
   
   
   [Property]
-  var WallColliderPath : CogPath = CogPath(".");
+  var ColliderPath : CogPath = CogPath(".");
   
-  var WallCollider : Collider;
-  
-  var WallFilter : CastFilter = CastFilter();
+  var Collider : Collider;
+  var CastFilter : CastFilter = CastFilter();
   
   
   function Initialize(init : CogInitializer)
   {
-    this.WallCollider = this.WallColliderPath.Collider;
+    this.Collider = this.ColliderPath.Collider;
+    
+    this.CastFilter.CollisionGroup = this.Collider.CollisionGroup;
   }
   
   
@@ -43,7 +44,7 @@ class DiscreteMover : ZilchComponent
     me.AttemptedPosition = me.OldPosition + movement;
     this.Owner.DispatchEvent(Events.MovementAttempted, me);
     
-    var moveResults = this.Space.PhysicsSpace.CastCollider(movement, this.WallCollider, this.WallFilter);
+    var moveResults = this.Space.PhysicsSpace.CastCollider(movement, this.Collider, this.CastFilter);
     var solid = moveResults.IsNotEmpty;
     
     // TODO: if we want movers to seem like they "collide", and like get custom collision events

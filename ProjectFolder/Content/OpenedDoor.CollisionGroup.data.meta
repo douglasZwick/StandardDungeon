@@ -1,0 +1,18 @@
+[Version:1]
+DataContent 
+{
+	DataBuilder 
+	{
+		var Name = "OpenedDoor"
+		var ResourceId = 0x5baa5c59e6947bde
+		var LoaderType = "CollisionGroup"
+		var Version = 0
+	}
+	ContentTags 
+	{
+		var Tags = Array
+		{
+			"CollisionGroup"
+		}
+	}
+}
