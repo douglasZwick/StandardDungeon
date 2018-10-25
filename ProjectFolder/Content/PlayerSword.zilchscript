@@ -63,7 +63,8 @@ class PlayerSword : ZilchComponent
     }
     else if(event.Key == Keys.Left || event.Key == Keys.Right || event.Key == Keys.Up || event.Key == Keys.Down)
     {
-      this.Owner.Sprite.SpriteSource = SpriteSource.PoochaReady;
+      if(this.SwordReady)
+        this.Owner.Sprite.SpriteSource = SpriteSource.PoochaReady;
     }
   }
 }
