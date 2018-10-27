@@ -36,11 +36,11 @@ class Door : ZilchComponent
       this.Sprite.SetFrame(DoorFrame.Closed);
     }
     
-    Zero.Connect(this.Owner, Events.AttemptOpen, this.OnAttemptOpen);
+    Zero.Connect(this.Owner, Events.AttemptOpenDoor, this.OnAttemptOpenDoor);
   }
   
   
-  function OnAttemptOpen(event : DoorEvent)
+  function OnAttemptOpenDoor(event : DoorEvent)
   {
     // here we go
     

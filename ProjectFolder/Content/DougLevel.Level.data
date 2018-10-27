@@ -97,9 +97,9 @@ Level
 		var Name = "EditorCamera"
 		Transform 
 		{
-			var Translation = Real3{-0.877105772, 1.06470847, 10.4450178}
+			var Translation = Real3{-2.92107105, 1.17441177, 10.0543242}
 			var Scale = Real3{1, 1, 1}
-			var Rotation = Quaternion{-0.0505489372, -0.0418226607, -0.00211866107, 0.997843266}
+			var Rotation = Quaternion{-0.05526492, -0.140682429, -0.00786541402, 0.988479793}
 		}
 		CameraViewport 
 		{
@@ -157,8 +157,8 @@ Level
 			var ControlMode = ControlMode.Orbit
 			var Previous3DMode = ControlMode.Orbit
 			var LookDistance = 10.535717
-			var VerticalAngle = 0.101229846
-			var HorizontalAngle = 0.0837770477
+			var VerticalAngle = 0.111701712
+			var HorizontalAngle = 0.282745153
 			var LookTarget = Real3{0, 0, 0}
 			var MoveSensitivity = 1
 		}
@@ -293,15 +293,11 @@ Level
 			var Rotation = Quaternion{0, 0, 0, 1}
 			var Scale = Real3{1, 1, 1}
 		}
-		CameraPusher [LocallyAdded]
+		ChestOpener [LocallyAdded]
 		{
-			var InputSpeed = 0.5
-			var ReturnSnappiness = 0.00999999978
-			var MaxDistance = Real3{2, 2, 1}
-			var Exponent = 3
-			var TargetPath = CogPath
+			var ColliderPath = CogPath
 			{
-				var Path = "CameraFocusTarget"
+				var Path = "."
 				var ErrorOnResolveToNull = false
 				var ErrorOnPathCantCompute = false
 				var ErrorOnDirectLinkFail = false
@@ -309,88 +305,14 @@ Level
 				var UpdatePathOnCogChange = true
 				var UpdateCogOnInitialize = true
 				var ResolvedNullErrorOccurred = false
-				var Cog = 6
+				var Cog = 8
 				var PathPreference0 = CogPathPreference.CogRelative
 				var PathPreference1 = CogPathPreference.SpaceRelative
 				var PathPreference2 = CogPathPreference.Absolute
 			}
 		}
-		Hierarchy 
-		{
-			Cog [Id:0x5baa61a7e6da21e3][LocallyAdded][ContextId:6]
-			{
-				var Name = "CameraFocusTarget"
-				Transform 
-				{
-					var Translation = Real3{0, 0, 0}
-					var Scale = Real3{1, 1, 1}
-					var Rotation = Quaternion{0, 0, 0, 1}
-				}
-				Hierarchy 
-				{
-					Cog [Id:0x5baa6112ffc654f9][ContextId:9]
-					{
-						var Name = "Sprite"
-						Transform 
-						{
-							var Translation = Real3{0, 0, 0.00999999978}
-							var Scale = Real3{0.25, 0.25, 0.25}
-							var Rotation = Quaternion{0, 0, 0, 1}
-						}
-						Sprite 
-						{
-							var Visible = true
-							var ViewCulling = true
-							var VisibilityEvents = true
-							var OverrideBoundingBox = false
-							var LocalAabbCenter = Real3{0, 0, 0}
-							var LocalAabbHalfExtents = Real3{1, 1, 1}
-							var GroupSortValue = 0
-							var Material = "582c575af53d18c9:AlphaSprite"
-							var VertexColor = Real4{1, 1, 1, 0.75}
-							var GeometryMode = SpriteGeometryMode.ZPlane
-							var SpriteSource = "5274db4c2e7c11f9:Circle"
-							var FlipX = false
-							var FlipY = false
-							var AnimationActive = true
-							var AnimationSpeed = 1
-							var StartFrame = 0
-						}
-					}
-					Cog [Id:0x5baa62b0cf5dced8][ContextId:10]
-					{
-						var Name = "Sprite"
-						Transform 
-						{
-							var Translation = Real3{0, 0, 0.0199999996}
-							var Scale = Real3{0.200000003, 0.200000003, 0.200000003}
-							var Rotation = Quaternion{0, 0, 0, 1}
-						}
-						Sprite 
-						{
-							var Visible = true
-							var ViewCulling = true
-							var VisibilityEvents = true
-							var OverrideBoundingBox = false
-							var LocalAabbCenter = Real3{0, 0, 0}
-							var LocalAabbHalfExtents = Real3{1, 1, 1}
-							var GroupSortValue = 0
-							var Material = "582c575af53d18c9:AlphaSprite"
-							var VertexColor = Real4{0.400000006, 0.400000006, 0.800000012, 0.5}
-							var GeometryMode = SpriteGeometryMode.ZPlane
-							var SpriteSource = "5274db4c2e7c11f9:Circle"
-							var FlipX = false
-							var FlipY = false
-							var AnimationActive = true
-							var AnimationSpeed = 1
-							var StartFrame = 0
-						}
-					}
-				}
-			}
-		}
 	}
-	Cog [ContextId:11]
+	Cog [ContextId:9]
 	{
 		var Name = "Cube"
 		Transform 
@@ -485,7 +407,7 @@ Level
 		{
 		}
 	}
-	Cog [ContextId:12]
+	Cog [ContextId:10]
 	{
 		var Name = "WallsAndStuff"
 		Transform 
@@ -516,7 +438,7 @@ Level
 			var MeshThickness = 0.5
 		}
 	}
-	Cog [ContextId:13]
+	Cog [ContextId:11]
 	{
 		var Name = "Floor"
 		Transform 
@@ -547,7 +469,7 @@ Level
 			var MeshThickness = 1.20000005
 		}
 	}
-	Cog [InheritId:"5bc9b514e5f4a516:Key"][ContextId:14]
+	Cog [InheritId:"5bc9b514e5f4a516:Key"][ContextId:12]
 	{
 		Transform 
 		{
@@ -560,7 +482,7 @@ Level
 			var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
 		}
 	}
-	Cog [InheritId:"5bc9b514e5f4a516:Key"][ContextId:15]
+	Cog [InheritId:"5bc9b514e5f4a516:Key"][ContextId:13]
 	{
 		Transform 
 		{
@@ -578,7 +500,31 @@ Level
 			var Keys = 3
 		}
 	}
-	Cog [InheritId:"5bcf022c5cc4db25:Coin"][ContextId:16]
+	Cog [InheritId:"5baa087c6215d8fc:TreasureChest"][ContextId:14]
+	{
+		var Name = "TeasureChest"
+		Transform 
+		{
+			var Translation = Real3{2, 5, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+		Sprite 
+		{
+			var SpriteSource = "5baa08119f285a5a:TreasureChest"
+		}
+		BoxCollider 
+		{
+			var CollisionGroup = "4e740859314e5515:DefaultGroup"
+			var Ghost = false
+		}
+		Chest [LocallyAdded]
+		{
+			var Contents = "5bab4e400484619f:Loot"
+			var Locks = 1
+		}
+	}
+	Cog [InheritId:"5bcf022c5cc4db25:Coin"][ContextId:15]
 	{
 		Transform 
 		{
@@ -591,7 +537,7 @@ Level
 			var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
 		}
 	}
-	Cog [InheritId:"5bcf022c5cc4db25:Coin"][ContextId:17]
+	Cog [InheritId:"5bcf022c5cc4db25:Coin"][ContextId:16]
 	{
 		Transform 
 		{
@@ -609,7 +555,7 @@ Level
 			var Gold = 20
 		}
 	}
-	Cog [InheritId:"5bc134b675a9af25:Door"][ContextId:18]
+	Cog [InheritId:"5bc134b675a9af25:Door"][ContextId:17]
 	{
 		var Name = "Door"
 		Transform 
@@ -641,14 +587,14 @@ Level
 				var UpdatePathOnCogChange = true
 				var UpdateCogOnInitialize = true
 				var ResolvedNullErrorOccurred = false
-				var Cog = 18
+				var Cog = 17
 				var PathPreference0 = CogPathPreference.CogRelative
 				var PathPreference1 = CogPathPreference.SpaceRelative
 				var PathPreference2 = CogPathPreference.Absolute
 			}
 		}
 	}
-	Cog [InheritId:"5be2494353a222bb:Skelly"][ContextId:19]
+	Cog [InheritId:"5be2494353a222bb:Skelly"][ContextId:18]
 	{
 		Transform 
 		{

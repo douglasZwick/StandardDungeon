@@ -1,0 +1,86 @@
+class Chest : ZilchComponent
+{
+  sends ChestUnlocked : ChestEvent;
+  
+  
+  [Dependency]
+  var Transform : Transform;
+  
+  
+  [Property]
+  var Contents : Archetype;
+  [Property]
+  var Locks : Integer = 0;
+  
+  var ActionSequence : ActionSequence;
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    this.ActionSequence = Action.Sequence(this.Owner.Actions);
+    
+    Zero.Connect(this.Owner, Events.AttemptOpenChest, this.OnAttemptOpenChest);
+  }
+  
+  
+  function OnAttemptOpenChest(event : ChestEvent)
+  {
+    // this is going to be very similar to how it works for doors. however,
+    // doors can be open and still exist, while chests are destroyed when
+    // they open
+    
+    // first, if it's not locked
+    if (this.Locks <= 0)
+    {
+      // then it should just open
+      this.DelayedOpen();
+    }
+    // otherwise, if it is locked
+    else
+    {
+      // look at the inventory of the opener
+      var inventory = event.Inventory;
+      
+      // if that inventory has enough keys
+      if (inventory.Keys >= this.Locks)
+      {
+        // then it opens, consuming that many keys
+        
+        event.Chest = this;
+        inventory.Owner.DispatchEvent(Events.ChestUnlocked, event);
+        this.DelayedOpen();
+      }
+      // if the given inventory has insufficient keys
+      else
+      {
+        // then the chest is not opened, and feedback should
+        // be presented to the player
+        
+        // TODO: do this feedback, probably via a console message
+      }
+    }
+  }
+  
+  
+  function DelayedOpen()
+  {
+    this.ActionSequence.Cancel();
+    this.ActionSequence = Action.Sequence(this.Owner.Actions);
+      
+      Action.Delay(this.ActionSequence, 0);
+      Action.Call(this.ActionSequence, this.Open);
+  }
+  
+  
+  function Open()
+  {
+    if (this.Contents != null)
+    {
+      // TODO: make this fade in
+      var contents = this.Space.CreateAtPosition(this.Contents, this.Transform.WorldTranslation);
+    }
+    
+    // TODO: make the chest fade out
+    this.Owner.Destroy();
+  }
+}

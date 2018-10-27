@@ -23,7 +23,7 @@ class LerpToTarget : ZilchComponent
     // TODO:
     // 
     // this could maybe be slightly rewritten to take snappiness into account
-    if (Math.LengthSq(difference) >= 0.001)
+    if (Math.LengthSq(difference) >= 0.000001)
     {
       var movement = difference * this.Snappiness;
       

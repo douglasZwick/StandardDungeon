@@ -20,7 +20,7 @@ Cog
 		var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
 		var VertexColor = Real4{0, 0, 0, 1}
 		var GeometryMode = SpriteGeometryMode.ZPlane
-		var SpriteSource = "5bd489d3726373da:Hero"
+		var SpriteSource = "5b81b1c049a1aa27:PoochaIdle"
 		var FlipX = false
 		var FlipY = false
 		var AnimationActive = true
@@ -84,7 +84,7 @@ Cog
 	}
 	DiscreteMover 
 	{
-		var WallColliderPath = CogPath
+		var ColliderPath = CogPath
 		{
 			var Path = "."
 			var ErrorOnResolveToNull = false
@@ -121,7 +121,42 @@ Cog
 			var PathPreference2 = CogPathPreference.Absolute
 		}
 	}
+	CameraPusher 
+	{
+		var InputSpeed = 0.5
+		var ReturnSnappiness = 0.0250000004
+		var MaxDistance = Real3{3, 3, 1}
+		var Exponent = 1
+		var TargetPath = CogPath
+		{
+			var Path = "CameraFocusTarget"
+			var ErrorOnResolveToNull = false
+			var ErrorOnPathCantCompute = false
+			var ErrorOnDirectLinkFail = false
+			var UpdateCogOnPathChange = true
+			var UpdatePathOnCogChange = true
+			var UpdateCogOnInitialize = true
+			var ResolvedNullErrorOccurred = false
+			var Cog = 4294967293
+			var PathPreference0 = CogPathPreference.CogRelative
+			var PathPreference1 = CogPathPreference.SpaceRelative
+			var PathPreference2 = CogPathPreference.Absolute
+		}
+	}
 	Hierarchy 
 	{
+		Cog [Id:0x5baa61a7e6da21e3]
+		{
+			var Name = "CameraFocusTarget"
+			Transform 
+			{
+				var Translation = Real3{0, 0, 0}
+				var Scale = Real3{1, 1, 1}
+				var Rotation = Quaternion{0, 0, 0, 1}
+			}
+			Hierarchy 
+			{
+			}
+		}
 	}
 }

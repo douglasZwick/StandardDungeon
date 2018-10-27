@@ -121,3 +121,9 @@ class BatController : ZilchComponent
     }
   }
 }
+
+
+// TODO: this can be abstracted further. we could have some kind of an
+// AiTicker component that just does the ticking part of this, and then
+// dispatches the AiTick event every tick. we could give it to the Bat,
+// the Skelly, etc. etc.

@@ -39,7 +39,7 @@ class CameraPusher : ZilchComponent
     
     this.TargetTransform.LocalTranslation = curvedPosition;
     
-    if (Math.LengthSq(currentDistance) >= 0.001)
+    if (Math.LengthSq(currentDistance) >= 0.000001)
     {
       var movement = -currentDistance * this.ReturnSnappiness;
       
