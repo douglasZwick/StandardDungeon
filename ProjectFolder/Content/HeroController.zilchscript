@@ -4,12 +4,15 @@ class HeroController : ZilchComponent
   var Mover : DiscreteMover;
   
   
+  var Gamepad : Gamepad;
+  
   var CanMove : Boolean
   {
     get
     {
       // TODO: do this better
-      var attacking = Zero.Keyboard.KeyIsDown(Keys.Space);
+      var attacking = Zero.Keyboard.KeyIsDown(Keys.Space) ||
+                      this.Gamepad.IsButtonHeld(Buttons.A);
       
       return !attacking;
     }
@@ -18,7 +21,10 @@ class HeroController : ZilchComponent
   
   function Initialize(init : CogInitializer)
   {
+    this.Gamepad = Zero.Gamepads.GetGamePad(0);
+    
     Zero.Connect(Zero.Keyboard, Events.KeyDown, this.OnKeyDown);
+    Zero.Connect(this.Gamepad, Events.ButtonDown, this.OnButtonDown);
   }
   
   
@@ -33,6 +39,21 @@ class HeroController : ZilchComponent
     else if (event.Key == Keys.Up)
       this.Mover.Move(+Real3.YAxis);
     else if (event.Key == Keys.Down)
+      this.Mover.Move(-Real3.YAxis);
+  }
+  
+  
+  function OnButtonDown(event : GamepadEvent)
+  {
+    if (!this.CanMove) return;
+    
+    if      (event.Button == Buttons.DpadRight)
+      this.Mover.Move(+Real3.XAxis);
+    else if (event.Button == Buttons.DpadLeft)
+      this.Mover.Move(-Real3.XAxis);
+    else if (event.Button == Buttons.DpadUp)
+      this.Mover.Move(+Real3.YAxis);
+    else if (event.Button == Buttons.DpadDown)
       this.Mover.Move(-Real3.YAxis);
   }
 }

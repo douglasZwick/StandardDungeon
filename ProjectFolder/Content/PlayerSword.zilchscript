@@ -1,61 +1,122 @@
 class PlayerSword : ZilchComponent
 {
+  [Dependency]
+  var Transform : Transform;
+  [Dependency]
+  var Sprite : Sprite;
+  
+  
   var SwordReady : Boolean = false;
   [Property]
   var SwordHitBoxArchetype : Archetype;
   var HitboxRef : Cog;
   
+  var Gamepad : Gamepad;
+  
   function Initialize(init : CogInitializer)
   {
-    //Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
+    this.Gamepad = Zero.Gamepads.GetGamePad(0);
+    
     Zero.Connect(Zero.Keyboard, Events.KeyDown, this.OnKeyDown);
     Zero.Connect(Zero.Keyboard, Events.KeyUp, this.OnKeyUp);
-  }
-
-  function OnLogicUpdate(event : UpdateEvent)
-  {
-    
+    Zero.Connect(this.Gamepad, Events.ButtonDown, this.OnButtonDown);
+    Zero.Connect(this.Gamepad, Events.ButtonUp, this.OnButtonUp);
   }
   
   function OnKeyDown(event : KeyboardEvent)
   {
     if(event.Key == Keys.Space)
     {
-      this.SwordReady = true;
-      this.Owner.Sprite.SpriteSource = SpriteSource.PoochaReady;
+      this.GetReady();
     }
     if(this.SwordReady)
     {
       if(event.Key == Keys.Left)
       {
-        this.Owner.Sprite.SpriteSource = SpriteSource.PoochaAttack;
-        var spawnLocation = this.Owner.Transform.Translation + Real3(-1, 0, 0);
-        this.DestroyOldSword();
-        this.HitboxRef = this.Space.CreateAtPosition(this.SwordHitBoxArchetype, spawnLocation);
+        this.Slash(-Real3.XAxis);
       } 
       else if(event.Key == Keys.Right)
       {
-        this.Owner.Sprite.SpriteSource = SpriteSource.PoochaAttack;
-        var spawnLocation = this.Owner.Transform.Translation + Real3(1, 0, 0);
-        this.DestroyOldSword();
-        this.HitboxRef = this.Space.CreateAtPosition(this.SwordHitBoxArchetype, spawnLocation);
-  
+        this.Slash(Real3.XAxis);
       }
       else if(event.Key == Keys.Up)
       {
-        this.Owner.Sprite.SpriteSource = SpriteSource.PoochaAttack;
-        var spawnLocation = this.Owner.Transform.Translation + Real3(0, 1, 0);
-        this.DestroyOldSword();
-        this.HitboxRef = this.Space.CreateAtPosition(this.SwordHitBoxArchetype, spawnLocation);
+        this.Slash(Real3.YAxis);
       }
       else if(event.Key == Keys.Down)
       {
-        this.Owner.Sprite.SpriteSource = SpriteSource.PoochaAttack;
-        var spawnLocation = this.Owner.Transform.Translation + Real3(0, -1, 0);
-        this.DestroyOldSword();
-        this.HitboxRef = this.Space.CreateAtPosition(this.SwordHitBoxArchetype, spawnLocation);
+        this.Slash(-Real3.YAxis);
       }
     }
+  }
+  
+  function OnKeyUp(event : KeyboardEvent)
+  {
+    if(event.Key == Keys.Space)
+      this.CalmDown();
+    else if(event.Key == Keys.Left || event.Key == Keys.Right || event.Key == Keys.Up || event.Key == Keys.Down)
+      this.AttackEnd();
+  }
+  
+  function OnButtonDown(event : GamepadEvent)
+  {
+    if(event.Button == Buttons.A)
+    {
+      this.GetReady();
+    }
+    if(this.SwordReady)
+    {
+      if(event.Button == Buttons.DpadLeft)
+      {
+        this.Slash(-Real3.XAxis);
+      } 
+      else if(event.Button == Buttons.DpadRight)
+      {
+        this.Slash(Real3.XAxis);
+      }
+      else if(event.Button == Buttons.DpadUp)
+      {
+        this.Slash(Real3.YAxis);
+      }
+      else if(event.Button == Buttons.DpadDown)
+      {
+        this.Slash(-Real3.YAxis);
+      }
+    }
+  }
+  
+  function OnButtonUp(event : GamepadEvent)
+  {
+    if      (event.Button == Buttons.A)
+      this.CalmDown();
+    else if (event.Button == Buttons.DpadLeft || event.Button == Buttons.DpadRight || event.Button == Buttons.DpadUp || event.Button == Buttons.DpadDown)
+      this.AttackEnd();
+  }
+  
+  function Slash(offset : Real3)
+  {
+    this.Sprite.SpriteSource = SpriteSource.PoochaAttack;
+    var spawnLocation = this.Transform.WorldTranslation + offset;
+    this.DestroyOldSword();
+    this.HitboxRef = this.Space.CreateAtPosition(this.SwordHitBoxArchetype, spawnLocation);
+  }
+  
+  function AttackEnd()
+  {
+    if (this.SwordReady)
+      this.Sprite.SpriteSource = SpriteSource.PoochaReady;
+  }
+  
+  function GetReady()
+  {
+    this.SwordReady = true;
+    this.Sprite.SpriteSource = SpriteSource.PoochaReady;
+  }
+  
+  function CalmDown()
+  {
+    this.SwordReady = false;
+    this.Sprite.SpriteSource = SpriteSource.PoochaIdle;
   }
   
   function DestroyOldSword()
@@ -63,20 +124,6 @@ class PlayerSword : ZilchComponent
     if(this.HitboxRef != null)
     {
       this.HitboxRef.Destroy();
-    }
-  }
-  
-  function OnKeyUp(event : KeyboardEvent)
-  {
-    if(event.Key == Keys.Space)
-    {
-      this.SwordReady = false;
-      this.Owner.Sprite.SpriteSource = SpriteSource.PoochaIdle;
-    }
-    else if(event.Key == Keys.Left || event.Key == Keys.Right || event.Key == Keys.Up || event.Key == Keys.Down)
-    {
-      if(this.SwordReady)
-        this.Owner.Sprite.SpriteSource = SpriteSource.PoochaReady;
     }
   }
 }
