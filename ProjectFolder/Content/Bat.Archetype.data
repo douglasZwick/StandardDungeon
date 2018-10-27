@@ -4,7 +4,7 @@ Cog
 	var Name = "Bat"
 	Transform 
 	{
-		var Translation = Real3{2, 1, -0.25}
+		var Translation = Real3{-5, 2, 0}
 		var Scale = Real3{1, 1, 1}
 		var Rotation = Quaternion{0, 0, 0, 1}
 	}
@@ -48,7 +48,7 @@ Cog
 	}
 	DiscreteMover 
 	{
-		var WallColliderPath = CogPath
+		var ColliderPath = CogPath
 		{
 			var Path = "."
 			var ErrorOnResolveToNull = false
@@ -64,9 +64,14 @@ Cog
 			var PathPreference2 = CogPathPreference.Absolute
 		}
 	}
+	AiTicker 
+	{
+		var TickDelay = 0.518999994
+		var TickDelayVariance = 0.0500000007
+		var RandomInitialTimer = true
+	}
 	BatController 
 	{
-		var BaseTickTime = 0.518999994
 	}
 	MovementBlinker 
 	{

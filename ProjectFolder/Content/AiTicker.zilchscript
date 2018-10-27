@@ -1,0 +1,57 @@
+class AiTicker : ZilchComponent
+{
+  sends AiTick : TickEvent;
+  
+  
+  [Property]
+  var TickDelay : Real = 1; // seconds per tick
+  [Property]
+  var TickDelayVariance : Real = 0; // deviation from the base tick delay
+  [Property]
+  var RandomInitialTimer : Boolean = false; // whether this instance's timer staring value should be randomized
+  
+  var TickTimer : Real = 0;
+  var RNG : Random = Random();
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    this.ComputeTickDelay();
+    
+    if (this.RandomInitialTimer)
+      this.TickTimer = this.RNG.Range(0, this.TickDelay);
+    
+    Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
+  }
+  
+  
+  function OnLogicUpdate(event : UpdateEvent)
+  {
+    this.TickTimer += event.Dt;
+    
+    if (this.TickTimer >= this.TickDelay)
+    {
+      this.TickTimer -= this.TickDelay;
+      
+      var te = TickEvent();
+      te.Dt = event.Dt;
+      te.TickDelay = this.TickDelay;
+      this.Owner.DispatchEvent(Events.AiTick, te);
+      
+      this.ComputeTickDelay();
+    }
+  }
+  
+  
+  function ComputeTickDelay()
+  {
+    this.TickDelay = this.RNG.Variance(this.TickDelay, this.TickDelayVariance);
+  }
+}
+
+
+class TickEvent : ZilchEvent
+{
+  var Dt : Real;        // the dt of the frame when this tick went off
+  var TickDelay : Real; // the most recent tick delay when this tick when off
+}

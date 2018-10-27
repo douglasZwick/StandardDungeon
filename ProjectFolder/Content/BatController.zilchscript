@@ -7,12 +7,10 @@ class BatController : ZilchComponent
   var Transform : Transform;
   [Dependency]
   var Mover : DiscreteMover;
+  [Dependency]
+  var AiTicker : AiTicker;
   
   
-  [Property]
-  var BaseTickTime : Real = 1;
-  
-  var TickTimer : Real = 0;
   var PlayerRef : Cog;
   var RNG : Random = Random();
   var Randomness : Real = 0.5;
@@ -20,8 +18,7 @@ class BatController : ZilchComponent
   
   function Initialize(init : CogInitializer)
   {
-    Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
-    Zero.Connect(this.Owner, Events.BatTick, this.OnBatTick);
+    Zero.Connect(this.Owner, Events.AiTick, this.OnAiTick);
     Zero.Connect(this.Owner, Events.Death, this.OnDeath);
     
     this.PlayerRef = this.Space.FindObjectByName("Hero");
@@ -35,7 +32,7 @@ class BatController : ZilchComponent
   }
   
   
-  function OnBatTick(event : ZilchEvent)
+  function OnAiTick(event : TickEvent)
   {
     var r = this.RNG.Real();
     
@@ -108,22 +105,4 @@ class BatController : ZilchComponent
   {
     this.Mover.Move(-Real3.YAxis);
   }
-  
-  
-  function OnLogicUpdate(event : UpdateEvent)
-  {
-    this.TickTimer += event.Dt;
-    
-    if (this.TickTimer >= this.BaseTickTime)
-    {
-      this.TickTimer -= this.BaseTickTime;
-      this.Owner.DispatchEvent(Events.BatTick, ZilchEvent());
-    }
-  }
 }
-
-
-// TODO: this can be abstracted further. we could have some kind of an
-// AiTicker component that just does the ticking part of this, and then
-// dispatches the AiTick event every tick. we could give it to the Bat,
-// the Skelly, etc. etc.

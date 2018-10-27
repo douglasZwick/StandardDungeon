@@ -5,18 +5,17 @@ class SkellyController : ZilchComponent
   
   [Dependency]
   var Mover : DiscreteMover;
+  [Dependency]
+  var AiTicker : AiTicker;
   
   
-  [Property]
-  var BaseTickTime : Real = 1.0;
   var TickTimer : Real = 0;
   var PlayerRef : Cog;
   
   
   function Initialize(init : CogInitializer)
   {
-    Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
-    Zero.Connect(this.Owner, Events.SkellyTick, this.OnSkellyTick);
+    Zero.Connect(this.Owner, Events.AiTick, this.OnAiTick);
     Zero.Connect(this.Owner, Events.WasDamaged, this.OnWasDamaged);
     Zero.Connect(this.Owner, Events.Death, this.OnDeath);
     
@@ -36,7 +35,7 @@ class SkellyController : ZilchComponent
   }
   
   
-  function OnSkellyTick(event : ZilchEvent)
+  function OnAiTick(event : TickEvent)
   {
     var hDiff : Real = this.PlayerRef.Transform.Translation.X - this.Owner.Transform.Translation.X;
     var vDiff : Real = this.PlayerRef.Transform.Translation.Y - this.Owner.Transform.Translation.Y;
@@ -68,18 +67,6 @@ class SkellyController : ZilchComponent
         //Move up
         this.Mover.Move(Real3.YAxis);
       }
-    }
-  }
-  
-  
-  function OnLogicUpdate(event : UpdateEvent)
-  {
-    this.TickTimer += event.Dt;
-    
-    if(this.TickTimer >= this.BaseTickTime)
-    {
-      this.TickTimer -= this.BaseTickTime;
-      this.Owner.DispatchEvent(Events.SkellyTick, ZilchEvent());
     }
   }
 }

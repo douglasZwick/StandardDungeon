@@ -48,7 +48,7 @@ Cog
 	}
 	DiscreteMover 
 	{
-		var WallColliderPath = CogPath
+		var ColliderPath = CogPath
 		{
 			var Path = "."
 			var ErrorOnResolveToNull = false
@@ -64,9 +64,13 @@ Cog
 			var PathPreference2 = CogPathPreference.Absolute
 		}
 	}
+	AiTicker 
+	{
+		var TickDelay = 1
+		var TickDelayVariance = 0
+	}
 	SkellyController 
 	{
-		var BaseTickTime = 1
 	}
 	MovementBlinker 
 	{
