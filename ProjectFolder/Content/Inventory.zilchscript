@@ -21,8 +21,7 @@ class Inventory : ZilchComponent
   function Initialize(init : CogInitializer)
   {
     Zero.Connect(this.Owner, Events.DidCollect, this.OnDidCollect);
-    Zero.Connect(this.Owner, Events.DoorUnlocked, this.OnDoorUnlocked);
-    Zero.Connect(this.Owner, Events.ChestUnlocked, this.OnChestUnlocked);
+    Zero.Connect(this.Owner, Events.DidOpen, this.OnDidOpen);
     Zero.Connect(this.Owner, Events.Death, this.OnDeath);
   }
   
@@ -55,29 +54,10 @@ class Inventory : ZilchComponent
   }
   
   
-  function OnDoorUnlocked(event : DoorEvent)
+  function OnDidOpen(event : OpenEvent)
   {
-    var locks = event.Door.Locks;
-    
+    var locks = event.Openable.Locks;
     var oldKeys = this.Keys;
-    
-    this.Keys -= locks;
-    
-    var ie = InventoryEvent();
-    ie.OldTotal = oldKeys;
-    ie.NewTotal = this.Keys;
-    this.Owner.DispatchEvent(Events.KeysTotalChanged, ie);
-  }
-  
-  
-  function OnChestUnlocked(event : ChestEvent)
-  {
-    // TODO: it is totally plain that this two-component approach is badong
-    
-    var locks = event.Chest.Locks;
-    
-    var oldKeys = this.Keys;
-    
     this.Keys -= locks;
     
     var ie = InventoryEvent();
@@ -102,6 +82,10 @@ class Inventory : ZilchComponent
     var loot = this.Space.CreateAtPosition(this.LootArchetype, position);
     loot.Collectable.Gold = this.Gold;
     loot.Collectable.Keys = this.Keys;
+    
+    // TODO: ultimately this is going to require a collider cast to see
+    // whether there is already anything here. if there is, then it
+    // should be added to this dropped loot
   }
 }
 

@@ -1,0 +1,64 @@
+class Openable : ZilchComponent
+{
+  [Property]
+  var Locks : Integer = 0;      // how many keys are needed to open this
+  [Property]
+  var Opened : Boolean = false; // is this already opened? (not really relevant for all Openables)
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    Zero.Connect(this.Owner, Events.RequestOpen, this.OnRequestOpen);
+  }
+  
+  
+  function OnRequestOpen(event : OpenEvent)
+  {
+    // here we go
+    
+    event.Openable = this;
+    
+    // if this thing is already open
+    if (this.Opened)
+    {
+      // i don't really know how relevant this branch is
+    }
+    // if it's not already open
+    else
+    {
+      // if it's not locked
+      if (this.Locks <= 0)
+      {
+        // then it should open
+        this.Open(event);
+      }
+      // if it is locked
+      else
+      {
+        // get the inventory of the opener
+        var inventory = event.Inventory;
+        
+        // if that inventory has enough keys
+        if (inventory.Keys >= this.Locks)
+        {
+          // then it should open (and the keys should be consumed, but we'll count
+          // on the inventory to do that)
+          this.Open(event);
+        }
+        // if it doesn't have enough keys
+        else
+        {
+          // prolly some feedback
+          // TODO: do this feedback, probably via a console message
+        }
+      }
+    }
+  }
+  
+  
+  function Open(event : OpenEvent)
+  {
+    this.Owner.DispatchEvent(Events.WasOpened, event);
+    event.Opener.Owner.DispatchEvent(Events.DidOpen, event);
+  }
+}

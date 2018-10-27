@@ -1,21 +1,23 @@
 class Door : ZilchComponent
 {
-  sends DoorUnlocked : DoorEvent;
-  
-  
   [Dependency]
   var Sprite : Sprite;
+  [Dependency]
+  var Openable : Openable;
   
   
-  [Property]
-  var Locks : Integer = 0;
-  [Property]
-  var Opened : Boolean = false;
   [Property]
   var ColliderPath : CogPath = CogPath(".");
   
   var Collider : Collider;
   var ActionSequence : ActionSequence;
+  
+  var Opened : Boolean
+  {
+    get { return this.Openable.Opened; }
+    
+    set { this.Openable.Opened = value; }
+  }
   
   
   function Initialize(init : CogInitializer)
@@ -24,65 +26,31 @@ class Door : ZilchComponent
     
     this.Collider = this.ColliderPath.Collider;
     
+    // is this okay??? i'm rewriting the Opened value over itself like
+    // some kind of dumbass just for the sake of being lazy :(
     if (this.Opened)
-    {
-      this.Locks = 0;
-      this.Collider.CollisionGroup = CollisionGroup.OpenedDoor;
-      this.Sprite.SetFrame(DoorFrame.Opened);
-    }
+      this.Open();
     else
-    {
-      this.Collider.CollisionGroup = CollisionGroup.ClosedDoor;
-      this.Sprite.SetFrame(DoorFrame.Closed);
-    }
+      this.Close();
     
-    Zero.Connect(this.Owner, Events.AttemptOpenDoor, this.OnAttemptOpenDoor);
+    Zero.Connect(this.Owner, Events.OpenableCheck, this.OnOpenableCheck);
+    Zero.Connect(this.Owner, Events.WasOpened, this.OnWasOpened);
   }
   
   
-  function OnAttemptOpenDoor(event : DoorEvent)
+  function OnOpenableCheck(event : OpenEvent)
   {
-    // here we go
+    var opener = event.Opener;
+    var doorOpener = opener.Owner.DoorOpener;
     
-    // if the door is already open
-    if (this.Opened)
-    {
-      // nothing happens. this may become impossible soon, with
-      // careful application of CollisionGroups
-    }
-    // if it's not already open
-    else
-    {
-      // if it's not locked
-      if (this.Locks <= 0)
-      {
-        // then it should open. no further questions, your honor
-        this.DelayedOpen();
-      }
-      // if it is locked
-      else
-      {
-        // grab the inventory of the opener
-        var inventory = event.Inventory;
-        
-        // if that inventory has enough keys to open the door
-        if (inventory.Keys >= this.Locks)
-        {
-          // then it should open, and the keys should be consumed
-          
-          event.Door = this;
-          inventory.Owner.DispatchEvent(Events.DoorUnlocked, event);
-          this.DelayedOpen();
-        }
-        else
-        {
-          // then the door is not opened, and feedback should
-          // be presented to the player
-          
-          // TODO: do this feedback, probably via a console message
-        }
-      }
-    }
+    if (doorOpener != null)
+      event.CanOpen = true;
+  }
+  
+  
+  function OnWasOpened(event : OpenEvent)
+  {
+    this.DelayedOpen();
   }
   
   
@@ -105,6 +73,14 @@ class Door : ZilchComponent
     this.Opened = true;
     this.Collider.CollisionGroup = CollisionGroup.OpenedDoor;
     this.Sprite.SetFrame(DoorFrame.Opened);
+  }
+  
+  
+  function Close()
+  {
+    this.Opened = false;
+    this.Collider.CollisionGroup = CollisionGroup.ClosedDoor;
+    this.Sprite.SetFrame(DoorFrame.Closed);
   }
 }
 

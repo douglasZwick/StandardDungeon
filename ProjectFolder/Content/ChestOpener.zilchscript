@@ -1,55 +1,5 @@
 class ChestOpener : ZilchComponent
 {
-  sends AttemptOpenChest : ChestEvent;
-  
-  
   [Dependency]
-  var Inventory : Inventory;
-  
-  
-  [Property]
-  var ColliderPath : CogPath = CogPath(".");
-  
-  var Collider : Collider;
-  var CastFilter : CastFilter = CastFilter();
-  
-  
-  function Initialize(init : CogInitializer)
-  {
-    this.Collider = this.ColliderPath.Collider;
-    this.CastFilter.CollisionGroup = this.Collider.CollisionGroup;
-    
-    Zero.Connect(this.Owner, Events.MovementAttempted, this.OnMovementAttempted);
-  }
-  
-  
-  function OnMovementAttempted(event : MovementEvent)
-  {
-    var colliderPosition = this.Collider.Owner.Transform.WorldTranslation;
-    var attemptedPosition = event.AttemptedPosition;
-    var offset = attemptedPosition - colliderPosition;
-    
-    var ce = ChestEvent();
-    ce.Opener = this;
-    ce.Inventory = this.Inventory;
-    
-    var results = this.Space.PhysicsSpace.CastCollider(offset, this.Collider, this.CastFilter);
-    
-    foreach (var result in results)
-    {
-      result.ObjectHit.DispatchEvent(Events.AttemptOpenChest, ce);
-    }
-  }
+  var Opener : Opener;
 }
-
-
-class ChestEvent : ZilchEvent
-{
-  var Opener : ChestOpener;
-  var Inventory : Inventory;
-  var Chest : Chest;
-}
-
-
-// TODO: please please please combine this with the almost-perfect copy-paste
-// DoorOpener component for chrissake

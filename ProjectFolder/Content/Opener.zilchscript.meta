@@ -1,0 +1,9 @@
+[Version:1]
+TextContent 
+{
+	ZilchScriptBuilder 
+	{
+		var Name = "Opener"
+		var ResourceId = 0x5baf84a80258b301
+	}
+}

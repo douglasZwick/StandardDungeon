@@ -97,9 +97,9 @@ Level
 		var Name = "EditorCamera"
 		Transform 
 		{
-			var Translation = Real3{-2.92107105, 1.17441177, 10.0543242}
+			var Translation = Real3{4.43592119, 1.58526492, 14.1549797}
 			var Scale = Real3{1, 1, 1}
-			var Rotation = Quaternion{-0.05526492, -0.140682429, -0.00786541402, 0.988479793}
+			var Rotation = Quaternion{-0.0525949225, 0.15104717, 0.00804818608, 0.987093627}
 		}
 		CameraViewport 
 		{
@@ -150,15 +150,15 @@ Level
 			var FarPlane = 500
 			var PerspectiveMode = PerspectiveMode.Perspective
 			var FieldOfView = 45
-			var Size = 6.02388906
+			var Size = 6.65742731
 		}
 		EditorCameraController 
 		{
 			var ControlMode = ControlMode.Orbit
 			var Previous3DMode = ControlMode.Orbit
-			var LookDistance = 10.535717
-			var VerticalAngle = 0.111701712
-			var HorizontalAngle = 0.282745153
+			var LookDistance = 14.9182415
+			var VerticalAngle = 0.106464535
+			var HorizontalAngle = -0.303688526
 			var LookTarget = Real3{0, 0, 0}
 			var MoveSensitivity = 1
 		}
@@ -285,7 +285,7 @@ Level
 			}
 		}
 	}
-	Cog [InheritId:"5bb5fb804ed9a45d:Hero"][ContextId:8]
+	Cog [InheritId:"5bb5fb804ed9a45d:Hero"][ChildOrderOverride][ContextId:8]
 	{
 		Transform 
 		{
@@ -293,7 +293,40 @@ Level
 			var Rotation = Quaternion{0, 0, 0, 1}
 			var Scale = Real3{1, 1, 1}
 		}
-		ChestOpener [LocallyAdded]
+		Sprite 
+		{
+		}
+		BoxCollider 
+		{
+		}
+		PlayerSword 
+		{
+		}
+		MovementBlinker 
+		{
+		}
+		RigidBody 
+		{
+		}
+		Inventory 
+		{
+		}
+		Collector 
+		{
+		}
+		InventoryCounterUpdater 
+		{
+		}
+		DiscreteMover 
+		{
+		}
+		HeroController 
+		{
+		}
+		CameraPusher 
+		{
+		}
+		Opener [LocallyAdded]
 		{
 			var ColliderPath = CogPath
 			{
@@ -310,6 +343,15 @@ Level
 				var PathPreference1 = CogPathPreference.SpaceRelative
 				var PathPreference2 = CogPathPreference.Absolute
 			}
+		}
+		DoorOpener 
+		{
+		}
+		ChestOpener [LocallyAdded]
+		{
+		}
+		Hierarchy 
+		{
 		}
 	}
 	Cog [ContextId:9]
@@ -502,26 +544,12 @@ Level
 	}
 	Cog [InheritId:"5baa087c6215d8fc:TreasureChest"][ContextId:14]
 	{
-		var Name = "TeasureChest"
+		var Name = "TreasureChest"
 		Transform 
 		{
 			var Translation = Real3{2, 5, 0}
 			var Rotation = Quaternion{0, 0, 0, 1}
 			var Scale = Real3{1, 1, 1}
-		}
-		Sprite 
-		{
-			var SpriteSource = "5baa08119f285a5a:TreasureChest"
-		}
-		BoxCollider 
-		{
-			var CollisionGroup = "4e740859314e5515:DefaultGroup"
-			var Ghost = false
-		}
-		Chest [LocallyAdded]
-		{
-			var Contents = "5bab4e400484619f:Loot"
-			var Locks = 1
 		}
 	}
 	Cog [InheritId:"5bcf022c5cc4db25:Coin"][ContextId:15]
@@ -555,7 +583,7 @@ Level
 			var Gold = 20
 		}
 	}
-	Cog [InheritId:"5bc134b675a9af25:Door"][ContextId:17]
+	Cog [InheritId:"5bc134b675a9af25:Door"][ChildOrderOverride][ContextId:17]
 	{
 		var Name = "Door"
 		Transform 
@@ -563,6 +591,9 @@ Level
 			var Translation = Real3{5, -1, 0}
 			var Rotation = Quaternion{0, 0, 0, 1}
 			var Scale = Real3{1, 1, 1}
+		}
+		Sprite 
+		{
 		}
 		BoxCollider [LocallyAdded]
 		{
@@ -573,10 +604,13 @@ Level
 			var Offset = Real3{0, 0, 0}
 			var HalfSize = Real3{0.449999988, 0.449999988, 0.449999988}
 		}
-		Door [LocallyAdded]
+		Openable [LocallyAdded]
 		{
 			var Locks = 1
 			var Opened = false
+		}
+		Door [LocallyAdded]
+		{
 			var ColliderPath = CogPath
 			{
 				var Path = "."
@@ -599,6 +633,33 @@ Level
 		Transform 
 		{
 			var Translation = Real3{-2, 3, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+	}
+	Cog [InheritId:"5bb58c71def18052:Bat"][ContextId:19]
+	{
+		Transform 
+		{
+			var Translation = Real3{-5, 2, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+	}
+	Cog [InheritId:"5bb58c71def18052:Bat"][ContextId:20]
+	{
+		Transform 
+		{
+			var Translation = Real3{1, 2, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+	}
+	Cog [InheritId:"5bb58c71def18052:Bat"][ContextId:21]
+	{
+		Transform 
+		{
+			var Translation = Real3{6, 5, 0}
 			var Rotation = Quaternion{0, 0, 0, 1}
 			var Scale = Real3{1, 1, 1}
 		}

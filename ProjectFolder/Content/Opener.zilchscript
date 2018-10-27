@@ -1,0 +1,60 @@
+class Opener : ZilchComponent
+{
+  sends OpenableCheck : OpenEvent;
+  sends RequestOpen : OpenEvent;
+  sends WasOpened : OpenEvent;
+  sends DidOpen : OpenEvent;
+  
+  
+  [Dependency]
+  var Inventory : Inventory;
+  
+  
+  [Property]
+  var ColliderPath : CogPath = CogPath(".");
+  
+  var Collider : Collider;
+  var CastFilter : CastFilter = CastFilter();
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    this.Collider = this.ColliderPath.Collider;
+    this.CastFilter.CollisionGroup = this.Collider.CollisionGroup;
+    
+    Zero.Connect(this.Owner, Events.MovementAttempted, this.OnMovementAttempted);
+  }
+  
+  
+  function OnMovementAttempted(event : MovementEvent)
+  {
+    var colliderPosition = this.Collider.Owner.Transform.WorldTranslation;
+    var attemptedPosition = event.AttemptedPosition;
+    var offset = attemptedPosition - colliderPosition;
+    
+    var oe = OpenEvent();
+    oe.Opener = this;
+    oe.Inventory = this.Inventory;
+    
+    var results = this.Space.PhysicsSpace.CastCollider(offset, this.Collider, this.CastFilter);
+    
+    foreach (var result in results)
+    {
+      var object = result.ObjectHit;
+      
+      object.DispatchEvent(Events.OpenableCheck, oe);
+      
+      if (oe.CanOpen)
+        result.ObjectHit.DispatchEvent(Events.RequestOpen, oe);
+    }
+  }
+}
+
+
+class OpenEvent : ZilchEvent
+{
+  var CanOpen : Boolean = false;
+  var Openable : Openable;
+  var Opener : Opener;
+  var Inventory : Inventory;
+}

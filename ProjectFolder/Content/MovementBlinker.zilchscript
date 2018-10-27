@@ -32,6 +32,9 @@ class MovementBlinker : ZilchComponent
   
   function OnMovementStarted(event : MovementEvent)
   {
+    if (this.Space.MarkedForDestruction)
+      return;
+    
     var ghost = this.Space.CreateAtPosition(this.GhostArchetype, event.OldPosition);
     ghost.Sprite.SpriteSource = this.Sprite.SpriteSource;
     ghost.Sprite.SetFrame(this.Sprite.CurrentFrame);

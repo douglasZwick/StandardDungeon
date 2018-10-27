@@ -1,7 +1,7 @@
 [Version:1]
 Cog 
 {
-	var Name = "TeasureChest"
+	var Name = "TreasureChest"
 	Transform 
 	{
 		var Translation = Real3{2, 5, 0}
@@ -20,7 +20,7 @@ Cog
 		var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
 		var VertexColor = Real4{0, 0, 0, 1}
 		var GeometryMode = SpriteGeometryMode.ZPlane
-		var SpriteSource = "5bc12a02bc251f52:KeyRing"
+		var SpriteSource = "5baa08119f285a5a:TreasureChest"
 		var FlipX = false
 		var FlipY = false
 		var AnimationActive = true
@@ -29,12 +29,21 @@ Cog
 	}
 	BoxCollider 
 	{
-		var Ghost = true
+		var Ghost = false
 		var SendsEvents = true
 		var Material = "4de020863e872da8:DefaultPhysicsMaterial"
 		var CollisionGroup = "4e740859314e5515:DefaultGroup"
 		var Offset = Real3{0, 0, 0}
 		var HalfSize = Real3{0.449999988, 0.449999988, 0.449999988}
+	}
+	Openable 
+	{
+		var Locks = 1
+		var Opened = false
+	}
+	Chest 
+	{
+		var Contents = "5bab4e400484619f:Loot"
 	}
 	Hierarchy 
 	{
