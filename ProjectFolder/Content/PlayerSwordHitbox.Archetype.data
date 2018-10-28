@@ -34,8 +34,8 @@ Cog
 		var VertexColor = Real4{0, 0, 0, 1}
 		var GeometryMode = SpriteGeometryMode.ZPlane
 		var Text = "SLASH"
-		var Font = "587b2f7646ba23d5:NotoSans-Bold"
-		var FontSize = 32
+		var Font = "5bafa377830e8960:LEAGUEGOTHICITALIC"
+		var FontSize = 64
 		var PixelsPerUnit = 128
 		var TextAlign = TextAlign.Center
 	}

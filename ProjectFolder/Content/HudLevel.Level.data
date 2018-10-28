@@ -682,41 +682,50 @@ Level
 	}
 	Cog [ContextId:20]
 	{
-		var Name = "Console"
+		var Name = "ConsoleRoot"
 		Transform 
 		{
-			var Translation = Real3{-1.75, -3, 0}
+			var Translation = Real3{-1.75, -3.5, 0}
 			var Scale = Real3{1, 1, 1}
 			var Rotation = Quaternion{0, 0, 0, 1}
 		}
-		ConsoleSystem 
-		{
-			var MessageArchetype = "5bafad065254a548:ConsoleText"
-			var MessageRoot = CogPath
-			{
-				var Path = "."
-				var ErrorOnResolveToNull = false
-				var ErrorOnPathCantCompute = false
-				var ErrorOnDirectLinkFail = false
-				var UpdateCogOnPathChange = true
-				var UpdatePathOnCogChange = true
-				var UpdateCogOnInitialize = true
-				var ResolvedNullErrorOccurred = false
-				var Cog = 20
-				var PathPreference0 = CogPathPreference.CogRelative
-				var PathPreference1 = CogPathPreference.SpaceRelative
-				var PathPreference2 = CogPathPreference.Absolute
-			}
-		}
 		Hierarchy 
 		{
-			Cog [Id:0x5bafaea622183093][InheritId:"5bafad065254a548:ConsoleText"][ContextId:21]
+			Cog [Id:0x5bad4a9898be37d0][ContextId:21]
 			{
+				var Name = "Console"
 				Transform 
 				{
 					var Translation = Real3{0, 0, 0}
-					var Rotation = Quaternion{0, 0, 0, 1}
 					var Scale = Real3{1, 1, 1}
+					var Rotation = Quaternion{0, 0, 0, 1}
+				}
+				ConsoleSystem 
+				{
+					var MessageArchetype = "5bafad065254a548:ConsoleText"
+					var MessageRoot = CogPath
+					{
+						var Path = "."
+						var ErrorOnResolveToNull = false
+						var ErrorOnPathCantCompute = false
+						var ErrorOnDirectLinkFail = false
+						var UpdateCogOnPathChange = true
+						var UpdatePathOnCogChange = true
+						var UpdateCogOnInitialize = true
+						var ResolvedNullErrorOccurred = false
+						var Cog = 21
+						var PathPreference0 = CogPathPreference.CogRelative
+						var PathPreference1 = CogPathPreference.SpaceRelative
+						var PathPreference2 = CogPathPreference.Absolute
+					}
+				}
+				Area 
+				{
+					var Size = Real2{3.5, 4.25}
+					var Origin = Location.BottomLeft
+				}
+				Hierarchy 
+				{
 				}
 			}
 		}

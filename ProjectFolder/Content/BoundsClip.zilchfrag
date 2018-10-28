@@ -23,11 +23,29 @@ struct BoundsClip
     var lowerColor = Math.Lerp(colorIfOutOfBounds, colorIfBetweenStops, lowerInterpolant);
     var upperColor = Math.Lerp(colorIfBetweenStops, colorIfOutOfBounds, upperInterpolant);
     
+    var yIsOutOfBounds = y < this.Min || y > this.Max;
     var yIsBetweenStops = y >= this.LowerStop && y <= this.UpperStop;
     var yIsInLowerBand = y >= this.Min && y < this.LowerStop;
     var yIsInUpperBand = y > this.UpperStop && y <= this.Max;
     
-    this.Color = Math.Lerp(Math.Lerp(Math.Lerp(colorIfOutOfBounds, upperColor, yIsInUpperBand as Real),
-                                     lowerColor, yIsInLowerBand as Real), colorIfBetweenStops, yIsBetweenStops as Real);
+    // TODO: figure out whether this branch-discard is actually
+    // better or worse than drawing tons of zero-opacity pixels
+    
+    // is this pixel lower than the min or higher than the max?
+    //   if so, it should be discarded
+    if (yIsOutOfBounds)
+      Shader.Discard();
+    
+    // is this pixel lower than the lower stop?
+    //   if so, it should use the lower color
+    //   if not, it's something else
+    // that something else:
+    // | is this pixel higher than the upper stop?
+    // |   if so, it should use the upper color
+    // |   if not, it's the normal color
+    
+    var inner = Math.Lerp(colorIfBetweenStops, upperColor, yIsInUpperBand as Real);
+    var outer = Math.Lerp(inner, lowerColor, yIsInLowerBand as Real);
+    this.Color = outer;
   }
 }

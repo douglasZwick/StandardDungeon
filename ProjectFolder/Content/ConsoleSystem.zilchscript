@@ -9,6 +9,8 @@ class ConsoleSystem : ZilchComponent
   
   [Dependency]
   var Transform : Transform;
+  [Dependency]
+  var Area : Area;
   
   
   [Property]
@@ -16,24 +18,58 @@ class ConsoleSystem : ZilchComponent
   [Property][Group("Internal")]
   var MessageRoot : CogPath = CogPath(".");
   
-  var MaxMessageCount : Integer = 256;
   var MessageArray : Array[Cog] = Array[Cog]();
+  var MaxMessageCount : Integer = 40;
   var OldMessageOpacity : Real = 0.25;
-  var ScrollSpeed : Real = 1;
+  var ScrollSpeed : Real = 0.5;
+  var KeyboardScrollMultiplier : Real = 10;
+  var ScrollDuration : Real = 0.1;
   var CurrentHeight : Real = 0;
-  var StartingWorldY : Real;
-  
+  var ScrollTargetY : Real = 0;
+  var ClippingMaterial : Material = Material.BoundsClippedLCDSprite;
   var ActionSequence : ActionSequence;
+  var ClippingThickness : Real = 1.25;
+  var ClippingMin : Real;
+  var ClippingMax : Real;
+  var ClippingLowerStop : Real;
+  var ClippingUpperStop : Real;
+  
+  var ConsoleHeight : Real { get { return this.Area.Size.Y; }}
   
   
   function Initialize(init : CogInitializer)
   {
-    this.ActionSequence = Action.Sequence(this.Owner.Actions);
+    this.ClippingMin = this.Area.WorldBottom;
+    this.ClippingMax = this.Area.WorldTop;
+    this.ClippingLowerStop = this.ClippingMin + this.ClippingThickness;
+    this.ClippingUpperStop = this.ClippingMax - this.ClippingThickness;
     
-    this.StartingWorldY = this.Transform.WorldTranslation.Y;
+    this.ClippingMaterial.BoundsClip.Min = this.ClippingMin;
+    this.ClippingMaterial.BoundsClip.LowerStop = this.ClippingLowerStop;
+    this.ClippingMaterial.BoundsClip.UpperStop = this.ClippingUpperStop;
+    this.ClippingMaterial.BoundsClip.Max = this.ClippingMax;
+    
+    this.ActionSequence = Action.Sequence(this.Owner.Actions);
     
     Zero.Connect(this.GameSession, Events.Print, this.OnPrint);
     Zero.Connect(this.Space, Events.MouseScroll, this.OnMouseScroll);
+    Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
+  }
+  
+  
+  function OnLogicUpdate(event : UpdateEvent)
+  {
+    // TODO: add gamepad support
+    
+    var scrollDistance = this.ScrollSpeed * this.KeyboardScrollMultiplier * event.Dt;
+    
+    var pageUp = Zero.Keyboard.KeyIsDown(Keys.PageUp) || Zero.Keyboard.KeyIsDown(Keys.A);
+    var pageDn = Zero.Keyboard.KeyIsDown(Keys.PageDown) || Zero.Keyboard.KeyIsDown(Keys.Z);
+    
+    if      (pageUp && !pageDn)
+      this.Scroll(-scrollDistance);
+    else if (!pageUp && pageDn)
+      this.Scroll(+scrollDistance);
   }
   
   
@@ -53,32 +89,43 @@ class ConsoleSystem : ZilchComponent
     this.Trim();
     
     this.ScrollToBottom();
+    
+    this.Clip();
   }
   
   
   function OnMouseScroll(event : ViewportMouseEvent)
   {
-    var targetTranslation = this.Transform.WorldTranslation;
     var scroll = -event.Scroll.Y * this.ScrollSpeed;
-    targetTranslation.Y = Math.Clamp(targetTranslation.Y + scroll, this.StartingWorldY - this.CurrentHeight, this.StartingWorldY);
     
-    // TODO: this scrolling still feels a little funky
+    this.Scroll(scroll);
+  }
+  
+  
+  function Scroll(scroll : Real)
+  {
+    if (this.CurrentHeight <= this.ConsoleHeight)
+      return;
+    
+    this.Clip();
+    
+    this.ScrollTargetY = Math.Clamp(this.ScrollTargetY + scroll, this.ConsoleHeight - this.CurrentHeight, 0);
+    
+    var targetTranslation = this.Transform.LocalTranslation;
+    var currentScrollY = targetTranslation.Y;
+    targetTranslation.Y = this.ScrollTargetY;
     
     this.ActionSequence.Cancel();
     this.ActionSequence = Action.Sequence(this.Owner.Actions);
       
-      Action.Property(this.ActionSequence, @this.Transform.WorldTranslation, targetTranslation, 0.1, Ease.Linear);
+      Action.Property(this.ActionSequence, @this.Transform.LocalTranslation, targetTranslation, this.ScrollDuration, Ease.Linear);
+      Action.Call(this.ActionSequence, this.Clip);
   }
   
   
   function ScrollToBottom()
   {
-    var targetTranslation = this.Transform.WorldTranslation;
-    targetTranslation.Y = this.StartingWorldY;
-    this.ActionSequence.Cancel();
-    this.ActionSequence = Action.Sequence(this.Owner.Actions);
-      
-      Action.Property(this.ActionSequence, @this.Transform.WorldTranslation, targetTranslation, 0.1, Ease.Linear);
+    this.Scroll(-this.ScrollTargetY);
   }
   
   
@@ -105,6 +152,29 @@ class ConsoleSystem : ZilchComponent
       
       message.Destroy();
     }
+  }
+  
+  
+  function Clip()
+  {
+    // TODO: use an action to interpolate the stops instead of snapping them
+    
+    var clippingEpsilon = 1.0e-4;
+    var scrollingEpsilon = 0.05;
+    
+    var currentHeight = this.CurrentHeight;
+    var currentWorldY = this.Transform.WorldTranslation.Y;
+    var currentWorldTop = currentWorldY + currentHeight;
+    
+    if (currentWorldY >= this.ClippingMin - scrollingEpsilon)
+      this.ClippingMaterial.BoundsClip.LowerStop = this.ClippingMin + clippingEpsilon;
+    else
+      this.ClippingMaterial.BoundsClip.LowerStop = this.ClippingLowerStop;
+    
+    if (currentWorldTop <= this.ClippingMax + scrollingEpsilon)
+      this.ClippingMaterial.BoundsClip.UpperStop = this.ClippingMax - clippingEpsilon;
+    else
+      this.ClippingMaterial.BoundsClip.UpperStop = this.ClippingUpperStop;
   }
 }
 
