@@ -1,0 +1,75 @@
+class ConsoleText : ZilchComponent
+{
+  [Static]
+  var PreBreakCharacters : Array[Rune] = Array[Rune]()
+  {
+    " ".All.Current,
+    "\n".All.Current,
+    "\t".All.Current,
+  };
+  [Static]
+  var PostBreakCharacters : Array[Rune] = Array[Rune]()
+  {
+    ".".All.Current,
+    ",".All.Current,
+    "-".All.Current,
+    "!".All.Current,
+    "?".All.Current,
+    "/".All.Current,
+    "|".All.Current,
+    ":".All.Current,
+    ";".All.Current,
+    Rune(151),        // em dash
+  };
+  
+  
+  [Property]
+  var SubTextArchetype : Archetype = Archetype.ConsoleSubText;
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    this.Setup("Lorem ipsum dolor sit amet, consectetur adipisicing elit");
+  }
+  
+  
+  function Setup(text : String)
+  {
+    var subtext = this.Space.Create(this.SubTextArchetype);
+    subtext.AttachTo(this.Owner);
+    subtext.Transform.LocalTranslation = Real3.Zero;
+    var size = subtext.SpriteText.MeasureGivenText(text);
+    subtext.SpriteText.Text = "`size`";
+    
+    var currentLineText = "";
+    
+    foreach (var rune in text)
+    {
+      var char = String.FromRune(rune);
+      
+      // TODO: pick it up here. basically, you've got to look at each rune and
+      // decide what to do with it. if it's a break rune, then ... well, figure
+      // it out later dumbass lol
+    }
+  }
+  
+  
+  function IsPreBreakCharacter(rune : Rune) : Boolean
+  {
+    foreach (var preBreakRune in ConsoleText.PreBreakCharacters)
+      if (rune == preBreakRune)
+        return true;
+    
+    return false;
+  }
+  
+  
+  function IsPostBreakCharacter(rune : Rune) : Boolean
+  {
+    foreach (var postBreakRune in ConsoleText.PostBreakCharacters)
+      if (rune == postBreakRune)
+        return true;
+    
+    return false;
+  }
+}

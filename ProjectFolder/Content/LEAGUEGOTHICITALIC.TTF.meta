@@ -1,0 +1,9 @@
+[Version:1]
+FontContent 
+{
+	FontBuilder 
+	{
+		var Name = "LEAGUEGOTHICITALIC"
+		var ResourceId = 0x5bafa377830e8960
+	}
+}

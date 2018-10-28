@@ -1,0 +1,18 @@
+[Version:1]
+Cog 
+{
+	var Name = "ConsoleText"
+	Transform 
+	{
+		var Translation = Real3{0, 0, 0}
+		var Scale = Real3{1, 1, 1}
+		var Rotation = Quaternion{0, 0, 0, 1}
+	}
+	ConsoleText 
+	{
+		var SubTextArchetype = "5bafa870d39724a8:ConsoleSubText"
+	}
+	Hierarchy 
+	{
+	}
+}

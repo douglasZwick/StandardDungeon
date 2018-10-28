@@ -128,7 +128,7 @@ Level
 			var FarPlane = 500
 			var PerspectiveMode = PerspectiveMode.Orthographic
 			var FieldOfView = 45
-			var Size = 13.4063997
+			var Size = 8.13140011
 		}
 		EditorCameraController 
 		{
@@ -678,6 +678,28 @@ Level
 		AlarmClock 
 		{
 			var SetOnInitialize = true
+		}
+	}
+	Cog [ContextId:20]
+	{
+		var Name = "Console"
+		Transform 
+		{
+			var Translation = Real3{-1.75, -3.5, 0}
+			var Scale = Real3{1, 1, 1}
+			var Rotation = Quaternion{0, 0, 0, 1}
+		}
+		Hierarchy 
+		{
+			Cog [Id:0x5bafaea622183093][InheritId:"5bafad065254a548:ConsoleText"][ContextId:21]
+			{
+				Transform 
+				{
+					var Translation = Real3{0, 0, 0}
+					var Rotation = Quaternion{0, 0, 0, 1}
+					var Scale = Real3{1, 1, 1}
+				}
+			}
 		}
 	}
 }

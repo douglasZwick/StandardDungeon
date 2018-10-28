@@ -1,0 +1,11 @@
+[Version:1]
+DataContent 
+{
+	DataBuilder 
+	{
+		var Name = "ConsoleSubText"
+		var ResourceId = 0x5bafa870d39724a8
+		var LoaderType = "Cog"
+		var Version = 0
+	}
+}
