@@ -63,7 +63,7 @@ Level
 				var PathPreference1 = CogPathPreference.SpaceRelative
 				var PathPreference2 = CogPathPreference.Absolute
 			}
-			var ShadowDepth = 0.25
+			var ShadowDepth = 0.100000001
 			var ValueThreshold = 0.5
 			var ShadowColor = Real4{0, 0, 0, 0.25}
 			var MeshSolidColor = Real4{0, 0, 0, 1}
@@ -128,7 +128,7 @@ Level
 			var FarPlane = 500
 			var PerspectiveMode = PerspectiveMode.Orthographic
 			var FieldOfView = 45
-			var Size = 8.13140011
+			var Size = 8.98658657
 		}
 		EditorCameraController 
 		{
@@ -685,9 +685,28 @@ Level
 		var Name = "Console"
 		Transform 
 		{
-			var Translation = Real3{-1.75, -3.5, 0}
+			var Translation = Real3{-1.75, -3, 0}
 			var Scale = Real3{1, 1, 1}
 			var Rotation = Quaternion{0, 0, 0, 1}
+		}
+		ConsoleSystem 
+		{
+			var MessageArchetype = "5bafad065254a548:ConsoleText"
+			var MessageRoot = CogPath
+			{
+				var Path = "."
+				var ErrorOnResolveToNull = false
+				var ErrorOnPathCantCompute = false
+				var ErrorOnDirectLinkFail = false
+				var UpdateCogOnPathChange = true
+				var UpdatePathOnCogChange = true
+				var UpdateCogOnInitialize = true
+				var ResolvedNullErrorOccurred = false
+				var Cog = 20
+				var PathPreference0 = CogPathPreference.CogRelative
+				var PathPreference1 = CogPathPreference.SpaceRelative
+				var PathPreference2 = CogPathPreference.Absolute
+			}
 		}
 		Hierarchy 
 		{

@@ -1,0 +1,9 @@
+[Version:1]
+TextContent 
+{
+	ZilchScriptBuilder 
+	{
+		var Name = "ConsoleSystem"
+		var ResourceId = 0x5bae62f3759b1d61
+	}
+}

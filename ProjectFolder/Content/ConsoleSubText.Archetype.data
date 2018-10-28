@@ -17,12 +17,12 @@ Cog
 		var LocalAabbCenter = Real3{0, 0, 0}
 		var LocalAabbHalfExtents = Real3{1, 1, 1}
 		var GroupSortValue = 0
-		var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
+		var Material = "5bae74c1a387e0b4:BoundsClippedLCDSprite"
 		var VertexColor = Real4{0, 0, 0, 1}
 		var GeometryMode = SpriteGeometryMode.ZPlane
 		var Text = "you miss the bat hit"
 		var Font = "5bafa377830ef7d2:LEAGUEGOTHICREGULAR"
-		var FontSize = 40
+		var FontSize = 48
 		var PixelsPerUnit = 128
 		var TextAlign = TextAlign.Left
 	}

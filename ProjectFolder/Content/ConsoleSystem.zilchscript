@@ -1,0 +1,148 @@
+class ConsoleSystem : ZilchComponent
+{
+  sends Print : ConsoleSystemEvent;
+  
+  
+  [Static]
+  var Spacing : Real = 1 / 10.0;
+  
+  
+  [Dependency]
+  var Transform : Transform;
+  
+  
+  [Property]
+  var MessageArchetype : Archetype = Archetype.ConsoleText;
+  [Property][Group("Internal")]
+  var MessageRoot : CogPath = CogPath(".");
+  
+  var MaxMessageCount : Integer = 256;
+  var MessageArray : Array[Cog] = Array[Cog]();
+  var OldMessageOpacity : Real = 0.25;
+  var ScrollSpeed : Real = 1;
+  var CurrentHeight : Real = 0;
+  var StartingWorldY : Real;
+  
+  var ActionSequence : ActionSequence;
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    this.ActionSequence = Action.Sequence(this.Owner.Actions);
+    
+    this.StartingWorldY = this.Transform.WorldTranslation.Y;
+    
+    Zero.Connect(this.GameSession, Events.Print, this.OnPrint);
+    Zero.Connect(this.Space, Events.MouseScroll, this.OnMouseScroll);
+  }
+  
+  
+  function OnPrint(event : ConsoleSystemEvent)
+  {
+    var textArray = event.TextArray;
+    var subtextCount = textArray.Count;
+    
+    this.Shift(subtextCount);
+    
+    var message = this.Space.CreateAtPosition(this.MessageArchetype, Real3.Zero);
+    message.AttachToPreserveLocal(this.MessageRoot.Cog);
+    message.ConsoleText.Setup(textArray);
+    
+    this.MessageArray.Insert(0, message);
+    
+    this.Trim();
+    
+    this.ScrollToBottom();
+  }
+  
+  
+  function OnMouseScroll(event : ViewportMouseEvent)
+  {
+    var targetTranslation = this.Transform.WorldTranslation;
+    var scroll = -event.Scroll.Y * this.ScrollSpeed;
+    targetTranslation.Y = Math.Clamp(targetTranslation.Y + scroll, this.StartingWorldY - this.CurrentHeight, this.StartingWorldY);
+    
+    // TODO: this scrolling still feels a little funky
+    
+    this.ActionSequence.Cancel();
+    this.ActionSequence = Action.Sequence(this.Owner.Actions);
+      
+      Action.Property(this.ActionSequence, @this.Transform.WorldTranslation, targetTranslation, 0.1, Ease.Linear);
+  }
+  
+  
+  function ScrollToBottom()
+  {
+    var targetTranslation = this.Transform.WorldTranslation;
+    targetTranslation.Y = this.StartingWorldY;
+    this.ActionSequence.Cancel();
+    this.ActionSequence = Action.Sequence(this.Owner.Actions);
+      
+      Action.Property(this.ActionSequence, @this.Transform.WorldTranslation, targetTranslation, 0.1, Ease.Linear);
+  }
+  
+  
+  function Shift(subtextCount : Integer)
+  {
+    var shiftDistance = subtextCount * ConsoleText.LineSpacing + ConsoleSystem.Spacing;
+    this.CurrentHeight += shiftDistance;
+    
+    foreach (var message in this.MessageArray)
+    {
+      message.Transform.LocalTranslation += Real3.YAxis * shiftDistance;
+      message.ConsoleText.SetOpacity(this.OldMessageOpacity);
+    }
+  }
+  
+  
+  function Trim()
+  {
+    if (this.MessageArray.Count >= this.MaxMessageCount)
+    {
+      var message = this.MessageArray.Pop();
+      var subtextCount = message.ConsoleText.TextArray.Count;
+      this.CurrentHeight -= subtextCount * ConsoleText.LineSpacing + ConsoleSystem.Spacing;
+      
+      message.Destroy();
+    }
+  }
+}
+
+
+class ConsoleSystemEvent : ZilchEvent
+{
+  var TextArray : Array[String] = Array[String]();
+  
+  constructor() : base() {}
+  
+  constructor(textArray : Array[String]) : base()
+  {
+    this.TextArray = textArray;
+  }
+  
+  constructor(text0 : String) : base()
+  {
+    this.TextArray.Add(text0);
+  }
+  
+  constructor(text0 : String, text1 : String) : base()
+  {
+    this.TextArray.Add(text0);
+    this.TextArray.Add(text1);
+  }
+  
+  constructor(text0 : String, text1 : String, text2 : String) : base()
+  {
+    this.TextArray.Add(text0);
+    this.TextArray.Add(text1);
+    this.TextArray.Add(text2);
+  }
+  
+  constructor(text0 : String, text1 : String, text2 : String, text3 : String) : base()
+  {
+    this.TextArray.Add(text0);
+    this.TextArray.Add(text1);
+    this.TextArray.Add(text2);
+    this.TextArray.Add(text3);
+  }
+}

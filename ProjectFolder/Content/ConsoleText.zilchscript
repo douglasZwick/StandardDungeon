@@ -1,75 +1,53 @@
 class ConsoleText : ZilchComponent
 {
   [Static]
-  var PreBreakCharacters : Array[Rune] = Array[Rune]()
-  {
-    " ".All.Current,
-    "\n".All.Current,
-    "\t".All.Current,
-  };
-  [Static]
-  var PostBreakCharacters : Array[Rune] = Array[Rune]()
-  {
-    ".".All.Current,
-    ",".All.Current,
-    "-".All.Current,
-    "!".All.Current,
-    "?".All.Current,
-    "/".All.Current,
-    "|".All.Current,
-    ":".All.Current,
-    ";".All.Current,
-    Rune(151),        // em dash
-  };
+  var LineSpacing : Real = 1 / 3.0;
   
   
   [Property]
   var SubTextArchetype : Archetype = Archetype.ConsoleSubText;
   
+  var TextArray : Array[Cog] = Array[Cog]();
   
-  function Initialize(init : CogInitializer)
+  
+  function Setup(textArray : Array[String])
   {
-    this.Setup("Lorem ipsum dolor sit amet, consectetur adipisicing elit");
-  }
-  
-  
-  function Setup(text : String)
-  {
-    var subtext = this.Space.Create(this.SubTextArchetype);
-    subtext.AttachTo(this.Owner);
-    subtext.Transform.LocalTranslation = Real3.Zero;
-    var size = subtext.SpriteText.MeasureGivenText(text);
-    subtext.SpriteText.Text = "`size`";
+    var count = textArray.Count;
     
-    var currentLineText = "";
-    
-    foreach (var rune in text)
+    for (var i = 0; i < count; ++i)
     {
-      var char = String.FromRune(rune);
+      var text = textArray[i];
       
-      // TODO: pick it up here. basically, you've got to look at each rune and
-      // decide what to do with it. if it's a break rune, then ... well, figure
-      // it out later dumbass lol
+      if (String.IsNullOrEmpty(text))
+        continue;
+      
+      var y = (count - 1 - i) * ConsoleText.LineSpacing;
+      var localPosition = Real3.YAxis * y;
+      var subtext = this.Space.CreateAtPosition(this.SubTextArchetype, localPosition);
+      subtext.AttachToPreserveLocal(this.Owner);
+      
+      subtext.SpriteText.Text = text;
+      
+      this.TextArray.Add(subtext);
     }
   }
   
   
-  function IsPreBreakCharacter(rune : Rune) : Boolean
+  function SetColor(color : Real4)
   {
-    foreach (var preBreakRune in ConsoleText.PreBreakCharacters)
-      if (rune == preBreakRune)
-        return true;
-    
-    return false;
+    foreach (var text in this.TextArray)
+      text.SpriteText.VertexColor = color;
   }
   
   
-  function IsPostBreakCharacter(rune : Rune) : Boolean
+  function SetOpacity(opacity : Real)
   {
-    foreach (var postBreakRune in ConsoleText.PostBreakCharacters)
-      if (rune == postBreakRune)
-        return true;
-    
-    return false;
+    foreach (var text in this.TextArray)
+    {
+      var spriteText = text.SpriteText;
+      var color = spriteText.VertexColor;
+      color.W = opacity;
+      spriteText.VertexColor = color;
+    }
   }
 }

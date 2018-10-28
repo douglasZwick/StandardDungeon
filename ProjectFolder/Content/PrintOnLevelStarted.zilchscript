@@ -1,0 +1,29 @@
+class PrintOnLevelStarted : ZilchComponent
+{
+  function Initialize(init : CogInitializer)
+  {
+    Zero.Connect(this.Space, Events.LevelStarted, this.OnLevelStarted);
+  }
+  
+  
+  function OnLevelStarted(event : GameEvent)
+  {
+    var textArray = Array[String]()
+    {
+      "A voice booms from above.",
+      "",
+      "\"Welcome, o brave Poocha, to the",
+      "Dungeons of Caer Garreg!\"",
+      "",
+      "You peer at your surroundings:",
+      "it's all super old shit, and",
+      "there's monsters and stuff all",
+      "around too. Better be quick with",
+      "the fetch game, kid, or you'll be",
+      "a hungry minotaur's dinner!",
+    };
+    
+    var cse = ConsoleSystemEvent(textArray);
+    this.GameSession.DispatchEvent(Events.Print, cse);
+  }
+}

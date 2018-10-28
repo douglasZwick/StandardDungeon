@@ -1,0 +1,49 @@
+class PrintOnDidCollect : ZilchComponent
+{
+  function Initialize(init : CogInitializer)
+  {
+    Zero.Connect(this.Owner, Events.DidCollect, this.OnDidCollect);
+  }
+  
+  
+  function OnDidCollect(event : CollectionEvent)
+  {
+    var collectable = event.Collectable;
+    
+    var gold = collectable.Gold;
+    var keys = collectable.Keys;
+    var message = "";
+    
+    if (gold > 0)
+    {
+      if (keys > 0)
+      {
+        if (keys == 1)
+          message = "Poocha snagged `gold` gold and a key";
+        else
+          message = "Poocha snagged `gold` gold and `keys` keys";
+      }
+      else
+      {
+        message = "Poocha scored `gold` gold";
+      }
+    }
+    else
+    {
+      if (keys > 0)
+      {
+        if (keys == 1)
+          message = "Poocha found a key";
+        else
+          message = "Poocha grabbed `keys` keys";
+      }
+      else
+      {
+        message = "Poocha picked up a worthless object";
+      }
+    }
+    
+    var cse = ConsoleSystemEvent(message);
+    this.GameSession.DispatchEvent(Events.Print, cse);
+  }
+}

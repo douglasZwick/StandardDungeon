@@ -1,0 +1,33 @@
+[Pixel]
+struct BoundsClip
+{
+  [PropertyInput] var Min : Real = -10;
+  [PropertyInput] var LowerStop : Real = -9.75;
+  [PropertyInput] var UpperStop : Real = 9.75;
+  [PropertyInput] var Max : Real = 10;
+  
+  [BuiltInInput] var ViewToWorld : Real4x4;
+  [FragmentInput][StageInput] var ViewPosition : Real3;
+  [FragmentInput][Output] var Color : Real4;
+
+  function Main()
+  {
+    var worldPosition = Math.MultiplyPoint(this.ViewToWorld, this.ViewPosition);
+    var y = worldPosition.Y;
+    
+    var colorIfBetweenStops = this.Color;
+    var colorIfOutOfBounds = colorIfBetweenStops;
+    colorIfOutOfBounds.W = 0;
+    var lowerInterpolant = (y - this.Min) / (this.LowerStop - this.Min);
+    var upperInterpolant = (y - this.UpperStop) / (this.Max - this.UpperStop);
+    var lowerColor = Math.Lerp(colorIfOutOfBounds, colorIfBetweenStops, lowerInterpolant);
+    var upperColor = Math.Lerp(colorIfBetweenStops, colorIfOutOfBounds, upperInterpolant);
+    
+    var yIsBetweenStops = y >= this.LowerStop && y <= this.UpperStop;
+    var yIsInLowerBand = y >= this.Min && y < this.LowerStop;
+    var yIsInUpperBand = y > this.UpperStop && y <= this.Max;
+    
+    this.Color = Math.Lerp(Math.Lerp(Math.Lerp(colorIfOutOfBounds, upperColor, yIsInUpperBand as Real),
+                                     lowerColor, yIsInLowerBand as Real), colorIfBetweenStops, yIsBetweenStops as Real);
+  }
+}
