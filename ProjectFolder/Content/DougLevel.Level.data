@@ -290,76 +290,13 @@ Level
 			}
 		}
 	}
-	Cog [InheritId:"5bb5fb804ed9a45d:Hero"][ChildOrderOverride][ContextId:8]
+	Cog [InheritId:"5bb5fb804ed9a45d:Hero"][ContextId:8]
 	{
 		Transform 
 		{
 			var Translation = Real3{0, 0, 0}
 			var Rotation = Quaternion{0, 0, 0, 1}
 			var Scale = Real3{1, 1, 1}
-		}
-		Sprite 
-		{
-		}
-		BoxCollider 
-		{
-		}
-		PlayerSword 
-		{
-		}
-		MovementBlinker 
-		{
-		}
-		RigidBody 
-		{
-		}
-		Inventory 
-		{
-		}
-		Collector 
-		{
-		}
-		InventoryCounterUpdater 
-		{
-		}
-		DiscreteMover 
-		{
-		}
-		HeroController 
-		{
-		}
-		CameraPusher 
-		{
-		}
-		Opener [LocallyAdded]
-		{
-			var ColliderPath = CogPath
-			{
-				var Path = "."
-				var ErrorOnResolveToNull = false
-				var ErrorOnPathCantCompute = false
-				var ErrorOnDirectLinkFail = false
-				var UpdateCogOnPathChange = true
-				var UpdatePathOnCogChange = true
-				var UpdateCogOnInitialize = true
-				var ResolvedNullErrorOccurred = false
-				var Cog = 8
-				var PathPreference0 = CogPathPreference.CogRelative
-				var PathPreference1 = CogPathPreference.SpaceRelative
-				var PathPreference2 = CogPathPreference.Absolute
-			}
-		}
-		DoorOpener 
-		{
-		}
-		ChestOpener [LocallyAdded]
-		{
-		}
-		PrintOnDidCollect [LocallyAdded]
-		{
-		}
-		Hierarchy 
-		{
 		}
 	}
 	Cog [ContextId:9]
