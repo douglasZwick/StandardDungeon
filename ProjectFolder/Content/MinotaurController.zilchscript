@@ -32,30 +32,34 @@ class MinotaurController : ZilchComponent
     
     if(Math.Abs(hDiff) > Math.Abs(vDiff))
     {
-      //Move horizontally
+      //Attack horizontally
       if(hDiff < 0)
       {
-        //Move left
-        this.Mover.Move(-Real3.XAxis);
+        //Attack left
+        var shockwaveRef = this.Space.CreateAtPosition(Archetype.ShockwaveHitBox, -Real3.XAxis + this.Owner.Transform.Translation);
+        shockwaveRef.ShockwaveHitBoxBehavior.Direction = Directions.Left;
       }
       else
       {
-        //Move right
-        this.Mover.Move(Real3.XAxis);
+        //Attack right
+        var shockwaveRef = this.Space.CreateAtPosition(Archetype.ShockwaveHitBox, Real3.XAxis + this.Owner.Transform.Translation);
+        shockwaveRef.ShockwaveHitBoxBehavior.Direction = Directions.Right;
       }
     }
     else
     {
-      //Move vertically
+      //Attack vertically
       if(vDiff < 0)
       {
-        //Move down
-        this.Mover.Move(-Real3.YAxis);
+        //Attack down
+        var shockwaveRef = this.Space.CreateAtPosition(Archetype.ShockwaveHitBox, -Real3.YAxis + this.Owner.Transform.Translation);
+        shockwaveRef.ShockwaveHitBoxBehavior.Direction = Directions.Down;
       }
       else
       {
-        //Move up
-        this.Mover.Move(Real3.YAxis);
+        //Attack up
+        var shockwaveRef = this.Space.CreateAtPosition(Archetype.ShockwaveHitBox, Real3.YAxis + this.Owner.Transform.Translation);
+        shockwaveRef.ShockwaveHitBoxBehavior.Direction = Directions.Up;
       }
     }
   }
