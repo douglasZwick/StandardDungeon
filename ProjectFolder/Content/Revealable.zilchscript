@@ -15,7 +15,5 @@ class Revealable : ZilchComponent
     event.Revealable = this;
     this.Owner.DispatchEvent(Events.WasRevealed, event);
     event.Revealer.Owner.DispatchEvent(Events.DidReveal, event);
-    
-    
   }
 }

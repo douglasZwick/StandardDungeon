@@ -1,0 +1,81 @@
+class FadeSpriteInOnWasRevealed : ZilchComponent
+{
+  [Dependency]
+  var BaseSprite : BaseSprite;
+  
+  
+  [Property]
+  var Duration : Real = 4 / 60.0;
+  
+  
+  var InitialColor : Real4;
+  var FadeColor : Real4;
+  var ActionSequence : ActionSequence;
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    this.ActionSequence = Action.Sequence(this.Owner.Actions);
+    
+    this.InitialColor = this.BaseSprite.VertexColor;
+    this.FadeColor = this.InitialColor;
+    this.FadeColor.W = 0;
+    this.BaseSprite.VertexColor = this.FadeColor;
+    
+    Zero.Connect(this.Owner, Events.WasRevealed, this.OnWasRevealed);
+  }
+  
+  
+  function OnWasRevealed(event : RevealEvent)
+  {
+    this.ActionSequence.Cancel();
+    this.ActionSequence = Action.Sequence(this.Owner.Actions);
+      
+      Action.Property(this.ActionSequence, @this.BaseSprite.VertexColor, this.InitialColor, this.Duration, Ease.QuadInOut);
+  }
+}
+
+
+class FadeMultiSpriteInOnWasRevealed : ZilchComponent
+{
+  [Dependency]
+  var MultiSprite : MultiSprite;
+  
+  
+  [Property]
+  var Color : Real4 = Colors.Black;
+  [Property]
+  var Duration : Real = 4 / 60.0;
+  
+  
+  var FadeColor : Real4;
+  var ActionSequence : ActionSequence;
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    this.ActionSequence = Action.Sequence(this.Owner.Actions);
+    
+    this.FadeColor = this.Color;
+    this.FadeColor.W = 0;
+    this.MultiSprite.VertexColor = this.FadeColor;
+    this.MultiSprite.Visible = false;
+    
+    Zero.Connect(this.Owner, Events.WasRevealed, this.OnWasRevealed);
+  }
+  
+  
+  function OnWasRevealed(event : RevealEvent)
+  {
+    foreach (var child in this.Owner.Children)
+    {
+      var multiSprite = child.MultiSprite;
+      
+      if (multiSprite == null)
+        continue;
+      
+      multiSprite.Visible = true;
+      Action.Property(child.Actions, @multiSprite.VertexColor, this.Color, this.Duration, Ease.QuadInOut);
+    }
+  }
+}
