@@ -1,0 +1,20 @@
+class CollisionDebugger : ZilchComponent
+{
+  [Property]
+  var CogA : CogPath;
+  [Property]
+  var CogB : CogPath;
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
+  }
+  
+  
+  function OnLogicUpdate(event : UpdateEvent)
+  {
+    var why = this.Space.PhysicsSpace.WhyAreTheyNotColliding(this.CogA.Cog, this.CogB.Cog);
+    Console.WriteLine(why);
+  }
+}

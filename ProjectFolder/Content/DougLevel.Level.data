@@ -100,9 +100,9 @@ Level
 		var Name = "EditorCamera"
 		Transform 
 		{
-			var Translation = Real3{-0.679709315, 2.32578635, 12.0284615}
+			var Translation = Real3{16.2878418, 4.23430157, 12.0302744}
 			var Scale = Real3{1, 1, 1}
-			var Rotation = Quaternion{-0.0871557519, -1.09695906e-08, -1.90484961e-09, 0.99619478}
+			var Rotation = Quaternion{-0.0504664816, -0.0705364123, -0.00357321254, 0.996225417}
 		}
 		CameraViewport 
 		{
@@ -159,10 +159,10 @@ Level
 		{
 			var ControlMode = ControlMode.Orbit
 			var Previous3DMode = ControlMode.Orbit
-			var LookDistance = 12.2140198
-			var VerticalAngle = 0.17453292
-			var HorizontalAngle = 0
-			var LookTarget = Real3{-0.679709315, 0.204843953, -2.97110407e-08}
+			var LookDistance = 12.2140284
+			var VerticalAngle = 0.101228856
+			var HorizontalAngle = 0.141371414
+			var LookTarget = Real3{18, 3, 0}
 			var MoveSensitivity = 1
 		}
 	}
@@ -298,6 +298,9 @@ Level
 			var Rotation = Quaternion{0, 0, 0, 1}
 			var Scale = Real3{1, 1, 1}
 		}
+		Revealer [LocallyAdded]
+		{
+		}
 	}
 	Cog [ContextId:9]
 	{
@@ -361,8 +364,8 @@ Level
 		Transform 
 		{
 			var Translation = Real3{0, 0, 4}
-			var Scale = Real3{1, 1, 1}
-			var Rotation = Quaternion{-0.129409537, 0.129409537, 0.0170370881, 0.982962966}
+			var Scale = Real3{1, 0.99999994, 0.99999994}
+			var Rotation = Quaternion{-0.129409596, 0.129409567, 0.0170370955, 0.982962966}
 		}
 		SelectionIcon 
 		{
@@ -396,67 +399,125 @@ Level
 	}
 	Cog [ContextId:10]
 	{
-		var Name = "WallsAndStuff"
+		var Name = "TileMaps"
 		Transform 
 		{
-			var Translation = Real3{0.5, 0.5, 0}
+			var Translation = Real3{0, 0, 0}
 			var Scale = Real3{1, 1, 1}
 			var Rotation = Quaternion{0, 0, 0, 1}
 		}
-		MultiSprite 
+		Hierarchy 
 		{
-			var Visible = true
-			var ViewCulling = true
-			var VisibilityEvents = true
-			var OverrideBoundingBox = false
-			var LocalAabbCenter = Real3{0, 0, 0}
-			var LocalAabbHalfExtents = Real3{1, 1, 1}
-			var GroupSortValue = 0
-			var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
-			var VertexColor = Real4{0, 0, 0, 1}
-			var GeometryMode = SpriteGeometryMode.ZPlane
-			var AnimationActive = true
-			var AnimationSpeed = 1
-		}
-		TileMap 
-		{
-			var Source = "5bc8543df24755ac:DougLevel_TileMap00"
-			var PaletteName = "5be3964bf32a73ca:StandardPalette"
-			var MeshThickness = 0.5
+			Cog [Id:0x5bad2e9b6652563d][ContextId:11]
+			{
+				var Name = "WallsAndStuff"
+				Transform 
+				{
+					var Translation = Real3{0.5, 0.5, 0}
+					var Scale = Real3{1, 1, 1}
+					var Rotation = Quaternion{0, 0, 0, 1}
+				}
+				MultiSprite 
+				{
+					var Visible = true
+					var ViewCulling = true
+					var VisibilityEvents = true
+					var OverrideBoundingBox = false
+					var LocalAabbCenter = Real3{0, 0, 0}
+					var LocalAabbHalfExtents = Real3{1, 1, 1}
+					var GroupSortValue = 0
+					var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
+					var VertexColor = Real4{0, 0, 0, 1}
+					var GeometryMode = SpriteGeometryMode.ZPlane
+					var AnimationActive = true
+					var AnimationSpeed = 1
+				}
+				TileMap 
+				{
+					var Source = "5bc8543df24755ac:DougLevel_TileMap00"
+					var PaletteName = "5be3964bf32a73ca:StandardPalette"
+					var MeshThickness = 0.5
+				}
+			}
+			Cog [Id:0x5bad2e9b66525652][ContextId:12]
+			{
+				var Name = "RevealableRoom"
+				Transform 
+				{
+					var Translation = Real3{0.5, 0.5, 0}
+					var Scale = Real3{1, 1, 1}
+					var Rotation = Quaternion{0, 0, 0, 1}
+				}
+				MultiSprite 
+				{
+					var Visible = true
+					var ViewCulling = true
+					var VisibilityEvents = true
+					var OverrideBoundingBox = false
+					var LocalAabbCenter = Real3{0, 0, 0}
+					var LocalAabbHalfExtents = Real3{1, 1, 1}
+					var GroupSortValue = 0
+					var Material = "582c575af53d18c9:AlphaSprite"
+					var VertexColor = Real4{0.899999976, 0.0900000334, 0.225000277, 1}
+					var GeometryMode = SpriteGeometryMode.ZPlane
+					var AnimationActive = true
+					var AnimationSpeed = 1
+				}
+				TileMap 
+				{
+					var Source = "5bad2d3989c5f879:DougLevel_TileMap03"
+					var PaletteName = "5be3964bf32a73ca:StandardPalette"
+					var MeshThickness = 0.5
+				}
+				Revealable 
+				{
+					var ColliderPath = CogPath
+					{
+						var Path = "RevealTrigger"
+						var ErrorOnResolveToNull = false
+						var ErrorOnPathCantCompute = false
+						var ErrorOnDirectLinkFail = false
+						var UpdateCogOnPathChange = true
+						var UpdatePathOnCogChange = true
+						var UpdateCogOnInitialize = true
+						var ResolvedNullErrorOccurred = false
+						var Cog = 13
+						var PathPreference0 = CogPathPreference.CogRelative
+						var PathPreference1 = CogPathPreference.SpaceRelative
+						var PathPreference2 = CogPathPreference.Absolute
+					}
+				}
+				FadeMultiSpriteInOnWasRevealed 
+				{
+					var Color = Real4{0, 0, 0, 1}
+					var Duration = 0.0666666701
+				}
+				Hierarchy 
+				{
+					Cog [Id:0x5bad2954c0e2a936][ContextId:13]
+					{
+						var Name = "RevealTrigger"
+						Transform 
+						{
+							var Translation = Real3{8.5, 4.5, 0}
+							var Scale = Real3{1, 1, 1}
+							var Rotation = Quaternion{0, 0, 0, 1}
+						}
+						BoxCollider 
+						{
+							var Ghost = true
+							var SendsEvents = true
+							var Material = "4de020863e872da8:DefaultPhysicsMaterial"
+							var CollisionGroup = "4e740859314e5515:DefaultGroup"
+							var Offset = Real3{0, 0, 0}
+							var HalfSize = Real3{0.400000006, 0.400000006, 0.5}
+						}
+					}
+				}
+			}
 		}
 	}
-	Cog [ContextId:11]
-	{
-		var Name = "Floor"
-		Transform 
-		{
-			var Translation = Real3{0.5, 0.5, -0.25}
-			var Scale = Real3{1, 1, 1}
-			var Rotation = Quaternion{0, 0, 0, 1}
-		}
-		MultiSprite 
-		{
-			var Visible = false
-			var ViewCulling = true
-			var VisibilityEvents = true
-			var OverrideBoundingBox = false
-			var LocalAabbCenter = Real3{0, 0, 0}
-			var LocalAabbHalfExtents = Real3{1, 1, 1}
-			var GroupSortValue = 0
-			var Material = "582c575af53d18c9:AlphaSprite"
-			var VertexColor = Real4{0.400000006, 0.668000042, 0.800000012, 0.495000005}
-			var GeometryMode = SpriteGeometryMode.ZPlane
-			var AnimationActive = true
-			var AnimationSpeed = 1
-		}
-		TileMap 
-		{
-			var Source = "5bc13051826a730f:DougLevel_TileMap02"
-			var PaletteName = "5be3964bf32a73ca:StandardPalette"
-			var MeshThickness = 1.20000005
-		}
-	}
-	Cog [InheritId:"5bc9b514e5f4a516:Key"][ContextId:12]
+	Cog [InheritId:"5bc9b514e5f4a516:Key"][ContextId:14]
 	{
 		Transform 
 		{
@@ -469,7 +530,7 @@ Level
 			var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
 		}
 	}
-	Cog [InheritId:"5bc9b514e5f4a516:Key"][ContextId:13]
+	Cog [InheritId:"5bc9b514e5f4a516:Key"][ContextId:15]
 	{
 		Transform 
 		{
@@ -487,7 +548,7 @@ Level
 			var Keys = 3
 		}
 	}
-	Cog [InheritId:"5baa087c6215d8fc:TreasureChest"][ContextId:14]
+	Cog [InheritId:"5baa087c6215d8fc:TreasureChest"][ContextId:16]
 	{
 		var Name = "TreasureChest"
 		Transform 
@@ -497,7 +558,7 @@ Level
 			var Scale = Real3{1, 1, 1}
 		}
 	}
-	Cog [InheritId:"5bcf022c5cc4db25:Coin"][ContextId:15]
+	Cog [InheritId:"5bcf022c5cc4db25:Coin"][ContextId:17]
 	{
 		Transform 
 		{
@@ -510,7 +571,7 @@ Level
 			var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
 		}
 	}
-	Cog [InheritId:"5bcf022c5cc4db25:Coin"][ContextId:16]
+	Cog [InheritId:"5bcf022c5cc4db25:Coin"][ContextId:18]
 	{
 		Transform 
 		{
@@ -528,7 +589,7 @@ Level
 			var Gold = 20
 		}
 	}
-	Cog [InheritId:"5bc134b675a9af25:Door"][ChildOrderOverride][ContextId:17]
+	Cog [InheritId:"5bc134b675a9af25:Door"][ChildOrderOverride][ContextId:19]
 	{
 		var Name = "Door"
 		Transform 
@@ -566,14 +627,59 @@ Level
 				var UpdatePathOnCogChange = true
 				var UpdateCogOnInitialize = true
 				var ResolvedNullErrorOccurred = false
-				var Cog = 17
+				var Cog = 19
 				var PathPreference0 = CogPathPreference.CogRelative
 				var PathPreference1 = CogPathPreference.SpaceRelative
 				var PathPreference2 = CogPathPreference.Absolute
 			}
 		}
 	}
-	Cog [InheritId:"5be2494353a222bb:Skelly"][ContextId:18]
+	Cog [InheritId:"5bc134b675a9af25:Door"][ChildOrderOverride][ContextId:20]
+	{
+		var Name = "Door"
+		Transform 
+		{
+			var Translation = Real3{9, 5, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+		Sprite 
+		{
+		}
+		BoxCollider [LocallyAdded]
+		{
+			var Ghost = false
+			var SendsEvents = true
+			var Material = "4de020863e872da8:DefaultPhysicsMaterial"
+			var CollisionGroup = "5baa5c5ee5ab503f:ClosedDoor"
+			var Offset = Real3{0, 0, 0}
+			var HalfSize = Real3{0.449999988, 0.449999988, 0.449999988}
+		}
+		Openable [LocallyAdded]
+		{
+			var Locks = 1
+			var Opened = false
+		}
+		Door [LocallyAdded]
+		{
+			var ColliderPath = CogPath
+			{
+				var Path = "."
+				var ErrorOnResolveToNull = false
+				var ErrorOnPathCantCompute = false
+				var ErrorOnDirectLinkFail = false
+				var UpdateCogOnPathChange = true
+				var UpdatePathOnCogChange = true
+				var UpdateCogOnInitialize = true
+				var ResolvedNullErrorOccurred = false
+				var Cog = 20
+				var PathPreference0 = CogPathPreference.CogRelative
+				var PathPreference1 = CogPathPreference.SpaceRelative
+				var PathPreference2 = CogPathPreference.Absolute
+			}
+		}
+	}
+	Cog [InheritId:"5be2494353a222bb:Skelly"][ContextId:21]
 	{
 		Transform 
 		{
@@ -586,7 +692,7 @@ Level
 			var Keys = 1
 		}
 	}
-	Cog [InheritId:"5bb58c71def18052:Bat"][ContextId:19]
+	Cog [InheritId:"5bb58c71def18052:Bat"][ContextId:22]
 	{
 		Transform 
 		{
@@ -595,7 +701,7 @@ Level
 			var Scale = Real3{1, 1, 1}
 		}
 	}
-	Cog [InheritId:"5bb58c71def18052:Bat"][ContextId:20]
+	Cog [InheritId:"5bb58c71def18052:Bat"][ContextId:23]
 	{
 		Transform 
 		{
@@ -604,11 +710,38 @@ Level
 			var Scale = Real3{1, 1, 1}
 		}
 	}
-	Cog [InheritId:"5bb58c71def18052:Bat"][ContextId:21]
+	Cog [InheritId:"5bb58c71def18052:Bat"][ContextId:24]
 	{
 		Transform 
 		{
 			var Translation = Real3{6, 5, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+	}
+	Cog [InheritId:"5bb58c71def18052:Bat"][ContextId:25]
+	{
+		Transform 
+		{
+			var Translation = Real3{16, 7, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+	}
+	Cog [InheritId:"5bb58c71def18052:Bat"][ContextId:26]
+	{
+		Transform 
+		{
+			var Translation = Real3{14, 1, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+	}
+	Cog [InheritId:"5bb58c71def18052:Bat"][ContextId:27]
+	{
+		Transform 
+		{
+			var Translation = Real3{18, 3, 0}
 			var Rotation = Quaternion{0, 0, 0, 1}
 			var Scale = Real3{1, 1, 1}
 		}

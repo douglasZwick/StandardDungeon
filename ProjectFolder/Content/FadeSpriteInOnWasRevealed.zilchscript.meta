@@ -1,0 +1,9 @@
+[Version:1]
+TextContent 
+{
+	ZilchScriptBuilder 
+	{
+		var Name = "FadeSpriteInOnWasRevealed"
+		var ResourceId = 0x5bad239deb1d0d08
+	}
+}
