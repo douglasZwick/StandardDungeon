@@ -1,0 +1,9 @@
+[Version:1]
+TextContent 
+{
+	ZilchScriptBuilder 
+	{
+		var Name = "Reader"
+		var ResourceId = 0x5badcb45561ea1a7
+	}
+}

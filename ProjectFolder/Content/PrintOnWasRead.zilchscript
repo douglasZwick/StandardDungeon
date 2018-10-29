@@ -1,0 +1,33 @@
+class PrintOnWasRead : ZilchComponent
+{
+  [Property]
+  var Line0 : String = "BLESS";
+  [Property]
+  var Line1 : String = "THIS";
+  [Property]
+  var Line2 : String = "FUCKIN";
+  [Property]
+  var Line3 : String = "HOUSE";
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    Zero.Connect(this.Owner, Events.WasRead, this.OnWasRead);
+  }
+  
+  
+  function OnWasRead(event : ReadEvent)
+  {
+    var textArray = Array[String]();
+    if (this.Line0 != null)
+      textArray.Add(this.Line0);
+    if (this.Line1 != null)
+      textArray.Add(this.Line1);
+    if (this.Line2 != null)
+      textArray.Add(this.Line2);
+    if (this.Line3 != null)
+      textArray.Add(this.Line3);
+    var cse = ConsoleSystemEvent(textArray);
+    this.GameSession.DispatchEvent(Events.Print, cse);
+  }
+}

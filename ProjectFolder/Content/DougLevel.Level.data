@@ -23,21 +23,6 @@ Level
 			var LinearDrag = 0
 			var AngularDrag = 0
 		}
-		GridDraw 
-		{
-			var Active = true
-			var HalfCellOffset = true
-			var CellSize = 1
-			var Axis = AxisDirection.Z
-			var Lines = 100
-			var DrawAxisOrigins = true
-			var AlwaysDrawInEditor = true
-			var DrawInGame = false
-			var GridColor = Real4{0.5, 0.5, 0.5, 0.400000006}
-			var GridHighlight = Real4{0, 0, 0, 0.400000006}
-			var HighlightInterval = 10
-			var FollowEditorCamera = false
-		}
 		HudMaster 
 		{
 			var HudLevel = "5bc10a19fca0dfce:HudLevel"
@@ -100,9 +85,9 @@ Level
 		var Name = "EditorCamera"
 		Transform 
 		{
-			var Translation = Real3{3.34756517, 5.42733812, 34.5174294}
+			var Translation = Real3{4.71428919, 6.64593983, 7.79178047}
 			var Scale = Real3{1, 1, 1}
-			var Rotation = Quaternion{-0.00608836394, -0.0810670704, -0.000495205051, 0.996689916}
+			var Rotation = Quaternion{0.0226834938, -0.0183201823, 0.000415743038, 0.999574721}
 		}
 		CameraViewport 
 		{
@@ -153,20 +138,45 @@ Level
 			var FarPlane = 500
 			var PerspectiveMode = PerspectiveMode.Perspective
 			var FieldOfView = 45
-			var Size = 6.65742731
+			var Size = 6.0238905
 		}
 		EditorCameraController 
 		{
 			var ControlMode = ControlMode.Orbit
 			var Previous3DMode = ControlMode.Orbit
-			var LookDistance = 34.9797897
-			var VerticalAngle = 0.012217015
-			var HorizontalAngle = 0.162315294
-			var LookTarget = Real3{9, 5, 0}
+			var LookDistance = 7.8050518
+			var VerticalAngle = -0.0453784987
+			var HorizontalAngle = 0.0366518013
+			var LookTarget = Real3{5, 7, 0}
 			var MoveSensitivity = 1
 		}
 	}
 	Cog [ContextId:5]
+	{
+		var Name = "GridDraw"
+		Transform 
+		{
+			var Translation = Real3{-0.5, -0.5, 0}
+			var Scale = Real3{1, 1, 1}
+			var Rotation = Quaternion{0, 0, 0, 1}
+		}
+		GridDraw 
+		{
+			var Active = true
+			var HalfCellOffset = false
+			var CellSize = 1
+			var Axis = AxisDirection.Z
+			var Lines = 100
+			var DrawAxisOrigins = true
+			var AlwaysDrawInEditor = true
+			var DrawInGame = false
+			var GridColor = Real4{0.5, 0.5, 0.5, 0.400000006}
+			var GridHighlight = Real4{0, 0, 0, 0.400000006}
+			var HighlightInterval = 10
+			var FollowEditorCamera = false
+		}
+	}
+	Cog [ContextId:6]
 	{
 		var Name = "Dolly"
 		Transform 
@@ -187,7 +197,7 @@ Level
 				var UpdatePathOnCogChange = true
 				var UpdateCogOnInitialize = true
 				var ResolvedNullErrorOccurred = false
-				var Cog = 5
+				var Cog = 6
 				var PathPreference0 = CogPathPreference.CogRelative
 				var PathPreference1 = CogPathPreference.SpaceRelative
 				var PathPreference2 = CogPathPreference.Absolute
@@ -202,7 +212,7 @@ Level
 				var UpdatePathOnCogChange = true
 				var UpdateCogOnInitialize = true
 				var ResolvedNullErrorOccurred = false
-				var Cog = 6
+				var Cog = 7
 				var PathPreference0 = CogPathPreference.CogRelative
 				var PathPreference1 = CogPathPreference.SpaceRelative
 				var PathPreference2 = CogPathPreference.Absolute
@@ -213,7 +223,7 @@ Level
 		}
 		Hierarchy 
 		{
-			Cog [Id:0x5bc13a43e5efe518][ContextId:7]
+			Cog [Id:0x5bc13a43e5efe518][ContextId:8]
 			{
 				var Name = "GameCamera"
 				Transform 
@@ -246,7 +256,7 @@ Level
 						var UpdatePathOnCogChange = true
 						var UpdateCogOnInitialize = true
 						var ResolvedNullErrorOccurred = false
-						var Cog = 7
+						var Cog = 8
 						var PathPreference0 = CogPathPreference.CogRelative
 						var PathPreference1 = CogPathPreference.SpaceRelative
 						var PathPreference2 = CogPathPreference.Absolute
@@ -290,7 +300,7 @@ Level
 			}
 		}
 	}
-	Cog [InheritId:"5bb5fb804ed9a45d:Hero"][ContextId:8]
+	Cog [InheritId:"5bb5fb804ed9a45d:Hero"][ContextId:9]
 	{
 		Transform 
 		{
@@ -301,8 +311,11 @@ Level
 		Revealer [LocallyAdded]
 		{
 		}
+		Reader [LocallyAdded]
+		{
+		}
 	}
-	Cog [ContextId:9]
+	Cog [ContextId:10]
 	{
 		var Name = "Cube"
 		Transform 
@@ -397,7 +410,7 @@ Level
 		{
 		}
 	}
-	Cog [ContextId:10]
+	Cog [ContextId:11]
 	{
 		var Name = "TileMaps"
 		Transform 
@@ -408,7 +421,7 @@ Level
 		}
 		Hierarchy 
 		{
-			Cog [Id:0x5bad2e9b6652563d][ContextId:11]
+			Cog [Id:0x5bad2e9b6652563d][ContextId:12]
 			{
 				var Name = "WallsAndStuff"
 				Transform 
@@ -439,7 +452,7 @@ Level
 					var MeshThickness = 0.5
 				}
 			}
-			Cog [Id:0x5bad2e9b66525652][ContextId:12]
+			Cog [Id:0x5bad2e9b66525652][ContextId:13]
 			{
 				var Name = "RevealableRoom"
 				Transform 
@@ -483,7 +496,7 @@ Level
 						var UpdatePathOnCogChange = true
 						var UpdateCogOnInitialize = true
 						var ResolvedNullErrorOccurred = false
-						var Cog = 13
+						var Cog = 14
 						var PathPreference0 = CogPathPreference.CogRelative
 						var PathPreference1 = CogPathPreference.SpaceRelative
 						var PathPreference2 = CogPathPreference.Absolute
@@ -498,7 +511,7 @@ Level
 				}
 				Hierarchy 
 				{
-					Cog [Id:0x5bad2954c0e2a936][ContextId:13]
+					Cog [Id:0x5bad2954c0e2a936][ContextId:14]
 					{
 						var Name = "RevealTrigger"
 						Transform 
@@ -549,7 +562,7 @@ Level
 								var UpdatePathOnCogChange = true
 								var UpdateCogOnInitialize = true
 								var ResolvedNullErrorOccurred = false
-								var Cog = 13
+								var Cog = 14
 								var PathPreference0 = CogPathPreference.CogRelative
 								var PathPreference1 = CogPathPreference.SpaceRelative
 								var PathPreference2 = CogPathPreference.Absolute
@@ -567,7 +580,7 @@ Level
 			}
 		}
 	}
-	Cog [InheritId:"5bc9b514e5f4a516:Key"][ContextId:14]
+	Cog [InheritId:"5bc9b514e5f4a516:Key"][ContextId:15]
 	{
 		Transform 
 		{
@@ -580,7 +593,7 @@ Level
 			var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
 		}
 	}
-	Cog [InheritId:"5bc9b514e5f4a516:Key"][ContextId:15]
+	Cog [InheritId:"5bc9b514e5f4a516:Key"][ContextId:16]
 	{
 		Transform 
 		{
@@ -598,7 +611,7 @@ Level
 			var Keys = 3
 		}
 	}
-	Cog [InheritId:"5baa087c6215d8fc:TreasureChest"][ContextId:16]
+	Cog [InheritId:"5baa087c6215d8fc:TreasureChest"][ContextId:17]
 	{
 		var Name = "TreasureChest"
 		Transform 
@@ -608,7 +621,7 @@ Level
 			var Scale = Real3{1, 1, 1}
 		}
 	}
-	Cog [InheritId:"5bcf022c5cc4db25:Coin"][ContextId:17]
+	Cog [InheritId:"5bcf022c5cc4db25:Coin"][ContextId:18]
 	{
 		Transform 
 		{
@@ -621,7 +634,7 @@ Level
 			var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
 		}
 	}
-	Cog [InheritId:"5bcf022c5cc4db25:Coin"][ContextId:18]
+	Cog [InheritId:"5bcf022c5cc4db25:Coin"][ContextId:19]
 	{
 		Transform 
 		{
@@ -639,7 +652,7 @@ Level
 			var Gold = 20
 		}
 	}
-	Cog [InheritId:"5bc134b675a9af25:Door"][ChildOrderOverride][ContextId:19]
+	Cog [InheritId:"5bc134b675a9af25:Door"][ChildOrderOverride][ContextId:20]
 	{
 		var Name = "Door"
 		Transform 
@@ -677,14 +690,14 @@ Level
 				var UpdatePathOnCogChange = true
 				var UpdateCogOnInitialize = true
 				var ResolvedNullErrorOccurred = false
-				var Cog = 19
+				var Cog = 20
 				var PathPreference0 = CogPathPreference.CogRelative
 				var PathPreference1 = CogPathPreference.SpaceRelative
 				var PathPreference2 = CogPathPreference.Absolute
 			}
 		}
 	}
-	Cog [InheritId:"5be2494353a222bb:Skelly"][ContextId:20]
+	Cog [InheritId:"5be2494353a222bb:Skelly"][ContextId:21]
 	{
 		Transform 
 		{
@@ -697,7 +710,7 @@ Level
 			var Keys = 1
 		}
 	}
-	Cog [InheritId:"5bb58c71def18052:Bat"][ContextId:21]
+	Cog [InheritId:"5bb58c71def18052:Bat"][ContextId:22]
 	{
 		Transform 
 		{
@@ -706,7 +719,7 @@ Level
 			var Scale = Real3{1, 1, 1}
 		}
 	}
-	Cog [InheritId:"5bb58c71def18052:Bat"][ContextId:22]
+	Cog [InheritId:"5bb58c71def18052:Bat"][ContextId:23]
 	{
 		Transform 
 		{
@@ -715,7 +728,7 @@ Level
 			var Scale = Real3{1, 1, 1}
 		}
 	}
-	Cog [InheritId:"5bb58c71def18052:Bat"][ContextId:23]
+	Cog [InheritId:"5bb58c71def18052:Bat"][ContextId:24]
 	{
 		Transform 
 		{
@@ -724,7 +737,7 @@ Level
 			var Scale = Real3{1, 1, 1}
 		}
 	}
-	Cog [InheritId:"5bb58c71def18052:Bat"][ContextId:24]
+	Cog [InheritId:"5bb58c71def18052:Bat"][ContextId:25]
 	{
 		Transform 
 		{
@@ -733,7 +746,7 @@ Level
 			var Scale = Real3{1, 1, 1}
 		}
 	}
-	Cog [InheritId:"5bb58c71def18052:Bat"][ContextId:25]
+	Cog [InheritId:"5bb58c71def18052:Bat"][ContextId:26]
 	{
 		Transform 
 		{
@@ -742,11 +755,20 @@ Level
 			var Scale = Real3{1, 1, 1}
 		}
 	}
-	Cog [InheritId:"5bb58c71def18052:Bat"][ContextId:26]
+	Cog [InheritId:"5bb58c71def18052:Bat"][ContextId:27]
 	{
 		Transform 
 		{
 			var Translation = Real3{18, 3, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+	}
+	Cog [InheritId:"5badda82ea209ab3:Sign"][ContextId:28]
+	{
+		Transform 
+		{
+			var Translation = Real3{5, 7, 0}
 			var Rotation = Quaternion{0, 0, 0, 1}
 			var Scale = Real3{1, 1, 1}
 		}

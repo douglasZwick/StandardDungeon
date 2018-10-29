@@ -1,0 +1,27 @@
+class Reader : ZilchComponent
+{
+  sends RequestRead : ReadEvent;
+  sends WasRead : ReadEvent;
+  sends DidRead : ReadEvent;
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    Zero.Connect(this.Owner, Events.CollisionStarted, this.OnCollisionStarted);
+  }
+  
+  
+  function OnCollisionStarted(event : CollisionEvent)
+  {
+    var re = ReadEvent();
+    re.Reader = this;
+    event.OtherObject.DispatchEvent(Events.RequestRead, re);
+  }
+}
+
+
+class ReadEvent : ZilchEvent
+{
+  var Reader : Reader;
+  var Readable : Readable;
+}
