@@ -1,0 +1,18 @@
+class Wall : ZilchComponent
+{
+  sends WallTest : WallEvent;
+  function Initialize(init : CogInitializer)
+  {
+    Zero.Connect(this.Owner, Events.WallTest, this.OnWallTest);
+  }
+
+  function OnWallTest(event : WallEvent)
+  {
+    event.IsWall = true;
+  }
+}
+
+class WallEvent : ZilchEvent
+{
+  var IsWall : Boolean = false;
+}

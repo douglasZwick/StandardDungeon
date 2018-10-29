@@ -13,8 +13,7 @@ class Health : ZilchComponent
   
   function Initialize(init : CogInitializer)
   {
-    this.CurrentHealth = this.MaxHealth;
-    
+    this.CurrentHealth = this.MaxHealth;    
     Zero.Connect(this.Owner, Events.DamageRequest, this.OnDamageRequest);
   }
   

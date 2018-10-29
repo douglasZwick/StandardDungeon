@@ -1,0 +1,9 @@
+[Version:1]
+TextContent 
+{
+	ZilchScriptBuilder 
+	{
+		var Name = "ShockwaveHitBoxBehavior"
+		var ResourceId = 0x5b86f78aa3b1933a
+	}
+}

@@ -1,0 +1,26 @@
+[Version:1]
+Cog 
+{
+	var Name = "Wall"
+	Transform 
+	{
+		var Translation = Real3{7, -1, -1.33334291}
+		var Scale = Real3{1, 1, 1}
+		var Rotation = Quaternion{0, 0, 0, 1}
+	}
+	MeshCollider 
+	{
+		var Ghost = false
+		var SendsEvents = true
+		var Material = "4de020863e872da8:DefaultPhysicsMaterial"
+		var CollisionGroup = "4e740859314e5515:DefaultGroup"
+		var Offset = Real3{0, 0, 0}
+		var PhysicsMesh = "5198bea43a477360:Box"
+		var DrawEdges = true
+		var DrawFaces = false
+		var DrawFaceNormals = false
+	}
+	Wall 
+	{
+	}
+}

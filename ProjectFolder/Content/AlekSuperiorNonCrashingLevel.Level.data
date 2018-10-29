@@ -100,7 +100,7 @@ Level
 		var Name = "EditorCamera"
 		Transform 
 		{
-			var Translation = Real3{7, -1, 24.5960102}
+			var Translation = Real3{7, -1, 23.2626667}
 			var Scale = Real3{1, 1, 1}
 			var Rotation = Quaternion{0, -1.09278471e-08, 0, 1}
 		}
@@ -151,18 +151,18 @@ Level
 		{
 			var NearPlane = 0.5
 			var FarPlane = 500
-			var PerspectiveMode = PerspectiveMode.Perspective
+			var PerspectiveMode = PerspectiveMode.Orthographic
 			var FieldOfView = 45
-			var Size = 6.65742731
+			var Size = 18.0967598
 		}
 		EditorCameraController 
 		{
-			var ControlMode = ControlMode.Orbit
+			var ControlMode = ControlMode.ZPlane
 			var Previous3DMode = ControlMode.Orbit
 			var LookDistance = 24.5960102
 			var VerticalAngle = 0
 			var HorizontalAngle = 0
-			var LookTarget = Real3{7, -1, 0}
+			var LookTarget = Real3{7, -1, -1.33334291}
 			var MoveSensitivity = 1
 		}
 	}
@@ -573,20 +573,7 @@ Level
 			}
 		}
 	}
-	Cog [InheritId:"5be2494353a222bb:Skelly"][ContextId:18]
-	{
-		Transform 
-		{
-			var Translation = Real3{-2, 3, 0}
-			var Rotation = Quaternion{0, 0, 0, 1}
-			var Scale = Real3{1, 1, 1}
-		}
-		Inventory 
-		{
-			var Keys = 1
-		}
-	}
-	Cog [InheritId:"5bb58c71def18052:Bat"][ContextId:19]
+	Cog [InheritId:"5bb58c71def18052:Bat"][ContextId:18]
 	{
 		Transform 
 		{
@@ -595,16 +582,7 @@ Level
 			var Scale = Real3{1, 1, 1}
 		}
 	}
-	Cog [InheritId:"5bb58c71def18052:Bat"][ContextId:20]
-	{
-		Transform 
-		{
-			var Translation = Real3{1, 2, 0}
-			var Rotation = Quaternion{0, 0, 0, 1}
-			var Scale = Real3{1, 1, 1}
-		}
-	}
-	Cog [InheritId:"5bb58c71def18052:Bat"][ContextId:21]
+	Cog [InheritId:"5bb58c71def18052:Bat"][ContextId:19]
 	{
 		Transform 
 		{
@@ -613,12 +591,12 @@ Level
 			var Scale = Real3{1, 1, 1}
 		}
 	}
-	Cog [ContextId:22]
+	Cog [ContextId:20]
 	{
 		var Name = "Minotaur"
 		Transform 
 		{
-			var Translation = Real3{7, -1, 0}
+			var Translation = Real3{6, 2, 0}
 			var Scale = Real3{1, 1, 1}
 			var Rotation = Quaternion{0, 0, 0, 1}
 		}
@@ -653,10 +631,7 @@ Level
 		}
 		Health 
 		{
-			var MaxHealth = 20
-		}
-		MinotaurController 
-		{
+			var MaxHealth = 10
 		}
 		DiscreteMover 
 		{
@@ -670,20 +645,56 @@ Level
 				var UpdatePathOnCogChange = true
 				var UpdateCogOnInitialize = true
 				var ResolvedNullErrorOccurred = false
-				var Cog = 22
+				var Cog = 20
 				var PathPreference0 = CogPathPreference.CogRelative
 				var PathPreference1 = CogPathPreference.SpaceRelative
 				var PathPreference2 = CogPathPreference.Absolute
 			}
+		}
+		MinotaurController 
+		{
 		}
 		BoxCollider 
 		{
 			var Ghost = false
 			var SendsEvents = true
 			var Material = "4de020863e872da8:DefaultPhysicsMaterial"
-			var CollisionGroup = "4e740859314e5515:DefaultGroup"
+			var CollisionGroup = "5baa5c7ae3cb18d6:Enemy"
 			var Offset = Real3{0, 0, 0}
 			var HalfSize = Real3{0.400000006, 0.400000006, 0.400000006}
+		}
+		RigidBody 
+		{
+			var Velocity = Real3{0, 0, 0}
+			var AngularVelocity = Real3{0, 0, 0}
+			var DynamicState = RigidBodyDynamicState.Kinematic
+			var AllowSleep = true
+			var Asleep = false
+			var RotationLocked = false
+			var Mode2D = Mode2DStates.InheritFromSpace
+		}
+	}
+	Cog [InheritId:"5b86f77e958c6742:ShockwaveHitBox"][ContextId:21]
+	{
+		var Name = "ShockwaveHitBox"
+		Transform 
+		{
+			var Translation = Real3{0, 3, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+		SpriteText 
+		{
+			var Text = "CRASH"
+		}
+	}
+	Cog [InheritId:"5b86e40e02a33adc:Wall"][ContextId:22]
+	{
+		Transform 
+		{
+			var Translation = Real3{7, -1, -1.33334291}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
 		}
 	}
 }

@@ -1,0 +1,19 @@
+[Version:1]
+DataContent 
+{
+	DataBuilder 
+	{
+		var Name = "ShockwaveHitBox"
+		var ResourceId = 0x5b86f77e958c6742
+		var LoaderType = "Cog"
+		var Version = 0
+	}
+	ContentTags 
+	{
+		var Tags = Array
+		{
+			"Archetype"
+			"Cog"
+		}
+	}
+}

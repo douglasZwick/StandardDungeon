@@ -11,12 +11,18 @@ class MinotaurController : ZilchComponent
   {
     //Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
     Zero.Connect(this.Owner, Events.AiTick, this.OnAiTick);
+    Zero.Connect(this.Owner, Events.WasDamaged, this.OnWasDamaged);
     this.PlayerRef = this.Space.FindObjectByName("Hero");
   }
 
   function OnLogicUpdate(event : UpdateEvent)
   {
     
+  }
+  
+  function OnWasDamaged(event : HealthEvent)
+  {
+    Console.WriteLine("MINOTAUR TOOK SOME DAMAGE");
   }
   
   function OnAiTick(event : TickEvent)
