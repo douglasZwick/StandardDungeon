@@ -17,15 +17,8 @@ class SkellyController : ZilchComponent
   {
     Zero.Connect(this.Owner, Events.AiTick, this.OnAiTick);
     Zero.Connect(this.Owner, Events.WasDamaged, this.OnWasDamaged);
-    Zero.Connect(this.Owner, Events.Death, this.OnDeath);
     
     this.PlayerRef = this.Space.FindObjectByName("Hero");
-  }
-  
-  
-  function OnDeath(event : HealthEvent)
-  {
-    this.Owner.Destroy();
   }
   
   
