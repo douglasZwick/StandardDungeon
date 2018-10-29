@@ -1,0 +1,56 @@
+class MinotaurController : ZilchComponent
+{
+  [Dependency]
+  var Mover : DiscreteMover;
+  [Dependency]
+  var AiTicker : AiTicker;
+  
+  var PlayerRef : Cog;
+  
+  function Initialize(init : CogInitializer)
+  {
+    //Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
+    Zero.Connect(this.Owner, Events.AiTick, this.OnAiTick);
+    this.PlayerRef = this.Space.FindObjectByName("Hero");
+  }
+
+  function OnLogicUpdate(event : UpdateEvent)
+  {
+    
+  }
+  
+  function OnAiTick(event : TickEvent)
+  {
+    var hDiff : Real = this.PlayerRef.Transform.Translation.X - this.Owner.Transform.Translation.X;
+    var vDiff : Real = this.PlayerRef.Transform.Translation.Y - this.Owner.Transform.Translation.Y;
+    
+    if(Math.Abs(hDiff) > Math.Abs(vDiff))
+    {
+      //Move horizontally
+      if(hDiff < 0)
+      {
+        //Move left
+        this.Mover.Move(-Real3.XAxis);
+      }
+      else
+      {
+        //Move right
+        this.Mover.Move(Real3.XAxis);
+      }
+    }
+    else
+    {
+      //Move vertically
+      if(vDiff < 0)
+      {
+        //Move down
+        this.Mover.Move(-Real3.YAxis);
+      }
+      else
+      {
+        //Move up
+        this.Mover.Move(Real3.YAxis);
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+[Version:1]
+TextContent 
+{
+	ZilchScriptBuilder 
+	{
+		var Name = "MinotaurController"
+		var ResourceId = 0x5b86fd2d38d30b6c
+	}
+}
