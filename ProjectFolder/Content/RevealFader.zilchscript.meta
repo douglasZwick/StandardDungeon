@@ -3,7 +3,7 @@ TextContent
 {
 	ZilchScriptBuilder 
 	{
-		var Name = "FadeSpriteInOnWasRevealed"
+		var Name = "RevealFader"
 		var ResourceId = 0x5bad239deb1d0d08
 	}
 }

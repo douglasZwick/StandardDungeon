@@ -1,0 +1,121 @@
+class BaseSpriteRevealFader : ZilchComponent
+{
+  [Dependency]
+  var BaseSprite : BaseSprite;
+  [Dependency]
+  var Revealable : Revealable;
+  
+  
+  [Property]
+  var StartBehavior : FaderStartBehavior = FaderStartBehavior.Color0;
+  [Property]
+  var Color0 : Real4 = Real4.Zero;
+  [Property]
+  var Color1 : Real4 = Colors.Black;
+  [Property]
+  var Duration : Real = 4 / 60.0;
+  
+  
+  var ActionSequence : ActionSequence;
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    this.ActionSequence = Action.Sequence(this.Owner.Actions);
+    
+    if      (this.StartBehavior == FaderStartBehavior.Color0)
+      this.BaseSprite.VertexColor = this.Color0;
+    else if (this.StartBehavior == FaderStartBehavior.Color1)
+      this.BaseSprite.VertexColor = this.Color1;
+    
+    Zero.Connect(this.Owner, Events.WasRevealed, this.OnWasRevealed);
+    Zero.Connect(this.Owner, Events.WasUnrevealed, this.OnWasUnrevealed);
+  }
+  
+  
+  function OnWasRevealed(event : RevealEvent)
+  {
+    this.ActionSequence.Cancel();
+    this.ActionSequence = Action.Sequence(this.Owner.Actions);
+      
+      Action.Property(this.ActionSequence, @this.BaseSprite.VertexColor, this.Color1, this.Duration, Ease.QuadInOut);
+  }
+  
+  
+  function OnWasUnrevealed(event : RevealEvent)
+  {
+    this.ActionSequence.Cancel();
+    this.ActionSequence = Action.Sequence(this.Owner.Actions);
+      
+      Action.Property(this.ActionSequence, @this.BaseSprite.VertexColor, this.Color0, this.Duration, Ease.QuadInOut);
+  }
+}
+
+
+class MultiSpriteRevealFader : ZilchComponent
+{
+  [Dependency]
+  var MultiSprite : MultiSprite;
+  [Dependency]
+  var Revealable : Revealable;
+  
+  
+  [Property]
+  var StartBehavior : FaderStartBehavior = FaderStartBehavior.Color0;
+  [Property]
+  var Color0 : Real4 = Real4.Zero;
+  [Property]
+  var Color1 : Real4 = Colors.Black;
+  [Property]
+  var Duration : Real = 4 / 60.0;
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    if      (this.StartBehavior == FaderStartBehavior.Color0)
+      this.MultiSprite.VertexColor = this.Color0;
+    else if (this.StartBehavior == FaderStartBehavior.Color1)
+      this.MultiSprite.VertexColor = this.Color1;
+    
+    Zero.Connect(this.Owner, Events.WasRevealed, this.OnWasRevealed);
+    Zero.Connect(this.Owner, Events.WasUnrevealed, this.OnWasUnrevealed);
+  }
+  
+  
+  function OnWasRevealed(event : RevealEvent)
+  {
+    foreach (var child in this.Owner.Children)
+    {
+      var multiSprite = child.MultiSprite;
+      
+      if (multiSprite == null)
+        continue;
+      
+      child.Actions.Cancel();
+      Action.Property(child.Actions, @multiSprite.VertexColor, this.Color1, this.Duration, Ease.QuadInOut);
+    }
+  }
+  
+  
+  function OnWasUnrevealed(event : RevealEvent)
+  {
+    foreach (var child in this.Owner.Children)
+    {
+      var multiSprite = child.MultiSprite;
+      
+      if (multiSprite == null)
+        continue;
+      
+      child.Actions.Cancel();
+      Action.Property(child.Actions, @multiSprite.VertexColor, this.Color0, this.Duration, Ease.QuadInOut);
+    }
+  }
+}
+
+
+enum FaderStartBehavior
+{
+  None,
+  Color0,
+  Color1,
+}

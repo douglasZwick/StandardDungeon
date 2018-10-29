@@ -1,12 +1,19 @@
 class Revealable : ZilchComponent
 {
   [Property]
+  var RespondToReveal : Boolean = true;
+  [Property]
+  var RespondToUnreveal : Boolean = false;
+  [Property][Group("Internal")]
   var ColliderPath : CogPath = CogPath(".");
   
   
   function Initialize(init : CogInitializer)
   {
-    Zero.Connect(this.ColliderPath.Cog, Events.RequestReveal, this.OnRequestReveal);
+    if (this.RespondToReveal)
+      Zero.Connect(this.ColliderPath.Cog, Events.RequestReveal, this.OnRequestReveal);
+    if (this.RespondToUnreveal)
+      Zero.Connect(this.ColliderPath.Cog, Events.RequestUnreveal, this.OnRequestUnreveal);
   }
   
   
@@ -15,5 +22,13 @@ class Revealable : ZilchComponent
     event.Revealable = this;
     this.Owner.DispatchEvent(Events.WasRevealed, event);
     event.Revealer.Owner.DispatchEvent(Events.DidReveal, event);
+  }
+  
+  
+  function OnRequestUnreveal(event : RevealEvent)
+  {
+    event.Revealable = this;
+    this.Owner.DispatchEvent(Events.WasUnrevealed, event);
+    event.Revealer.Owner.DispatchEvent(Events.DidUnreveal, event);
   }
 }

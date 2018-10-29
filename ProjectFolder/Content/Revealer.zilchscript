@@ -3,11 +3,15 @@ class Revealer : ZilchComponent
   sends RequestReveal : RevealEvent;
   sends WasRevealed : RevealEvent;
   sends DidReveal : RevealEvent;
+  sends RequestUnreveal : RevealEvent;
+  sends WasUnrevealed : RevealEvent;
+  sends DidUnreveal : RevealEvent;
   
   
   function Initialize(init : CogInitializer)
   {
     Zero.Connect(this.Owner, Events.CollisionStarted, this.OnCollisionStarted);
+    Zero.Connect(this.Owner, Events.CollisionEnded, this.OnCollisionEnded);
   }
   
   
@@ -16,6 +20,14 @@ class Revealer : ZilchComponent
     var re = RevealEvent();
     re.Revealer = this;
     event.OtherObject.DispatchEvent(Events.RequestReveal, re);
+  }
+  
+  
+  function OnCollisionEnded(event : CollisionEvent)
+  {
+    var re = RevealEvent();
+    re.Revealer = this;
+    event.OtherObject.DispatchEvent(Events.RequestUnreveal, re);
   }
 }
 
