@@ -1,0 +1,21 @@
+class Revealable : ZilchComponent
+{
+  [Property]
+  var ColliderPath : CogPath = CogPath(".");
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    Zero.Connect(this.ColliderPath.Cog, Events.RequestReveal, this.OnRequestReveal);
+  }
+  
+  
+  function OnRequestReveal(event : RevealEvent)
+  {
+    event.Revealable = this;
+    this.Owner.DispatchEvent(Events.WasRevealed, event);
+    event.Revealer.Owner.DispatchEvent(Events.DidReveal, event);
+    
+    
+  }
+}

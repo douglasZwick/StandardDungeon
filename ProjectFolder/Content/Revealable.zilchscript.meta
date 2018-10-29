@@ -1,0 +1,9 @@
+[Version:1]
+TextContent 
+{
+	ZilchScriptBuilder 
+	{
+		var Name = "Revealable"
+		var ResourceId = 0x5bad2662b7c6ca27
+	}
+}
