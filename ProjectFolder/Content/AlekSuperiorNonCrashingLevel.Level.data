@@ -586,7 +586,7 @@ Level
 	{
 		Transform 
 		{
-			var Translation = Real3{6, 5, 0}
+			var Translation = Real3{6, 4, 0}
 			var Rotation = Quaternion{0, 0, 0, 1}
 			var Scale = Real3{1, 1, 1}
 		}
@@ -596,7 +596,7 @@ Level
 		var Name = "Minotaur"
 		Transform 
 		{
-			var Translation = Real3{6, 2, 0}
+			var Translation = Real3{0, 2, 0}
 			var Scale = Real3{1, 1, 1}
 			var Rotation = Quaternion{0, 0, 0, 1}
 		}
@@ -674,21 +674,7 @@ Level
 			var Mode2D = Mode2DStates.InheritFromSpace
 		}
 	}
-	Cog [InheritId:"5b86f77e958c6742:ShockwaveHitBox"][ContextId:21]
-	{
-		var Name = "ShockwaveHitBox"
-		Transform 
-		{
-			var Translation = Real3{0, 3, 0}
-			var Rotation = Quaternion{0, 0, 0, 1}
-			var Scale = Real3{1, 1, 1}
-		}
-		SpriteText 
-		{
-			var Text = "CRASH"
-		}
-	}
-	Cog [InheritId:"5b86e40e02a33adc:Wall"][ContextId:22]
+	Cog [InheritId:"5b86e40e02a33adc:Wall"][ContextId:21]
 	{
 		Transform 
 		{

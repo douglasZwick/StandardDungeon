@@ -3,6 +3,7 @@ class ShockwaveHitBoxBehavior : ZilchComponent
   [Dependency]
   var Collider : Collider;
   
+  [Property]
   var Direction : Directions;
   var Lifetime : Real = 1.0;
   var PropogationTime : Real = 0.4;
@@ -10,11 +11,13 @@ class ShockwaveHitBoxBehavior : ZilchComponent
   var Propogated : Boolean = false;
   var CastFilter : CastFilter = CastFilter();
   
+  [Property]
+  var Damage : Integer = 2;
+  
   function Initialize(init : CogInitializer)
   {
     Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
     Zero.Connect(this.Owner, Events.CollisionStarted, this.OnCollisionStarted);
-    this.Direction = Directions.Down;
     
     this.CastFilter.CollisionGroup = CollisionGroup.DefaultGroup;
     this.CastFilter.IgnoreGhost = true;
@@ -22,7 +25,9 @@ class ShockwaveHitBoxBehavior : ZilchComponent
 
   function OnCollisionStarted(event : CollisionEvent)
   {
-    
+    var he : HealthEvent = HealthEvent();
+    he.Damage = this.Damage;
+    event.OtherObject.DispatchEvent(Events.DamageRequest, he);
   }
 
   function OnLogicUpdate(event : UpdateEvent)
@@ -53,7 +58,56 @@ class ShockwaveHitBoxBehavior : ZilchComponent
           return;
       }
       
-      this.Space.CreateAtPosition(Archetype.ShockwaveHitBox, this.Owner.Transform.Translation + -Real3.YAxis);
+      var newShockwave = this.Space.CreateAtPosition(Archetype.ShockwaveHitBox, this.Owner.Transform.Translation + -Real3.YAxis);
+      newShockwave.ShockwaveHitBoxBehavior.Direction = this.Direction;
+      this.Propogated = true;
+    }
+    
+    if(this.Direction == Directions.Up)
+    {
+      var moveResults = this.Space.PhysicsSpace.CastCollider(Real3.YAxis, this.Collider, this.CastFilter);
+      foreach(var result in moveResults)
+      {
+        var we = WallEvent();
+        result.ObjectHit.DispatchEvent(Events.WallTest, we);
+        if(we.IsWall)
+          return;
+      }
+      
+      var newShockwave = this.Space.CreateAtPosition(Archetype.ShockwaveHitBox, this.Owner.Transform.Translation + Real3.YAxis);
+      newShockwave.ShockwaveHitBoxBehavior.Direction = this.Direction;
+      this.Propogated = true;
+    }
+    
+    if(this.Direction == Directions.Left)
+    {
+      var moveResults = this.Space.PhysicsSpace.CastCollider(-Real3.XAxis, this.Collider, this.CastFilter);
+      foreach(var result in moveResults)
+      {
+        var we = WallEvent();
+        result.ObjectHit.DispatchEvent(Events.WallTest, we);
+        if(we.IsWall)
+          return;
+      }
+      
+      var newShockwave = this.Space.CreateAtPosition(Archetype.ShockwaveHitBox, this.Owner.Transform.Translation + -Real3.XAxis);
+      newShockwave.ShockwaveHitBoxBehavior.Direction = this.Direction;
+      this.Propogated = true;
+    }
+    
+    if(this.Direction == Directions.Right)
+    {
+      var moveResults = this.Space.PhysicsSpace.CastCollider(Real3.XAxis, this.Collider, this.CastFilter);
+      foreach(var result in moveResults)
+      {
+        var we = WallEvent();
+        result.ObjectHit.DispatchEvent(Events.WallTest, we);
+        if(we.IsWall)
+          return;
+      }
+      
+      var newShockwave = this.Space.CreateAtPosition(Archetype.ShockwaveHitBox, this.Owner.Transform.Translation + Real3.XAxis);
+      newShockwave.ShockwaveHitBoxBehavior.Direction = this.Direction;
       this.Propogated = true;
     }
   }
