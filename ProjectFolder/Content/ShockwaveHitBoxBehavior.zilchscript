@@ -5,8 +5,8 @@ class ShockwaveHitBoxBehavior : ZilchComponent
   
   [Property]
   var Direction : Directions;
-  var Lifetime : Real = 1.0;
-  var PropogationTime : Real = 0.4;
+  var Lifetime : Real = 0.5;
+  var PropogationTime : Real = 0.2;
   var Timer : Real = 0;
   var Propogated : Boolean = false;
   var CastFilter : CastFilter = CastFilter();

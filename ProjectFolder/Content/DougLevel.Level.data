@@ -85,7 +85,7 @@ Level
 		var Name = "EditorCamera"
 		Transform 
 		{
-			var Translation = Real3{4.71428919, 6.64593983, 7.79178047}
+			var Translation = Real3{3.84138656, 5.56421661, 31.597208}
 			var Scale = Real3{1, 1, 1}
 			var Rotation = Quaternion{0.0226834938, -0.0183201823, 0.000415743038, 0.999574721}
 		}
@@ -144,7 +144,7 @@ Level
 		{
 			var ControlMode = ControlMode.Orbit
 			var Previous3DMode = ControlMode.Orbit
-			var LookDistance = 7.8050518
+			var LookDistance = 31.6510258
 			var VerticalAngle = -0.0453784987
 			var HorizontalAngle = 0.0366518013
 			var LookTarget = Real3{5, 7, 0}
@@ -652,7 +652,7 @@ Level
 			var Gold = 20
 		}
 	}
-	Cog [InheritId:"5bc134b675a9af25:Door"][ChildOrderOverride][ContextId:20]
+	Cog [InheritId:"5bc134b675a9af25:Door"][ContextId:20]
 	{
 		var Name = "Door"
 		Transform 
@@ -660,41 +660,6 @@ Level
 			var Translation = Real3{5, -1, 0}
 			var Rotation = Quaternion{0, 0, 0, 1}
 			var Scale = Real3{1, 1, 1}
-		}
-		Sprite 
-		{
-		}
-		BoxCollider [LocallyAdded]
-		{
-			var Ghost = false
-			var SendsEvents = true
-			var Material = "4de020863e872da8:DefaultPhysicsMaterial"
-			var CollisionGroup = "5baa5c5ee5ab503f:ClosedDoor"
-			var Offset = Real3{0, 0, 0}
-			var HalfSize = Real3{0.449999988, 0.449999988, 0.449999988}
-		}
-		Openable [LocallyAdded]
-		{
-			var Locks = 1
-			var Opened = false
-		}
-		Door [LocallyAdded]
-		{
-			var ColliderPath = CogPath
-			{
-				var Path = "."
-				var ErrorOnResolveToNull = false
-				var ErrorOnPathCantCompute = false
-				var ErrorOnDirectLinkFail = false
-				var UpdateCogOnPathChange = true
-				var UpdatePathOnCogChange = true
-				var UpdateCogOnInitialize = true
-				var ResolvedNullErrorOccurred = false
-				var Cog = 20
-				var PathPreference0 = CogPathPreference.CogRelative
-				var PathPreference1 = CogPathPreference.SpaceRelative
-				var PathPreference2 = CogPathPreference.Absolute
-			}
 		}
 	}
 	Cog [InheritId:"5be2494353a222bb:Skelly"][ContextId:21]
