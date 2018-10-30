@@ -1,0 +1,13 @@
+[Version:1]
+BinaryContent 
+{
+	BinaryBuilder 
+	{
+		var Name = "MinotaurFightTest_TileMap01"
+		var ResourceId = 0x5b875fa69fc8e296
+		var LoaderType = "TileMapSource"
+		var Version = 0
+		var FilterTag = ""
+		var ResourceOwner = "5b875c4f426e9f69:MinotaurFightTest"
+	}
+}

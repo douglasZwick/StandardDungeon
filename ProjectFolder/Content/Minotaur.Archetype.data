@@ -1,10 +1,10 @@
 [Version:1]
 Cog 
 {
-	var Name = "Door"
+	var Name = "Minotaur"
 	Transform 
 	{
-		var Translation = Real3{5, -1, 0}
+		var Translation = Real3{0, 15, 0}
 		var Scale = Real3{1, 1, 1}
 		var Rotation = Quaternion{0, 0, 0, 1}
 	}
@@ -20,28 +20,28 @@ Cog
 		var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
 		var VertexColor = Real4{0, 0, 0, 1}
 		var GeometryMode = SpriteGeometryMode.ZPlane
-		var SpriteSource = "5bc12b7a69291895:Doors"
+		var SpriteSource = "5b86f8e2bf77f258:MinotaurReady"
 		var FlipX = false
 		var FlipY = false
-		var AnimationActive = false
+		var AnimationActive = true
 		var AnimationSpeed = 1
-		var StartFrame = 1
+		var StartFrame = 0
 	}
-	BoxCollider 
+	MovementBlinker 
 	{
-		var Ghost = false
-		var SendsEvents = true
-		var Material = "4de020863e872da8:DefaultPhysicsMaterial"
-		var CollisionGroup = "5baa5c5ee5ab503f:ClosedDoor"
-		var Offset = Real3{0, 0, 0}
-		var HalfSize = Real3{0.449999988, 0.449999988, 0.449999988}
+		var GhostArchetype = "5bb5eee0a7631b8e:MovementGhost"
 	}
-	Openable 
+	AiTicker 
 	{
-		var Locks = 1
-		var Opened = false
+		var TickDelay = 1
+		var TickDelayVariance = 0
+		var RandomInitialTimer = false
 	}
-	Door 
+	Health 
+	{
+		var MaxHealth = 10
+	}
+	DiscreteMover 
 	{
 		var ColliderPath = CogPath
 		{
@@ -58,5 +58,27 @@ Cog
 			var PathPreference1 = CogPathPreference.SpaceRelative
 			var PathPreference2 = CogPathPreference.Absolute
 		}
+	}
+	MinotaurController 
+	{
+	}
+	BoxCollider 
+	{
+		var Ghost = false
+		var SendsEvents = true
+		var Material = "4de020863e872da8:DefaultPhysicsMaterial"
+		var CollisionGroup = "5baa5c7ae3cb18d6:Enemy"
+		var Offset = Real3{0, 0, 0}
+		var HalfSize = Real3{0.400000006, 0.400000006, 0.400000006}
+	}
+	RigidBody 
+	{
+		var Velocity = Real3{0, 0, 0}
+		var AngularVelocity = Real3{0, 0, 0}
+		var DynamicState = RigidBodyDynamicState.Kinematic
+		var AllowSleep = true
+		var Asleep = false
+		var RotationLocked = false
+		var Mode2D = Mode2DStates.InheritFromSpace
 	}
 }

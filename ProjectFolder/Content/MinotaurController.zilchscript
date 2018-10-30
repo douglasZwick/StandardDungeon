@@ -7,9 +7,17 @@ class MinotaurController : ZilchComponent
   
   var PlayerRef : Cog;
   
+  var AwareOfPlayer : Boolean = false;
+  var AwarenessRadius : Real = 6.0;
+  var PlayerTooClose : Boolean = false;
+  var TooCloseDistance : Real = 5.0;
+  var AttackTime : Real = 0.85;
+  var AttackTimer : Real = 0.0;
+  var AttackCharging : Boolean = false;
+  
   function Initialize(init : CogInitializer)
   {
-    //Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
+    Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
     Zero.Connect(this.Owner, Events.AiTick, this.OnAiTick);
     Zero.Connect(this.Owner, Events.WasDamaged, this.OnWasDamaged);
     this.PlayerRef = this.Space.FindObjectByName("Hero");
@@ -17,7 +25,69 @@ class MinotaurController : ZilchComponent
 
   function OnLogicUpdate(event : UpdateEvent)
   {
+    if(this.AttackCharging)
+    {
+      this.Owner.Sprite.SpriteSource = SpriteSource.MinotaurAttack;
+      this.AttackTimer += event.Dt;
+      if(this.AttackTimer >= this.AttackTime)
+      {
+        var hDiff : Real = this.PlayerRef.Transform.Translation.X - this.Owner.Transform.Translation.X;
+        var vDiff : Real = this.PlayerRef.Transform.Translation.Y - this.Owner.Transform.Translation.Y;
+        if(Math.Abs(hDiff) > Math.Abs(vDiff))
+        {
+          //Attack horizontally
+          if(hDiff < 0)
+          {
+            //Attack left
+            var shockwaveRef = this.Space.CreateAtPosition(Archetype.ShockwaveHitBox, -Real3.XAxis + this.Owner.Transform.Translation);
+            shockwaveRef.ShockwaveHitBoxBehavior.Direction = Directions.Left;
+          }
+          else if(hDiff > 0)
+          {
+            //Attack right
+            var shockwaveRef = this.Space.CreateAtPosition(Archetype.ShockwaveHitBox, Real3.XAxis + this.Owner.Transform.Translation);
+            shockwaveRef.ShockwaveHitBoxBehavior.Direction = Directions.Right;
+          }
+        }
+        else
+        {
+          //Attack vertically
+          if(vDiff < 0)
+          {
+            //Attack down
+            var shockwaveRef = this.Space.CreateAtPosition(Archetype.ShockwaveHitBox, -Real3.YAxis + this.Owner.Transform.Translation);
+            shockwaveRef.ShockwaveHitBoxBehavior.Direction = Directions.Down;
+          }
+          else
+          {
+            //Attack up
+            var shockwaveRef = this.Space.CreateAtPosition(Archetype.ShockwaveHitBox, Real3.YAxis + this.Owner.Transform.Translation);
+            shockwaveRef.ShockwaveHitBoxBehavior.Direction = Directions.Up;
+          }
+        }
+        this.AttackCharging = false;
+        this.AttackTimer = 0;
+        this.Owner.Sprite.SpriteSource = SpriteSource.MinotaurReady;
+      }
+    }
     
+    var distanceToPlayer : Real = Math.LengthSq(this.PlayerRef.Transform.Translation - this.Owner.Transform.Translation);
+    if(distanceToPlayer <= Math.Pow(this.AwarenessRadius, 2))
+    {
+      this.AwareOfPlayer = true;
+    }
+    else
+    {
+      this.AwareOfPlayer = false;
+    }
+    if(distanceToPlayer <= this.TooCloseDistance)
+    {
+      this.PlayerTooClose = true;
+    }
+    else
+    {
+      this.PlayerTooClose = false;
+    }
   }
   
   function OnWasDamaged(event : HealthEvent)
@@ -30,36 +100,38 @@ class MinotaurController : ZilchComponent
     var hDiff : Real = this.PlayerRef.Transform.Translation.X - this.Owner.Transform.Translation.X;
     var vDiff : Real = this.PlayerRef.Transform.Translation.Y - this.Owner.Transform.Translation.Y;
     
-    if(Math.Abs(hDiff) > Math.Abs(vDiff))
+    if(this.AwareOfPlayer)
     {
-      //Attack horizontally
-      if(hDiff < 0)
+      if(this.PlayerTooClose)
       {
-        //Attack left
-        var shockwaveRef = this.Space.CreateAtPosition(Archetype.ShockwaveHitBox, -Real3.XAxis + this.Owner.Transform.Translation);
-        shockwaveRef.ShockwaveHitBoxBehavior.Direction = Directions.Left;
+        if(Math.Abs(hDiff) < Math.Abs(vDiff))
+        {
+          //Avoid horizontally
+          if(hDiff < 0)
+          {
+            this.Mover.Move(Real3.XAxis);
+          }
+          else
+          {
+            this.Mover.Move(-Real3.XAxis);
+          }
+        }
+        else
+        {
+          //Avoid vertically
+          if(vDiff < 0)
+          {
+            this.Mover.Move(Real3.YAxis);
+          }
+          else
+          {
+            this.Mover.Move(-Real3.YAxis);
+          }
+        }
       }
-      else
+      if(this.AttackTimer == 0)
       {
-        //Attack right
-        var shockwaveRef = this.Space.CreateAtPosition(Archetype.ShockwaveHitBox, Real3.XAxis + this.Owner.Transform.Translation);
-        shockwaveRef.ShockwaveHitBoxBehavior.Direction = Directions.Right;
-      }
-    }
-    else
-    {
-      //Attack vertically
-      if(vDiff < 0)
-      {
-        //Attack down
-        var shockwaveRef = this.Space.CreateAtPosition(Archetype.ShockwaveHitBox, -Real3.YAxis + this.Owner.Transform.Translation);
-        shockwaveRef.ShockwaveHitBoxBehavior.Direction = Directions.Down;
-      }
-      else
-      {
-        //Attack up
-        var shockwaveRef = this.Space.CreateAtPosition(Archetype.ShockwaveHitBox, Real3.YAxis + this.Owner.Transform.Translation);
-        shockwaveRef.ShockwaveHitBoxBehavior.Direction = Directions.Up;
+        this.AttackCharging = true;
       }
     }
   }
