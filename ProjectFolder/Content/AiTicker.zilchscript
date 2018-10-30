@@ -4,12 +4,13 @@ class AiTicker : ZilchComponent
   
   
   [Property]
-  var TickDelay : Real = 1; // seconds per tick
+  var BaseTickDelay : Real = 1; // seconds per tick
   [Property]
   var TickDelayVariance : Real = 0; // deviation from the base tick delay
   [Property]
   var RandomInitialTimer : Boolean = false; // whether this instance's timer staring value should be randomized
   
+  var TickDelay : Real;
   var TickTimer : Real = 0;
   var RNG : Random = Random();
   
@@ -45,7 +46,7 @@ class AiTicker : ZilchComponent
   
   function ComputeTickDelay()
   {
-    this.TickDelay = this.RNG.Variance(this.TickDelay, this.TickDelayVariance);
+    this.TickDelay = this.RNG.Variance(this.BaseTickDelay, this.TickDelayVariance);
   }
 }
 

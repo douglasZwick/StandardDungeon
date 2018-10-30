@@ -1,0 +1,11 @@
+class MakeInvisibleOnInitialize : ZilchComponent
+{
+  [Dependency]
+  var Graphical : Graphical;
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    this.Graphical.Visible = false;
+  }
+}

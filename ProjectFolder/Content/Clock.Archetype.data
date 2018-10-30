@@ -4,8 +4,8 @@ Cog
 	var Name = "Clock"
 	Transform 
 	{
-		var Translation = Real3{0, 2.5, 0}
-		var Scale = Real3{1, 1, 1}
+		var Translation = Real3{-1.75, 3.25, 0}
+		var Scale = Real3{0.5, 0.5, 0.5}
 		var Rotation = Quaternion{0, 0, 0, 1}
 	}
 	WebRequester 
@@ -24,7 +24,7 @@ Cog
 		var AlarmHours = 9
 		var AlarmMinutes = 28
 		var AlarmPeriod = Period.PM
-		var SetOnInitialize = false
+		var SetOnInitialize = true
 		var DH = CogPath
 		{
 			var Path = "DH"
@@ -334,7 +334,7 @@ Cog
 			var Name = "Bell"
 			Transform 
 			{
-				var Translation = Real3{3.25, 0, 0}
+				var Translation = Real3{3.1400001, 0.0299999993, 0}
 				var Scale = Real3{1, 1, 1}
 				var Rotation = Quaternion{0, 0, -0.258819044, 0.965925872}
 			}
