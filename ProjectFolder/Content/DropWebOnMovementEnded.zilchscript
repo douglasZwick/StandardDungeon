@@ -1,0 +1,34 @@
+class DropWebOnMovementEnded : ZilchComponent
+{
+  var RNG : Random = Random();
+  [Property][Slider(0, 1, 0.01)]
+  var ChanceToDrop : Real;
+  
+  function Initialize(init : CogInitializer)
+  {
+    Zero.Connect(this.Owner, Events.MovementEnded, this.OnMovementEnded);
+  }
+
+  function OnMovementEnded(event : MovementEvent)
+  {
+    if(this.RNG.Real() <= this.ChanceToDrop)
+    {
+      this.DropWeb(event.OldPosition - event.NewPosition);
+    }
+  }
+  
+  function DropWeb(offset : Real3) 
+  {
+    var castFilter : CastFilter = CastFilter();
+    castFilter.IgnoreGhost = false;
+    var results = this.Space.PhysicsSpace.CastCollider(offset, this.Owner.Collider, castFilter);
+    foreach(var result in results)
+    {
+      if(result.ObjectHit.Archetype == Archetype.SpiderWeb)
+      {
+        return;
+      }
+    }
+    this.Space.CreateAtPosition(Archetype.SpiderWeb, this.Owner.Transform.Translation + offset);
+  }
+}

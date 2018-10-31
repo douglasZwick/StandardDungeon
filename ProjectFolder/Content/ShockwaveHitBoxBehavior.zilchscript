@@ -5,10 +5,10 @@ class ShockwaveHitBoxBehavior : ZilchComponent
   
   [Property]
   var Direction : Directions;
-  var Lifetime : Real = 0.5;
-  var PropogationTime : Real = 0.2;
-  var Timer : Real = 0;
-  var Propogated : Boolean = false;
+  var Lifetime : Real = 1;
+  var LifeTimer : Real = 0;
+  var WaitTime : Real = 0.2;
+  var MoveTimer : Real = 0;
   var CastFilter : CastFilter = CastFilter();
   
   [Property]
@@ -18,9 +18,15 @@ class ShockwaveHitBoxBehavior : ZilchComponent
   {
     Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
     Zero.Connect(this.Owner, Events.CollisionStarted, this.OnCollisionStarted);
+    Zero.Connect(this.Owner, Events.MovementFailed, this.OnMovementFailed);
     
     this.CastFilter.CollisionGroup = CollisionGroup.DefaultGroup;
     this.CastFilter.IgnoreGhost = true;
+  }
+
+  function OnMovementFailed(event : MovementEvent)
+  {
+    this.Owner.Destroy();
   }
 
   function OnCollisionStarted(event : CollisionEvent)
@@ -32,13 +38,13 @@ class ShockwaveHitBoxBehavior : ZilchComponent
 
   function OnLogicUpdate(event : UpdateEvent)
   {
-    this.Timer += event.Dt;
-    if(this.Timer >= this.PropogationTime)
+    this.MoveTimer += event.Dt;
+    this.LifeTimer += event.Dt;
+    if(this.MoveTimer >= this.WaitTime)
     {
-      if(!this.Propogated)
-        this.PropogateShockwave();
+      this.PropogateShockwave();
     }
-    if(this.Timer >= this.Lifetime)
+    if(this.LifeTimer >= this.Lifetime)
     {
       this.Owner.Destroy();
     }
@@ -49,67 +55,21 @@ class ShockwaveHitBoxBehavior : ZilchComponent
   {
     if(this.Direction == Directions.Down)
     {
-      var moveResults = this.Space.PhysicsSpace.CastCollider(-Real3.YAxis, this.Collider, this.CastFilter);
-      foreach(var result in moveResults)
-      {
-        var we = WallEvent();
-        result.ObjectHit.DispatchEvent(Events.WallTest, we);
-        if(we.IsWall)
-          return;
-      }
-      
-      var newShockwave = this.Space.CreateAtPosition(Archetype.ShockwaveHitBox, this.Owner.Transform.Translation + -Real3.YAxis);
-      newShockwave.ShockwaveHitBoxBehavior.Direction = this.Direction;
-      this.Propogated = true;
+      this.Owner.DiscreteMover.Move(-Real3.YAxis);
     }
-    
-    if(this.Direction == Directions.Up)
+    else if(this.Direction == Directions.Up)
     {
-      var moveResults = this.Space.PhysicsSpace.CastCollider(Real3.YAxis, this.Collider, this.CastFilter);
-      foreach(var result in moveResults)
-      {
-        var we = WallEvent();
-        result.ObjectHit.DispatchEvent(Events.WallTest, we);
-        if(we.IsWall)
-          return;
-      }
-      
-      var newShockwave = this.Space.CreateAtPosition(Archetype.ShockwaveHitBox, this.Owner.Transform.Translation + Real3.YAxis);
-      newShockwave.ShockwaveHitBoxBehavior.Direction = this.Direction;
-      this.Propogated = true;
+      this.Owner.DiscreteMover.Move(Real3.YAxis);
     }
-    
-    if(this.Direction == Directions.Left)
+    else if(this.Direction == Directions.Right)
     {
-      var moveResults = this.Space.PhysicsSpace.CastCollider(-Real3.XAxis, this.Collider, this.CastFilter);
-      foreach(var result in moveResults)
-      {
-        var we = WallEvent();
-        result.ObjectHit.DispatchEvent(Events.WallTest, we);
-        if(we.IsWall)
-          return;
-      }
-      
-      var newShockwave = this.Space.CreateAtPosition(Archetype.ShockwaveHitBox, this.Owner.Transform.Translation + -Real3.XAxis);
-      newShockwave.ShockwaveHitBoxBehavior.Direction = this.Direction;
-      this.Propogated = true;
+      this.Owner.DiscreteMover.Move(Real3.XAxis);
     }
-    
-    if(this.Direction == Directions.Right)
+    else if(this.Direction == Directions.Left)
     {
-      var moveResults = this.Space.PhysicsSpace.CastCollider(Real3.XAxis, this.Collider, this.CastFilter);
-      foreach(var result in moveResults)
-      {
-        var we = WallEvent();
-        result.ObjectHit.DispatchEvent(Events.WallTest, we);
-        if(we.IsWall)
-          return;
-      }
-      
-      var newShockwave = this.Space.CreateAtPosition(Archetype.ShockwaveHitBox, this.Owner.Transform.Translation + Real3.XAxis);
-      newShockwave.ShockwaveHitBoxBehavior.Direction = this.Direction;
-      this.Propogated = true;
+      this.Owner.DiscreteMover.Move(-Real3.XAxis);
     }
+    this.MoveTimer = 0;
   }
 }
 

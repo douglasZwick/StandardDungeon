@@ -675,6 +675,10 @@ Level
 			var Rotation = Quaternion{0, 0, 0, 1}
 			var Scale = Real3{0.5, 0.5, 0.5}
 		}
+		AlarmClock 
+		{
+			var SetOnInitialize = false
+		}
 	}
 	Cog [ContextId:20]
 	{

@@ -1,0 +1,30 @@
+class SpiderController : ZilchComponent
+{
+  var RNG : Random = Random();
+  function Initialize(init : CogInitializer)
+  {
+    Zero.Connect(this.Owner, Events.AiTick, this.OnAiTick);
+  }
+
+  function OnAiTick(event : TickEvent)
+  {
+    var randomDirection = this.RNG.DieRoll(4) - 1 as Directions;
+    if(randomDirection == Directions.Up)
+    {
+      this.Owner.DiscreteMover.Move(Real3.YAxis);
+    }
+    else if(randomDirection == Directions.Down)
+    {
+      this.Owner.DiscreteMover.Move(-Real3.YAxis);
+    }
+    else if(randomDirection == Directions.Left)
+    {
+      this.Owner.DiscreteMover.Move(-Real3.XAxis);
+    }
+    else if(randomDirection == Directions.Right)
+    {
+      this.Owner.DiscreteMover.Move(Real3.XAxis);
+    }
+    
+  }
+}

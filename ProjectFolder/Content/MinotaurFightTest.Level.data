@@ -85,7 +85,7 @@ Level
 		var Name = "EditorCamera"
 		Transform 
 		{
-			var Translation = Real3{2.80972314, 8.41757774, 19.9580021}
+			var Translation = Real3{2.17683244, 5.33869505, 19.9580021}
 			var Scale = Real3{1, 1, 1}
 			var Rotation = Quaternion{0, -1.09278471e-08, 0, 1}
 		}
@@ -138,7 +138,7 @@ Level
 			var FarPlane = 500
 			var PerspectiveMode = PerspectiveMode.Orthographic
 			var FieldOfView = 45
-			var Size = 24.4280796
+			var Size = 36.4424438
 		}
 		EditorCameraController 
 		{
@@ -147,7 +147,7 @@ Level
 			var LookDistance = 21.2163296
 			var VerticalAngle = 0
 			var HorizontalAngle = 0
-			var LookTarget = Real3{2.80972314, 8.41757774, -1.25832808}
+			var LookTarget = Real3{2.17683244, 5.33869505, -1.25832808}
 			var MoveSensitivity = 1
 		}
 	}
@@ -308,12 +308,6 @@ Level
 			var Rotation = Quaternion{0, 0, 0, 1}
 			var Scale = Real3{1, 1, 1}
 		}
-		Revealer [LocallyAdded]
-		{
-		}
-		Reader [LocallyAdded]
-		{
-		}
 	}
 	Cog [ContextId:3]
 	{
@@ -440,7 +434,7 @@ Level
 		}
 		AiTicker 
 		{
-			var TickDelay = 1.25
+			var TickDelay = 0
 		}
 		Inventory [LocallyAdded]
 		{
@@ -448,6 +442,20 @@ Level
 			var Keys = 0
 			var DropOnDeath = true
 			var LootArchetype = "5bab4e400484619f:Loot"
+		}
+	}
+	Cog [InheritId:"5b899606e6d10a5a:Spider"][ContextId:16]
+	{
+		var Name = "Spider"
+		Transform 
+		{
+			var Translation = Real3{0, 2, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+		DropWebOnMovementEnded 
+		{
+			var ChanceToDrop = 0.5
 		}
 	}
 }
