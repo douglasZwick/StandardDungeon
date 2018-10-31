@@ -1,0 +1,9 @@
+[Version:1]
+TextContent 
+{
+	ZilchScriptBuilder 
+	{
+		var Name = "ResetLevelOnDeath"
+		var ResourceId = 0x5b899b19ed24b90e
+	}
+}

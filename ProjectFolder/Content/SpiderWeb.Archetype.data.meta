@@ -1,0 +1,11 @@
+[Version:1]
+DataContent 
+{
+	DataBuilder 
+	{
+		var Name = "SpiderWeb"
+		var ResourceId = 0x5b898d6b1874102d
+		var LoaderType = "Cog"
+		var Version = 0
+	}
+}

@@ -1,10 +1,10 @@
 [Version:1]
 Cog 
 {
-	var Name = "ShockwaveHitBox"
+	var Name = "Shockwave"
 	Transform 
 	{
-		var Translation = Real3{1, 1, 0}
+		var Translation = Real3{11.19977, 16.9638729, 0}
 		var Scale = Real3{1, 1, 1}
 		var Rotation = Quaternion{0, 0, 0, 1}
 	}
@@ -13,7 +13,7 @@ Cog
 		var Ghost = true
 		var SendsEvents = true
 		var Material = "4de020863e872da8:DefaultPhysicsMaterial"
-		var CollisionGroup = "4e740859314e5515:DefaultGroup"
+		var CollisionGroup = "5b899340c282244a:Shockwave"
 		var Offset = Real3{0, 0, 0}
 		var HalfSize = Real3{0.400000006, 0.400000006, 0.400000006}
 	}
@@ -49,5 +49,52 @@ Cog
 		var Asleep = false
 		var RotationLocked = false
 		var Mode2D = Mode2DStates.InheritFromSpace
+	}
+	DiscreteMover 
+	{
+		var ColliderPath = CogPath
+		{
+			var Path = "."
+			var ErrorOnResolveToNull = false
+			var ErrorOnPathCantCompute = false
+			var ErrorOnDirectLinkFail = false
+			var UpdateCogOnPathChange = true
+			var UpdatePathOnCogChange = true
+			var UpdateCogOnInitialize = true
+			var ResolvedNullErrorOccurred = false
+			var Cog = 4294967293
+			var PathPreference0 = CogPathPreference.CogRelative
+			var PathPreference1 = CogPathPreference.SpaceRelative
+			var PathPreference2 = CogPathPreference.Absolute
+		}
+	}
+	CustomCollisionEventTracker 
+	{
+	}
+	Hierarchy 
+	{
+		Cog [Id:0x5b8993e9efde8e08]
+		{
+			var Name = "ShockwaveHitBox"
+			Transform 
+			{
+				var Translation = Real3{0, 0, 0}
+				var Scale = Real3{1, 1, 1}
+				var Rotation = Quaternion{0, 0, 0, 1}
+			}
+			BoxCollider 
+			{
+				var Ghost = true
+				var SendsEvents = true
+				var Material = "4de020863e872da8:DefaultPhysicsMaterial"
+				var CollisionGroup = "4e740859314e5515:DefaultGroup"
+				var Offset = Real3{0, 0, 0}
+				var HalfSize = Real3{0.400000006, 0.400000006, 0.400000006}
+			}
+			DamageOnCollision 
+			{
+				var Damage = 2
+			}
+		}
 	}
 }

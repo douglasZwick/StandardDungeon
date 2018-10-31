@@ -1,0 +1,101 @@
+[Version:1]
+Cog 
+{
+	var Name = "Spider"
+	Transform 
+	{
+		var Translation = Real3{0, 2, 0}
+		var Scale = Real3{1, 1, 1}
+		var Rotation = Quaternion{0, 0, 0, 1}
+	}
+	Sprite 
+	{
+		var Visible = true
+		var ViewCulling = true
+		var VisibilityEvents = true
+		var OverrideBoundingBox = false
+		var LocalAabbCenter = Real3{0, 0, 0}
+		var LocalAabbHalfExtents = Real3{1, 1, 1}
+		var GroupSortValue = 0
+		var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
+		var VertexColor = Real4{0, 0, 0, 1}
+		var GeometryMode = SpriteGeometryMode.ZPlane
+		var SpriteSource = "5b89913a4fa404ee:spiderplaceholder"
+		var FlipX = false
+		var FlipY = false
+		var AnimationActive = true
+		var AnimationSpeed = 1
+		var StartFrame = 0
+	}
+	MovementBlinker 
+	{
+		var GhostArchetype = "5bb5eee0a7631b8e:MovementGhost"
+	}
+	AiTicker 
+	{
+		var BaseTickDelay = 0.300000012
+		var TickDelayVariance = 0
+		var RandomInitialTimer = false
+	}
+	Health 
+	{
+		var MaxHealth = 1
+	}
+	DiscreteMover 
+	{
+		var ColliderPath = CogPath
+		{
+			var Path = "."
+			var ErrorOnResolveToNull = false
+			var ErrorOnPathCantCompute = false
+			var ErrorOnDirectLinkFail = false
+			var UpdateCogOnPathChange = true
+			var UpdatePathOnCogChange = true
+			var UpdateCogOnInitialize = true
+			var ResolvedNullErrorOccurred = false
+			var Cog = 4294967293
+			var PathPreference0 = CogPathPreference.CogRelative
+			var PathPreference1 = CogPathPreference.SpaceRelative
+			var PathPreference2 = CogPathPreference.Absolute
+		}
+	}
+	BoxCollider 
+	{
+		var Ghost = false
+		var SendsEvents = true
+		var Material = "4de020863e872da8:DefaultPhysicsMaterial"
+		var CollisionGroup = "5baa5c7ae3cb18d6:Enemy"
+		var Offset = Real3{0, 0, 0}
+		var HalfSize = Real3{0.400000006, 0.400000006, 0.400000006}
+	}
+	RigidBody 
+	{
+		var Velocity = Real3{0, 0, 0}
+		var AngularVelocity = Real3{0, 0, 0}
+		var DynamicState = RigidBodyDynamicState.Kinematic
+		var AllowSleep = true
+		var Asleep = false
+		var RotationLocked = false
+		var Mode2D = Mode2DStates.InheritFromSpace
+	}
+	FlipSpriteOnMovementStarted 
+	{
+		var OnFailedToo = true
+		var FlipYChance = 0
+	}
+	SpiderController 
+	{
+	}
+	DamageOnCollision 
+	{
+		var Damage = 1
+	}
+	CustomCollisionEventTracker 
+	{
+	}
+	DropWebOnMovementEnded 
+	{
+		var ItemToDrop = "null"
+		var ChanceToDrop = 0
+	}
+}

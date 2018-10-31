@@ -152,6 +152,22 @@ Cog
 	PrintOnDidCollect 
 	{
 	}
+	Revealer 
+	{
+	}
+	Reader 
+	{
+	}
+	Health 
+	{
+		var MaxHealth = 3
+	}
+	ResetLevelOnDeath 
+	{
+	}
+	CustomCollisionEventTracker 
+	{
+	}
 	Hierarchy 
 	{
 		Cog [Id:0x5baa61a7e6da21e3]
