@@ -2,6 +2,7 @@ class DiscreteMover : ZilchComponent
 {
   sends MovementAttempted : MovementEvent;
   sends MovementStarted : MovementEvent;
+  sends MovementEnded : MovementEvent;
   sends MovementFailed : MovementEvent;
   
   
@@ -77,6 +78,8 @@ class DiscreteMover : ZilchComponent
       this.Owner.DispatchEvent(Events.MovementStarted, me);
       
       this.Transform.WorldTranslation = me.NewPosition;
+      
+      this.Owner.DispatchEvent(Events.MovementEnded, me);
     }
   }
 }
