@@ -39,7 +39,7 @@ class PrintOnDidCollect : ZilchComponent
       }
       else
       {
-        message = "Poocha picked up a worthless object";
+        //message = "Poocha picked up a worthless object";
       }
     }
     

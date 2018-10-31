@@ -16,6 +16,10 @@ class Inventory : ZilchComponent
   var DropOnDeath : Boolean = true;
   [Property]
   var LootArchetype : Archetype = Archetype.Loot;
+  [Property][Group("Internal")]
+  var InventoryRoot : CogPath = CogPath(".");
+  
+  var HeldItem : ItemBase;
   
   
   function Initialize(init : CogInitializer)

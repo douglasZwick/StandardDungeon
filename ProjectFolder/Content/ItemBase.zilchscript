@@ -1,0 +1,81 @@
+class ItemBase : ZilchComponent
+{
+  [Property]
+  var BaseSpritePath : CogPath = CogPath(".");
+  [Property]
+  var ColliderPath : CogPath = CogPath(".");
+  
+  var BaseSprite : BaseSprite;
+  var Collider : Collider;
+  var ActionSequence : ActionSequence;
+  var DefaultColor : Real4;
+  var FadeColor : Real4;
+  var FadeDuration : Real = 4 / 60.0;
+  var CollisionGroup : CollisionGroup;
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    this.ActionSequence = Action.Sequence(this.Owner.Actions);
+    
+    this.BaseSprite = this.BaseSpritePath.BaseSprite;
+    this.Collider = this.ColliderPath.Collider;
+    
+    if (this.BaseSprite != null)
+    {
+      this.DefaultColor = this.BaseSprite.VertexColor;
+      this.FadeColor = this.DefaultColor;
+      this.FadeColor.W = 0;
+    }
+    
+    if (this.Collider != null)
+    {
+      this.CollisionGroup = this.Collider.CollisionGroup;
+    }
+    
+    Zero.Connect(this.Owner, Events.WasCollected, this.OnWasCollected);
+  }
+  
+  
+  function OnWasCollected(event : ZilchEvent)
+  {
+    this.Disable();
+  }
+  
+  
+  function Disable()
+  {
+    if (this.BaseSprite != null)
+    {
+      this.ActionSequence.Cancel();
+      this.ActionSequence = Action.Sequence(this.Owner.Actions);
+        
+        Action.Property(this.ActionSequence, @this.BaseSprite.VertexColor, this.FadeColor, this.FadeDuration, Ease.QuadInOut);
+    }
+    
+    if (this.Collider != null)
+    {
+      this.Collider.CollisionGroup = CollisionGroup.Null;
+    }
+  }
+  
+  
+  function Enable()
+  {
+    if (this.BaseSprite != null)
+    {
+      this.ActionSequence.Cancel();
+      this.ActionSequence = Action.Sequence(this.Owner.Actions);
+        
+        Action.Property(this.ActionSequence, @this.BaseSprite.VertexColor, this.DefaultColor, this.FadeDuration, Ease.QuadInOut);
+    }
+    
+    if (this.Collider != null)
+    {
+      this.Collider.CollisionGroup = this.CollisionGroup;
+    }
+  }
+}
+
+
+// TODO: WORK ON THIS

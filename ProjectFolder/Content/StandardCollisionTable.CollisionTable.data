@@ -7,6 +7,7 @@ CollisionTable
 		"5bcb31a31ae6d930:Player"
 		"5baa5c5ee5ab503f:ClosedDoor"
 		"5baa5c59e6947bde:OpenedDoor"
+		"5ba25895ac7a48c0:Null"
 		"5baa5c7ae3cb18d6:Enemy"
 	}
 	var CollisionFilters = Array
