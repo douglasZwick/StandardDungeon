@@ -14,11 +14,13 @@ class DiscreteMover : ZilchComponent
   
   var Collider : Collider;
   var CastFilter : CastFilter = CastFilter();
+  var Tracker : CustomCollisionEventTracker;
   
   
   function Initialize(init : CogInitializer)
   {
     this.Collider = this.ColliderPath.Collider;
+    this.Tracker = this.Owner.CustomCollisionEventTracker;
     
     this.CastFilter.CollisionGroup = this.Collider.CollisionGroup;
     this.CastFilter.IgnoreGhost = true;
@@ -48,8 +50,21 @@ class DiscreteMover : ZilchComponent
     var moveResults = this.Space.PhysicsSpace.CastCollider(movement, this.Collider, this.CastFilter);
     var solid = moveResults.IsNotEmpty;
     
-    // TODO: if we want movers to seem like they "collide", and like get custom collision events
-    // and so forth, we could use a CustomCollisionEventTracker here and foreach through the results
+    if (this.Tracker != null)
+    {
+      foreach (var result in moveResults)
+      {
+        var other = result.ObjectHit;
+        var otherPosition = other.Transform.WorldTranslation;
+        var thisPosition = this.Transform.WorldTranslation;
+        var difference = otherPosition - thisPosition;
+        var normalTowardOther = Math.Normalize(difference);
+        
+        this.Tracker.AddCollision(result.Collider, other.Transform.WorldTranslation, normalTowardOther);
+      }
+      
+      this.Tracker.SendEvents("Collision");
+    }
     
     if (solid)
     {
