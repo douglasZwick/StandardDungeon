@@ -1,0 +1,10 @@
+class CharacterBase : ZilchComponent
+{
+  [Property]
+  var Name : String = "Character";
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+  }
+}

@@ -300,13 +300,28 @@ Level
 			}
 		}
 	}
-	Cog [InheritId:"5bb5fb804ed9a45d:Hero"][ContextId:9]
+	Cog [InheritId:"5bb5fb804ed9a45d:Hero"][ChildOrderOverride][ContextId:9]
 	{
 		Transform 
 		{
 			var Translation = Real3{0, 0, 0}
 			var Rotation = Quaternion{0, 0, 0, 1}
 			var Scale = Real3{1, 1, 1}
+		}
+		Sprite 
+		{
+		}
+		BoxCollider 
+		{
+		}
+		PlayerSword 
+		{
+		}
+		MovementBlinker 
+		{
+		}
+		RigidBody 
+		{
 		}
 		Inventory 
 		{
@@ -316,9 +331,55 @@ Level
 				var Cog = 10
 			}
 		}
+		Collector 
+		{
+		}
+		InventoryCounterUpdater 
+		{
+		}
+		DiscreteMover 
+		{
+		}
+		HeroController 
+		{
+		}
+		CameraPusher 
+		{
+		}
+		Opener 
+		{
+		}
+		DoorOpener 
+		{
+		}
+		ChestOpener 
+		{
+		}
+		PrintOnDidCollect 
+		{
+		}
+		Revealer 
+		{
+		}
+		Reader 
+		{
+		}
+		Health 
+		{
+		}
+		ResetLevelOnDeath 
+		{
+		}
+		CustomCollisionEventTracker 
+		{
+		}
 		CanGetTrappedInWeb 
 		{
 			var WebBreakingStrength = 1
+		}
+		CharacterBase [LocallyAdded]
+		{
+			var Name = "Character"
 		}
 		HeroConsoleInterface [LocallyAdded]
 		{
