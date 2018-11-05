@@ -56,14 +56,9 @@ class HeroController : ZilchComponent
       if(spiderWebController != null)
       {
         this.OnAWeb = true;
-        spiderWebController.WebStrength -= 1;
-        if(spiderWebController.WebStrength < 0)
-        {
-          spiderWebController.Owner.Destroy();
-        }
+        spiderWebController.DamageWeb();
       }
     }
-    //Console.WriteLine(this.OnAWeb);
   }
   
   function OnButtonDown(event : GamepadEvent)
