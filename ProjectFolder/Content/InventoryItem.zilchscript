@@ -4,8 +4,16 @@ class InventoryItem : ZilchComponent
   var ItemBase : ItemBase;
   
   
+  [Property][Group("Internal")]
+  var SpritePath : CogPath = CogPath(".");
+  
+  var Sprite : Sprite;
+  
+  
   function Initialize(init : CogInitializer)
   {
+    this.Sprite = this.SpritePath.Sprite;
+    
     Zero.Connect(this.Owner, Events.WasCollected, this.OnWasCollected);
     Zero.Connect(this.Owner, Events.RequestUse, this.OnRequestUse);
   }
@@ -19,9 +27,8 @@ class InventoryItem : ZilchComponent
   
   function OnRequestUse(event : InventoryItemEvent)
   {
-    var name = this.ItemBase.Name;
-    var cse = ConsoleSystemEvent("Poocha used `name`");
-    this.GameSession.DispatchEvent(Events.Print, cse);
+    event.UserInventory.Owner.DispatchEvent(Events.DidUse, event);
+    this.Owner.DispatchEvent(Events.WasUsed, event);
   }
 }
 

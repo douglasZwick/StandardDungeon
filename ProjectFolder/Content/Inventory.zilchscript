@@ -10,6 +10,8 @@ class Inventory : ZilchComponent
   sends RequestUse : InventoryItemEvent;
   sends WasUsed : InventoryItemEvent;
   sends DidUse : InventoryItemEvent;
+  sends PutItemIconInInventory : CollectionEvent;
+  sends RemoveItemIconFromInventory : CollectionEvent;
   
   
   [Dependency]
@@ -29,6 +31,30 @@ class Inventory : ZilchComponent
   
   var HeldItem : InventoryItem;
   
+  var DroppedVerbs : Array[String] = Array[String]()
+  {
+    "dropped",
+    "got rid of",
+    "ditched",
+    "let go of",
+    "lost interest in",
+    "no longer has",
+  };
+  
+  var GotVerbs : Array[String] = Array[String]()
+  {
+    "got",
+    "picked up",
+    "snagged",
+    "scored",
+    "got ahold of",
+    "now has",
+  };
+  
+  var RNG : Random = Random();
+  var RandomDroppedVerb : String { get { return this.DroppedVerbs[this.RNG.DieRoll(this.DroppedVerbs.Count) - 1]; }}
+  var RandomGotVerb : String { get { return this.GotVerbs[this.RNG.DieRoll(this.GotVerbs.Count) - 1]; }}
+  
   
   function Initialize(init : CogInitializer)
   {
@@ -37,6 +63,7 @@ class Inventory : ZilchComponent
     Zero.Connect(this.Owner, Events.Death, this.OnDeath);
     Zero.Connect(this.Owner, Events.DidDropFromInventory, this.OnDidDropFromInventory);
     Zero.Connect(this.Owner, Events.DidAddToInventory, this.OnDidAddToInventory);
+    Zero.Connect(this.Owner, Events.DidUseUp, this.OnDidUseUp);
     Zero.Connect(Zero.Keyboard, Events.KeyDown, this.OnKeyDown);
   }
   
@@ -54,6 +81,14 @@ class Inventory : ZilchComponent
     this.HeldItem = event.InventoryItem;
     this.HeldItem.Owner.AttachTo(this.InventoryRoot.Cog);
     this.HeldItem.Owner.Transform.LocalTranslation = Real3.Zero;
+    
+    // TODO: i'm finding it hard to justify to myself the need for all these
+    // event classes that seem to have so much overlap in their use. should
+    // PutItemIconInInventory actually use a CollectionEvent? seems weird
+    // when there's also an InventoryEvent and also an InventoryItemEvent. a
+    // refactor of these classes seems to be in order
+    
+    this.GameSession.DispatchEvent(Events.PutItemIconInInventory, event);
   }
   
   
@@ -62,6 +97,21 @@ class Inventory : ZilchComponent
     this.HeldItem.Owner.Detach();
     this.HeldItem.Owner.Transform.WorldTranslation = event.WorldPosition;
     this.HeldItem = null;
+    
+    // TODO: currently there are two ways to lose an item from your inventory:
+    // either you drop it (because you picked something else up), or you use
+    // it up. i should consider refactoring things so that both cases use the
+    // same code interface
+    
+    this.GameSession.DispatchEvent(Events.RemoveItemIconFromInventory, event);
+  }
+  
+  
+  function OnDidUseUp(event : InventoryItemEvent)
+  {
+    var ce = CollectionEvent();
+    ce.InventoryItem = event.InventoryItem;
+    this.GameSession.DispatchEvent(Events.RemoveItemIconFromInventory, ce);
   }
   
   
@@ -72,11 +122,27 @@ class Inventory : ZilchComponent
     
     if (inventoryItem != null)
     {
+      var collectedItemBase = inventoryItem.ItemBase;
+      var collectedNamePhrase = collectedItemBase.NamePhrase;
+      
       if (this.HeldItem != null)
       {
+        var droppedItemBase = this.HeldItem.ItemBase;
+        var droppedNamePhrase = droppedItemBase.NamePhrase;
+        var string0 = "Poocha `this.RandomDroppedVerb` `droppedNamePhrase`";
+        var string1 = "and `this.RandomGotVerb` `collectedNamePhrase`";
+        var cse = ConsoleSystemEvent(string0, string1);
+        this.GameSession.DispatchEvent(Events.Print, cse);
+        
         event.DroppedItem = this.HeldItem;
         this.HeldItem.Owner.DispatchEvent(Events.WasDroppedFromInventory, event);
         this.Owner.DispatchEvent(Events.DidDropFromInventory, event);
+      }
+      else
+      {
+        var string0 = "Poocha `this.RandomGotVerb` `collectedNamePhrase`";
+        var cse = ConsoleSystemEvent(string0);
+        this.GameSession.DispatchEvent(Events.Print, cse);
       }
       
       collectable.Owner.DispatchEvent(Events.WasAddedToInventory, event);

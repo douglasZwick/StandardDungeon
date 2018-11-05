@@ -1,0 +1,9 @@
+[Version:1]
+TextContent 
+{
+	ZilchScriptBuilder 
+	{
+		var Name = "HealOnUse"
+		var ResourceId = 0x5b80ab6bfb820706
+	}
+}

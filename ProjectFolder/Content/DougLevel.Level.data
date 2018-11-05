@@ -85,7 +85,7 @@ Level
 		var Name = "EditorCamera"
 		Transform 
 		{
-			var Translation = Real3{0.0302225277, 1.60749769, 31.6510258}
+			var Translation = Real3{-1.23349357, 0.440366149, 36.6510239}
 			var Scale = Real3{1, 1, 1}
 			var Rotation = Quaternion{0, -1.09278471e-08, 0, 1}
 		}
@@ -138,7 +138,7 @@ Level
 			var FarPlane = 500
 			var PerspectiveMode = PerspectiveMode.Orthographic
 			var FieldOfView = 45
-			var Size = 4.93195248
+			var Size = 6.02390003
 		}
 		EditorCameraController 
 		{
@@ -147,7 +147,7 @@ Level
 			var LookDistance = 31.6510258
 			var VerticalAngle = 0
 			var HorizontalAngle = 0
-			var LookTarget = Real3{0.0302225277, 1.60749769, 4.50325039e-08}
+			var LookTarget = Real3{-1.23349357, 0.440366149, 5}
 			var MoveSensitivity = 1
 		}
 	}
@@ -316,9 +316,12 @@ Level
 				var Cog = 10
 			}
 		}
-		CanGetTrappedInWeb [LocallyAdded]
+		CanGetTrappedInWeb 
 		{
 			var WebBreakingStrength = 1
+		}
+		HeroConsoleInterface [LocallyAdded]
+		{
 		}
 		Hierarchy 
 		{
@@ -737,12 +740,31 @@ Level
 	}
 	Cog [ContextId:28]
 	{
-		var Name = "Chest"
+		var Name = "Potion"
 		Transform 
 		{
 			var Translation = Real3{-1, 1, 0}
 			var Scale = Real3{1, 1, 1}
 			var Rotation = Quaternion{0, 0, 0, 1}
+		}
+		Sprite 
+		{
+			var Visible = true
+			var ViewCulling = true
+			var VisibilityEvents = true
+			var OverrideBoundingBox = false
+			var LocalAabbCenter = Real3{0, 0, 0}
+			var LocalAabbHalfExtents = Real3{1, 1, 1}
+			var GroupSortValue = 0
+			var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
+			var VertexColor = Real4{0, 0, 0, 1}
+			var GeometryMode = SpriteGeometryMode.ZPlane
+			var SpriteSource = "5b80b0a0d74f1cde:Potion"
+			var FlipX = false
+			var FlipY = false
+			var AnimationActive = true
+			var AnimationSpeed = 1
+			var StartFrame = 0
 		}
 		BoxCollider 
 		{
@@ -760,7 +782,8 @@ Level
 		}
 		ItemBase 
 		{
-			var Name = "Shest"
+			var Article = "a"
+			var Name = "Potion"
 			var BaseSpritePath = CogPath
 			{
 				var Path = "Sprite"
@@ -771,7 +794,7 @@ Level
 				var UpdatePathOnCogChange = true
 				var UpdateCogOnInitialize = true
 				var ResolvedNullErrorOccurred = false
-				var Cog = 29
+				var Cog = 4294967293
 				var PathPreference0 = CogPathPreference.CogRelative
 				var PathPreference1 = CogPathPreference.SpaceRelative
 				var PathPreference2 = CogPathPreference.Absolute
@@ -794,41 +817,35 @@ Level
 		}
 		InventoryItem 
 		{
+			var SpritePath = CogPath
+			{
+				var Path = "."
+				var ErrorOnResolveToNull = false
+				var ErrorOnPathCantCompute = false
+				var ErrorOnDirectLinkFail = false
+				var UpdateCogOnPathChange = true
+				var UpdatePathOnCogChange = true
+				var UpdateCogOnInitialize = true
+				var ResolvedNullErrorOccurred = false
+				var Cog = 28
+				var PathPreference0 = CogPathPreference.CogRelative
+				var PathPreference1 = CogPathPreference.SpaceRelative
+				var PathPreference2 = CogPathPreference.Absolute
+			}
+		}
+		HealOnUse 
+		{
+			var HealingAmount = 3
+		}
+		ConsumeOnUse 
+		{
+			var Uses = 1
 		}
 		Hierarchy 
 		{
-			Cog [Id:0x5ba4f8707d5a5de4][ContextId:29]
-			{
-				var Name = "Sprite"
-				Transform 
-				{
-					var Translation = Real3{0, 0, 0}
-					var Scale = Real3{0.5, 0.5, 0.5}
-					var Rotation = Quaternion{0, 0, 0, 1}
-				}
-				Sprite 
-				{
-					var Visible = true
-					var ViewCulling = true
-					var VisibilityEvents = true
-					var OverrideBoundingBox = false
-					var LocalAabbCenter = Real3{0, 0, 0}
-					var LocalAabbHalfExtents = Real3{1, 1, 1}
-					var GroupSortValue = 0
-					var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
-					var VertexColor = Real4{0, 0, 0, 0.5}
-					var GeometryMode = SpriteGeometryMode.ZPlane
-					var SpriteSource = "5baa08119f285a5a:TreasureChest"
-					var FlipX = false
-					var FlipY = false
-					var AnimationActive = true
-					var AnimationSpeed = 1
-					var StartFrame = 0
-				}
-			}
 		}
 	}
-	Cog [ContextId:30]
+	Cog [ContextId:29]
 	{
 		var Name = "Dag"
 		Transform 
@@ -853,6 +870,7 @@ Level
 		}
 		ItemBase 
 		{
+			var Article = "the"
 			var Name = "Dag"
 			var BaseSpritePath = CogPath
 			{
@@ -864,7 +882,7 @@ Level
 				var UpdatePathOnCogChange = true
 				var UpdateCogOnInitialize = true
 				var ResolvedNullErrorOccurred = false
-				var Cog = 31
+				var Cog = 30
 				var PathPreference0 = CogPathPreference.CogRelative
 				var PathPreference1 = CogPathPreference.SpaceRelative
 				var PathPreference2 = CogPathPreference.Absolute
@@ -879,7 +897,7 @@ Level
 				var UpdatePathOnCogChange = true
 				var UpdateCogOnInitialize = true
 				var ResolvedNullErrorOccurred = false
-				var Cog = 30
+				var Cog = 29
 				var PathPreference0 = CogPathPreference.CogRelative
 				var PathPreference1 = CogPathPreference.SpaceRelative
 				var PathPreference2 = CogPathPreference.Absolute
@@ -887,10 +905,25 @@ Level
 		}
 		InventoryItem 
 		{
+			var SpritePath = CogPath
+			{
+				var Path = "Sprite"
+				var ErrorOnResolveToNull = false
+				var ErrorOnPathCantCompute = false
+				var ErrorOnDirectLinkFail = false
+				var UpdateCogOnPathChange = true
+				var UpdatePathOnCogChange = true
+				var UpdateCogOnInitialize = true
+				var ResolvedNullErrorOccurred = false
+				var Cog = 30
+				var PathPreference0 = CogPathPreference.CogRelative
+				var PathPreference1 = CogPathPreference.SpaceRelative
+				var PathPreference2 = CogPathPreference.Absolute
+			}
 		}
 		Hierarchy 
 		{
-			Cog [Id:0x5ba4f8707d5a5de4][ContextId:31]
+			Cog [Id:0x5ba4f8707d5a5de4][ContextId:30]
 			{
 				var Name = "Sprite"
 				Transform 
