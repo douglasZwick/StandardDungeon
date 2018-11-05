@@ -1,0 +1,11 @@
+[Version:1]
+DataContent 
+{
+	DataBuilder 
+	{
+		var Name = "SpikeTrap"
+		var ResourceId = 0x5b8f2841e989cf48
+		var LoaderType = "Cog"
+		var Version = 0
+	}
+}

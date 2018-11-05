@@ -11,6 +11,7 @@ class AiTicker : ZilchComponent
   var RandomInitialTimer : Boolean = false; // whether this instance's timer staring value should be randomized
   
   var TickDelay : Real;
+  [Property]
   var TickTimer : Real = 0;
   var RNG : Random = Random();
   
