@@ -3,6 +3,10 @@ class SpiderWebController : ZilchComponent
   [Property]
   var WebStrength : Integer = 5;
   
+  [Dependency]
+  var Sprite : Sprite;
+  
+  var BlinkTime : Real = 0.05;
   
   function Initialize(init : CogInitializer)
   {
@@ -22,6 +26,11 @@ class SpiderWebController : ZilchComponent
   function OnBreakAttempt(event : WebEvent)
   {
     this.WebStrength -= event.BreakingStrength;
+    
+    this.Sprite.Visible = false;
+    var seq = Action.Sequence(this.Owner.Actions);
+      Action.Delay(seq, this.BlinkTime);
+      Action.Property(seq, @this.Sprite.Visible, true, 0, Ease.Linear);
     
     if (this.WebStrength <= 0)
     {
