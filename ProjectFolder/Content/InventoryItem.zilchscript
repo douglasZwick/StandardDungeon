@@ -1,0 +1,33 @@
+class InventoryItem : ZilchComponent
+{
+  [Dependency]
+  var ItemBase : ItemBase;
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    Zero.Connect(this.Owner, Events.WasCollected, this.OnWasCollected);
+    Zero.Connect(this.Owner, Events.RequestUse, this.OnRequestUse);
+  }
+  
+  
+  function OnWasCollected(event : CollectionEvent)
+  {
+    event.InventoryItem = this;
+  }
+  
+  
+  function OnRequestUse(event : InventoryItemEvent)
+  {
+    var name = this.ItemBase.Name;
+    var cse = ConsoleSystemEvent("Poocha used `name`");
+    this.GameSession.DispatchEvent(Events.Print, cse);
+  }
+}
+
+
+class InventoryItemEvent : ZilchEvent
+{
+  var UserInventory : Inventory;
+  var InventoryItem : InventoryItem;
+}

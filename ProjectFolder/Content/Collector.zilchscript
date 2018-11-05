@@ -1,6 +1,7 @@
 class Collector : ZilchComponent
 {
   sends AttemptCollect : CollectionEvent;
+  sends WasCollected : CollectionEvent;
   sends DidCollect : CollectionEvent;
   
   
@@ -9,27 +10,39 @@ class Collector : ZilchComponent
   
   var Gold : Integer = 0;
   var Keys : Integer = 0;
+  var Collider : Collider;
+  var CastFilter : CastFilter = CastFilter();
   
   
   function Initialize(init : CogInitializer)
   {
-    // TODO: if we end up deciding that we want to be able to attempt to collect something
-    // that's in a square that cannot be walked into, then i could change this to use a
-    // collider cast during the MovementAttempted event
+    this.Collider = this.ColliderPath.Collider;
+    this.CastFilter.IgnoreGhost = false;
     
-    Zero.Connect(this.ColliderPath.Cog, Events.CollisionStarted, this.OnCollisionStarted);
+    Zero.Connect(this.Owner, Events.MovementAttempted, this.OnMovementAttempted);
   }
   
   
-  function OnCollisionStarted(event : CollisionEvent)
+  function OnMovementAttempted(event : MovementEvent)
   {
-    this.AttemptCollect(event.OtherObject);
+    var colliderPosition = this.Collider.Owner.Transform.WorldTranslation;
+    var attemptedPosition = event.AttemptedPosition;
+    var offset = attemptedPosition - colliderPosition;
+    
+    var ce = CollectionEvent();
+    ce.Collector = this;
+    
+    var results = this.Space.PhysicsSpace.CastCollider(offset, this.Collider, this.CastFilter);
+    
+    foreach (var result in results)
+      this.AttemptCollect(result.ObjectHit);
   }
   
   
   function AttemptCollect(cog : Cog)
   {
     var ce = CollectionEvent();
+    ce.Collector = this;
     cog.DispatchEvent(Events.AttemptCollect, ce);
     
     var collectable = ce.Collectable;

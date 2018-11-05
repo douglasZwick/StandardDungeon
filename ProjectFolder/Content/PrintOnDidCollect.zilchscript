@@ -39,9 +39,13 @@ class PrintOnDidCollect : ZilchComponent
       }
       else
       {
-        //message = "Poocha picked up a worthless object";
+        if (event.InventoryItem == null)
+          message = "Poocha picked up a worthless object";
       }
     }
+    
+    if (String.IsNullOrEmpty(message))
+      return;
     
     var cse = ConsoleSystemEvent(message);
     this.GameSession.DispatchEvent(Events.Print, cse);

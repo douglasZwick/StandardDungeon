@@ -1,8 +1,10 @@
 class ItemBase : ZilchComponent
 {
   [Property]
+  var Name : String = "Item";
+  [Property][Group("Internal")]
   var BaseSpritePath : CogPath = CogPath(".");
-  [Property]
+  [Property][Group("Internal")]
   var ColliderPath : CogPath = CogPath(".");
   
   var BaseSprite : BaseSprite;
@@ -34,12 +36,19 @@ class ItemBase : ZilchComponent
     }
     
     Zero.Connect(this.Owner, Events.WasCollected, this.OnWasCollected);
+    Zero.Connect(this.Owner, Events.WasDroppedFromInventory, this.OnWasDroppedFromInventory);
   }
   
   
   function OnWasCollected(event : ZilchEvent)
   {
     this.Disable();
+  }
+  
+  
+  function OnWasDroppedFromInventory(event : CollectionEvent)
+  {
+    this.Enable();
   }
   
   
@@ -76,6 +85,3 @@ class ItemBase : ZilchComponent
     }
   }
 }
-
-
-// TODO: WORK ON THIS
