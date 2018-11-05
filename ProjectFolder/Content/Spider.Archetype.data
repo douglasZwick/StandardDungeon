@@ -4,7 +4,7 @@ Cog
 	var Name = "Spider"
 	Transform 
 	{
-		var Translation = Real3{15, 5, 0}
+		var Translation = Real3{-14, -15, 0}
 		var Scale = Real3{1, 1, 1}
 		var Rotation = Quaternion{0, 0, 0, 1}
 	}
@@ -36,6 +36,8 @@ Cog
 		var BaseTickDelay = 0.300000012
 		var TickDelayVariance = 0
 		var RandomInitialTimer = false
+		var TickTimer = 0
+		var AwarenessRadius = 5
 	}
 	Health 
 	{

@@ -85,9 +85,9 @@ Level
 		var Name = "EditorCamera"
 		Transform 
 		{
-			var Translation = Real3{2.2919836, 3.93214679, 15.5214834}
+			var Translation = Real3{1.77640939, 2.55090117, 12.7348328}
 			var Scale = Real3{1, 1, 1}
-			var Rotation = Quaternion{-0.0295866188, 0.0732049942, 0.00217267545, 0.996875644}
+			var Rotation = Quaternion{0.0174179226, 0.0627808571, -0.00109584024, 0.997874737}
 		}
 		CameraViewport 
 		{
@@ -144,10 +144,10 @@ Level
 		{
 			var ControlMode = ControlMode.Orbit
 			var Previous3DMode = ControlMode.Orbit
-			var LookDistance = 15.7174597
-			var VerticalAngle = 0.0593412779
-			var HorizontalAngle = 6.13657951
-			var LookTarget = Real3{-1.1920929e-07, 3, 0}
+			var LookDistance = 12.8683796
+			var VerticalAngle = -0.0349064916
+			var HorizontalAngle = 6.15752172
+			var LookTarget = Real3{0.164557859, 3, -0.0242994595}
 			var MoveSensitivity = 1
 		}
 	}
@@ -468,10 +468,6 @@ Level
 			var Rotation = Quaternion{0, 0, 0, 1}
 			var Scale = Real3{1, 1, 1}
 		}
-		DropWebOnMovementEnded 
-		{
-			var ChanceToDrop = 0.5
-		}
 	}
 	Cog [InheritId:"5b8f30e02f469b66:Stairs"][ContextId:17]
 	{
@@ -504,6 +500,10 @@ Level
 			var Rotation = Quaternion{0, 0, 0, 1}
 			var Scale = Real3{1, 1, 1}
 		}
+		AiTicker 
+		{
+			var BaseTickDelay = 0.75
+		}
 	}
 	Cog [InheritId:"5b8f2841e989cf48:SpikeTrap"][ContextId:20]
 	{
@@ -516,6 +516,10 @@ Level
 		SpikeTrapController 
 		{
 			var Deployed = false
+		}
+		AiTicker 
+		{
+			var BaseTickDelay = 0.75
 		}
 	}
 	Cog [InheritId:"5b8f5febd3c20722:DartTrap"][ContextId:21]

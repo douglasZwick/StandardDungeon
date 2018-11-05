@@ -57,6 +57,7 @@ class DartTrapController : ZilchComponent
 
   function OnLogicUpdate(event : UpdateEvent)
   {
+    Console.WriteLine("POOP");
     this.SearchForTarget();
   }
   
@@ -142,6 +143,7 @@ class DartTrapController : ZilchComponent
       newDart.Transform.EulerAngles = Real3.ZAxis * Math.ToRadians(270);
     }
     this.Ready = false;
+    Zero.Disconnect(this.Space, Events.LogicUpdate, this);
   }
 }
 

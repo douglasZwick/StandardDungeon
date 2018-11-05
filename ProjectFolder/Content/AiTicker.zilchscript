@@ -14,6 +14,9 @@ class AiTicker : ZilchComponent
   [Property]
   var TickTimer : Real = 0;
   var RNG : Random = Random();
+  [Property]
+  var AwarenessRadius : Real = 10;
+  var PlayerRef : Cog;
   
   
   function Initialize(init : CogInitializer)
@@ -24,6 +27,8 @@ class AiTicker : ZilchComponent
       this.TickTimer = this.RNG.Range(0, this.TickDelay);
     
     Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
+    
+    this.PlayerRef = this.Space.FindObjectByName("Hero");
   }
   
   
@@ -38,7 +43,8 @@ class AiTicker : ZilchComponent
       var te = TickEvent();
       te.Dt = event.Dt;
       te.TickDelay = this.TickDelay;
-      this.Owner.DispatchEvent(Events.AiTick, te);
+      if(this.IsAwareOfPlayer())
+        this.Owner.DispatchEvent(Events.AiTick, te);
       
       this.ComputeTickDelay();
     }
@@ -48,6 +54,18 @@ class AiTicker : ZilchComponent
   function ComputeTickDelay()
   {
     this.TickDelay = this.RNG.Variance(this.BaseTickDelay, this.TickDelayVariance);
+  }
+  
+  function IsAwareOfPlayer() : Boolean
+  {
+    if(Math.LengthSq(this.PlayerRef.Transform.Translation - this.Owner.Transform.Translation) <= Math.Pow(this.AwarenessRadius, 2))
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
   }
 }
 
