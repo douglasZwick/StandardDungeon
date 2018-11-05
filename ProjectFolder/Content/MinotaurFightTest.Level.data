@@ -85,9 +85,9 @@ Level
 		var Name = "EditorCamera"
 		Transform 
 		{
-			var Translation = Real3{2.17683244, 5.33869505, 19.9580021}
+			var Translation = Real3{1.34713244, 0.793327689, 18.5386753}
 			var Scale = Real3{1, 1, 1}
-			var Rotation = Quaternion{0, -1.09278471e-08, 0, 1}
+			var Rotation = Quaternion{-0.00872468669, 0.0209417064, 0.000182756878, 0.999742627}
 		}
 		CameraViewport 
 		{
@@ -136,18 +136,18 @@ Level
 		{
 			var NearPlane = 0.5
 			var FarPlane = 500
-			var PerspectiveMode = PerspectiveMode.Orthographic
+			var PerspectiveMode = PerspectiveMode.Perspective
 			var FieldOfView = 45
-			var Size = 36.4424438
+			var Size = 9.93172932
 		}
 		EditorCameraController 
 		{
-			var ControlMode = ControlMode.ZPlane
+			var ControlMode = ControlMode.Orbit
 			var Previous3DMode = ControlMode.Orbit
-			var LookDistance = 21.2163296
-			var VerticalAngle = 0
-			var HorizontalAngle = 0
-			var LookTarget = Real3{2.17683244, 5.33869505, -1.25832808}
+			var LookDistance = 15.7174377
+			var VerticalAngle = 0.0174534209
+			var HorizontalAngle = -0.0418880656
+			var LookTarget = Real3{0.689052165, 0.51901859, 2.83741713}
 			var MoveSensitivity = 1
 		}
 	}
@@ -228,7 +228,7 @@ Level
 				var Name = "GameCamera"
 				Transform 
 				{
-					var Translation = Real3{0, 0, 8}
+					var Translation = Real3{0, 0, 6}
 					var Scale = Real3{1, 1, 1}
 					var Rotation = Quaternion{0, 0, 0, 1}
 				}
@@ -286,7 +286,7 @@ Level
 				}
 				Camera 
 				{
-					var NearPlane = 6.5315423
+					var NearPlane = 3
 					var FarPlane = 20
 					var PerspectiveMode = PerspectiveMode.Perspective
 					var FieldOfView = 60
@@ -442,6 +442,21 @@ Level
 			var Keys = 0
 			var DropOnDeath = true
 			var LootArchetype = "5bab4e400484619f:Loot"
+			var InventoryRoot = CogPath
+			{
+				var Path = "."
+				var ErrorOnResolveToNull = false
+				var ErrorOnPathCantCompute = false
+				var ErrorOnDirectLinkFail = false
+				var UpdateCogOnPathChange = true
+				var UpdatePathOnCogChange = true
+				var UpdateCogOnInitialize = true
+				var ResolvedNullErrorOccurred = false
+				var Cog = 15
+				var PathPreference0 = CogPathPreference.CogRelative
+				var PathPreference1 = CogPathPreference.SpaceRelative
+				var PathPreference2 = CogPathPreference.Absolute
+			}
 		}
 	}
 	Cog [InheritId:"5b899606e6d10a5a:Spider"][ContextId:16]

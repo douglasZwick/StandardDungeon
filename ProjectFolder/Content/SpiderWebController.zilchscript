@@ -1,5 +1,8 @@
 class SpiderWebController : ZilchComponent
 {
+  [Property]
+  var WebStrength : Integer = 5;
+  
   function Initialize(init : CogInitializer)
   {
     Zero.Connect(this.Owner, Events.CollisionStarted, this.OnCollisionStarted);
