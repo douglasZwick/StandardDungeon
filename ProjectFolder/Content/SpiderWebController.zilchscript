@@ -3,37 +3,31 @@ class SpiderWebController : ZilchComponent
   [Property]
   var WebStrength : Integer = 5;
   
-  var Blinking : Boolean = false;
-  var BlinkTime : Real = 0.05;
-  var BlinkTimer : Real = 0;
   
   function Initialize(init : CogInitializer)
   {
-    Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
-  }
-
-  function OnLogicUpdate(event : UpdateEvent)
-  {
-    if(this.Blinking)
-    {
-      this.BlinkTimer += event.Dt;
-      if(this.BlinkTimer >= this.BlinkTime)
-      {
-        this.Blinking = false;
-        this.Owner.Sprite.Visible = true;
-        this.BlinkTimer = 0;
-      }
-    }
+    Zero.Connect(this.Owner, Events.CollisionStarted, this.OnCollisionStarted);
+    Zero.Connect(this.Owner, Events.BreakAttempt, this.OnBreakAttempt);
   }
   
-  function DamageWeb()
+  
+  function OnCollisionStarted(event : CollisionEvent)
   {
-    this.WebStrength -= 1;
-    if(this.WebStrength <= 0)
+    var we = WebEvent();
+    we.Web = this;
+    event.OtherObject.DispatchEvent(Events.RequestTrapInWeb, we);
+  }
+  
+  
+  function OnBreakAttempt(event : WebEvent)
+  {
+    this.WebStrength -= event.BreakingStrength;
+    
+    if (this.WebStrength <= 0)
     {
+      // TODO: put some feedback here maybe
+      
       this.Owner.Destroy();
     }
-    this.Blinking = true;
-    this.Owner.Sprite.Visible = false;
   }
 }

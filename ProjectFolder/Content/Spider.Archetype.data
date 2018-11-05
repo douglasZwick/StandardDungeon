@@ -4,7 +4,7 @@ Cog
 	var Name = "Spider"
 	Transform 
 	{
-		var Translation = Real3{0, 2, 0}
+		var Translation = Real3{15, 5, 0}
 		var Scale = Real3{1, 1, 1}
 		var Rotation = Quaternion{0, 0, 0, 1}
 	}
@@ -95,7 +95,6 @@ Cog
 	}
 	DropWebOnMovementEnded 
 	{
-		var ItemToDrop = "null"
-		var ChanceToDrop = 0
+		var ChanceToDrop = 0.5
 	}
 }

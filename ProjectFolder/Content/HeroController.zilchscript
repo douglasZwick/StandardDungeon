@@ -6,8 +6,6 @@ class HeroController : ZilchComponent
   
   var Gamepad : Gamepad;
   
-  var OnAWeb : Boolean;
-  
   var CanMove : Boolean
   {
     get
@@ -16,7 +14,7 @@ class HeroController : ZilchComponent
       var attacking = Zero.Keyboard.KeyIsDown(Keys.Space) ||
                       this.Gamepad.IsButtonHeld(Buttons.A);
       
-      return !attacking && !this.OnAWeb;
+      return !attacking;
     }
   }
   
@@ -32,7 +30,6 @@ class HeroController : ZilchComponent
   
   function OnKeyDown(event : KeyboardEvent)
   {
-    this.DamageWeb();
     if (!this.CanMove) return;
     
     if      (event.Key == Keys.Right)
@@ -45,21 +42,6 @@ class HeroController : ZilchComponent
       this.Mover.Move(-Real3.YAxis);
   }
   
-  function DamageWeb()
-  {
-    var contacts = this.Owner.Collider.Contacts;
-    
-    this.OnAWeb = false;
-    foreach(var contact in contacts)
-    {
-      var spiderWebController : SpiderWebController = contact.OtherObject.SpiderWebController;
-      if(spiderWebController != null)
-      {
-        this.OnAWeb = true;
-        spiderWebController.DamageWeb();
-      }
-    }
-  }
   
   function OnButtonDown(event : GamepadEvent)
   {
