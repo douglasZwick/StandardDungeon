@@ -1,0 +1,56 @@
+class CanGetTrappedInWeb : ZilchComponent
+{
+  sends RequestTrapInWeb : WebEvent;
+  sends WasTrappedInWeb : WebEvent;
+  sends DidTrapInWeb : WebEvent;
+  sends BreakAttempt : WebEvent;
+  
+  
+  [Property]
+  var WebBreakingStrength : Integer = 1;
+  
+  var CurrentWeb : SpiderWebController;
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    Zero.Connect(this.Owner, Events.RequestTrapInWeb, this.OnRequestTrapInWeb);
+    Zero.Connect(this.Owner, Events.MovementAttempted, this.OnMovementAttempted);
+  }
+  
+  
+  function OnMovementAttempted(event : MovementEvent)
+  {
+    if (this.CurrentWeb == null)
+      return;
+    
+    event.Trapped = true;
+    
+    var we = WebEvent();
+    we.Web = this.CurrentWeb;
+    we.ThingWhatGotWebbed = this;
+    we.BreakingStrength = this.WebBreakingStrength;
+    this.CurrentWeb.Owner.DispatchEvent(Events.BreakAttempt, we);
+  }
+  
+  
+  function OnRequestTrapInWeb(event : WebEvent)
+  {
+    if (this.CurrentWeb != null)
+      return;
+    
+    this.CurrentWeb = event.Web;
+    event.ThingWhatGotWebbed = this;
+    
+    this.Owner.DispatchEvent(Events.WasTrappedInWeb, event);
+    event.Web.Owner.DispatchEvent(Events.DidTrapInWeb, event);
+  }
+}
+
+
+class WebEvent : ZilchEvent
+{
+  var Web : SpiderWebController;
+  var ThingWhatGotWebbed : CanGetTrappedInWeb;
+  var BreakingStrength : Integer;
+}

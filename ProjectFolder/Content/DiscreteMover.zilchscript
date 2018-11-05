@@ -33,13 +33,16 @@ class DiscreteMover : ZilchComponent
     // here's how movement works:
     // 
     // 1. dispatch the MovementAttempted event
-    // 2. check to see if the desired movement is possible
-    // 3a. if it is:
-    //   4a. dispatch the MovementStarted event to this.Owner
-    //   5a. immediately move the character to the new position. this ensures that no other
+    // 2. check to see if the character was trapped in a web
+    // 2a. if they are:
+    //   3a. movement fails, so dispatch the MovementFailed event, then return
+    // 3. check to see if the desired movement is possible
+    // 4a. if it is:
+    //   5a. dispatch the MovementStarted event to this.Owner
+    //   6a. immediately move the character to the new position. this ensures that no other
     //       characters can go to the same tile before movement is complete
-    // 3b. if movement is not possible:
-    //   4b. dispatch the MovementFailed event to this.Owner
+    // 4b. if movement is not possible:
+    //   5b. dispatch the MovementFailed event to this.Owner
     // 
     // that's it, that's all that's needed
     
@@ -47,6 +50,14 @@ class DiscreteMover : ZilchComponent
     me.OldPosition = this.Transform.WorldTranslation;
     me.AttemptedPosition = me.OldPosition + movement;
     this.Owner.DispatchEvent(Events.MovementAttempted, me);
+    
+    if (me.Trapped)
+    {
+      me.NewPosition = me.OldPosition;
+      this.Owner.DispatchEvent(Events.MovementFailed, me);
+      
+      return;
+    }
     
     var moveResults = this.Space.PhysicsSpace.CastCollider(movement, this.Collider, this.CastFilter);
     var solid = moveResults.IsNotEmpty;
@@ -87,6 +98,7 @@ class DiscreteMover : ZilchComponent
 
 class MovementEvent : ZilchEvent
 {
+  var Trapped : Boolean;
   // where you started
   var OldPosition : Real3;
   // where you ended up. not relevant during MovementAttempted, so don't use it then
