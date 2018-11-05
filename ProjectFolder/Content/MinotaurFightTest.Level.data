@@ -85,9 +85,9 @@ Level
 		var Name = "EditorCamera"
 		Transform 
 		{
-			var Translation = Real3{1.34713244, 0.793327689, 18.5386753}
+			var Translation = Real3{-7.53640985, -4.29943752, 39.3172455}
 			var Scale = Real3{1, 1, 1}
-			var Rotation = Quaternion{-0.00872468669, 0.0209417064, 0.000182756878, 0.999742627}
+			var Rotation = Quaternion{0, -1.09278471e-08, 0, 1}
 		}
 		CameraViewport 
 		{
@@ -136,18 +136,18 @@ Level
 		{
 			var NearPlane = 0.5
 			var FarPlane = 500
-			var PerspectiveMode = PerspectiveMode.Perspective
+			var PerspectiveMode = PerspectiveMode.Orthographic
 			var FieldOfView = 45
-			var Size = 9.93172932
+			var Size = 20.0000248
 		}
 		EditorCameraController 
 		{
-			var ControlMode = ControlMode.Orbit
+			var ControlMode = ControlMode.ZPlane
 			var Previous3DMode = ControlMode.Orbit
-			var LookDistance = 15.7174377
-			var VerticalAngle = 0.0174534209
-			var HorizontalAngle = -0.0418880656
-			var LookTarget = Real3{0.689052165, 0.51901859, 2.83741713}
+			var LookDistance = 38.6586609
+			var VerticalAngle = 0
+			var HorizontalAngle = 0
+			var LookTarget = Real3{-7.53640985, -4.29943752, 0.658584595}
 			var MoveSensitivity = 1
 		}
 	}
@@ -464,13 +464,36 @@ Level
 		var Name = "Spider"
 		Transform 
 		{
-			var Translation = Real3{0, 2, 0}
+			var Translation = Real3{-19, -19, 0}
 			var Rotation = Quaternion{0, 0, 0, 1}
 			var Scale = Real3{1, 1, 1}
 		}
 		DropWebOnMovementEnded 
 		{
 			var ChanceToDrop = 0.5
+		}
+	}
+	Cog [InheritId:"5b8f30e02f469b66:Stairs"][ContextId:17]
+	{
+		Transform 
+		{
+			var Translation = Real3{-2, -1, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+		Hierarchy 
+		{
+			Cog [Id:0x5b8f3227632a15c5][ContextId:18]
+			{
+				StairsController 
+				{
+					var OtherStairs = CogPath
+					{
+						var Path = ".."
+						var Cog = 17
+					}
+				}
+			}
 		}
 	}
 }

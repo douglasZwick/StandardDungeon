@@ -1,0 +1,9 @@
+[Version:1]
+TextContent 
+{
+	ZilchScriptBuilder 
+	{
+		var Name = "StairsController"
+		var ResourceId = 0x5b8f30f328db00d2
+	}
+}

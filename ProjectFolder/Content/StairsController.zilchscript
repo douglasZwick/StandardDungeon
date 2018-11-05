@@ -1,0 +1,34 @@
+class StairsController : ZilchComponent
+{
+  [Property]
+  var OtherStairs : CogPath;
+  
+  //Used to disable the destination stairs so you don't infinitely lööp between the two stair locations
+  var Active : Boolean = true;
+  
+  function Initialize(init : CogInitializer)
+  {
+    Zero.Connect(this.Owner, Events.CollisionStarted, this.OnCollisionStarted);
+    Zero.Connect(this.Owner, Events.CollisionEnded, this.OnCollisionEnded);
+  }
+
+  function OnCollisionEnded(event : CollisionEvent)
+  {
+    if(event.OtherObject.HeroController != null)
+    {
+      this.Active = true;
+    }
+  }
+
+  function OnCollisionStarted(event : CollisionEvent)
+  {
+    if(event.OtherObject.HeroController != null)
+    {
+      if(this.Active)
+      {
+        event.OtherObject.Transform.Translation = this.OtherStairs.Cog.Transform.WorldTranslation;
+        this.OtherStairs.Cog.StairsController.Active = false;
+      }
+    }
+  }
+}

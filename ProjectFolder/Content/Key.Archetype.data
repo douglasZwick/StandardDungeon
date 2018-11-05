@@ -4,7 +4,7 @@ Cog
 	var Name = "Key"
 	Transform 
 	{
-		var Translation = Real3{3, -1, 0}
+		var Translation = Real3{2, -1, 0}
 		var Scale = Real3{1, 1, 1}
 		var Rotation = Quaternion{0, 0, 0, 1}
 	}
@@ -17,7 +17,7 @@ Cog
 		var LocalAabbCenter = Real3{0, 0, 0}
 		var LocalAabbHalfExtents = Real3{1, 1, 1}
 		var GroupSortValue = 0
-		var Material = "582c575af53d18c9:AlphaSprite"
+		var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
 		var VertexColor = Real4{0, 0, 0, 1}
 		var GeometryMode = SpriteGeometryMode.ZPlane
 		var SpriteSource = "5bc9a62e6cb19aac:Key"

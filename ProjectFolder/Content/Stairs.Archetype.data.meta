@@ -1,0 +1,11 @@
+[Version:1]
+DataContent 
+{
+	DataBuilder 
+	{
+		var Name = "Stairs"
+		var ResourceId = 0x5b8f30e02f469b66
+		var LoaderType = "Cog"
+		var Version = 0
+	}
+}
