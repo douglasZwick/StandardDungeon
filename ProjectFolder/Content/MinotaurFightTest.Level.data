@@ -85,9 +85,9 @@ Level
 		var Name = "EditorCamera"
 		Transform 
 		{
-			var Translation = Real3{-2.27659559, 1.31454515, 21.5506287}
+			var Translation = Real3{2.2919836, 3.93214679, 15.5214834}
 			var Scale = Real3{1, 1, 1}
-			var Rotation = Quaternion{0, -1.09278471e-08, 0, 1}
+			var Rotation = Quaternion{-0.0295866188, 0.0732049942, 0.00217267545, 0.996875644}
 		}
 		CameraViewport 
 		{
@@ -136,18 +136,18 @@ Level
 		{
 			var NearPlane = 0.5
 			var FarPlane = 500
-			var PerspectiveMode = PerspectiveMode.Orthographic
+			var PerspectiveMode = PerspectiveMode.Perspective
 			var FieldOfView = 45
-			var Size = 9.93172741
+			var Size = 4.93194914
 		}
 		EditorCameraController 
 		{
-			var ControlMode = ControlMode.ZPlane
+			var ControlMode = ControlMode.Orbit
 			var Previous3DMode = ControlMode.Orbit
-			var LookDistance = 21.2163258
-			var VerticalAngle = 0
-			var HorizontalAngle = 0
-			var LookTarget = Real3{-2.27659559, 1.31454515, 0.334302813}
+			var LookDistance = 15.7174597
+			var VerticalAngle = 0.0593412779
+			var HorizontalAngle = 6.13657951
+			var LookTarget = Real3{-1.1920929e-07, 3, 0}
 			var MoveSensitivity = 1
 		}
 	}
@@ -464,7 +464,7 @@ Level
 		var Name = "Spider"
 		Transform 
 		{
-			var Translation = Real3{0, 2, 0}
+			var Translation = Real3{-14, -15, 0}
 			var Rotation = Quaternion{0, 0, 0, 1}
 			var Scale = Real3{1, 1, 1}
 		}
@@ -501,6 +501,28 @@ Level
 		Transform 
 		{
 			var Translation = Real3{0, 8, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+	}
+	Cog [InheritId:"5b8f2841e989cf48:SpikeTrap"][ContextId:20]
+	{
+		Transform 
+		{
+			var Translation = Real3{0, 6, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+		SpikeTrapController 
+		{
+			var Deployed = false
+		}
+	}
+	Cog [InheritId:"5b8f5febd3c20722:DartTrap"][ContextId:21]
+	{
+		Transform 
+		{
+			var Translation = Real3{-2, 3, 0}
 			var Rotation = Quaternion{0, 0, 0, 1}
 			var Scale = Real3{1, 1, 1}
 		}

@@ -1,0 +1,9 @@
+[Version:1]
+TextContent 
+{
+	ZilchScriptBuilder 
+	{
+		var Name = "DartTrapController"
+		var ResourceId = 0x5b8f58dcb1b87ebb
+	}
+}

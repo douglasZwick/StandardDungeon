@@ -5,6 +5,8 @@ class MovementBlinker : ZilchComponent
   
   [Dependency]
   var Sprite : Sprite;
+  [Dependency]
+  var Transform : Transform;
   
   
   [Property]
@@ -41,6 +43,7 @@ class MovementBlinker : ZilchComponent
     ghost.Sprite.VertexColor = this.Sprite.VertexColor;
     ghost.Sprite.FlipX = this.Sprite.FlipX;
     ghost.Sprite.FlipY = this.Sprite.FlipY;
+    ghost.Transform.WorldRotation = this.Transform.WorldRotation;
     
     var ghostSeq = Action.Sequence(ghost.Actions);
       
