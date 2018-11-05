@@ -1,0 +1,37 @@
+class SpikeTrapController : ZilchComponent
+{
+  [Property]
+  var SpikeCollider : CogPath;
+  [Property]
+  var Deployed : Boolean = false;
+  function Initialize(init : CogInitializer)
+  {
+    Zero.Connect(this.Owner, Events.AiTick, this.OnAiTick);
+    
+    if(this.Deployed)
+    {
+      this.Owner.Sprite.SpriteSource = SpriteSource.Spiketrapup;
+      this.SpikeCollider.Cog.Transform.Translation = Real3(0, 0, 0);
+    }
+    else
+    {
+      this.Owner.Sprite.SpriteSource = SpriteSource.Spiketrapdown;
+      this.SpikeCollider.Cog.Transform.Translation = Real3(0, 0, -3);
+    }
+  }
+
+  function OnAiTick(event : TickEvent)
+  {
+    this.Deployed = !this.Deployed;
+    if(this.Deployed)
+    {
+      this.Owner.Sprite.SpriteSource = SpriteSource.Spiketrapup;
+      this.SpikeCollider.Cog.Transform.Translation = Real3(0, 0, 0);
+    }
+    else
+    {
+      this.Owner.Sprite.SpriteSource = SpriteSource.Spiketrapdown;
+      this.SpikeCollider.Cog.Transform.Translation = Real3(0, 0, -3);
+    }
+  }
+}
