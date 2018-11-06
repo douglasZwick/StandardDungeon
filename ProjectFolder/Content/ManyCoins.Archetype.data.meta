@@ -1,0 +1,11 @@
+[Version:1]
+DataContent 
+{
+	DataBuilder 
+	{
+		var Name = "ManyCoins"
+		var ResourceId = 0x5bb1c29aa9e33120
+		var LoaderType = "Cog"
+		var Version = 0
+	}
+}

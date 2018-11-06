@@ -1,0 +1,58 @@
+class DropGoldOnMovementEnded : ZilchComponent
+{
+  [Dependency]
+  var Collider : Collider;
+  [Dependency]
+  var Inventory : Inventory;
+  var RNG : Random = Random();
+  [Property][Slider(0, 1, 0.01)]
+  var ChanceToDrop : Real = 0.5;
+  [Property]
+  var MinGoldDropped : Integer = 1;
+  [Property]
+  var MaxGoldDropped : Integer = 10;
+  function Initialize(init : CogInitializer)
+  {
+    Zero.Connect(this.Owner, Events.MovementEnded, this.OnMovementEnded);
+  }
+
+  function OnMovementEnded(event : MovementEvent)
+  {
+    var roll : Real = this.RNG.Range(0, 1);
+    if(roll < this.ChanceToDrop)
+    {
+      var dropAmount : Integer = this.RNG.RangeInclusiveMax(this.MinGoldDropped, this.MaxGoldDropped);
+      if(this.Inventory.Gold >= dropAmount)
+      {
+        var filter : CastFilter = CastFilter();
+        filter.IgnoreGhost = false;
+        var standingOnGold : Boolean = false;
+        var goldRef : Cog = null;
+        
+        var castResults = this.Space.PhysicsSpace.CastCollider(Real3.Zero, this.Collider, filter);
+        foreach(var result in castResults)
+        {
+          if(result.ObjectHit.Collectable != null)
+          {
+            standingOnGold = true;
+            goldRef = result.ObjectHit;
+          }
+        }
+        
+        if(standingOnGold)
+        {
+          //Add to gold pile
+          goldRef.Collectable.Gold += dropAmount;
+          
+        }
+        else
+        {
+          //Create new gold pile
+          var newGold = this.Space.CreateAtPosition(Archetype.Coin, this.Owner.Transform.Translation);
+          newGold.Collectable.Gold = dropAmount;
+        }
+        this.Inventory.Gold -= dropAmount;
+      }
+    }
+  }
+}

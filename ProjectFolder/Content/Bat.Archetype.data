@@ -4,7 +4,7 @@ Cog
 	var Name = "Bat"
 	Transform 
 	{
-		var Translation = Real3{-5, 2, 0}
+		var Translation = Real3{-13, 9, 0}
 		var Scale = Real3{1, 1, 1}
 		var Rotation = Quaternion{0, 0, 0, 1}
 	}
@@ -29,7 +29,7 @@ Cog
 	}
 	BoxCollider 
 	{
-		var Ghost = false
+		var Ghost = true
 		var SendsEvents = true
 		var Material = "4de020863e872da8:DefaultPhysicsMaterial"
 		var CollisionGroup = "5baa5c7ae3cb18d6:Enemy"
@@ -66,9 +66,11 @@ Cog
 	}
 	AiTicker 
 	{
-		var TickDelay = 0.518999994
+		var BaseTickDelay = 1
 		var TickDelayVariance = 0.0500000007
 		var RandomInitialTimer = true
+		var TickTimer = 0
+		var AwarenessRadius = 10
 	}
 	BatController 
 	{
@@ -85,6 +87,13 @@ Cog
 	Health 
 	{
 		var MaxHealth = 2
+	}
+	CustomCollisionEventTracker 
+	{
+	}
+	DamageOnCollision 
+	{
+		var Damage = 1
 	}
 	Hierarchy 
 	{

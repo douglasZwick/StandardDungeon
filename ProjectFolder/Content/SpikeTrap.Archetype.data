@@ -4,7 +4,7 @@ Cog
 	var Name = "SpikeTrap"
 	Transform 
 	{
-		var Translation = Real3{0, 8, 0}
+		var Translation = Real3{0, 6, 0}
 		var Scale = Real3{1, 1, 1}
 		var Rotation = Quaternion{0, 0, 0, 1}
 	}
@@ -71,14 +71,15 @@ Cog
 			var PathPreference1 = CogPathPreference.SpaceRelative
 			var PathPreference2 = CogPathPreference.Absolute
 		}
-		var Deployed = true
+		var Deployed = false
 	}
 	AiTicker 
 	{
-		var BaseTickDelay = 1
+		var BaseTickDelay = 0.75
 		var TickDelayVariance = 0
 		var RandomInitialTimer = false
 		var TickTimer = 0
+		var AwarenessRadius = 10
 	}
 	Hierarchy 
 	{
@@ -102,7 +103,6 @@ Cog
 			}
 			DamageOnCollision 
 			{
-				var DebugFlag = true
 				var Damage = 1
 			}
 			RigidBody 

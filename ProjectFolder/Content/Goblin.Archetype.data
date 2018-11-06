@@ -1,12 +1,31 @@
 [Version:1]
 Cog 
 {
-	var Name = "Skelly"
+	var Name = "Goblin"
 	Transform 
 	{
-		var Translation = Real3{-39, 8, 0}
+		var Translation = Real3{-25, -16, 0}
 		var Scale = Real3{1, 1, 1}
 		var Rotation = Quaternion{0, 0, 0, 1}
+	}
+	RigidBody 
+	{
+		var Velocity = Real3{0, 0, 0}
+		var AngularVelocity = Real3{0, 0, 0}
+		var DynamicState = RigidBodyDynamicState.Kinematic
+		var AllowSleep = true
+		var Asleep = false
+		var RotationLocked = false
+		var Mode2D = Mode2DStates.InheritFromSpace
+	}
+	BoxCollider 
+	{
+		var Ghost = false
+		var SendsEvents = true
+		var Material = "4de020863e872da8:DefaultPhysicsMaterial"
+		var CollisionGroup = "5baa5c7ae3cb18d6:Enemy"
+		var Offset = Real3{0, 0, 0}
+		var HalfSize = Real3{0.400000006, 0.400000006, 0.400000006}
 	}
 	Sprite 
 	{
@@ -20,31 +39,51 @@ Cog
 		var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
 		var VertexColor = Real4{0, 0, 0, 1}
 		var GeometryMode = SpriteGeometryMode.ZPlane
-		var SpriteSource = "5be2578bfdba37e6:Skelly"
+		var SpriteSource = "5bb1a374e6238163:goblin"
 		var FlipX = false
 		var FlipY = false
 		var AnimationActive = true
 		var AnimationSpeed = 1
 		var StartFrame = 0
 	}
-	BoxCollider 
+	LCDRenderer 
 	{
-		var Ghost = true
-		var SendsEvents = true
-		var Material = "4de020863e872da8:DefaultPhysicsMaterial"
-		var CollisionGroup = "5baa5c7ae3cb18d6:Enemy"
-		var Offset = Real3{0, 0, 0}
-		var HalfSize = Real3{0.400000006, 0.400000006, 0.5}
+		var EditorDebugDraw = true
+		var GameDebugDraw = true
+		var ClearColor = Real4{0, 0, 0, 1}
+		var DirectLighting = true
+		var DirectionalLight = CogPath
+		{
+			var Path = ""
+			var ErrorOnResolveToNull = false
+			var ErrorOnPathCantCompute = false
+			var ErrorOnDirectLinkFail = false
+			var UpdateCogOnPathChange = true
+			var UpdatePathOnCogChange = true
+			var UpdateCogOnInitialize = true
+			var ResolvedNullErrorOccurred = false
+			var Cog = 4294967293
+			var PathPreference0 = CogPathPreference.CogRelative
+			var PathPreference1 = CogPathPreference.SpaceRelative
+			var PathPreference2 = CogPathPreference.Absolute
+		}
+		var ShadowDepth = 0.25
+		var ValueThreshold = 0.5
+		var ShadowColor = Real4{0, 0, 0, 0.25}
+		var MeshSolidColor = Real4{0, 0, 0, 1}
+		var MeshTransparentColor = Real4{0, 0, 0, 0}
 	}
-	RigidBody 
+	Health 
 	{
-		var Velocity = Real3{0, 0, 0}
-		var AngularVelocity = Real3{0, 0, 0}
-		var DynamicState = RigidBodyDynamicState.Kinematic
-		var AllowSleep = true
-		var Asleep = false
-		var RotationLocked = false
-		var Mode2D = Mode2DStates.InheritFromSpace
+		var MaxHealth = 5
+	}
+	AiTicker 
+	{
+		var BaseTickDelay = 0.600000024
+		var TickDelayVariance = 0
+		var RandomInitialTimer = false
+		var TickTimer = 0
+		var AwarenessRadius = 7
 	}
 	DiscreteMover 
 	{
@@ -64,36 +103,20 @@ Cog
 			var PathPreference2 = CogPathPreference.Absolute
 		}
 	}
-	AiTicker 
-	{
-		var BaseTickDelay = 1
-		var TickDelayVariance = 0
-		var RandomInitialTimer = false
-		var TickTimer = 0
-		var AwarenessRadius = 10
-	}
-	SkellyController 
-	{
-	}
-	MovementBlinker 
-	{
-		var GhostArchetype = "5bb5eee0a7631b8e:MovementGhost"
-	}
 	FlipSpriteOnMovementStarted 
 	{
-		var OnFailedToo = true
-		var FlipYChance = 0.100000001
+		var OnFailedToo = false
+		var FlipYChance = 0.5
 	}
-	Health 
+	GoblinController 
 	{
-		var MaxHealth = 5
 	}
 	Inventory 
 	{
-		var Gold = 5
+		var Gold = 100
 		var Keys = 0
 		var DropOnDeath = true
-		var MultiplyGoldDropOnDeath = 1
+		var MultiplyGoldDropOnDeath = 2
 		var LootArchetype = "5bab4e400484619f:Loot"
 		var InventoryRoot = CogPath
 		{
@@ -111,14 +134,14 @@ Cog
 			var PathPreference2 = CogPathPreference.Absolute
 		}
 	}
-	CustomCollisionEventTracker 
+	DropGoldOnMovementEnded 
 	{
+		var ChanceToDrop = 0.5
+		var MinGoldDropped = 1
+		var MaxGoldDropped = 10
 	}
 	DamageOnCollision 
 	{
 		var Damage = 1
-	}
-	Hierarchy 
-	{
 	}
 }
