@@ -7,11 +7,11 @@ class PlayerSword : ZilchComponent
   
   
   var SwordReady : Boolean = false;
-  [Property]
-  var SwordHitBoxArchetype : Archetype;
+  var HitboxArchetype : Archetype = null;
   var HitboxRef : Cog;
   
   var Gamepad : Gamepad;
+  
   
   function Initialize(init : CogInitializer)
   {
@@ -21,18 +21,22 @@ class PlayerSword : ZilchComponent
     Zero.Connect(Zero.Keyboard, Events.KeyUp, this.OnKeyUp);
     Zero.Connect(this.Gamepad, Events.ButtonDown, this.OnButtonDown);
     Zero.Connect(this.Gamepad, Events.ButtonUp, this.OnButtonUp);
-    Zero.Connect(this.Owner, Events.CollectedWeapon, this.OnCollectedWeapon);
+    Zero.Connect(this.Owner, Events.DidEquipWeapon, this.OnDidEquipWeapon);
   }
   
   
-  function OnCollectedWeapon(event : CollectionEvent)
+  function OnDidEquipWeapon(event : CollectionEvent)
   {
-    this.SwordHitBoxArchetype = event.Weapon.HitboxArchetype;
+    this.HitboxArchetype = event.Weapon.HitboxArchetype;
   }
   
   
   function OnKeyDown(event : KeyboardEvent)
   {
+    // TODO: provide feedback that this is how you attack before you actually get a weapon
+    if (this.HitboxArchetype == null)
+      return;
+    
     if(event.Key == Keys.Space)
     {
       this.GetReady();
@@ -58,6 +62,7 @@ class PlayerSword : ZilchComponent
     }
   }
   
+  
   function OnKeyUp(event : KeyboardEvent)
   {
     if(event.Key == Keys.Space)
@@ -65,6 +70,7 @@ class PlayerSword : ZilchComponent
     else if(event.Key == Keys.Left || event.Key == Keys.Right || event.Key == Keys.Up || event.Key == Keys.Down)
       this.AttackEnd();
   }
+  
   
   function OnButtonDown(event : GamepadEvent)
   {
@@ -93,6 +99,7 @@ class PlayerSword : ZilchComponent
     }
   }
   
+  
   function OnButtonUp(event : GamepadEvent)
   {
     if      (event.Button == Buttons.A)
@@ -101,13 +108,15 @@ class PlayerSword : ZilchComponent
       this.AttackEnd();
   }
   
+  
   function Slash(offset : Real3)
   {
     this.Sprite.SpriteSource = SpriteSource.PoochaAttack;
     var spawnLocation = this.Transform.WorldTranslation + offset;
     this.DestroyOldSword();
-    this.HitboxRef = this.Space.CreateAtPosition(this.SwordHitBoxArchetype, spawnLocation);
+    this.HitboxRef = this.Space.CreateAtPosition(this.HitboxArchetype, spawnLocation);
   }
+  
   
   function AttackEnd()
   {
@@ -115,17 +124,20 @@ class PlayerSword : ZilchComponent
       this.Sprite.SpriteSource = SpriteSource.PoochaReady;
   }
   
+  
   function GetReady()
   {
     this.SwordReady = true;
     this.Sprite.SpriteSource = SpriteSource.PoochaReady;
   }
   
+  
   function CalmDown()
   {
     this.SwordReady = false;
     this.Sprite.SpriteSource = SpriteSource.PoochaIdle;
   }
+  
   
   function DestroyOldSword()
   {

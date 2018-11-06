@@ -14,11 +14,12 @@ class InventoryHud : ZilchComponent
     this.WeaponSprite = this.WeaponSpritePath.Sprite;
     this.ToolSprite = this.ToolSpritePath.Sprite;
     
+    this.WeaponSprite.Visible = false;
     this.ToolSprite.Visible = false;
     
+    Zero.Connect(this.GameSession, Events.PutWeaponIconInInventory, this.OnPutWeaponIconInInventory);
     Zero.Connect(this.GameSession, Events.PutItemIconInInventory, this.OnPutItemIconInInventory);
     Zero.Connect(this.GameSession, Events.RemoveItemIconFromInventory, this.OnRemoveItemIconFromInventory);
-    Zero.Connect(this.GameSession, Events.PutWeaponIconInInventory, this.OnPutWeaponIconInInventory);
   }
   
   

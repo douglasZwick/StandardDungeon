@@ -33,7 +33,8 @@ class CollectionEvent : ZilchEvent
   var Collectable : Collectable;
   var Collector : Collector;
   var InventoryItem : InventoryItem;
-  var Weapon : Weapon;
   var DroppedItem : InventoryItem;
+  var Weapon : Weapon;
+  var DroppedWeapon : Weapon;
   var WorldPosition : Real3;
 }

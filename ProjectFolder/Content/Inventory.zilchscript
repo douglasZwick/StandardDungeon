@@ -13,6 +13,8 @@ class Inventory : ZilchComponent
   sends PutItemIconInInventory : CollectionEvent;
   sends RemoveItemIconFromInventory : CollectionEvent;
   sends PutWeaponIconInInventory : CollectionEvent;
+  sends DidDropWeapon : CollectionEvent;
+  sends DidEquipWeapon : CollectionEvent;
   
   
   [Dependency]
@@ -28,8 +30,11 @@ class Inventory : ZilchComponent
   [Property]
   var LootArchetype : Archetype = Archetype.Loot;
   [Property][Group("Internal")]
+  var WeaponRoot : CogPath = CogPath(".");
+  [Property][Group("Internal")]
   var InventoryRoot : CogPath = CogPath(".");
   
+  var HeldWeapon : Weapon;
   var HeldItem : InventoryItem;
   
   var DroppedVerbs : Array[String] = Array[String]()
@@ -64,15 +69,34 @@ class Inventory : ZilchComponent
     Zero.Connect(this.Owner, Events.Death, this.OnDeath);
     Zero.Connect(this.Owner, Events.DidDropFromInventory, this.OnDidDropFromInventory);
     Zero.Connect(this.Owner, Events.DidAddToInventory, this.OnDidAddToInventory);
+    Zero.Connect(this.Owner, Events.DidDropWeapon, this.OnDidDropWeapon);
+    Zero.Connect(this.Owner, Events.DidEquipWeapon, this.OnDidEquipWeapon);
     Zero.Connect(this.Owner, Events.DidUseUp, this.OnDidUseUp);
-    Zero.Connect(this.Owner, Events.CollectedWeapon, this.OnCollectedWeapon);
     Zero.Connect(Zero.Keyboard, Events.KeyDown, this.OnKeyDown);
-  }
-  
-  
-  function OnCollectedWeapon(event : CollectionEvent)
-  {
-    this.GameSession.DispatchEvent(Events.PutWeaponIconInInventory, event);
+    
+    foreach (var child in this.WeaponRoot.Cog.Children)
+    {
+      var weapon = child.Weapon;
+      
+      if (weapon != null)
+      {
+        this.StartWithWeapon(weapon);
+        
+        break;
+      }
+    }
+    
+    foreach (var child in this.InventoryRoot.Cog.Children)
+    {
+      var inventoryItem = child.InventoryItem;
+      
+      if (inventoryItem != null)
+      {
+        this.StartWithItem(inventoryItem);
+        
+        break;
+      }
+    }
   }
   
   
@@ -81,6 +105,44 @@ class Inventory : ZilchComponent
     // TODO: fix this
     if (event.Key == Keys.Shift)
       this.AttemptUse();
+  }
+  
+  
+  function OnDidDropWeapon(event : CollectionEvent)
+  {
+    this.HeldWeapon.Owner.Detach();
+    this.HeldWeapon.Owner.Transform.WorldTranslation = event.WorldPosition;
+    this.HeldWeapon = null;
+    
+    // if we need to be able to drop weapons without also picking up another
+    // one at the same time, then i could add a RemoveWeaponIcon event...
+    // ...but honestly a lot of this is probably going to get changed a lot
+    // in the Great Refactor
+  }
+  
+  
+  function OnDidEquipWeapon(event : CollectionEvent)
+  {
+    this.HeldWeapon = event.Weapon;
+    this.HeldWeapon.Owner.AttachTo(this.WeaponRoot.Cog);
+    this.HeldWeapon.Owner.Transform.LocalTranslation = Real3.Zero;
+    
+    this.GameSession.DispatchEvent(Events.PutWeaponIconInInventory, event);
+  }
+  
+  
+  function OnDidDropFromInventory(event : CollectionEvent)
+  {
+    this.HeldItem.Owner.Detach();
+    this.HeldItem.Owner.Transform.WorldTranslation = event.WorldPosition;
+    this.HeldItem = null;
+    
+    // TODO: currently there are two ways to lose an item from your inventory:
+    // either you drop it (because you picked something else up), or you use
+    // it up. i should consider refactoring things so that both cases use the
+    // same code interface
+    
+    this.GameSession.DispatchEvent(Events.RemoveItemIconFromInventory, event);
   }
   
   
@@ -100,21 +162,6 @@ class Inventory : ZilchComponent
   }
   
   
-  function OnDidDropFromInventory(event : CollectionEvent)
-  {
-    this.HeldItem.Owner.Detach();
-    this.HeldItem.Owner.Transform.WorldTranslation = event.WorldPosition;
-    this.HeldItem = null;
-    
-    // TODO: currently there are two ways to lose an item from your inventory:
-    // either you drop it (because you picked something else up), or you use
-    // it up. i should consider refactoring things so that both cases use the
-    // same code interface
-    
-    this.GameSession.DispatchEvent(Events.RemoveItemIconFromInventory, event);
-  }
-  
-  
   function OnDidUseUp(event : InventoryItemEvent)
   {
     var ce = CollectionEvent();
@@ -126,35 +173,17 @@ class Inventory : ZilchComponent
   function OnDidCollect(event : CollectionEvent)
   {
     var collectable = event.Collectable;
+    var weapon = event.Weapon;
     var inventoryItem = event.InventoryItem;
     
-    if (inventoryItem != null)
+    // TODO: this seems like it might be a bad way to do this but here goes
+    if (weapon != null)
     {
-      var collectedItemBase = inventoryItem.ItemBase;
-      var collectedNamePhrase = collectedItemBase.NamePhrase;
-      
-      if (this.HeldItem != null)
-      {
-        var droppedItemBase = this.HeldItem.ItemBase;
-        var droppedNamePhrase = droppedItemBase.NamePhrase;
-        var string0 = "Poocha `this.RandomDroppedVerb` `droppedNamePhrase`";
-        var string1 = "and `this.RandomGotVerb` `collectedNamePhrase`";
-        var cse = ConsoleSystemEvent(string0, string1);
-        this.GameSession.DispatchEvent(Events.Print, cse);
-        
-        event.DroppedItem = this.HeldItem;
-        this.HeldItem.Owner.DispatchEvent(Events.WasDroppedFromInventory, event);
-        this.Owner.DispatchEvent(Events.DidDropFromInventory, event);
-      }
-      else
-      {
-        var string0 = "Poocha `this.RandomGotVerb` `collectedNamePhrase`";
-        var cse = ConsoleSystemEvent(string0);
-        this.GameSession.DispatchEvent(Events.Print, cse);
-      }
-      
-      collectable.Owner.DispatchEvent(Events.WasAddedToInventory, event);
-      this.Owner.DispatchEvent(Events.DidAddToInventory, event);
+      this.EquipWeapon(event);
+    }
+    else if (inventoryItem != null)
+    {
+      this.EquipItem(event);
     }
     
     var oldGold = this.Gold;
@@ -216,6 +245,84 @@ class Inventory : ZilchComponent
   }
   
   
+  function StartWithWeapon(weapon : Weapon)
+  {
+    var ce = CollectionEvent();
+    ce.Weapon = weapon;
+    this.EquipWeapon(ce);
+  }
+  
+  
+  function StartWithItem(inventoryItem : InventoryItem)
+  {
+    var ce = CollectionEvent();
+    ce.InventoryItem = inventoryItem;
+    this.EquipItem(ce);
+  }
+  
+  
+  function EquipWeapon(event : CollectionEvent)
+  {
+    var weapon = event.Weapon;
+    var collectedItemBase = weapon.ItemBase;
+    var collectedNamePhrase = collectedItemBase.NamePhrase;
+    
+    if (this.HeldWeapon != null)
+    {
+      var droppedItemBase = this.HeldWeapon.ItemBase;
+      var droppedNamePhrase = droppedItemBase.NamePhrase;
+      var string0 = "Poocha `this.RandomDroppedVerb` `droppedNamePhrase`";
+      var string1 = "and `this.RandomGotVerb` `collectedNamePhrase`";
+      var cse = ConsoleSystemEvent(string0, string1);
+      this.GameSession.DispatchEvent(Events.Print, cse);
+      
+      event.DroppedWeapon = this.HeldWeapon;
+      this.HeldWeapon.Owner.DispatchEvent(Events.WasDroppedFromInventory, event);
+      this.Owner.DispatchEvent(Events.DidDropWeapon, event);
+    }
+    else
+    {
+      var string0 = "Poocha `this.RandomGotVerb` `collectedNamePhrase`";
+      var cse = ConsoleSystemEvent(string0);
+      this.GameSession.DispatchEvent(Events.Print, cse);
+    }
+    
+    weapon.Owner.DispatchEvent(Events.WasAddedToInventory, event);
+    this.Owner.DispatchEvent(Events.DidEquipWeapon, event);
+ }
+  
+  
+  function EquipItem(event : CollectionEvent)
+  {
+    var inventoryItem = event.InventoryItem;
+    var collectedItemBase = inventoryItem.ItemBase;
+    var collectedNamePhrase = collectedItemBase.NamePhrase;
+    
+    if (this.HeldItem != null)
+    {
+      var droppedItemBase = this.HeldItem.ItemBase;
+      var droppedNamePhrase = droppedItemBase.NamePhrase;
+      var string0 = "Poocha `this.RandomDroppedVerb` `droppedNamePhrase`";
+      var string1 = "and `this.RandomGotVerb` `collectedNamePhrase`";
+      var cse = ConsoleSystemEvent(string0, string1);
+      this.GameSession.DispatchEvent(Events.Print, cse);
+      
+      event.DroppedItem = this.HeldItem;
+      this.HeldItem.Owner.DispatchEvent(Events.WasDroppedFromInventory, event);
+      this.Owner.DispatchEvent(Events.DidDropFromInventory, event);
+    }
+    else
+    {
+      var string0 = "Poocha `this.RandomGotVerb` `collectedNamePhrase`";
+      var cse = ConsoleSystemEvent(string0);
+      this.GameSession.DispatchEvent(Events.Print, cse);
+    }
+    
+    inventoryItem.Owner.DispatchEvent(Events.WasAddedToInventory, event);
+    this.Owner.DispatchEvent(Events.DidAddToInventory, event);
+  }
+  
+  
   function AttemptUse()
   {
     if (this.HeldItem == null)
@@ -233,3 +340,6 @@ class InventoryEvent : ZilchEvent
   var OldTotal : Integer;
   var NewTotal : Integer;
 }
+
+
+// TODO: i seriously have to to a major refactor of all these fuckin events
