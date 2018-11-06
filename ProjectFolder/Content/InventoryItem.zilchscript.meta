@@ -1,0 +1,9 @@
+[Version:1]
+TextContent 
+{
+	ZilchScriptBuilder 
+	{
+		var Name = "InventoryItem"
+		var ResourceId = 0x5ba48234d5ca24e7
+	}
+}

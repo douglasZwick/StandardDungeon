@@ -1,8 +1,12 @@
 class ItemBase : ZilchComponent
 {
   [Property]
-  var BaseSpritePath : CogPath = CogPath(".");
+  var Article : String = "an";
   [Property]
+  var Name : String = "Item";
+  [Property][Group("Internal")]
+  var BaseSpritePath : CogPath = CogPath(".");
+  [Property][Group("Internal")]
   var ColliderPath : CogPath = CogPath(".");
   
   var BaseSprite : BaseSprite;
@@ -12,6 +16,17 @@ class ItemBase : ZilchComponent
   var FadeColor : Real4;
   var FadeDuration : Real = 4 / 60.0;
   var CollisionGroup : CollisionGroup;
+  
+  var NamePhrase : String
+  {
+    get
+    {
+      if (String.IsNullOrWhitespace(this.Article))
+        return this.Name;
+      
+      return "`this.Article` `this.Name`";
+    }
+  }
   
   
   function Initialize(init : CogInitializer)
@@ -34,12 +49,19 @@ class ItemBase : ZilchComponent
     }
     
     Zero.Connect(this.Owner, Events.WasCollected, this.OnWasCollected);
+    Zero.Connect(this.Owner, Events.WasDroppedFromInventory, this.OnWasDroppedFromInventory);
   }
   
   
   function OnWasCollected(event : ZilchEvent)
   {
     this.Disable();
+  }
+  
+  
+  function OnWasDroppedFromInventory(event : CollectionEvent)
+  {
+    this.Enable();
   }
   
   
@@ -76,6 +98,3 @@ class ItemBase : ZilchComponent
     }
   }
 }
-
-
-// TODO: WORK ON THIS

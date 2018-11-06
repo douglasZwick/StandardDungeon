@@ -2,6 +2,8 @@ class Health : ZilchComponent
 {
   sends DamageRequest : HealthEvent;
   sends WasDamaged : HealthEvent;
+  sends HealRequest : HealthEvent;
+  sends WasHealed : HealthEvent;
   sends Death : HealthEvent;
   
   
@@ -13,8 +15,10 @@ class Health : ZilchComponent
   
   function Initialize(init : CogInitializer)
   {
-    this.CurrentHealth = this.MaxHealth;    
+    this.CurrentHealth = this.MaxHealth;
+    
     Zero.Connect(this.Owner, Events.DamageRequest, this.OnDamageRequest);
+    Zero.Connect(this.Owner, Events.HealRequest, this.OnHealRequest);
   }
   
   
@@ -24,7 +28,7 @@ class Health : ZilchComponent
     
     this.Owner.DispatchEvent(Events.WasDamaged, event);
     
-    if(this.CurrentHealth <= 0)
+    if (this.CurrentHealth <= 0)
     {
       this.Owner.DispatchEvent(Events.Death, event);
       
@@ -32,10 +36,24 @@ class Health : ZilchComponent
         this.Owner.Destroy();
     }
   }
+  
+  
+  function OnHealRequest(event : HealthEvent)
+  {
+    this.CurrentHealth += event.Healing;
+    
+    this.Owner.DispatchEvent(Events.WasHealed, event);
+    
+    if (this.CurrentHealth > this.MaxHealth)
+      this.CurrentHealth = this.MaxHealth;
+    
+    // TODO: put in some feedback for hitting max HP in a heal
+  }
 }
 
 class HealthEvent : ZilchEvent
 {
   var Damage : Integer;
+  var Healing : Integer;
   var Handled : Boolean = false;
 }

@@ -75,7 +75,7 @@ Level
 		var Name = "EditorCamera"
 		Transform 
 		{
-			var Translation = Real3{-0.97041899, 1.95439804, 20}
+			var Translation = Real3{0.139244094, 2.37537003, 20}
 			var Scale = Real3{1, 1, 1}
 			var Rotation = Quaternion{0, -1.09278471e-08, 0, 1}
 		}
@@ -128,7 +128,7 @@ Level
 			var FarPlane = 500
 			var PerspectiveMode = PerspectiveMode.Orthographic
 			var FieldOfView = 45
-			var Size = 3.65367341
+			var Size = 5.45064068
 		}
 		EditorCameraController 
 		{
@@ -137,7 +137,7 @@ Level
 			var LookDistance = 20
 			var VerticalAngle = 0
 			var HorizontalAngle = 0
-			var LookTarget = Real3{-0.97041899, 1.95439804, -2.0562668e-08}
+			var LookTarget = Real3{0.139244094, 2.37537003, 2.7942253e-08}
 			var MoveSensitivity = 1
 		}
 	}
@@ -754,183 +754,233 @@ Level
 	}
 	Cog [ContextId:22]
 	{
-		var Name = "SpriteText"
+		var Name = "InventoryHud"
 		Transform 
 		{
-			var Translation = Real3{-0.75, 2.75, 0}
+			var Translation = Real3{-0.75000006, 2.19642878, 0}
 			var Scale = Real3{1, 1, 1}
 			var Rotation = Quaternion{0, 0, 0, 1}
 		}
-		SpriteText 
+		InventoryHud 
 		{
-			var Visible = true
-			var ViewCulling = true
-			var VisibilityEvents = true
-			var OverrideBoundingBox = false
-			var LocalAabbCenter = Real3{0, 0, 0}
-			var LocalAabbHalfExtents = Real3{1, 1, 1}
-			var GroupSortValue = 0
-			var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
-			var VertexColor = Real4{0, 0, 0, 1}
-			var GeometryMode = SpriteGeometryMode.ZPlane
-			var Text = "INVENTORY"
-			var Font = "587b2f7646ba23d5:NotoSans-Bold"
-			var FontSize = 32
-			var PixelsPerUnit = 128
-			var TextAlign = TextAlign.Center
 		}
-	}
-	Cog [ContextId:23]
-	{
-		var Name = "SpriteText"
-		Transform 
+		Hierarchy 
 		{
-			var Translation = Real3{-1.28125, 1.8125, 0}
-			var Scale = Real3{1, 1, 1}
-			var Rotation = Quaternion{0, 0, 0, 1}
-		}
-		SpriteText 
-		{
-			var Visible = true
-			var ViewCulling = true
-			var VisibilityEvents = true
-			var OverrideBoundingBox = false
-			var LocalAabbCenter = Real3{0, 0, 0}
-			var LocalAabbHalfExtents = Real3{1, 1, 1}
-			var GroupSortValue = 0
-			var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
-			var VertexColor = Real4{0, 0, 0, 1}
-			var GeometryMode = SpriteGeometryMode.ZPlane
-			var Text = "WEAPON"
-			var Font = "5bafa377830ef7d2:LEAGUEGOTHICREGULAR"
-			var FontSize = 40
-			var PixelsPerUnit = 128
-			var TextAlign = TextAlign.Center
-		}
-	}
-	Cog [ContextId:24]
-	{
-		var Name = "SpriteText"
-		Transform 
-		{
-			var Translation = Real3{-0.21875, 1.8125, 0}
-			var Scale = Real3{1, 1, 1}
-			var Rotation = Quaternion{0, 0, 0, 1}
-		}
-		SpriteText 
-		{
-			var Visible = true
-			var ViewCulling = true
-			var VisibilityEvents = true
-			var OverrideBoundingBox = false
-			var LocalAabbCenter = Real3{0, 0, 0}
-			var LocalAabbHalfExtents = Real3{1, 1, 1}
-			var GroupSortValue = 0
-			var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
-			var VertexColor = Real4{0, 0, 0, 1}
-			var GeometryMode = SpriteGeometryMode.ZPlane
-			var Text = "TOOL"
-			var Font = "5bafa377830ef7d2:LEAGUEGOTHICREGULAR"
-			var FontSize = 40
-			var PixelsPerUnit = 128
-			var TextAlign = TextAlign.Center
-		}
-	}
-	Cog [ContextId:25]
-	{
-		var Name = "Sprite"
-		Transform 
-		{
-			var Translation = Real3{-1.28125, 2.25, 0}
-			var Scale = Real3{1, 1, 1}
-			var Rotation = Quaternion{0, 0, 0, 1}
-		}
-		Sprite 
-		{
-			var Visible = true
-			var ViewCulling = true
-			var VisibilityEvents = true
-			var OverrideBoundingBox = false
-			var LocalAabbCenter = Real3{0, 0, 0}
-			var LocalAabbHalfExtents = Real3{1, 1, 1}
-			var GroupSortValue = 0
-			var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
-			var VertexColor = Real4{0, 0, 0, 1}
-			var GeometryMode = SpriteGeometryMode.ZPlane
-			var SpriteSource = "5baca24625048be7:ItemBorder"
-			var FlipX = false
-			var FlipY = false
-			var AnimationActive = true
-			var AnimationSpeed = 1
-			var StartFrame = 0
-		}
-		Area 
-		{
-			var Size = Real2{0.9375, 0.75}
-			var Origin = Location.Center
-		}
-	}
-	Cog [ContextId:26]
-	{
-		var Name = "Sprite"
-		Transform 
-		{
-			var Translation = Real3{-0.21875, 2.25, 0}
-			var Scale = Real3{1, 1, 1}
-			var Rotation = Quaternion{0, 0, 0, 1}
-		}
-		Sprite 
-		{
-			var Visible = true
-			var ViewCulling = true
-			var VisibilityEvents = true
-			var OverrideBoundingBox = false
-			var LocalAabbCenter = Real3{0, 0, 0}
-			var LocalAabbHalfExtents = Real3{1, 1, 1}
-			var GroupSortValue = 0
-			var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
-			var VertexColor = Real4{0, 0, 0, 1}
-			var GeometryMode = SpriteGeometryMode.ZPlane
-			var SpriteSource = "5baca24625048be7:ItemBorder"
-			var FlipX = false
-			var FlipY = false
-			var AnimationActive = true
-			var AnimationSpeed = 1
-			var StartFrame = 0
-		}
-		Area 
-		{
-			var Size = Real2{0.9375, 0.75}
-			var Origin = Location.Center
-		}
-	}
-	Cog [ContextId:27]
-	{
-		var Name = "Club"
-		Transform 
-		{
-			var Translation = Real3{-1.28125, 2.25, 0}
-			var Scale = Real3{1, 1, 1}
-			var Rotation = Quaternion{0, 0, 0, 1}
-		}
-		Sprite 
-		{
-			var Visible = true
-			var ViewCulling = true
-			var VisibilityEvents = true
-			var OverrideBoundingBox = false
-			var LocalAabbCenter = Real3{0, 0, 0}
-			var LocalAabbHalfExtents = Real3{1, 1, 1}
-			var GroupSortValue = 0
-			var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
-			var VertexColor = Real4{0, 0, 0, 1}
-			var GeometryMode = SpriteGeometryMode.ZPlane
-			var SpriteSource = "5bacb495a5109832:Dagger"
-			var FlipX = false
-			var FlipY = false
-			var AnimationActive = true
-			var AnimationSpeed = 1
-			var StartFrame = 0
+			Cog [Id:0x5b80b603b99b3fac][ContextId:23]
+			{
+				var Name = "InventoryLabel"
+				Transform 
+				{
+					var Translation = Real3{5.96046448e-08, 0.553571224, 0}
+					var Scale = Real3{1, 1, 1}
+					var Rotation = Quaternion{0, 0, 0, 1}
+				}
+				SpriteText 
+				{
+					var Visible = true
+					var ViewCulling = true
+					var VisibilityEvents = true
+					var OverrideBoundingBox = false
+					var LocalAabbCenter = Real3{0, 0, 0}
+					var LocalAabbHalfExtents = Real3{1, 1, 1}
+					var GroupSortValue = 0
+					var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
+					var VertexColor = Real4{0, 0, 0, 1}
+					var GeometryMode = SpriteGeometryMode.ZPlane
+					var Text = "INVENTORY"
+					var Font = "587b2f7646ba23d5:NotoSans-Bold"
+					var FontSize = 32
+					var PixelsPerUnit = 128
+					var TextAlign = TextAlign.Center
+				}
+			}
+			Cog [Id:0x5b80b603b99b3fe1][ContextId:24]
+			{
+				var Name = "WeaponLabel"
+				Transform 
+				{
+					var Translation = Real3{-0.53124994, -0.383928776, 0}
+					var Scale = Real3{1, 1, 1}
+					var Rotation = Quaternion{0, 0, 0, 1}
+				}
+				SpriteText 
+				{
+					var Visible = true
+					var ViewCulling = true
+					var VisibilityEvents = true
+					var OverrideBoundingBox = false
+					var LocalAabbCenter = Real3{0, 0, 0}
+					var LocalAabbHalfExtents = Real3{1, 1, 1}
+					var GroupSortValue = 0
+					var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
+					var VertexColor = Real4{0, 0, 0, 1}
+					var GeometryMode = SpriteGeometryMode.ZPlane
+					var Text = "WEAPON"
+					var Font = "5bafa377830ef7d2:LEAGUEGOTHICREGULAR"
+					var FontSize = 40
+					var PixelsPerUnit = 128
+					var TextAlign = TextAlign.Center
+				}
+			}
+			Cog [Id:0x5b80b603b99b4009][ContextId:25]
+			{
+				var Name = "ToolLabel"
+				Transform 
+				{
+					var Translation = Real3{0.53125006, -0.383928776, 0}
+					var Scale = Real3{1, 1, 1}
+					var Rotation = Quaternion{0, 0, 0, 1}
+				}
+				SpriteText 
+				{
+					var Visible = true
+					var ViewCulling = true
+					var VisibilityEvents = true
+					var OverrideBoundingBox = false
+					var LocalAabbCenter = Real3{0, 0, 0}
+					var LocalAabbHalfExtents = Real3{1, 1, 1}
+					var GroupSortValue = 0
+					var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
+					var VertexColor = Real4{0, 0, 0, 1}
+					var GeometryMode = SpriteGeometryMode.ZPlane
+					var Text = "TOOL"
+					var Font = "5bafa377830ef7d2:LEAGUEGOTHICREGULAR"
+					var FontSize = 40
+					var PixelsPerUnit = 128
+					var TextAlign = TextAlign.Center
+				}
+			}
+			Cog [Id:0x5b80b603b99b402d][ContextId:26]
+			{
+				var Name = "WeaponFrame"
+				Transform 
+				{
+					var Translation = Real3{-0.53124994, 0.0535712242, 0}
+					var Scale = Real3{1, 1, 1}
+					var Rotation = Quaternion{0, 0, 0, 1}
+				}
+				Sprite 
+				{
+					var Visible = true
+					var ViewCulling = true
+					var VisibilityEvents = true
+					var OverrideBoundingBox = false
+					var LocalAabbCenter = Real3{0, 0, 0}
+					var LocalAabbHalfExtents = Real3{1, 1, 1}
+					var GroupSortValue = 0
+					var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
+					var VertexColor = Real4{0, 0, 0, 1}
+					var GeometryMode = SpriteGeometryMode.ZPlane
+					var SpriteSource = "5baca24625048be7:ItemBorder"
+					var FlipX = false
+					var FlipY = false
+					var AnimationActive = true
+					var AnimationSpeed = 1
+					var StartFrame = 0
+				}
+				Area 
+				{
+					var Size = Real2{0.9375, 0.75}
+					var Origin = Location.Center
+				}
+			}
+			Cog [Id:0x5b80b603b99b4050][ContextId:27]
+			{
+				var Name = "ToolFrame"
+				Transform 
+				{
+					var Translation = Real3{0.53125006, 0.0535712242, 0}
+					var Scale = Real3{1, 1, 1}
+					var Rotation = Quaternion{0, 0, 0, 1}
+				}
+				Sprite 
+				{
+					var Visible = true
+					var ViewCulling = true
+					var VisibilityEvents = true
+					var OverrideBoundingBox = false
+					var LocalAabbCenter = Real3{0, 0, 0}
+					var LocalAabbHalfExtents = Real3{1, 1, 1}
+					var GroupSortValue = 0
+					var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
+					var VertexColor = Real4{0, 0, 0, 1}
+					var GeometryMode = SpriteGeometryMode.ZPlane
+					var SpriteSource = "5baca24625048be7:ItemBorder"
+					var FlipX = false
+					var FlipY = false
+					var AnimationActive = true
+					var AnimationSpeed = 1
+					var StartFrame = 0
+				}
+				Area 
+				{
+					var Size = Real2{0.9375, 0.75}
+					var Origin = Location.Center
+				}
+			}
+			Cog [Id:0x5b80b603b99b4074][ContextId:28]
+			{
+				var Name = "WeaponSprite"
+				Transform 
+				{
+					var Translation = Real3{-0.53124994, 0.0535712242, 0}
+					var Scale = Real3{1, 1, 1}
+					var Rotation = Quaternion{0, 0, 0, 1}
+				}
+				Sprite 
+				{
+					var Visible = true
+					var ViewCulling = true
+					var VisibilityEvents = true
+					var OverrideBoundingBox = false
+					var LocalAabbCenter = Real3{0, 0, 0}
+					var LocalAabbHalfExtents = Real3{1, 1, 1}
+					var GroupSortValue = 0
+					var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
+					var VertexColor = Real4{0, 0, 0, 1}
+					var GeometryMode = SpriteGeometryMode.ZPlane
+					var SpriteSource = "5bacb495a5109832:Dagger"
+					var FlipX = false
+					var FlipY = false
+					var AnimationActive = true
+					var AnimationSpeed = 1
+					var StartFrame = 0
+				}
+			}
+			Cog [Id:0x5b80b603b99b4098][ContextId:29]
+			{
+				var Name = "ToolSprite"
+				Transform 
+				{
+					var Translation = Real3{0.53125006, 0.0535712242, 0}
+					var Scale = Real3{1, 1, 1}
+					var Rotation = Quaternion{0, 0, 0, 1}
+				}
+				Sprite 
+				{
+					var Visible = true
+					var ViewCulling = true
+					var VisibilityEvents = true
+					var OverrideBoundingBox = false
+					var LocalAabbCenter = Real3{0, 0, 0}
+					var LocalAabbHalfExtents = Real3{1, 1, 1}
+					var GroupSortValue = 0
+					var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
+					var VertexColor = Real4{0, 0, 0, 1}
+					var GeometryMode = SpriteGeometryMode.ZPlane
+					var SpriteSource = "5b80b0a0d74f1cde:Potion"
+					var FlipX = false
+					var FlipY = false
+					var AnimationActive = true
+					var AnimationSpeed = 1
+					var StartFrame = 0
+				}
+				Area 
+				{
+					var Size = Real2{0.5, 0.5}
+					var Origin = Location.Center
+				}
+			}
 		}
 	}
 }

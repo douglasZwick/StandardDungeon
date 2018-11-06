@@ -1,0 +1,67 @@
+class InventoryHud : ZilchComponent
+{
+  [Property]
+  var WeaponSpritePath : CogPath = CogPath("WeaponSprite");
+  [Property]
+  var ToolSpritePath : CogPath = CogPath("ToolSprite");
+  
+  var WeaponSprite : Sprite;
+  var ToolSprite : Sprite;
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    this.WeaponSprite = this.WeaponSpritePath.Sprite;
+    this.ToolSprite = this.ToolSpritePath.Sprite;
+    
+    this.ToolSprite.Visible = false;
+    
+    Zero.Connect(this.GameSession, Events.PutItemIconInInventory, this.OnPutItemIconInInventory);
+    Zero.Connect(this.GameSession, Events.RemoveItemIconFromInventory, this.OnRemoveItemIconFromInventory);
+    Zero.Connect(this.GameSession, Events.PutWeaponIconInInventory, this.OnPutWeaponIconInInventory);
+  }
+  
+  
+  function OnPutItemIconInInventory(event : CollectionEvent)
+  {
+    var sprite = event.InventoryItem.Sprite;
+    
+    if (sprite == null)
+      return;
+    
+    this.CopySprite(sprite, this.ToolSprite);
+    this.ToolSprite.Visible = true;
+  }
+  
+  
+  function OnRemoveItemIconFromInventory(event : CollectionEvent)
+  {
+    this.ToolSprite.Visible = false;
+  }
+  
+  
+  function OnPutWeaponIconInInventory(event : CollectionEvent)
+  {
+    var sprite = event.Weapon.Sprite;
+    
+    if (sprite == null)
+      return;
+    
+    this.CopySprite(sprite, this.WeaponSprite);
+    this.WeaponSprite.Visible = true;
+  }
+  
+  
+  function CopySprite(from : Sprite, to : Sprite)
+  {
+    to.VertexColor     = from.VertexColor;
+    to.GeometryMode    = from.GeometryMode;
+    to.SpriteSource    = from.SpriteSource;
+    to.FlipX           = from.FlipX;
+    to.FlipY           = from.FlipY;
+    to.AnimationActive = from.AnimationActive;
+    to.AnimationSpeed  = from.AnimationSpeed;
+    to.StartFrame      = from.StartFrame;
+    to.CurrentFrame    = from.CurrentFrame;
+  }
+}

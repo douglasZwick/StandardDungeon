@@ -1,0 +1,19 @@
+class HealOnUse : ZilchComponent
+{
+  [Property]
+  var HealingAmount : Integer = 1;
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    Zero.Connect(this.Owner, Events.WasUsed, this.OnWasUsed);
+  }
+  
+  
+  function OnWasUsed(event : InventoryItemEvent)
+  {
+    var he = HealthEvent();
+    he.Healing = this.HealingAmount;
+    event.UserInventory.Owner.DispatchEvent(Events.HealRequest, he);
+  }
+}

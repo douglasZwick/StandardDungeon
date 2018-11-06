@@ -39,9 +39,15 @@ class PrintOnDidCollect : ZilchComponent
       }
       else
       {
-        //message = "Poocha picked up a worthless object";
+        // TODO: a decently large refactor is in order here. this is not how i
+        // should be determining whether to print this sort of message
+        if (event.InventoryItem == null && event.Weapon == null)
+          message = "Poocha got a worthless object";
       }
     }
+    
+    if (String.IsNullOrEmpty(message))
+      return;
     
     var cse = ConsoleSystemEvent(message);
     this.GameSession.DispatchEvent(Events.Print, cse);

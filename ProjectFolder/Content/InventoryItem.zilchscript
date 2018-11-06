@@ -1,0 +1,40 @@
+class InventoryItem : ZilchComponent
+{
+  [Dependency]
+  var ItemBase : ItemBase;
+  
+  
+  [Property][Group("Internal")]
+  var SpritePath : CogPath = CogPath(".");
+  
+  var Sprite : Sprite;
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    this.Sprite = this.SpritePath.Sprite;
+    
+    Zero.Connect(this.Owner, Events.WasCollected, this.OnWasCollected);
+    Zero.Connect(this.Owner, Events.RequestUse, this.OnRequestUse);
+  }
+  
+  
+  function OnWasCollected(event : CollectionEvent)
+  {
+    event.InventoryItem = this;
+  }
+  
+  
+  function OnRequestUse(event : InventoryItemEvent)
+  {
+    event.UserInventory.Owner.DispatchEvent(Events.DidUse, event);
+    this.Owner.DispatchEvent(Events.WasUsed, event);
+  }
+}
+
+
+class InventoryItemEvent : ZilchEvent
+{
+  var UserInventory : Inventory;
+  var InventoryItem : InventoryItem;
+}

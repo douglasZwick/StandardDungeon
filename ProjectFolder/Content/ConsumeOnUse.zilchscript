@@ -1,0 +1,35 @@
+class ConsumeOnUse : ZilchComponent
+{
+  sends WasUsedUp : InventoryItemEvent;
+  sends DidUseUp : InventoryItemEvent;
+  
+  
+  [Dependency]
+  var ItemBase : ItemBase;
+  [Dependency]
+  var InventoryItem : InventoryItem;
+  
+  
+  [Property]
+  var Uses : Integer = 1;
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    Zero.Connect(this.Owner, Events.WasUsed, this.OnWasUsed);
+  }
+  
+  
+  function OnWasUsed(event : InventoryItemEvent)
+  {
+    --this.Uses;
+    
+    if (this.Uses <= 0)
+    {
+      event.UserInventory.Owner.DispatchEvent(Events.DidUseUp, event);
+      this.Owner.DispatchEvent(Events.WasUsedUp, event);
+      
+      this.Owner.Destroy();
+    }
+  }
+}

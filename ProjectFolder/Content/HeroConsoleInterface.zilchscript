@@ -1,0 +1,30 @@
+class HeroConsoleInterface : ZilchComponent
+{
+  [Dependency]
+  var CharacterBase : CharacterBase;
+  
+  
+  var Name : String { get { return this.CharacterBase.Name; }}
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    Zero.Connect(this.Owner, Events.WasDamaged, this.OnWasDamaged);
+    Zero.Connect(this.Owner, Events.WasHealed, this.OnWasHealed);
+  }
+  
+  
+  function OnWasDamaged(event : HealthEvent)
+  {
+    
+  }
+  
+  
+  function OnWasHealed(event : HealthEvent)
+  {
+    
+  }
+}
+
+
+// TODO: put all the hero's console print responses to all the gameplay hooks in here

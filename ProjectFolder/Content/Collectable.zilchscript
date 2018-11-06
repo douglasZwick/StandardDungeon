@@ -1,8 +1,7 @@
 class Collectable : ZilchComponent
 {
-  sends WasCollected : ZilchEvent;
-  
-  
+  [Dependency]
+  var Transform : Transform;
   [Dependency]
   var Collider : Collider;
   
@@ -22,6 +21,7 @@ class Collectable : ZilchComponent
   function OnAttemptCollect(event : CollectionEvent)
   {
     event.Collectable = this;
+    event.WorldPosition = this.Transform.WorldTranslation;
     
     this.Owner.DispatchEvent(Events.WasCollected, event);
   }
@@ -31,4 +31,9 @@ class Collectable : ZilchComponent
 class CollectionEvent : ZilchEvent
 {
   var Collectable : Collectable;
+  var Collector : Collector;
+  var InventoryItem : InventoryItem;
+  var Weapon : Weapon;
+  var DroppedItem : InventoryItem;
+  var WorldPosition : Real3;
 }
