@@ -21,7 +21,15 @@ class PlayerSword : ZilchComponent
     Zero.Connect(Zero.Keyboard, Events.KeyUp, this.OnKeyUp);
     Zero.Connect(this.Gamepad, Events.ButtonDown, this.OnButtonDown);
     Zero.Connect(this.Gamepad, Events.ButtonUp, this.OnButtonUp);
+    Zero.Connect(this.Owner, Events.CollectedWeapon, this.OnCollectedWeapon);
   }
+  
+  
+  function OnCollectedWeapon(event : CollectionEvent)
+  {
+    this.SwordHitBoxArchetype = event.Weapon.HitboxArchetype;
+  }
+  
   
   function OnKeyDown(event : KeyboardEvent)
   {

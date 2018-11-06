@@ -1,8 +1,5 @@
 class Collectable : ZilchComponent
 {
-  sends WasCollected : ZilchEvent;
-  
-  
   [Dependency]
   var Transform : Transform;
   [Dependency]
@@ -36,6 +33,7 @@ class CollectionEvent : ZilchEvent
   var Collectable : Collectable;
   var Collector : Collector;
   var InventoryItem : InventoryItem;
+  var Weapon : Weapon;
   var DroppedItem : InventoryItem;
   var WorldPosition : Real3;
 }

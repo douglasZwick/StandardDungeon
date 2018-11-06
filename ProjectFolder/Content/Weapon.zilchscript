@@ -1,0 +1,36 @@
+class Weapon : ZilchComponent
+{
+  sends CollectedWeapon : CollectionEvent;
+  
+  
+  [Dependency]
+  var ItemBase : ItemBase;
+  [Dependency]
+  var Collectable : Collectable;
+  
+  
+  [Property]
+  var HitboxArchetype : Archetype = Archetype.PlayerSwordHitbox;
+  [Property][Group("Internal")]
+  var SpritePath : CogPath = CogPath(".");
+  
+  var Sprite : Sprite;
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    this.Sprite = this.SpritePath.Sprite;
+    
+    Zero.Connect(this.Owner, Events.WasCollected, this.OnWasCollected);
+  }
+  
+  
+  function OnWasCollected(event : CollectionEvent)
+  {
+    // TODO: we need some way of preventing enemies that are Collectors
+    // from collecting weapons
+    
+    event.Weapon = this;
+    event.Collector.Owner.DispatchEvent(Events.CollectedWeapon, event);
+  }
+}

@@ -12,6 +12,7 @@ class Inventory : ZilchComponent
   sends DidUse : InventoryItemEvent;
   sends PutItemIconInInventory : CollectionEvent;
   sends RemoveItemIconFromInventory : CollectionEvent;
+  sends PutWeaponIconInInventory : CollectionEvent;
   
   
   [Dependency]
@@ -64,7 +65,14 @@ class Inventory : ZilchComponent
     Zero.Connect(this.Owner, Events.DidDropFromInventory, this.OnDidDropFromInventory);
     Zero.Connect(this.Owner, Events.DidAddToInventory, this.OnDidAddToInventory);
     Zero.Connect(this.Owner, Events.DidUseUp, this.OnDidUseUp);
+    Zero.Connect(this.Owner, Events.CollectedWeapon, this.OnCollectedWeapon);
     Zero.Connect(Zero.Keyboard, Events.KeyDown, this.OnKeyDown);
+  }
+  
+  
+  function OnCollectedWeapon(event : CollectionEvent)
+  {
+    this.GameSession.DispatchEvent(Events.PutWeaponIconInInventory, event);
   }
   
   
