@@ -1,10 +1,10 @@
 [Version:1]
 Cog 
 {
-	var Name = "Spider"
+	var Name = "DartTrap"
 	Transform 
 	{
-		var Translation = Real3{-14, -15, 0}
+		var Translation = Real3{-2, 3, 0}
 		var Scale = Real3{1, 1, 1}
 		var Rotation = Quaternion{0, 0, 0, 1}
 	}
@@ -20,34 +20,22 @@ Cog
 		var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
 		var VertexColor = Real4{0, 0, 0, 1}
 		var GeometryMode = SpriteGeometryMode.ZPlane
-		var SpriteSource = "5b89913a4fa404ee:spiderplaceholder"
+		var SpriteSource = "5b8f599d7bd0d21b:DartTrapRight"
 		var FlipX = false
 		var FlipY = false
 		var AnimationActive = true
 		var AnimationSpeed = 1
 		var StartFrame = 0
 	}
-	MovementBlinker 
+	LCDRenderer 
 	{
-		var GhostArchetype = "5bb5eee0a7631b8e:MovementGhost"
-	}
-	AiTicker 
-	{
-		var BaseTickDelay = 0.300000012
-		var TickDelayVariance = 0
-		var RandomInitialTimer = false
-		var TickTimer = 0
-		var AwarenessRadius = 5
-	}
-	Health 
-	{
-		var MaxHealth = 1
-	}
-	DiscreteMover 
-	{
-		var ColliderPath = CogPath
+		var EditorDebugDraw = true
+		var GameDebugDraw = true
+		var ClearColor = Real4{0, 0, 0, 1}
+		var DirectLighting = true
+		var DirectionalLight = CogPath
 		{
-			var Path = "."
+			var Path = ""
 			var ErrorOnResolveToNull = false
 			var ErrorOnPathCantCompute = false
 			var ErrorOnDirectLinkFail = false
@@ -60,13 +48,18 @@ Cog
 			var PathPreference1 = CogPathPreference.SpaceRelative
 			var PathPreference2 = CogPathPreference.Absolute
 		}
+		var ShadowDepth = 0.25
+		var ValueThreshold = 0.5
+		var ShadowColor = Real4{0, 0, 0, 0.25}
+		var MeshSolidColor = Real4{0, 0, 0, 1}
+		var MeshTransparentColor = Real4{0, 0, 0, 0}
 	}
 	BoxCollider 
 	{
 		var Ghost = false
 		var SendsEvents = true
 		var Material = "4de020863e872da8:DefaultPhysicsMaterial"
-		var CollisionGroup = "5baa5c7ae3cb18d6:Enemy"
+		var CollisionGroup = "4e740859314e5515:DefaultGroup"
 		var Offset = Real3{0, 0, 0}
 		var HalfSize = Real3{0.400000006, 0.400000006, 0.400000006}
 	}
@@ -80,23 +73,10 @@ Cog
 		var RotationLocked = false
 		var Mode2D = Mode2DStates.InheritFromSpace
 	}
-	FlipSpriteOnMovementStarted 
+	DartTrapController 
 	{
-		var OnFailedToo = true
-		var FlipYChance = 0
-	}
-	SpiderController 
-	{
-	}
-	DamageOnCollision 
-	{
-		var Damage = 1
-	}
-	CustomCollisionEventTracker 
-	{
-	}
-	DropWebOnMovementEnded 
-	{
-		var ChanceToDrop = 0.5
+		var Direction = Directions.Right
+		var DartArchetype = "5b8f519d5e346007:Dart"
+		var TrapRange = 7
 	}
 }

@@ -1,0 +1,39 @@
+class DartController : ZilchComponent
+{
+  [Dependency]
+  var Mover : DiscreteMover;
+  var Direction : Directions = Directions.Right;
+  
+  function Initialize(init : CogInitializer)
+  {
+    Zero.Connect(this.Owner, Events.AiTick, this.OnAiTick);
+    Zero.Connect(this.Owner, Events.MovementFailed, this.OnMovementFailed);
+  }
+
+  function OnMovementFailed(event : MovementEvent)
+  {
+    this.Owner.Destroy();
+  }
+
+  function OnAiTick(event : TickEvent)
+  {
+    if(this.Direction == Directions.Right)
+    {
+      this.Mover.Move(Real3.XAxis);
+    }
+    else if(this.Direction == Directions.Left)
+    {
+      this.Mover.Move(-Real3.XAxis);
+    }
+    else if(this.Direction == Directions.Up)
+    {
+      this.Mover.Move(Real3.YAxis);
+    }
+    else if(this.Direction == Directions.Down)
+    {
+      this.Mover.Move(-Real3.YAxis);
+    }
+  }
+}
+
+

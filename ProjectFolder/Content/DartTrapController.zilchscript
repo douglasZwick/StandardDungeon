@@ -1,0 +1,149 @@
+[RunInEditor]
+class DartTrapController : ZilchComponent
+{
+  [Dependency]
+  var Sprite : Sprite;
+  var Direction_ : Directions = Directions.Right;
+  [Property]
+  var Direction : Directions
+  {
+    get
+    {
+      return this.Direction_;
+    }
+    set
+    {
+      this.Direction_ = value;
+      if(this.Sprite == null)
+        return;
+      this.SetSpriteSource(value);
+    }
+  }
+  
+  [Property]
+  var DartArchetype : Archetype;
+  
+  [Property]
+  var TrapRange : Real = 7;
+  
+  var Ready : Boolean = true;
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
+    this.SetSpriteSource(this.Direction_);
+  }
+  
+  function SetSpriteSource(value : Directions)
+  {
+    if(value == Directions.Right)
+    {
+      this.Sprite.SpriteSource = SpriteSource.DartTrapRight;
+    }
+    else if(value == Directions.Up)
+    {
+      this.Sprite.SpriteSource = SpriteSource.DartTrapUp;
+    }
+    else if(value == Directions.Left)
+    {
+      this.Sprite.SpriteSource = SpriteSource.DartTrapLeft;
+    }
+    else if(value == Directions.Down)
+    {
+      this.Sprite.SpriteSource = SpriteSource.DartTrapDown;
+    }
+  }
+
+  function OnLogicUpdate(event : UpdateEvent)
+  {
+    Console.WriteLine("POOP");
+    this.SearchForTarget();
+  }
+  
+  function SearchForTarget()
+  {
+    if(this.Direction == Directions.Right)
+    {
+      var ray : Ray = Ray(this.Owner.Transform.Translation, Real3.XAxis * this.TrapRange);
+      var results : CastResultsRange = this.Space.PhysicsSpace.CastRay(ray, 10);
+      foreach(var result in results)
+      {
+        if(result.ObjectHit.HeroController != null)
+        {
+          if(this.Ready)
+            this.Fire();
+        }
+      }
+    }
+    else if(this.Direction == Directions.Left)
+    {
+      var ray : Ray = Ray(this.Owner.Transform.Translation, -Real3.XAxis * this.TrapRange);
+      var results : CastResultsRange = this.Space.PhysicsSpace.CastRay(ray, 10);
+      foreach(var result in results)
+      {
+        if(result.ObjectHit.HeroController != null)
+        {
+          if(this.Ready)
+            this.Fire();
+        }
+      }
+    }
+    else if(this.Direction == Directions.Up)
+    {
+      var ray : Ray = Ray(this.Owner.Transform.Translation, Real3.YAxis * this.TrapRange);
+      var results : CastResultsRange = this.Space.PhysicsSpace.CastRay(ray, 10);
+      foreach(var result in results)
+      {
+        if(result.ObjectHit.HeroController != null)
+        {
+          if(this.Ready)
+            this.Fire();
+        }
+      }
+    }
+    else if(this.Direction == Directions.Down)
+    {
+      var ray : Ray = Ray(this.Owner.Transform.Translation, -Real3.YAxis * this.TrapRange);
+      var results : CastResultsRange = this.Space.PhysicsSpace.CastRay(ray, 10);
+      foreach(var result in results)
+      {
+        if(result.ObjectHit.HeroController != null)
+        {
+          if(this.Ready)
+            this.Fire();
+        }
+      }
+    }
+  }
+  
+  function Fire()
+  {
+    if(this.Direction == Directions.Right)
+    {
+      var newDart = this.Space.CreateAtPosition(this.DartArchetype, this.Owner.Transform.Translation + Real3.XAxis);
+      newDart.DartController.Direction = Directions.Right;
+    }
+    else if(this.Direction == Directions.Left)
+    {
+      var newDart = this.Space.CreateAtPosition(this.DartArchetype, this.Owner.Transform.Translation + -Real3.XAxis);
+      newDart.DartController.Direction = Directions.Left;
+      newDart.Transform.EulerAngles = Real3.ZAxis * Math.ToRadians(180);
+    }
+    else if(this.Direction == Directions.Up)
+    {
+      var newDart = this.Space.CreateAtPosition(this.DartArchetype, this.Owner.Transform.Translation + Real3.YAxis);
+      newDart.DartController.Direction = Directions.Up;
+      newDart.Transform.EulerAngles = Real3.ZAxis * Math.ToRadians(90);
+    }
+    else if(this.Direction == Directions.Down)
+    {
+      var newDart = this.Space.CreateAtPosition(this.DartArchetype, this.Owner.Transform.Translation + -Real3.YAxis);
+      newDart.DartController.Direction = Directions.Down;
+      newDart.Transform.EulerAngles = Real3.ZAxis * Math.ToRadians(270);
+    }
+    this.Ready = false;
+    Zero.Disconnect(this.Space, Events.LogicUpdate, this);
+  }
+}
+

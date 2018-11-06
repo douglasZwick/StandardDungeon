@@ -85,9 +85,9 @@ Level
 		var Name = "EditorCamera"
 		Transform 
 		{
-			var Translation = Real3{-2.27659559, 1.31454515, 21.5506287}
+			var Translation = Real3{1.77640939, 2.55090117, 12.7348328}
 			var Scale = Real3{1, 1, 1}
-			var Rotation = Quaternion{0, -1.09278471e-08, 0, 1}
+			var Rotation = Quaternion{0.0174179226, 0.0627808571, -0.00109584024, 0.997874737}
 		}
 		CameraViewport 
 		{
@@ -136,18 +136,18 @@ Level
 		{
 			var NearPlane = 0.5
 			var FarPlane = 500
-			var PerspectiveMode = PerspectiveMode.Orthographic
+			var PerspectiveMode = PerspectiveMode.Perspective
 			var FieldOfView = 45
-			var Size = 9.93172741
+			var Size = 4.93194914
 		}
 		EditorCameraController 
 		{
-			var ControlMode = ControlMode.ZPlane
+			var ControlMode = ControlMode.Orbit
 			var Previous3DMode = ControlMode.Orbit
-			var LookDistance = 21.2163258
-			var VerticalAngle = 0
-			var HorizontalAngle = 0
-			var LookTarget = Real3{-2.27659559, 1.31454515, 0.334302813}
+			var LookDistance = 12.8683796
+			var VerticalAngle = -0.0349064916
+			var HorizontalAngle = 6.15752172
+			var LookTarget = Real3{0.164557859, 3, -0.0242994595}
 			var MoveSensitivity = 1
 		}
 	}
@@ -464,13 +464,9 @@ Level
 		var Name = "Spider"
 		Transform 
 		{
-			var Translation = Real3{0, 2, 0}
+			var Translation = Real3{-14, -15, 0}
 			var Rotation = Quaternion{0, 0, 0, 1}
 			var Scale = Real3{1, 1, 1}
-		}
-		DropWebOnMovementEnded 
-		{
-			var ChanceToDrop = 0.5
 		}
 	}
 	Cog [InheritId:"5b8f30e02f469b66:Stairs"][ContextId:17]
@@ -501,6 +497,36 @@ Level
 		Transform 
 		{
 			var Translation = Real3{0, 8, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+		AiTicker 
+		{
+			var BaseTickDelay = 0.75
+		}
+	}
+	Cog [InheritId:"5b8f2841e989cf48:SpikeTrap"][ContextId:20]
+	{
+		Transform 
+		{
+			var Translation = Real3{0, 6, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+		SpikeTrapController 
+		{
+			var Deployed = false
+		}
+		AiTicker 
+		{
+			var BaseTickDelay = 0.75
+		}
+	}
+	Cog [InheritId:"5b8f5febd3c20722:DartTrap"][ContextId:21]
+	{
+		Transform 
+		{
+			var Translation = Real3{-2, 3, 0}
 			var Rotation = Quaternion{0, 0, 0, 1}
 			var Scale = Real3{1, 1, 1}
 		}
