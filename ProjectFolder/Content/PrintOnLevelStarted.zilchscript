@@ -11,10 +11,10 @@ class PrintOnLevelStarted : ZilchComponent
     var textArray = Array[String]()
     {
       "A voice booms from above.",
-      "",
+      " ",
       "\"Welcome, o brave Poocha, to the",
       "Dungeons of Caer Garreg!\"",
-      "",
+      " ",
       "You peer at your surroundings:",
       "it's all super old shit, and",
       "there's monsters and stuff all",

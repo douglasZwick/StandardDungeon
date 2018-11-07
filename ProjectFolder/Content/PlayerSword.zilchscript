@@ -6,10 +6,11 @@ class PlayerSword : ZilchComponent
   var Sprite : Sprite;
   
   
-  var SwordReady : Boolean = false;
+  [Property]
   var HitboxArchetype : Archetype = null;
-  var HitboxRef : Cog;
   
+  var SwordReady : Boolean = false;
+  var HitboxRef : Cog;
   var Gamepad : Gamepad;
   
   

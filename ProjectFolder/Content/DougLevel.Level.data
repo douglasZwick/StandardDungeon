@@ -85,7 +85,7 @@ Level
 		var Name = "EditorCamera"
 		Transform 
 		{
-			var Translation = Real3{1.21261251, 0.0165356584, 36.6510239}
+			var Translation = Real3{3.18007731, 1.56321394, 36.6510239}
 			var Scale = Real3{1, 1, 1}
 			var Rotation = Quaternion{0, -1.09278471e-08, 0, 1}
 		}
@@ -147,7 +147,7 @@ Level
 			var LookDistance = 31.6510258
 			var VerticalAngle = 0
 			var HorizontalAngle = 0
-			var LookTarget = Real3{1.21261251, 0.0165356584, 5}
+			var LookTarget = Real3{3.18007731, 1.56321394, 5}
 			var MoveSensitivity = 1
 		}
 	}
@@ -300,7 +300,16 @@ Level
 			}
 		}
 	}
-	Cog [InheritId:"5bb5fb804ed9a45d:Hero"][ChildOrderOverride][ContextId:9]
+	Cog [InheritId:"5b991030fe3d87f2:Dag"][ContextId:9]
+	{
+		Transform 
+		{
+			var Translation = Real3{1, 1, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+	}
+	Cog [InheritId:"5bb5fb804ed9a45d:Hero"][ContextId:10]
 	{
 		Transform 
 		{
@@ -308,115 +317,8 @@ Level
 			var Rotation = Quaternion{0, 0, 0, 1}
 			var Scale = Real3{1, 1, 1}
 		}
-		Sprite 
-		{
-		}
-		BoxCollider 
-		{
-		}
-		CharacterBase [LocallyAdded]
-		{
-			var Name = "Character"
-		}
-		HeroConsoleInterface [LocallyAdded]
-		{
-		}
-		PlayerSword 
-		{
-		}
-		MovementBlinker 
-		{
-		}
-		RigidBody 
-		{
-		}
-		Inventory 
-		{
-			var WeaponRoot = CogPath
-			{
-				var Path = "WeaponRoot"
-				var Cog = 10
-			}
-			var InventoryRoot = CogPath
-			{
-				var Path = "Inventory"
-				var Cog = 11
-			}
-		}
-		Collector 
-		{
-		}
-		InventoryCounterUpdater 
-		{
-		}
-		DiscreteMover 
-		{
-		}
-		HeroController 
-		{
-		}
-		CameraPusher 
-		{
-		}
-		Opener 
-		{
-		}
-		DoorOpener 
-		{
-		}
-		ChestOpener 
-		{
-		}
-		PrintOnDidCollect 
-		{
-		}
-		Revealer 
-		{
-		}
-		Reader 
-		{
-		}
-		Health 
-		{
-		}
-		ResetLevelOnDeath 
-		{
-		}
-		CustomCollisionEventTracker 
-		{
-		}
-		CanGetTrappedInWeb 
-		{
-			var WebBreakingStrength = 1
-		}
-		Hierarchy [ChildOrderOverride]
-		{
-			Cog [Id:0x5baa61a7e6da21e3][ContextId:7]
-			{
-			}
-			Cog [Id:0x5b9a4e11d3f4f59d][LocallyAdded][ContextId:10]
-			{
-				var Name = "WeaponRoot"
-				Transform 
-				{
-					var Translation = Real3{0, 0, 0}
-					var Scale = Real3{1, 1, 1}
-					var Rotation = Quaternion{0, 0, 0, 1}
-				}
-			}
-			Cog [Id:0x5ba499890927e318][LocallyAdded][ContextId:11]
-			{
-				var Name = "Inventory"
-				Transform 
-				{
-					var Translation = Real3{0, 0, 5}
-					var Scale = Real3{1, 1, 1}
-					var Rotation = Quaternion{0, 0, 0, 1}
-				}
-			}
-		}
 	}
-	Cog [ContextId:12]
+	Cog [ContextId:11]
 	{
 		var Name = "Cube"
 		Transform 
@@ -511,7 +413,7 @@ Level
 		{
 		}
 	}
-	Cog [ContextId:13]
+	Cog [ContextId:12]
 	{
 		var Name = "TileMaps"
 		Transform 
@@ -522,7 +424,7 @@ Level
 		}
 		Hierarchy 
 		{
-			Cog [Id:0x5bad2e9b6652563d][ContextId:14]
+			Cog [Id:0x5bad2e9b6652563d][ContextId:13]
 			{
 				var Name = "WallsAndStuff"
 				Transform 
@@ -553,7 +455,7 @@ Level
 					var MeshThickness = 0.5
 				}
 			}
-			Cog [Id:0x5bad2e9b66525652][ContextId:15]
+			Cog [Id:0x5bad2e9b66525652][ContextId:14]
 			{
 				var Name = "RevealableRoom"
 				Transform 
@@ -597,7 +499,7 @@ Level
 						var UpdatePathOnCogChange = true
 						var UpdateCogOnInitialize = true
 						var ResolvedNullErrorOccurred = false
-						var Cog = 16
+						var Cog = 15
 						var PathPreference0 = CogPathPreference.CogRelative
 						var PathPreference1 = CogPathPreference.SpaceRelative
 						var PathPreference2 = CogPathPreference.Absolute
@@ -612,7 +514,7 @@ Level
 				}
 				Hierarchy 
 				{
-					Cog [Id:0x5bad2954c0e2a936][ContextId:16]
+					Cog [Id:0x5bad2954c0e2a936][ContextId:15]
 					{
 						var Name = "RevealTrigger"
 						Transform 
@@ -663,7 +565,7 @@ Level
 								var UpdatePathOnCogChange = true
 								var UpdateCogOnInitialize = true
 								var ResolvedNullErrorOccurred = false
-								var Cog = 16
+								var Cog = 15
 								var PathPreference0 = CogPathPreference.CogRelative
 								var PathPreference1 = CogPathPreference.SpaceRelative
 								var PathPreference2 = CogPathPreference.Absolute
@@ -681,7 +583,7 @@ Level
 			}
 		}
 	}
-	Cog [InheritId:"5bc9b514e5f4a516:Key"][ContextId:17]
+	Cog [InheritId:"5bc9b514e5f4a516:Key"][ContextId:16]
 	{
 		Transform 
 		{
@@ -694,7 +596,7 @@ Level
 			var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
 		}
 	}
-	Cog [InheritId:"5bc9b514e5f4a516:Key"][ContextId:18]
+	Cog [InheritId:"5bc9b514e5f4a516:Key"][ContextId:17]
 	{
 		Transform 
 		{
@@ -712,7 +614,7 @@ Level
 			var Keys = 3
 		}
 	}
-	Cog [InheritId:"5baa087c6215d8fc:TreasureChest"][ContextId:19]
+	Cog [InheritId:"5baa087c6215d8fc:TreasureChest"][ContextId:18]
 	{
 		var Name = "TreasureChest"
 		Transform 
@@ -722,7 +624,7 @@ Level
 			var Scale = Real3{1, 1, 1}
 		}
 	}
-	Cog [InheritId:"5bcf022c5cc4db25:Coin"][ContextId:20]
+	Cog [InheritId:"5bcf022c5cc4db25:Coin"][ContextId:19]
 	{
 		Transform 
 		{
@@ -735,7 +637,7 @@ Level
 			var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
 		}
 	}
-	Cog [InheritId:"5bcf022c5cc4db25:Coin"][ContextId:21]
+	Cog [InheritId:"5bcf022c5cc4db25:Coin"][ContextId:20]
 	{
 		Transform 
 		{
@@ -752,7 +654,7 @@ Level
 			var Gold = 0
 		}
 	}
-	Cog [InheritId:"5bcf022c5cc4db25:Coin"][ContextId:22]
+	Cog [InheritId:"5bcf022c5cc4db25:Coin"][ContextId:21]
 	{
 		Transform 
 		{
@@ -770,7 +672,7 @@ Level
 			var Gold = 20
 		}
 	}
-	Cog [InheritId:"5bc134b675a9af25:Door"][ContextId:23]
+	Cog [InheritId:"5bc134b675a9af25:Door"][ContextId:22]
 	{
 		var Name = "Door"
 		Transform 
@@ -780,7 +682,7 @@ Level
 			var Scale = Real3{1, 1, 1}
 		}
 	}
-	Cog [InheritId:"5bb58c71def18052:Bat"][ContextId:24]
+	Cog [InheritId:"5bb58c71def18052:Bat"][ContextId:23]
 	{
 		Transform 
 		{
@@ -789,7 +691,7 @@ Level
 			var Scale = Real3{1, 1, 1}
 		}
 	}
-	Cog [InheritId:"5bb58c71def18052:Bat"][ContextId:25]
+	Cog [InheritId:"5bb58c71def18052:Bat"][ContextId:24]
 	{
 		Transform 
 		{
@@ -798,7 +700,7 @@ Level
 			var Scale = Real3{1, 1, 1}
 		}
 	}
-	Cog [InheritId:"5bb58c71def18052:Bat"][ContextId:26]
+	Cog [InheritId:"5bb58c71def18052:Bat"][ContextId:25]
 	{
 		Transform 
 		{
@@ -807,7 +709,7 @@ Level
 			var Scale = Real3{1, 1, 1}
 		}
 	}
-	Cog [InheritId:"5bb58c71def18052:Bat"][ContextId:27]
+	Cog [InheritId:"5bb58c71def18052:Bat"][ContextId:26]
 	{
 		Transform 
 		{
@@ -816,7 +718,7 @@ Level
 			var Scale = Real3{1, 1, 1}
 		}
 	}
-	Cog [InheritId:"5bb58c71def18052:Bat"][ContextId:28]
+	Cog [InheritId:"5bb58c71def18052:Bat"][ContextId:27]
 	{
 		Transform 
 		{
@@ -825,7 +727,7 @@ Level
 			var Scale = Real3{1, 1, 1}
 		}
 	}
-	Cog [InheritId:"5badda82ea209ab3:Sign"][ContextId:29]
+	Cog [InheritId:"5badda82ea209ab3:Sign"][ContextId:28]
 	{
 		Transform 
 		{
@@ -834,321 +736,22 @@ Level
 			var Scale = Real3{1, 1, 1}
 		}
 	}
-	Cog [ContextId:30]
+	Cog [InheritId:"5b99133d7ade3766:HealingPotion"][ContextId:29]
 	{
-		var Name = "Potion"
 		Transform 
 		{
 			var Translation = Real3{-1, 1, 0}
-			var Scale = Real3{1, 1, 1}
 			var Rotation = Quaternion{0, 0, 0, 1}
-		}
-		Sprite 
-		{
-			var Visible = true
-			var ViewCulling = true
-			var VisibilityEvents = true
-			var OverrideBoundingBox = false
-			var LocalAabbCenter = Real3{0, 0, 0}
-			var LocalAabbHalfExtents = Real3{1, 1, 1}
-			var GroupSortValue = 0
-			var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
-			var VertexColor = Real4{0, 0, 0, 1}
-			var GeometryMode = SpriteGeometryMode.ZPlane
-			var SpriteSource = "5b80b0a0d74f1cde:Potion"
-			var FlipX = false
-			var FlipY = false
-			var AnimationActive = true
-			var AnimationSpeed = 1
-			var StartFrame = 0
-		}
-		BoxCollider 
-		{
-			var Ghost = true
-			var SendsEvents = true
-			var Material = "4de020863e872da8:DefaultPhysicsMaterial"
-			var CollisionGroup = "4e740859314e5515:DefaultGroup"
-			var Offset = Real3{0, 0, 0}
-			var HalfSize = Real3{0.449999988, 0.449999988, 0.449999988}
-		}
-		Collectable 
-		{
-			var Gold = 0
-			var Keys = 0
-		}
-		ItemBase 
-		{
-			var Article = "a"
-			var Name = "Potion"
-			var BaseSpritePath = CogPath
-			{
-				var Path = "Sprite"
-				var ErrorOnResolveToNull = false
-				var ErrorOnPathCantCompute = false
-				var ErrorOnDirectLinkFail = false
-				var UpdateCogOnPathChange = true
-				var UpdatePathOnCogChange = true
-				var UpdateCogOnInitialize = true
-				var ResolvedNullErrorOccurred = false
-				var Cog = 4294967293
-				var PathPreference0 = CogPathPreference.CogRelative
-				var PathPreference1 = CogPathPreference.SpaceRelative
-				var PathPreference2 = CogPathPreference.Absolute
-			}
-			var ColliderPath = CogPath
-			{
-				var Path = "."
-				var ErrorOnResolveToNull = false
-				var ErrorOnPathCantCompute = false
-				var ErrorOnDirectLinkFail = false
-				var UpdateCogOnPathChange = true
-				var UpdatePathOnCogChange = true
-				var UpdateCogOnInitialize = true
-				var ResolvedNullErrorOccurred = false
-				var Cog = 30
-				var PathPreference0 = CogPathPreference.CogRelative
-				var PathPreference1 = CogPathPreference.SpaceRelative
-				var PathPreference2 = CogPathPreference.Absolute
-			}
-		}
-		InventoryItem 
-		{
-			var SpritePath = CogPath
-			{
-				var Path = "."
-				var ErrorOnResolveToNull = false
-				var ErrorOnPathCantCompute = false
-				var ErrorOnDirectLinkFail = false
-				var UpdateCogOnPathChange = true
-				var UpdatePathOnCogChange = true
-				var UpdateCogOnInitialize = true
-				var ResolvedNullErrorOccurred = false
-				var Cog = 30
-				var PathPreference0 = CogPathPreference.CogRelative
-				var PathPreference1 = CogPathPreference.SpaceRelative
-				var PathPreference2 = CogPathPreference.Absolute
-			}
-		}
-		HealOnUse 
-		{
-			var HealingAmount = 3
-		}
-		ConsumeOnUse 
-		{
-			var Uses = 1
-		}
-		Hierarchy 
-		{
+			var Scale = Real3{1, 1, 1}
 		}
 	}
-	Cog [ContextId:31]
+	Cog [InheritId:"5b991029fd49b8dc:Clubb"][ContextId:30]
 	{
-		var Name = "Clubb"
 		Transform 
 		{
 			var Translation = Real3{2, 1, 0}
-			var Scale = Real3{1, 1, 1}
 			var Rotation = Quaternion{0, 0, 0, 1}
-		}
-		BoxCollider 
-		{
-			var Ghost = true
-			var SendsEvents = true
-			var Material = "4de020863e872da8:DefaultPhysicsMaterial"
-			var CollisionGroup = "4e740859314e5515:DefaultGroup"
-			var Offset = Real3{0, 0, 0}
-			var HalfSize = Real3{0.449999988, 0.449999988, 0.449999988}
-		}
-		Collectable 
-		{
-			var Gold = 0
-			var Keys = 0
-		}
-		ItemBase 
-		{
-			var Article = "the"
-			var Name = "Clubb"
-			var BaseSpritePath = CogPath
-			{
-				var Path = "."
-				var ErrorOnResolveToNull = false
-				var ErrorOnPathCantCompute = false
-				var ErrorOnDirectLinkFail = false
-				var UpdateCogOnPathChange = true
-				var UpdatePathOnCogChange = true
-				var UpdateCogOnInitialize = true
-				var ResolvedNullErrorOccurred = false
-				var Cog = 31
-				var PathPreference0 = CogPathPreference.CogRelative
-				var PathPreference1 = CogPathPreference.SpaceRelative
-				var PathPreference2 = CogPathPreference.Absolute
-			}
-			var ColliderPath = CogPath
-			{
-				var Path = "."
-				var ErrorOnResolveToNull = false
-				var ErrorOnPathCantCompute = false
-				var ErrorOnDirectLinkFail = false
-				var UpdateCogOnPathChange = true
-				var UpdatePathOnCogChange = true
-				var UpdateCogOnInitialize = true
-				var ResolvedNullErrorOccurred = false
-				var Cog = 31
-				var PathPreference0 = CogPathPreference.CogRelative
-				var PathPreference1 = CogPathPreference.SpaceRelative
-				var PathPreference2 = CogPathPreference.Absolute
-			}
-		}
-		Sprite 
-		{
-			var Visible = true
-			var ViewCulling = true
-			var VisibilityEvents = true
-			var OverrideBoundingBox = false
-			var LocalAabbCenter = Real3{0, 0, 0}
-			var LocalAabbHalfExtents = Real3{1, 1, 1}
-			var GroupSortValue = 0
-			var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
-			var VertexColor = Real4{0, 0, 0, 1}
-			var GeometryMode = SpriteGeometryMode.ZPlane
-			var SpriteSource = "5baca8cf49d89645:Club"
-			var FlipX = false
-			var FlipY = false
-			var AnimationActive = true
-			var AnimationSpeed = 1
-			var StartFrame = 0
-		}
-		Area 
-		{
-			var Size = Real2{0.75, 0.75}
-			var Origin = Location.Center
-		}
-		Weapon 
-		{
-			var HitboxArchetype = "5be0dd32705115c4:PlayerSwordHitbox"
-			var SpritePath = CogPath
-			{
-				var Path = "."
-				var ErrorOnResolveToNull = false
-				var ErrorOnPathCantCompute = false
-				var ErrorOnDirectLinkFail = false
-				var UpdateCogOnPathChange = true
-				var UpdatePathOnCogChange = true
-				var UpdateCogOnInitialize = true
-				var ResolvedNullErrorOccurred = false
-				var Cog = 31
-				var PathPreference0 = CogPathPreference.CogRelative
-				var PathPreference1 = CogPathPreference.SpaceRelative
-				var PathPreference2 = CogPathPreference.Absolute
-			}
-		}
-		Hierarchy 
-		{
-		}
-	}
-	Cog [ContextId:32]
-	{
-		var Name = "Dag"
-		Transform 
-		{
-			var Translation = Real3{1, 1, 0}
 			var Scale = Real3{1, 1, 1}
-			var Rotation = Quaternion{0, 0, 0, 1}
-		}
-		BoxCollider 
-		{
-			var Ghost = true
-			var SendsEvents = true
-			var Material = "4de020863e872da8:DefaultPhysicsMaterial"
-			var CollisionGroup = "4e740859314e5515:DefaultGroup"
-			var Offset = Real3{0, 0, 0}
-			var HalfSize = Real3{0.449999988, 0.449999988, 0.449999988}
-		}
-		Collectable 
-		{
-			var Gold = 0
-			var Keys = 0
-		}
-		ItemBase 
-		{
-			var Article = "the"
-			var Name = "Dag"
-			var BaseSpritePath = CogPath
-			{
-				var Path = "."
-				var ErrorOnResolveToNull = false
-				var ErrorOnPathCantCompute = false
-				var ErrorOnDirectLinkFail = false
-				var UpdateCogOnPathChange = true
-				var UpdatePathOnCogChange = true
-				var UpdateCogOnInitialize = true
-				var ResolvedNullErrorOccurred = false
-				var Cog = 32
-				var PathPreference0 = CogPathPreference.CogRelative
-				var PathPreference1 = CogPathPreference.SpaceRelative
-				var PathPreference2 = CogPathPreference.Absolute
-			}
-			var ColliderPath = CogPath
-			{
-				var Path = "."
-				var ErrorOnResolveToNull = false
-				var ErrorOnPathCantCompute = false
-				var ErrorOnDirectLinkFail = false
-				var UpdateCogOnPathChange = true
-				var UpdatePathOnCogChange = true
-				var UpdateCogOnInitialize = true
-				var ResolvedNullErrorOccurred = false
-				var Cog = 32
-				var PathPreference0 = CogPathPreference.CogRelative
-				var PathPreference1 = CogPathPreference.SpaceRelative
-				var PathPreference2 = CogPathPreference.Absolute
-			}
-		}
-		Sprite 
-		{
-			var Visible = true
-			var ViewCulling = true
-			var VisibilityEvents = true
-			var OverrideBoundingBox = false
-			var LocalAabbCenter = Real3{0, 0, 0}
-			var LocalAabbHalfExtents = Real3{1, 1, 1}
-			var GroupSortValue = 0
-			var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
-			var VertexColor = Real4{0, 0, 0, 1}
-			var GeometryMode = SpriteGeometryMode.ZPlane
-			var SpriteSource = "5bacb495a5109832:Dagger"
-			var FlipX = false
-			var FlipY = false
-			var AnimationActive = true
-			var AnimationSpeed = 1
-			var StartFrame = 0
-		}
-		Area 
-		{
-			var Size = Real2{0.75, 0.75}
-			var Origin = Location.Center
-		}
-		Weapon 
-		{
-			var HitboxArchetype = "5be0dd32705115c4:PlayerSwordHitbox"
-			var SpritePath = CogPath
-			{
-				var Path = "."
-				var ErrorOnResolveToNull = false
-				var ErrorOnPathCantCompute = false
-				var ErrorOnDirectLinkFail = false
-				var UpdateCogOnPathChange = true
-				var UpdatePathOnCogChange = true
-				var UpdateCogOnInitialize = true
-				var ResolvedNullErrorOccurred = false
-				var Cog = 32
-				var PathPreference0 = CogPathPreference.CogRelative
-				var PathPreference1 = CogPathPreference.SpaceRelative
-				var PathPreference2 = CogPathPreference.Absolute
-			}
-		}
-		Hierarchy 
-		{
 		}
 	}
 }

@@ -75,7 +75,12 @@ class ConsoleSystem : ZilchComponent
   
   function OnPrint(event : ConsoleSystemEvent)
   {
-    var textArray = event.TextArray;
+    var textArray = Array[String]();
+    
+    foreach (var text in event.TextArray)
+      if (!String.IsNullOrEmpty(text))
+        textArray.Add(text);
+    
     var subtextCount = textArray.Count;
     
     this.Shift(subtextCount);

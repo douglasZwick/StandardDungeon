@@ -1,0 +1,43 @@
+[Version:1]
+Cog 
+{
+	var Name = "DagAttack"
+	Transform 
+	{
+		var Translation = Real3{-0.39092806, 2.26263046, 5}
+		var Scale = Real3{1, 1, 1}
+		var Rotation = Quaternion{0, 0, 0, 1}
+	}
+	BoxCollider 
+	{
+		var Ghost = true
+		var SendsEvents = true
+		var Material = "4de020863e872da8:DefaultPhysicsMaterial"
+		var CollisionGroup = "5bcb31a31ae6d930:Player"
+		var Offset = Real3{0, 0, 0}
+		var HalfSize = Real3{0.400000006, 0.400000006, 0.400000006}
+	}
+	PlayerSwordHitboxBehavior 
+	{
+		var AttackPower = 2
+		var Lifetime = 0.5
+	}
+	SpriteText 
+	{
+		var Visible = true
+		var ViewCulling = true
+		var VisibilityEvents = true
+		var OverrideBoundingBox = false
+		var LocalAabbCenter = Real3{0, 0, 0}
+		var LocalAabbHalfExtents = Real3{1, 1, 1}
+		var GroupSortValue = 0
+		var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
+		var VertexColor = Real4{0, 0, 0, 1}
+		var GeometryMode = SpriteGeometryMode.ZPlane
+		var Text = "SLASH"
+		var Font = "5bafa377830e8960:LEAGUEGOTHICITALIC"
+		var FontSize = 64
+		var PixelsPerUnit = 128
+		var TextAlign = TextAlign.Center
+	}
+}

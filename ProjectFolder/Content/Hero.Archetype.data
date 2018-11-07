@@ -36,9 +36,16 @@ Cog
 		var Offset = Real3{0, 0, 0}
 		var HalfSize = Real3{0.400000006, 0.400000006, 0.5}
 	}
+	CharacterBase 
+	{
+		var Name = "Poocha"
+	}
+	HeroConsoleInterface 
+	{
+	}
 	PlayerSword 
 	{
-		var SwordHitBoxArchetype = "5be0dd32705115c4:PlayerSwordHitbox"
+		var HitboxArchetype = "5b9917cd0cc2cb4d:UnarmedAttack"
 	}
 	MovementBlinker 
 	{
@@ -59,10 +66,26 @@ Cog
 		var Gold = 0
 		var Keys = 0
 		var DropOnDeath = true
+		var MultiplyGoldDropOnDeath = 1
 		var LootArchetype = "5bab4e400484619f:Loot"
+		var WeaponRoot = CogPath
+		{
+			var Path = "WeaponRoot"
+			var ErrorOnResolveToNull = false
+			var ErrorOnPathCantCompute = false
+			var ErrorOnDirectLinkFail = false
+			var UpdateCogOnPathChange = true
+			var UpdatePathOnCogChange = true
+			var UpdateCogOnInitialize = true
+			var ResolvedNullErrorOccurred = false
+			var Cog = 4294967293
+			var PathPreference0 = CogPathPreference.CogRelative
+			var PathPreference1 = CogPathPreference.SpaceRelative
+			var PathPreference2 = CogPathPreference.Absolute
+		}
 		var InventoryRoot = CogPath
 		{
-			var Path = "."
+			var Path = "Inventory"
 			var ErrorOnResolveToNull = false
 			var ErrorOnPathCantCompute = false
 			var ErrorOnDirectLinkFail = false
@@ -200,6 +223,29 @@ Cog
 			}
 			Hierarchy 
 			{
+			}
+		}
+		Cog [Id:0x5b9a4e11d3f4f59d]
+		{
+			var Name = "WeaponRoot"
+			Transform 
+			{
+				var Translation = Real3{0, 0, 0}
+				var Scale = Real3{1, 1, 1}
+				var Rotation = Quaternion{0, 0, 0, 1}
+			}
+			Hierarchy 
+			{
+			}
+		}
+		Cog [Id:0x5ba499890927e318]
+		{
+			var Name = "Inventory"
+			Transform 
+			{
+				var Translation = Real3{0, 0, 5}
+				var Scale = Real3{1, 1, 1}
+				var Rotation = Quaternion{0, 0, 0, 1}
 			}
 		}
 	}

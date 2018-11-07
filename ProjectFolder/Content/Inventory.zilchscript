@@ -125,9 +125,17 @@ class Inventory : ZilchComponent
   
   function OnDidEquipWeapon(event : CollectionEvent)
   {
+    // TODO: do i need a separate event for initial equips???? =P
+    
     this.HeldWeapon = event.Weapon;
-    this.HeldWeapon.Owner.AttachTo(this.WeaponRoot.Cog);
-    this.HeldWeapon.Owner.Transform.LocalTranslation = Real3.Zero;
+    
+    var parent = this.HeldWeapon.Owner.Parent;
+    
+    if (parent != this.WeaponRoot.Cog)
+    {
+      this.HeldWeapon.Owner.AttachTo(this.WeaponRoot.Cog);
+      this.HeldWeapon.Owner.Transform.LocalTranslation = Real3.Zero;
+    }
     
     this.GameSession.DispatchEvent(Events.PutWeaponIconInInventory, event);
   }
@@ -151,8 +159,14 @@ class Inventory : ZilchComponent
   function OnDidAddToInventory(event : CollectionEvent)
   {
     this.HeldItem = event.InventoryItem;
-    this.HeldItem.Owner.AttachTo(this.InventoryRoot.Cog);
-    this.HeldItem.Owner.Transform.LocalTranslation = Real3.Zero;
+    
+    var parent = this.HeldItem.Owner.Parent;
+    
+    if (parent != this.InventoryRoot.Cog)
+    {
+      this.HeldItem.Owner.AttachTo(this.InventoryRoot.Cog);
+      this.HeldItem.Owner.Transform.LocalTranslation = Real3.Zero;
+    }
     
     // TODO: i'm finding it hard to justify to myself the need for all these
     // event classes that seem to have so much overlap in their use. should
@@ -267,6 +281,12 @@ class Inventory : ZilchComponent
   {
     var weapon = event.Weapon;
     var collectedItemBase = weapon.ItemBase;
+    
+    // i think this can only happen when you do an initial equip
+    // because i guess maybe Dependencies haven't been filled yet?
+    if (collectedItemBase == null)
+      collectedItemBase = weapon.Owner.ItemBase;
+    
     var collectedNamePhrase = collectedItemBase.NamePhrase;
     
     if (this.HeldWeapon != null)
@@ -298,6 +318,12 @@ class Inventory : ZilchComponent
   {
     var inventoryItem = event.InventoryItem;
     var collectedItemBase = inventoryItem.ItemBase;
+    
+    // i think this can only happen when you do an initial equip
+    // because i guess maybe Dependencies haven't been filled yet?
+    if (collectedItemBase == null)
+      collectedItemBase = inventoryItem.Owner.ItemBase;
+    
     var collectedNamePhrase = collectedItemBase.NamePhrase;
     
     if (this.HeldItem != null)

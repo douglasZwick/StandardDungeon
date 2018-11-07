@@ -4,7 +4,7 @@ Cog
 	var Name = "Bat"
 	Transform 
 	{
-		var Translation = Real3{-13, 9, 0}
+		var Translation = Real3{6, 5, 0}
 		var Scale = Real3{1, 1, 1}
 		var Rotation = Quaternion{0, 0, 0, 1}
 	}
@@ -29,7 +29,7 @@ Cog
 	}
 	BoxCollider 
 	{
-		var Ghost = true
+		var Ghost = false
 		var SendsEvents = true
 		var Material = "4de020863e872da8:DefaultPhysicsMaterial"
 		var CollisionGroup = "5baa5c7ae3cb18d6:Enemy"

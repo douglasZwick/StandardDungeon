@@ -1,9 +1,10 @@
 class PlayerSwordHitboxBehavior : ZilchComponent
 {
   [Property]
+  var AttackPower : Integer = 1;
+  [Property]
   var Lifetime : Real = 0.5;
   var Timer : Real = 0;
-  var AttackPower : Integer = 1;
     
   function Initialize(init : CogInitializer)
   {

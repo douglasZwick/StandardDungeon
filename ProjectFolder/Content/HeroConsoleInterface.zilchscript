@@ -16,13 +16,17 @@ class HeroConsoleInterface : ZilchComponent
   
   function OnWasDamaged(event : HealthEvent)
   {
-    
+    var string = "Poocha was damaged!";
+    var cse = ConsoleSystemEvent(string);
+    this.GameSession.DispatchEvent(Events.Print, cse);
   }
   
   
   function OnWasHealed(event : HealthEvent)
   {
-    
+    var string = "Poocha was healed!";
+    var cse = ConsoleSystemEvent(string);
+    this.GameSession.DispatchEvent(Events.Print, cse);
   }
 }
 
