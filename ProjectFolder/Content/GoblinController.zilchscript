@@ -1,0 +1,134 @@
+class GoblinController : ZilchComponent
+{
+  var RNG : Random = Random();
+  [Dependency]
+  var Mover : DiscreteMover;
+  [Dependency]
+  var Collider : Collider;
+  var PlayerRef : Cog;
+  function Initialize(init : CogInitializer)
+  {
+    Zero.Connect(this.Owner, Events.AiTick, this.OnAiTick);
+    this.PlayerRef = this.Space.FindObjectByName("Hero");
+  }
+
+  function OnAiTick(event : TickEvent)
+  {
+    this.Move();
+  }
+  
+  function Move()
+  {
+    var diffVector : Real3 = this.PlayerRef.Transform.Translation - this.Owner.Transform.Translation;
+    
+    var filter : CastFilter = CastFilter();
+    filter.IgnoreGhost = false;
+    if(Math.Abs(diffVector.X) > Math.Abs(diffVector.Y))
+    {
+      if(diffVector.X < 0)
+      {
+        //Prefer Avoid right
+        var results = this.Space.PhysicsSpace.CastCollider(Real3.XAxis, this.Collider, filter);
+        foreach(var result in results)
+        {
+          //Can't avoid right
+          if(result.ObjectHit.Collider.CollisionGroup == CollisionGroup.DefaultGroup)
+          {
+            if(this.RNG.CoinFlip())
+            {
+              this.Mover.Move(Real3.YAxis);
+              return;
+            }
+            else
+            {
+              this.Mover.Move(-Real3.YAxis);
+              return;
+            }
+          }
+        }
+        //Avoid right
+        this.Mover.Move(Real3.XAxis);
+        return;
+        
+      }
+      else
+      {
+        //Prefer Avoid left
+        var results = this.Space.PhysicsSpace.CastCollider(-Real3.XAxis, this.Collider, filter);
+        foreach(var result in results)
+        {
+          //Can't avoid right
+          if(result.ObjectHit.Collider.CollisionGroup == CollisionGroup.DefaultGroup)
+          {
+            if(this.RNG.CoinFlip())
+            {
+              this.Mover.Move(Real3.YAxis);
+              return;
+            }
+            else
+            {
+              this.Mover.Move(-Real3.YAxis);
+              return;
+            }
+          }
+        }
+        //Avoid left
+        this.Mover.Move(-Real3.XAxis);
+        return;
+      }
+    }
+    else
+    {
+      if(diffVector.Y < 0)
+      {
+        //Prefer Avoid Up
+        var results = this.Space.PhysicsSpace.CastCollider(Real3.YAxis, this.Collider, filter);
+        foreach(var result in results)
+        {
+          //Can't avoid up
+          if(result.ObjectHit.Collider.CollisionGroup == CollisionGroup.DefaultGroup)
+          {
+            if(this.RNG.CoinFlip())
+            {
+              this.Mover.Move(Real3.XAxis);
+              return;
+            }
+            else
+            {
+              this.Mover.Move(-Real3.XAxis);
+              return;
+            }
+          }
+        }
+        //Avoid up
+        this.Mover.Move(Real3.YAxis);
+        return;
+      }
+      else
+      {
+        //Prefer Avoid Down
+        var results = this.Space.PhysicsSpace.CastCollider(-Real3.YAxis, this.Collider, filter);
+        foreach(var result in results)
+        {
+          //Can't avoid down
+          if(result.ObjectHit.Collider.CollisionGroup == CollisionGroup.DefaultGroup)
+          {
+            if(this.RNG.CoinFlip())
+            {
+              this.Mover.Move(Real3.XAxis);
+              return;
+            }
+            else
+            {
+              this.Mover.Move(-Real3.XAxis);
+              return;
+            }
+          }
+        }
+        //Avoid down
+        this.Mover.Move(-Real3.YAxis);
+        return;
+      }
+    }
+  }
+}

@@ -85,9 +85,9 @@ Level
 		var Name = "EditorCamera"
 		Transform 
 		{
-			var Translation = Real3{-17.054245, -2.85803509, 35.0942841}
+			var Translation = Real3{-23.1427555, -1.62950957, 34.9798584}
 			var Scale = Real3{1, 1, 1}
-			var Rotation = Quaternion{-0.0662355646, -0.0339529999, -0.00225516013, 0.997223675}
+			var Rotation = Quaternion{0, -1.09278471e-08, 0, 1}
 		}
 		CameraViewport 
 		{
@@ -136,18 +136,18 @@ Level
 		{
 			var NearPlane = 0.5
 			var FarPlane = 500
-			var PerspectiveMode = PerspectiveMode.Perspective
+			var PerspectiveMode = PerspectiveMode.Orthographic
 			var FieldOfView = 45
-			var Size = 4.93194914
+			var Size = 40.2751617
 		}
 		EditorCameraController 
 		{
-			var ControlMode = ControlMode.Orbit
+			var ControlMode = ControlMode.ZPlane
 			var Previous3DMode = ControlMode.Orbit
 			var LookDistance = 34.9798584
-			var VerticalAngle = 0.132645115
-			var HorizontalAngle = 6.35125399
-			var LookTarget = Real3{-14.6959496, -7.48434782, 0.501999319}
+			var VerticalAngle = 0
+			var HorizontalAngle = 0
+			var LookTarget = Real3{-23.1427555, -1.62950957, -7.01604449e-07}
 			var MoveSensitivity = 1
 		}
 	}
@@ -228,7 +228,7 @@ Level
 				var Name = "GameCamera"
 				Transform 
 				{
-					var Translation = Real3{0, 0, 6}
+					var Translation = Real3{0, 0, 8}
 					var Scale = Real3{1, 1, 1}
 					var Rotation = Quaternion{0, 0, 0, 1}
 				}
@@ -304,7 +304,7 @@ Level
 	{
 		Transform 
 		{
-			var Translation = Real3{0, 0, 0}
+			var Translation = Real3{-10, 5, 0}
 			var Rotation = Quaternion{0, 0, 0, 1}
 			var Scale = Real3{1, 1, 1}
 		}
@@ -385,7 +385,7 @@ Level
 				}
 				TileMap 
 				{
-					var Source = "5b875fa69fc9c847:MinotaurFightTest_TileMap00"
+					var Source = "5bb1c30242ffd614:GoblinDemo_TileMap00"
 					var PaletteName = "5be3964bf32a73ca:StandardPalette"
 					var MeshThickness = 0.5
 				}
@@ -396,68 +396,43 @@ Level
 	{
 		Transform 
 		{
-			var Translation = Real3{-1, 5, 0}
+			var Translation = Real3{-8, 5, 0}
 			var Rotation = Quaternion{0, 0, 0, 1}
 			var Scale = Real3{1, 1, 1}
 		}
 		PrintOnWasRead 
 		{
-			var Line2 = "\"Ye who treads here,"
-			var Line3 = "deads here.\""
+			var Line0 = "\"Goblins drop more"
+			var Line1 = "the sooner you kill them!\""
+			var Line2 = ""
+			var Line3 = ""
 		}
 	}
 	Cog [InheritId:"5bc134b675a9af25:Door"][ContextId:13]
 	{
 		Transform 
 		{
-			var Translation = Real3{0, 9, 0}
+			var Translation = Real3{-30, 6, 0}
 			var Rotation = Quaternion{0, 0, 0, 1}
 			var Scale = Real3{1, 1, 1}
 		}
 	}
-	Cog [InheritId:"5bc9b514e5f4a516:Key"][ContextId:14]
+	Cog [InheritId:"5bc134b675a9af25:Door"][ContextId:14]
 	{
 		Transform 
 		{
-			var Translation = Real3{2, -1, 0}
+			var Translation = Real3{-23, -4, 0}
 			var Rotation = Quaternion{0, 0, 0, 1}
 			var Scale = Real3{1, 1, 1}
 		}
 	}
-	Cog [InheritId:"5b875ecbee99457f:Minotaur"][ContextId:15]
+	Cog [InheritId:"5bc9b514e5f4a516:Key"][ContextId:15]
 	{
 		Transform 
 		{
-			var Translation = Real3{0, 15, 0}
+			var Translation = Real3{-27, 18, 0}
 			var Rotation = Quaternion{0, 0, 0, 1}
 			var Scale = Real3{1, 1, 1}
-		}
-		AiTicker 
-		{
-			var TickDelay = 0
-		}
-		Inventory [LocallyAdded]
-		{
-			var Gold = 100
-			var Keys = 0
-			var DropOnDeath = true
-			var MultiplyGoldDropOnDeath = 1
-			var LootArchetype = "5bab4e400484619f:Loot"
-			var InventoryRoot = CogPath
-			{
-				var Path = "."
-				var ErrorOnResolveToNull = false
-				var ErrorOnPathCantCompute = false
-				var ErrorOnDirectLinkFail = false
-				var UpdateCogOnPathChange = true
-				var UpdatePathOnCogChange = true
-				var UpdateCogOnInitialize = true
-				var ResolvedNullErrorOccurred = false
-				var Cog = 15
-				var PathPreference0 = CogPathPreference.CogRelative
-				var PathPreference1 = CogPathPreference.SpaceRelative
-				var PathPreference2 = CogPathPreference.Absolute
-			}
 		}
 	}
 	Cog [InheritId:"5b899606e6d10a5a:Spider"][ContextId:16]
@@ -465,84 +440,375 @@ Level
 		var Name = "Spider"
 		Transform 
 		{
-			var Translation = Real3{-14, -15, 0}
+			var Translation = Real3{-18, -16, 0}
 			var Rotation = Quaternion{0, 0, 0, 1}
 			var Scale = Real3{1, 1, 1}
 		}
 	}
-	Cog [InheritId:"5b8f30e02f469b66:Stairs"][ContextId:17]
+	Cog [InheritId:"5b899606e6d10a5a:Spider"][ContextId:17]
 	{
+		var Name = "Spider"
 		Transform 
 		{
-			var Translation = Real3{-2, -1, 0}
+			var Translation = Real3{-27, -18, 0}
 			var Rotation = Quaternion{0, 0, 0, 1}
 			var Scale = Real3{1, 1, 1}
-		}
-		Hierarchy 
-		{
-			Cog [Id:0x5b8f3227632a15c5][ContextId:18]
-			{
-				StairsController 
-				{
-					var OtherStairs = CogPath
-					{
-						var Path = ".."
-						var Cog = 17
-					}
-				}
-			}
 		}
 	}
-	Cog [InheritId:"5b8f2841e989cf48:SpikeTrap"][ContextId:19]
+	Cog [InheritId:"5b899606e6d10a5a:Spider"][ContextId:18]
 	{
+		var Name = "Spider"
 		Transform 
 		{
-			var Translation = Real3{0, 8, 0}
+			var Translation = Real3{-21, -19, 0}
 			var Rotation = Quaternion{0, 0, 0, 1}
 			var Scale = Real3{1, 1, 1}
-		}
-		AiTicker 
-		{
-			var BaseTickDelay = 0.75
 		}
 	}
-	Cog [InheritId:"5b8f2841e989cf48:SpikeTrap"][ContextId:20]
+	Cog [InheritId:"5b899606e6d10a5a:Spider"][ContextId:19]
 	{
+		var Name = "Spider"
 		Transform 
 		{
-			var Translation = Real3{0, 6, 0}
+			var Translation = Real3{-20, 0, 0}
 			var Rotation = Quaternion{0, 0, 0, 1}
 			var Scale = Real3{1, 1, 1}
 		}
-		SpikeTrapController 
+	}
+	Cog [InheritId:"5b899606e6d10a5a:Spider"][ContextId:20]
+	{
+		var Name = "Spider"
+		Transform 
 		{
-			var Deployed = false
-		}
-		AiTicker 
-		{
-			var BaseTickDelay = 0.75
+			var Translation = Real3{-14, 1, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
 		}
 	}
 	Cog [InheritId:"5b8f5febd3c20722:DartTrap"][ContextId:21]
 	{
 		Transform 
 		{
-			var Translation = Real3{-2, 3, 0}
+			var Translation = Real3{-25, -11, 0}
 			var Rotation = Quaternion{0, 0, 0, 1}
 			var Scale = Real3{1, 1, 1}
 		}
 	}
-	Cog [InheritId:"5bb1da6af716ffdd:Goblin"][ContextId:22]
+	Cog [InheritId:"5b8f5febd3c20722:DartTrap"][ContextId:22]
 	{
 		Transform 
 		{
-			var Translation = Real3{-15, -7, 0}
+			var Translation = Real3{-21, -7, 0}
 			var Rotation = Quaternion{0, 0, 0, 1}
 			var Scale = Real3{1, 1, 1}
 		}
-		BoxCollider 
+		DartTrapController 
 		{
-			var Ghost = false
+			var Direction = Directions.Left
+		}
+	}
+	Cog [InheritId:"5bb1da6af716ffdd:Goblin"][ContextId:23]
+	{
+		Transform 
+		{
+			var Translation = Real3{-25, -16, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+	}
+	Cog [InheritId:"5bb1da6af716ffdd:Goblin"][ContextId:24]
+	{
+		Transform 
+		{
+			var Translation = Real3{-43, 8, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+	}
+	Cog [InheritId:"5bb1da6af716ffdd:Goblin"][ContextId:25]
+	{
+		Transform 
+		{
+			var Translation = Real3{-21, -16, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+	}
+	Cog [InheritId:"5b898d6b1874102d:SpiderWeb"][ContextId:26]
+	{
+		Transform 
+		{
+			var Translation = Real3{-25, -14, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+	}
+	Cog [InheritId:"5b898d6b1874102d:SpiderWeb"][ContextId:27]
+	{
+		Transform 
+		{
+			var Translation = Real3{-23, -16, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+	}
+	Cog [InheritId:"5b898d6b1874102d:SpiderWeb"][ContextId:28]
+	{
+		Transform 
+		{
+			var Translation = Real3{-19, -15, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+	}
+	Cog [InheritId:"5b898d6b1874102d:SpiderWeb"][ContextId:29]
+	{
+		Transform 
+		{
+			var Translation = Real3{-28, -19, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+	}
+	Cog [InheritId:"5b898d6b1874102d:SpiderWeb"][ContextId:30]
+	{
+		Transform 
+		{
+			var Translation = Real3{-17, -18, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+	}
+	Cog [InheritId:"5b898d6b1874102d:SpiderWeb"][ContextId:31]
+	{
+		Transform 
+		{
+			var Translation = Real3{-16, -13, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+	}
+	Cog [InheritId:"5b898d6b1874102d:SpiderWeb"][ContextId:32]
+	{
+		Transform 
+		{
+			var Translation = Real3{-29, -13, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+	}
+	Cog [InheritId:"5be2494353a222bb:Skelly"][ContextId:33]
+	{
+		Transform 
+		{
+			var Translation = Real3{-41, 12, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+	}
+	Cog [InheritId:"5be2494353a222bb:Skelly"][ContextId:34]
+	{
+		Transform 
+		{
+			var Translation = Real3{-39, 8, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+	}
+	Cog [InheritId:"5be2494353a222bb:Skelly"][ContextId:35]
+	{
+		Transform 
+		{
+			var Translation = Real3{-42, 5, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+	}
+	Cog [InheritId:"5be2494353a222bb:Skelly"][ContextId:36]
+	{
+		Transform 
+		{
+			var Translation = Real3{-31, 18, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+	}
+	Cog [InheritId:"5be2494353a222bb:Skelly"][ContextId:37]
+	{
+		Transform 
+		{
+			var Translation = Real3{-27, 17, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+	}
+	Cog [InheritId:"5bb58c71def18052:Bat"][ContextId:38]
+	{
+		Transform 
+		{
+			var Translation = Real3{-13, 9, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+	}
+	Cog [InheritId:"5bb58c71def18052:Bat"][ContextId:39]
+	{
+		Transform 
+		{
+			var Translation = Real3{-26, 2, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+	}
+	Cog [InheritId:"5bb58c71def18052:Bat"][ContextId:40]
+	{
+		Transform 
+		{
+			var Translation = Real3{-19, 18, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+	}
+	Cog [InheritId:"5bb58c71def18052:Bat"][ContextId:41]
+	{
+		Transform 
+		{
+			var Translation = Real3{-14, 16, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+	}
+	Cog [InheritId:"5baa087c6215d8fc:TreasureChest"][ContextId:42]
+	{
+		Transform 
+		{
+			var Translation = Real3{-45, 9, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+		Openable 
+		{
+			var Locks = 0
+		}
+		Chest 
+		{
+			var Contents = "5bc9b514e5f4a516:Key"
+		}
+	}
+	Cog [InheritId:"5baa087c6215d8fc:TreasureChest"][ContextId:43]
+	{
+		Transform 
+		{
+			var Translation = Real3{-5, 0, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+		Openable 
+		{
+			var Locks = 0
+		}
+		Chest 
+		{
+			var Contents = "5bb1c29aa9e33120:ManyCoins"
+		}
+	}
+	Cog [InheritId:"5badda82ea209ab3:Sign"][ContextId:44]
+	{
+		Transform 
+		{
+			var Translation = Real3{-16, 18, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+		PrintOnWasRead 
+		{
+			var Line0 = "\"Watch for booby traps."
+			var Line1 = "Look carefully at the walls.\""
+			var Line2 = ""
+			var Line3 = ""
+		}
+	}
+	Cog [InheritId:"5b875ecbee99457f:Minotaur"][ContextId:45]
+	{
+		Transform 
+		{
+			var Translation = Real3{-7, 0, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+		AiTicker 
+		{
+			var AwarenessRadius = 9
+		}
+		Inventory 
+		{
+			var Gold = 50
+		}
+	}
+	Cog [InheritId:"5b8f2841e989cf48:SpikeTrap"][ContextId:46]
+	{
+		Transform 
+		{
+			var Translation = Real3{-43, 6, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+		SpikeTrapController 
+		{
+			var Deployed = true
+		}
+	}
+	Cog [InheritId:"5b8f2841e989cf48:SpikeTrap"][ContextId:47]
+	{
+		Transform 
+		{
+			var Translation = Real3{-40, 6, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+	}
+	Cog [InheritId:"5b8f2841e989cf48:SpikeTrap"][ContextId:48]
+	{
+		Transform 
+		{
+			var Translation = Real3{-40, 10, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+		SpikeTrapController 
+		{
+			var Deployed = true
+		}
+	}
+	Cog [InheritId:"5b8f2841e989cf48:SpikeTrap"][ContextId:49]
+	{
+		Transform 
+		{
+			var Translation = Real3{-40, 14, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+	}
+	Cog [InheritId:"5b8f2841e989cf48:SpikeTrap"][ContextId:50]
+	{
+		Transform 
+		{
+			var Translation = Real3{-43, 14, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+		SpikeTrapController 
+		{
+			var Deployed = true
+		}
+	}
+	Cog [InheritId:"5b8f2841e989cf48:SpikeTrap"][ContextId:51]
+	{
+		Transform 
+		{
+			var Translation = Real3{-43, 10, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
 		}
 	}
 }

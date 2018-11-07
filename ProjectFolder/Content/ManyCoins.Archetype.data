@@ -1,10 +1,10 @@
 [Version:1]
 Cog 
 {
-	var Name = "Coin"
+	var Name = "ManyCoins"
 	Transform 
 	{
-		var Translation = Real3{0, 0, 0}
+		var Translation = Real3{-36.2118912, -3.44264817, 0}
 		var Scale = Real3{1, 1, 1}
 		var Rotation = Quaternion{0, 0, 0, 1}
 	}
@@ -38,7 +38,7 @@ Cog
 	}
 	Collectable 
 	{
-		var Gold = 1
+		var Gold = 100
 		var Keys = 0
 	}
 	DestroyOnWasCollected 

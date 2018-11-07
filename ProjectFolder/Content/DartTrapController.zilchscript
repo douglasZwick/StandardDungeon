@@ -57,7 +57,6 @@ class DartTrapController : ZilchComponent
 
   function OnLogicUpdate(event : UpdateEvent)
   {
-    Console.WriteLine("POOP");
     this.SearchForTarget();
   }
   

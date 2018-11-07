@@ -28,6 +28,8 @@ class Inventory : ZilchComponent
   [Property]
   var DropOnDeath : Boolean = true;
   [Property]
+  var MultiplyGoldDropOnDeath : Integer = 1;
+  [Property]
   var LootArchetype : Archetype = Archetype.Loot;
   [Property][Group("Internal")]
   var WeaponRoot : CogPath = CogPath(".");
@@ -236,7 +238,7 @@ class Inventory : ZilchComponent
     
     var position = this.Transform.WorldTranslation;
     var loot = this.Space.CreateAtPosition(this.LootArchetype, position);
-    loot.Collectable.Gold = this.Gold;
+    loot.Collectable.Gold = this.Gold * this.MultiplyGoldDropOnDeath;
     loot.Collectable.Keys = this.Keys;
     
     // TODO: ultimately this is going to require a collider cast to see
