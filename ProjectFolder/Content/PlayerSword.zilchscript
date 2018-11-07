@@ -44,19 +44,19 @@ class PlayerSword : ZilchComponent
     }
     if(this.SwordReady)
     {
-      if(event.Key == Keys.Left)
+      if(event.Key == Keys.Left || event.Key == Keys.A)
       {
         this.Slash(-Real3.XAxis);
       } 
-      else if(event.Key == Keys.Right)
+      else if(event.Key == Keys.Right || event.Key == Keys.D)
       {
         this.Slash(Real3.XAxis);
       }
-      else if(event.Key == Keys.Up)
+      else if(event.Key == Keys.Up || event.Key == Keys.W)
       {
         this.Slash(Real3.YAxis);
       }
-      else if(event.Key == Keys.Down)
+      else if(event.Key == Keys.Down || event.Key == Keys.S)
       {
         this.Slash(-Real3.YAxis);
       }
@@ -68,7 +68,7 @@ class PlayerSword : ZilchComponent
   {
     if(event.Key == Keys.Space)
       this.CalmDown();
-    else if(event.Key == Keys.Left || event.Key == Keys.Right || event.Key == Keys.Up || event.Key == Keys.Down)
+    else if(event.Key == Keys.Left || event.Key == Keys.Right || event.Key == Keys.Up || event.Key == Keys.Down  || event.Key == Keys.D || event.Key == Keys.A || event.Key == Keys.S || event.Key == Keys.W)
       this.AttackEnd();
   }
   

@@ -32,13 +32,13 @@ class HeroController : ZilchComponent
   {
     if (!this.CanMove) return;
     
-    if      (event.Key == Keys.Right)
+    if      (event.Key == Keys.Right || event.Key == Keys.D)
       this.Mover.Move(+Real3.XAxis);
-    else if (event.Key == Keys.Left)
+    else if (event.Key == Keys.Left || event.Key == Keys.A)
       this.Mover.Move(-Real3.XAxis);
-    else if (event.Key == Keys.Up)
+    else if (event.Key == Keys.Up || event.Key == Keys.W)
       this.Mover.Move(+Real3.YAxis);
-    else if (event.Key == Keys.Down)
+    else if (event.Key == Keys.Down || event.Key == Keys.S)
       this.Mover.Move(-Real3.YAxis);
   }
   
