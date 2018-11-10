@@ -4,7 +4,7 @@ Cog
 	var Name = "Hero"
 	Transform 
 	{
-		var Translation = Real3{0, 0, 0}
+		var Translation = Real3{-10, 5, 0}
 		var Scale = Real3{1, 1, 1}
 		var Rotation = Quaternion{0, 0, 0, 1}
 	}
@@ -243,7 +243,7 @@ Cog
 			var Name = "Inventory"
 			Transform 
 			{
-				var Translation = Real3{0, 0, 5}
+				var Translation = Real3{0, 0, 15}
 				var Scale = Real3{1, 1, 1}
 				var Rotation = Quaternion{0, 0, 0, 1}
 			}

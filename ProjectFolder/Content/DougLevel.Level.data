@@ -754,4 +754,13 @@ Level
 			var Scale = Real3{1, 1, 1}
 		}
 	}
+	Cog [InheritId:"5b99133d7ade3766:HealingPotion"][ContextId:31]
+	{
+		Transform 
+		{
+			var Translation = Real3{1, 2, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+	}
 }
