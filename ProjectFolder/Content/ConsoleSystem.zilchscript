@@ -63,8 +63,8 @@ class ConsoleSystem : ZilchComponent
     
     var scrollDistance = this.ScrollSpeed * this.KeyboardScrollMultiplier * event.Dt;
     
-    var pageUp = Zero.Keyboard.KeyIsDown(Keys.PageUp) || Zero.Keyboard.KeyIsDown(Keys.A);
-    var pageDn = Zero.Keyboard.KeyIsDown(Keys.PageDown) || Zero.Keyboard.KeyIsDown(Keys.Z);
+    var pageUp = Zero.Keyboard.KeyIsDown(Keys.PageUp) || Zero.Keyboard.KeyIsDown(Keys.Z);
+    var pageDn = Zero.Keyboard.KeyIsDown(Keys.PageDown) || Zero.Keyboard.KeyIsDown(Keys.X);
     
     if      (pageUp && !pageDn)
       this.Scroll(-scrollDistance);

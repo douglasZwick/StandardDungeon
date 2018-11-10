@@ -14,19 +14,21 @@ class ShopCounter : ZilchComponent
 
   function OnCollisionStarted(event : CollisionEvent)
   {
-    if(event.OtherObject.HeroController != null)
+    var obj = event.OtherObject;
+    if(obj.HeroController != null)
     {
-      if(event.OtherObject.Inventory.Gold >= this.Cost)
+      var inv = obj.Inventory;
+      if(inv.Gold >= this.Cost)
       {
         this.SpawnItem();
-        var oldGold : Integer = event.OtherObject.Inventory.Gold;
-        event.OtherObject.Inventory.Gold -= this.Cost;
+        var oldGold : Integer = inv.Gold;
+        inv.Gold -= this.Cost;
         var ie = InventoryEvent();
-        if (oldGold != event.OtherObject.Inventory.Gold)
+        if (oldGold != inv.Gold)
         {
           ie.OldTotal = oldGold;
-          ie.NewTotal = event.OtherObject.Inventory.Gold;
-          event.OtherObject.DispatchEvent(Events.GoldTotalChanged, ie);
+          ie.NewTotal = inv.Gold;
+          obj.DispatchEvent(Events.GoldTotalChanged, ie);
         }
       }
     }
