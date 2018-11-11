@@ -1,0 +1,41 @@
+class ShopCounter : ZilchComponent
+{
+  [Property]
+  var ItemToBuy : Archetype;
+  [Property]
+  var Cost : Integer;
+  [Property]
+  var SpawnLocation : Real3;
+  
+  function Initialize(init : CogInitializer)
+  {
+    Zero.Connect(this.Owner, Events.CollisionStarted, this.OnCollisionStarted);
+  }
+
+  function OnCollisionStarted(event : CollisionEvent)
+  {
+    var obj = event.OtherObject;
+    if(obj.HeroController != null)
+    {
+      var inv = obj.Inventory;
+      if(inv.Gold >= this.Cost)
+      {
+        this.SpawnItem();
+        var oldGold : Integer = inv.Gold;
+        inv.Gold -= this.Cost;
+        var ie = InventoryEvent();
+        if (oldGold != inv.Gold)
+        {
+          ie.OldTotal = oldGold;
+          ie.NewTotal = inv.Gold;
+          obj.DispatchEvent(Events.GoldTotalChanged, ie);
+        }
+      }
+    }
+  }
+  
+  function SpawnItem()
+  {
+    this.Space.CreateAtPosition(this.ItemToBuy, this.SpawnLocation);
+  }
+}

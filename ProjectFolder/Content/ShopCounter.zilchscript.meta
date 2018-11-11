@@ -1,0 +1,9 @@
+[Version:1]
+TextContent 
+{
+	ZilchScriptBuilder 
+	{
+		var Name = "ShopCounter"
+		var ResourceId = 0x5bb6cdb76a8cdce0
+	}
+}

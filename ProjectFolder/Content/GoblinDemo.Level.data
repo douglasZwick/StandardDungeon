@@ -85,7 +85,7 @@ Level
 		var Name = "EditorCamera"
 		Transform 
 		{
-			var Translation = Real3{-23.1427555, -1.62950957, 34.9798584}
+			var Translation = Real3{-18, 15, 34.9798584}
 			var Scale = Real3{1, 1, 1}
 			var Rotation = Quaternion{0, -1.09278471e-08, 0, 1}
 		}
@@ -138,7 +138,7 @@ Level
 			var FarPlane = 500
 			var PerspectiveMode = PerspectiveMode.Orthographic
 			var FieldOfView = 45
-			var Size = 40.2751617
+			var Size = 12.1306429
 		}
 		EditorCameraController 
 		{
@@ -147,7 +147,7 @@ Level
 			var LookDistance = 34.9798584
 			var VerticalAngle = 0
 			var HorizontalAngle = 0
-			var LookTarget = Real3{-23.1427555, -1.62950957, -7.01604449e-07}
+			var LookTarget = Real3{-18, 15, 0}
 			var MoveSensitivity = 1
 		}
 	}
@@ -408,7 +408,27 @@ Level
 			var Line3 = ""
 		}
 	}
-	Cog [InheritId:"5bc134b675a9af25:Door"][ContextId:13]
+	Cog [InheritId:"5badda82ea209ab3:Sign"][ContextId:13]
+	{
+		Transform 
+		{
+			var Translation = Real3{-16, 11, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+		PrintOnWasRead 
+		{
+			var Line0 = "Health Potion -"
+			var Line1 = "10 Gold"
+			var Line2 = "Dagger -"
+			var Line3 = "200 Gold"
+		}
+		Sprite 
+		{
+			var Visible = false
+		}
+	}
+	Cog [InheritId:"5bc134b675a9af25:Door"][ContextId:14]
 	{
 		Transform 
 		{
@@ -417,7 +437,7 @@ Level
 			var Scale = Real3{1, 1, 1}
 		}
 	}
-	Cog [InheritId:"5bc134b675a9af25:Door"][ContextId:14]
+	Cog [InheritId:"5bc134b675a9af25:Door"][ContextId:15]
 	{
 		Transform 
 		{
@@ -426,21 +446,11 @@ Level
 			var Scale = Real3{1, 1, 1}
 		}
 	}
-	Cog [InheritId:"5bc9b514e5f4a516:Key"][ContextId:15]
+	Cog [InheritId:"5bc9b514e5f4a516:Key"][ContextId:16]
 	{
 		Transform 
 		{
 			var Translation = Real3{-27, 18, 0}
-			var Rotation = Quaternion{0, 0, 0, 1}
-			var Scale = Real3{1, 1, 1}
-		}
-	}
-	Cog [InheritId:"5b899606e6d10a5a:Spider"][ContextId:16]
-	{
-		var Name = "Spider"
-		Transform 
-		{
-			var Translation = Real3{-18, -16, 0}
 			var Rotation = Quaternion{0, 0, 0, 1}
 			var Scale = Real3{1, 1, 1}
 		}
@@ -450,7 +460,7 @@ Level
 		var Name = "Spider"
 		Transform 
 		{
-			var Translation = Real3{-27, -18, 0}
+			var Translation = Real3{-18, -16, 0}
 			var Rotation = Quaternion{0, 0, 0, 1}
 			var Scale = Real3{1, 1, 1}
 		}
@@ -460,7 +470,7 @@ Level
 		var Name = "Spider"
 		Transform 
 		{
-			var Translation = Real3{-21, -19, 0}
+			var Translation = Real3{-27, -18, 0}
 			var Rotation = Quaternion{0, 0, 0, 1}
 			var Scale = Real3{1, 1, 1}
 		}
@@ -470,7 +480,7 @@ Level
 		var Name = "Spider"
 		Transform 
 		{
-			var Translation = Real3{-20, 0, 0}
+			var Translation = Real3{-21, -19, 0}
 			var Rotation = Quaternion{0, 0, 0, 1}
 			var Scale = Real3{1, 1, 1}
 		}
@@ -480,12 +490,22 @@ Level
 		var Name = "Spider"
 		Transform 
 		{
+			var Translation = Real3{-20, 0, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+	}
+	Cog [InheritId:"5b899606e6d10a5a:Spider"][ContextId:21]
+	{
+		var Name = "Spider"
+		Transform 
+		{
 			var Translation = Real3{-14, 1, 0}
 			var Rotation = Quaternion{0, 0, 0, 1}
 			var Scale = Real3{1, 1, 1}
 		}
 	}
-	Cog [InheritId:"5b8f5febd3c20722:DartTrap"][ContextId:21]
+	Cog [InheritId:"5b8f5febd3c20722:DartTrap"][ContextId:22]
 	{
 		Transform 
 		{
@@ -494,7 +514,7 @@ Level
 			var Scale = Real3{1, 1, 1}
 		}
 	}
-	Cog [InheritId:"5b8f5febd3c20722:DartTrap"][ContextId:22]
+	Cog [InheritId:"5b8f5febd3c20722:DartTrap"][ContextId:23]
 	{
 		Transform 
 		{
@@ -507,7 +527,7 @@ Level
 			var Direction = Directions.Left
 		}
 	}
-	Cog [InheritId:"5bb1da6af716ffdd:Goblin"][ContextId:23]
+	Cog [InheritId:"5bb1da6af716ffdd:Goblin"][ContextId:24]
 	{
 		Transform 
 		{
@@ -516,7 +536,7 @@ Level
 			var Scale = Real3{1, 1, 1}
 		}
 	}
-	Cog [InheritId:"5bb1da6af716ffdd:Goblin"][ContextId:24]
+	Cog [InheritId:"5bb1da6af716ffdd:Goblin"][ContextId:25]
 	{
 		Transform 
 		{
@@ -525,7 +545,7 @@ Level
 			var Scale = Real3{1, 1, 1}
 		}
 	}
-	Cog [InheritId:"5bb1da6af716ffdd:Goblin"][ContextId:25]
+	Cog [InheritId:"5bb1da6af716ffdd:Goblin"][ContextId:26]
 	{
 		Transform 
 		{
@@ -534,7 +554,7 @@ Level
 			var Scale = Real3{1, 1, 1}
 		}
 	}
-	Cog [InheritId:"5b898d6b1874102d:SpiderWeb"][ContextId:26]
+	Cog [InheritId:"5b898d6b1874102d:SpiderWeb"][ContextId:27]
 	{
 		Transform 
 		{
@@ -543,7 +563,7 @@ Level
 			var Scale = Real3{1, 1, 1}
 		}
 	}
-	Cog [InheritId:"5b898d6b1874102d:SpiderWeb"][ContextId:27]
+	Cog [InheritId:"5b898d6b1874102d:SpiderWeb"][ContextId:28]
 	{
 		Transform 
 		{
@@ -552,7 +572,7 @@ Level
 			var Scale = Real3{1, 1, 1}
 		}
 	}
-	Cog [InheritId:"5b898d6b1874102d:SpiderWeb"][ContextId:28]
+	Cog [InheritId:"5b898d6b1874102d:SpiderWeb"][ContextId:29]
 	{
 		Transform 
 		{
@@ -561,7 +581,7 @@ Level
 			var Scale = Real3{1, 1, 1}
 		}
 	}
-	Cog [InheritId:"5b898d6b1874102d:SpiderWeb"][ContextId:29]
+	Cog [InheritId:"5b898d6b1874102d:SpiderWeb"][ContextId:30]
 	{
 		Transform 
 		{
@@ -570,7 +590,7 @@ Level
 			var Scale = Real3{1, 1, 1}
 		}
 	}
-	Cog [InheritId:"5b898d6b1874102d:SpiderWeb"][ContextId:30]
+	Cog [InheritId:"5b898d6b1874102d:SpiderWeb"][ContextId:31]
 	{
 		Transform 
 		{
@@ -579,7 +599,7 @@ Level
 			var Scale = Real3{1, 1, 1}
 		}
 	}
-	Cog [InheritId:"5b898d6b1874102d:SpiderWeb"][ContextId:31]
+	Cog [InheritId:"5b898d6b1874102d:SpiderWeb"][ContextId:32]
 	{
 		Transform 
 		{
@@ -588,7 +608,7 @@ Level
 			var Scale = Real3{1, 1, 1}
 		}
 	}
-	Cog [InheritId:"5b898d6b1874102d:SpiderWeb"][ContextId:32]
+	Cog [InheritId:"5b898d6b1874102d:SpiderWeb"][ContextId:33]
 	{
 		Transform 
 		{
@@ -597,7 +617,7 @@ Level
 			var Scale = Real3{1, 1, 1}
 		}
 	}
-	Cog [InheritId:"5be2494353a222bb:Skelly"][ContextId:33]
+	Cog [InheritId:"5be2494353a222bb:Skelly"][ContextId:34]
 	{
 		Transform 
 		{
@@ -606,7 +626,7 @@ Level
 			var Scale = Real3{1, 1, 1}
 		}
 	}
-	Cog [InheritId:"5be2494353a222bb:Skelly"][ContextId:34]
+	Cog [InheritId:"5be2494353a222bb:Skelly"][ContextId:35]
 	{
 		Transform 
 		{
@@ -615,7 +635,7 @@ Level
 			var Scale = Real3{1, 1, 1}
 		}
 	}
-	Cog [InheritId:"5be2494353a222bb:Skelly"][ContextId:35]
+	Cog [InheritId:"5be2494353a222bb:Skelly"][ContextId:36]
 	{
 		Transform 
 		{
@@ -624,7 +644,7 @@ Level
 			var Scale = Real3{1, 1, 1}
 		}
 	}
-	Cog [InheritId:"5be2494353a222bb:Skelly"][ContextId:36]
+	Cog [InheritId:"5be2494353a222bb:Skelly"][ContextId:37]
 	{
 		Transform 
 		{
@@ -633,7 +653,7 @@ Level
 			var Scale = Real3{1, 1, 1}
 		}
 	}
-	Cog [InheritId:"5be2494353a222bb:Skelly"][ContextId:37]
+	Cog [InheritId:"5be2494353a222bb:Skelly"][ContextId:38]
 	{
 		Transform 
 		{
@@ -642,7 +662,7 @@ Level
 			var Scale = Real3{1, 1, 1}
 		}
 	}
-	Cog [InheritId:"5bb58c71def18052:Bat"][ContextId:38]
+	Cog [InheritId:"5bb58c71def18052:Bat"][ContextId:39]
 	{
 		Transform 
 		{
@@ -651,7 +671,7 @@ Level
 			var Scale = Real3{1, 1, 1}
 		}
 	}
-	Cog [InheritId:"5bb58c71def18052:Bat"][ContextId:39]
+	Cog [InheritId:"5bb58c71def18052:Bat"][ContextId:40]
 	{
 		Transform 
 		{
@@ -660,25 +680,7 @@ Level
 			var Scale = Real3{1, 1, 1}
 		}
 	}
-	Cog [InheritId:"5bb58c71def18052:Bat"][ContextId:40]
-	{
-		Transform 
-		{
-			var Translation = Real3{-19, 18, 0}
-			var Rotation = Quaternion{0, 0, 0, 1}
-			var Scale = Real3{1, 1, 1}
-		}
-	}
-	Cog [InheritId:"5bb58c71def18052:Bat"][ContextId:41]
-	{
-		Transform 
-		{
-			var Translation = Real3{-14, 16, 0}
-			var Rotation = Quaternion{0, 0, 0, 1}
-			var Scale = Real3{1, 1, 1}
-		}
-	}
-	Cog [InheritId:"5baa087c6215d8fc:TreasureChest"][ContextId:42]
+	Cog [InheritId:"5baa087c6215d8fc:TreasureChest"][ContextId:41]
 	{
 		Transform 
 		{
@@ -695,7 +697,7 @@ Level
 			var Contents = "5bc9b514e5f4a516:Key"
 		}
 	}
-	Cog [InheritId:"5baa087c6215d8fc:TreasureChest"][ContextId:43]
+	Cog [InheritId:"5baa087c6215d8fc:TreasureChest"][ContextId:42]
 	{
 		Transform 
 		{
@@ -712,11 +714,11 @@ Level
 			var Contents = "5bb1c29aa9e33120:ManyCoins"
 		}
 	}
-	Cog [InheritId:"5badda82ea209ab3:Sign"][ContextId:44]
+	Cog [InheritId:"5badda82ea209ab3:Sign"][ContextId:43]
 	{
 		Transform 
 		{
-			var Translation = Real3{-16, 18, 0}
+			var Translation = Real3{-44, 3, 0}
 			var Rotation = Quaternion{0, 0, 0, 1}
 			var Scale = Real3{1, 1, 1}
 		}
@@ -728,7 +730,7 @@ Level
 			var Line3 = ""
 		}
 	}
-	Cog [InheritId:"5b875ecbee99457f:Minotaur"][ContextId:45]
+	Cog [InheritId:"5b875ecbee99457f:Minotaur"][ContextId:44]
 	{
 		Transform 
 		{
@@ -745,7 +747,7 @@ Level
 			var Gold = 50
 		}
 	}
-	Cog [InheritId:"5b8f2841e989cf48:SpikeTrap"][ContextId:46]
+	Cog [InheritId:"5b8f2841e989cf48:SpikeTrap"][ContextId:45]
 	{
 		Transform 
 		{
@@ -758,7 +760,7 @@ Level
 			var Deployed = true
 		}
 	}
-	Cog [InheritId:"5b8f2841e989cf48:SpikeTrap"][ContextId:47]
+	Cog [InheritId:"5b8f2841e989cf48:SpikeTrap"][ContextId:46]
 	{
 		Transform 
 		{
@@ -767,7 +769,7 @@ Level
 			var Scale = Real3{1, 1, 1}
 		}
 	}
-	Cog [InheritId:"5b8f2841e989cf48:SpikeTrap"][ContextId:48]
+	Cog [InheritId:"5b8f2841e989cf48:SpikeTrap"][ContextId:47]
 	{
 		Transform 
 		{
@@ -780,7 +782,7 @@ Level
 			var Deployed = true
 		}
 	}
-	Cog [InheritId:"5b8f2841e989cf48:SpikeTrap"][ContextId:49]
+	Cog [InheritId:"5b8f2841e989cf48:SpikeTrap"][ContextId:48]
 	{
 		Transform 
 		{
@@ -789,7 +791,7 @@ Level
 			var Scale = Real3{1, 1, 1}
 		}
 	}
-	Cog [InheritId:"5b8f2841e989cf48:SpikeTrap"][ContextId:50]
+	Cog [InheritId:"5b8f2841e989cf48:SpikeTrap"][ContextId:49]
 	{
 		Transform 
 		{
@@ -802,13 +804,119 @@ Level
 			var Deployed = true
 		}
 	}
-	Cog [InheritId:"5b8f2841e989cf48:SpikeTrap"][ContextId:51]
+	Cog [InheritId:"5b8f2841e989cf48:SpikeTrap"][ContextId:50]
 	{
 		Transform 
 		{
 			var Translation = Real3{-43, 10, 0}
 			var Rotation = Quaternion{0, 0, 0, 1}
 			var Scale = Real3{1, 1, 1}
+		}
+	}
+	Cog [InheritId:"5b991030fe3d87f2:Dag"][ContextId:51]
+	{
+		Transform 
+		{
+			var Translation = Real3{-14, 16, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+	}
+	Cog [InheritId:"5b99133d7ade3766:HealingPotion"][ContextId:52]
+	{
+		Transform 
+		{
+			var Translation = Real3{-18, 16, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+	}
+	Cog [ContextId:53]
+	{
+		var Name = "ShopCounter"
+		Transform 
+		{
+			var Translation = Real3{-18, 15, 0}
+			var Scale = Real3{1, 1, 1}
+			var Rotation = Quaternion{0, 0, 0, 1}
+		}
+		Sprite 
+		{
+			var Visible = true
+			var ViewCulling = true
+			var VisibilityEvents = true
+			var OverrideBoundingBox = false
+			var LocalAabbCenter = Real3{0, 0, 0}
+			var LocalAabbHalfExtents = Real3{1, 1, 1}
+			var GroupSortValue = 0
+			var Material = "582c575af53d18c9:AlphaSprite"
+			var VertexColor = Real4{1, 1, 1, 1}
+			var GeometryMode = SpriteGeometryMode.ZPlane
+			var SpriteSource = "5586f579ca73ecc2:SquareBordered"
+			var FlipX = false
+			var FlipY = false
+			var AnimationActive = true
+			var AnimationSpeed = 1
+			var StartFrame = 0
+		}
+		BoxCollider 
+		{
+			var Ghost = false
+			var SendsEvents = true
+			var Material = "4de020863e872da8:DefaultPhysicsMaterial"
+			var CollisionGroup = "4e740859314e5515:DefaultGroup"
+			var Offset = Real3{0, 0, 0}
+			var HalfSize = Real3{0.5, 0.5, 0.5}
+		}
+		ShopCounter 
+		{
+			var ItemToBuy = "5b99133d7ade3766:HealingPotion"
+			var Cost = 10
+			var SpawnLocation = Real3{-17, 14, 0}
+		}
+	}
+	Cog [ContextId:54]
+	{
+		var Name = "ShopCounter"
+		Transform 
+		{
+			var Translation = Real3{-14, 15, 0}
+			var Scale = Real3{1, 1, 1}
+			var Rotation = Quaternion{0, 0, 0, 1}
+		}
+		Sprite 
+		{
+			var Visible = true
+			var ViewCulling = true
+			var VisibilityEvents = true
+			var OverrideBoundingBox = false
+			var LocalAabbCenter = Real3{0, 0, 0}
+			var LocalAabbHalfExtents = Real3{1, 1, 1}
+			var GroupSortValue = 0
+			var Material = "582c575af53d18c9:AlphaSprite"
+			var VertexColor = Real4{1, 1, 1, 1}
+			var GeometryMode = SpriteGeometryMode.ZPlane
+			var SpriteSource = "5586f579ca73ecc2:SquareBordered"
+			var FlipX = false
+			var FlipY = false
+			var AnimationActive = true
+			var AnimationSpeed = 1
+			var StartFrame = 0
+		}
+		BoxCollider 
+		{
+			var Ghost = false
+			var SendsEvents = true
+			var Material = "4de020863e872da8:DefaultPhysicsMaterial"
+			var CollisionGroup = "4e740859314e5515:DefaultGroup"
+			var Offset = Real3{0, 0, 0}
+			var HalfSize = Real3{0.5, 0.5, 0.5}
+		}
+		ShopCounter 
+		{
+			var ItemToBuy = "5b991030fe3d87f2:Dag"
+			var Cost = 100
+			var SpawnLocation = Real3{-15, 14, 0}
 		}
 	}
 }
