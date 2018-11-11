@@ -1,0 +1,75 @@
+class Wand : ZilchComponent
+{
+  sends RequestBeginAiming : WandEvent;
+  sends RequestEndAiming : WandEvent;
+  sends AimingStarted : WandEvent;
+  sends AimingEnded : WandEvent;
+  sends RequestFireWand : WandEvent;
+  sends WandWasFired : WandEvent;
+  sends DidFireWand : WandEvent;
+  
+  
+  var WandUserInventory : Inventory;
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    Zero.Connect(this.Owner, Events.RequestBeginAiming, this.OnRequestBeginAiming);
+    Zero.Connect(this.Owner, Events.RequestEndAiming, this.OnRequestEndAiming);
+  }
+  
+  
+  function OnRequestBeginAiming(event : WandEvent)
+  {
+    event.Wand = this;
+    this.WandUserInventory = event.WandUserInventory;
+    
+    Zero.Connect(Zero.Keyboard, Events.KeyDown, this.OnKeyDown);
+  }
+  
+  
+  function OnRequestEndAiming(event : WandEvent)
+  {
+    Zero.Disconnect(Zero.Keyboard, Events.KeyDown, this);
+  }
+  
+  
+  function OnKeyDown(event : KeyboardEvent)
+  {
+    var shouldFire = false;
+    var we = WandEvent();
+    we.WandUserInventory = this.WandUserInventory;
+    
+    if (event.Key == Keys.Right || event.Key == Keys.D)
+    {
+      shouldFire = true;
+      we.AimingDirection = Directions.Right;
+    }
+    else if (event.Key == Keys.Left || event.Key == Keys.A)
+    {
+      shouldFire = true;
+      we.AimingDirection = Directions.Left;
+    }
+    else if (event.Key == Keys.Up || event.Key == Keys.W)
+    {
+      shouldFire = true;
+      we.AimingDirection = Directions.Up;
+    }
+    else if (event.Key == Keys.Down || event.Key == Keys.S)
+    {
+      shouldFire = true;
+      we.AimingDirection = Directions.Down;
+    }
+    
+    if (shouldFire)
+      this.Owner.DispatchEvent(Events.RequestFireWand, we);
+  }
+}
+
+
+class WandEvent : ZilchEvent
+{
+  var Wand : Wand;
+  var WandUserInventory : Inventory;
+  var AimingDirection : Directions;
+}

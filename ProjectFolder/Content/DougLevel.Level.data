@@ -85,7 +85,7 @@ Level
 		var Name = "EditorCamera"
 		Transform 
 		{
-			var Translation = Real3{3.18007731, 1.56321394, 36.6510239}
+			var Translation = Real3{1.6668483, 0.78920573, 36.6510239}
 			var Scale = Real3{1, 1, 1}
 			var Rotation = Quaternion{0, -1.09278471e-08, 0, 1}
 		}
@@ -147,7 +147,7 @@ Level
 			var LookDistance = 31.6510258
 			var VerticalAngle = 0
 			var HorizontalAngle = 0
-			var LookTarget = Real3{3.18007731, 1.56321394, 5}
+			var LookTarget = Real3{1.6668483, 0.78920573, 5}
 			var MoveSensitivity = 1
 		}
 	}
@@ -754,8 +754,9 @@ Level
 			var Scale = Real3{1, 1, 1}
 		}
 	}
-	Cog [InheritId:"5b99133d7ade3766:HealingPotion"][ContextId:31]
+	Cog [InheritId:"5b9ccf04b9be375f:WandOfWisdom"][ContextId:31]
 	{
+		var Name = "WandOfWisdom"
 		Transform 
 		{
 			var Translation = Real3{1, 2, 0}

@@ -74,7 +74,10 @@ class Inventory : ZilchComponent
     Zero.Connect(this.Owner, Events.DidDropWeapon, this.OnDidDropWeapon);
     Zero.Connect(this.Owner, Events.DidEquipWeapon, this.OnDidEquipWeapon);
     Zero.Connect(this.Owner, Events.DidUseUp, this.OnDidUseUp);
+    Zero.Connect(this.Owner, Events.AimingStarted, this.OnAimingStarted);
+    Zero.Connect(this.Owner, Events.AimingEnded, this.OnAimingEnded);
     Zero.Connect(Zero.Keyboard, Events.KeyDown, this.OnKeyDown);
+    Zero.Connect(Zero.Keyboard, Events.KeyUp, this.OnKeyUp);
     
     foreach (var child in this.WeaponRoot.Cog.Children)
     {
@@ -106,7 +109,17 @@ class Inventory : ZilchComponent
   {
     // TODO: fix this
     if (event.Key == Keys.Shift)
+    {
       this.AttemptUse();
+      this.AttemptBeginAiming();
+    }
+  }
+  
+  
+  function OnKeyUp(event : KeyboardEvent)
+  {
+    if (event.Key == Keys.Shift)
+      this.AttemptStopAiming();
   }
   
   
@@ -261,6 +274,18 @@ class Inventory : ZilchComponent
   }
   
   
+  function OnAimingStarted(event : WandEvent)
+  {
+    // probably do something with character animation in here
+  }
+  
+  
+  function OnAimingEnded(event : WandEvent)
+  {
+    // probably do something with character animation in here
+  }
+  
+  
   function StartWithWeapon(weapon : Weapon)
   {
     var ce = CollectionEvent();
@@ -359,6 +384,37 @@ class Inventory : ZilchComponent
     var iie = InventoryItemEvent();
     iie.UserInventory = this;
     this.HeldItem.Owner.DispatchEvent(Events.RequestUse, iie);
+  }
+  
+  
+  function AttemptBeginAiming()
+  {
+    if (this.HeldItem == null)
+      return;
+    
+    var we = WandEvent();
+    we.WandUserInventory = this;
+    this.HeldItem.Owner.DispatchEvent(Events.RequestBeginAiming, we);
+    
+    if (we.Wand != null)
+    {
+      this.Owner.DispatchEvent(Events.AimingStarted, we);
+    }
+  }
+  
+  
+  function AttemptStopAiming()
+  {
+    if (this.HeldItem == null)
+      return;
+    
+    var we = WandEvent();
+    we.WandUserInventory = this;
+    this.HeldItem.Owner.DispatchEvent(Events.RequestEndAiming, we);
+    // TODO: consider whether there might ever be a reason for
+    // this request to fail
+    
+    this.Owner.DispatchEvent(Events.AimingEnded, we);
   }
 }
 

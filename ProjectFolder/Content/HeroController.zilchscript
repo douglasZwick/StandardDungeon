@@ -5,6 +5,7 @@ class HeroController : ZilchComponent
   
   
   var Gamepad : Gamepad;
+  var Aiming : Boolean;
   
   var CanMove : Boolean
   {
@@ -14,7 +15,7 @@ class HeroController : ZilchComponent
       var attacking = Zero.Keyboard.KeyIsDown(Keys.Space) ||
                       this.Gamepad.IsButtonHeld(Buttons.A);
       
-      return !attacking;
+      return !attacking && !this.Aiming;
     }
   }
   
@@ -23,8 +24,22 @@ class HeroController : ZilchComponent
   {
     this.Gamepad = Zero.Gamepads.GetGamePad(0);
     
+    Zero.Connect(this.Owner, Events.AimingStarted, this.OnAimingStarted);
+    Zero.Connect(this.Owner, Events.AimingEnded, this.OnAimingEnded);
     Zero.Connect(Zero.Keyboard, Events.KeyDown, this.OnKeyDown);
     Zero.Connect(this.Gamepad, Events.ButtonDown, this.OnButtonDown);
+  }
+  
+  
+  function OnAimingStarted(event : WandEvent)
+  {
+    this.Aiming = true;
+  }
+  
+  
+  function OnAimingEnded(event : WandEvent)
+  {
+    this.Aiming = false;
   }
   
   

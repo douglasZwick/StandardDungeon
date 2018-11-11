@@ -1,0 +1,153 @@
+class WandOfWisdom : ZilchComponent
+{
+  [Dependency]
+  var Wand : Wand;
+  
+  
+  var RNG : Random = Random();
+  var DirectionalMessageChance : Real = 0.1;
+  
+  
+  var Messages : Array[Array[String]] = Array[Array[String]]()
+  {
+    Array[String]()
+    {
+      ////////////////////////////////
+      "\"Don't refactor your code",
+      "until it works.\"",
+    },
+    Array[String]()
+    {
+      ////////////////////////////////
+      "\"Don't draw to an inside",
+      "straight, unless you're playing",
+      "for fun.\"",
+    },
+    Array[String]()
+    {
+      ////////////////////////////////
+      "\"When you're driving to Alek",
+      "and Laura's from Redmond, take",
+      "Willows north of 124th, and",
+      "then go up the hill to connect",
+      "with 132nd and take that the",
+      "rest of the way. It's much more",
+      "direct than driving through the",
+      "heart of Totem Lake, and it",
+      "circumvents a ton of traffic.\"",
+    },
+    Array[String]()
+    {
+      ////////////////////////////////
+      "\"Do you know what you're",
+      "supposed to do if you catch on",
+      "fire?",
+      " ",
+      "\"Stop, drop, and roll.\"",
+    },
+    Array[String]()
+    {
+      ////////////////////////////////
+      "\"You ever had a big problem",
+      "taking care of your eggs and",
+      "keeping them from getting",
+      "squashed or spoiled?",
+      " ",
+      "Keep 'em outside, except if",
+      "it's hot out, then you're out",
+      "of luck, pal.\"",
+    },
+  };
+  
+  
+  var RightMessages : Array[Array[String]] = Array[Array[String]]()
+  {
+    Array[String]()
+    {
+      ////////////////////////////////
+      "\"If you go to the right far",
+      "enough, eventually nothing",
+      "will happen.\"",
+    },
+  };
+  
+  
+  var LeftMessages : Array[Array[String]] = Array[Array[String]]()
+  {
+    Array[String]()
+    {
+      ////////////////////////////////
+      "\"Left has always been my",
+      "favorite color.\"",
+    },
+  };
+  
+  
+  var UpMessages : Array[Array[String]] = Array[Array[String]]()
+  {
+    Array[String]()
+    {
+      ////////////////////////////////
+      "\"Up? Like that movie where",
+      "you're sobbing in the first ten",
+      "minutes? No THANK you.\"",
+    },
+  };
+  
+  
+  var DownMessages : Array[Array[String]] = Array[Array[String]]()
+  {
+    Array[String]()
+    {
+      ////////////////////////////////
+      "\"Down is just like right,",
+      "except that it is in a totally",
+      "different direction.\"",
+    },
+  };
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    Zero.Connect(this.Owner, Events.RequestFireWand, this.OnRequestFireWand);
+  }
+  
+  
+  function OnRequestFireWand(event : WandEvent)
+  {
+    event.WandUserInventory.Owner.DispatchEvent(Events.DidFireWand, event);
+    
+    var fullMessage = Array[String]()
+    {
+      "The Wand of Wisdom spoke:",
+      " ",
+    };
+    
+    var messageList = this.Messages;
+    
+    var r = this.RNG.Real();
+    
+    if (r < this.DirectionalMessageChance)
+    {
+      if      (event.AimingDirection == Directions.Right)
+        messageList = this.RightMessages;
+      else if (event.AimingDirection == Directions.Left)
+        messageList = this.LeftMessages;
+      else if (event.AimingDirection == Directions.Up)
+        messageList = this.UpMessages;
+      else // (event.AimingDirection == Directions.Down)
+        messageList = this.DownMessages;
+    }
+    
+    var index = this.RNG.DieRoll(messageList.Count) - 1;
+    var chosenMessage = messageList[index];
+    
+    foreach (var string in chosenMessage)
+      fullMessage.Add(string);
+    
+    var cse = ConsoleSystemEvent(fullMessage);
+    this.GameSession.DispatchEvent(Events.Print, cse);
+    
+    this.Owner.DispatchEvent(Events.WandWasFired, event);
+  }
+}
