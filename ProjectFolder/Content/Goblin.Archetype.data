@@ -4,7 +4,7 @@ Cog
 	var Name = "Goblin"
 	Transform 
 	{
-		var Translation = Real3{-25, -16, 0}
+		var Translation = Real3{-43, 8, 0}
 		var Scale = Real3{1, 1, 1}
 		var Rotation = Quaternion{0, 0, 0, 1}
 	}
@@ -118,6 +118,21 @@ Cog
 		var DropOnDeath = true
 		var MultiplyGoldDropOnDeath = 2
 		var LootArchetype = "5bab4e400484619f:Loot"
+		var WeaponRoot = CogPath
+		{
+			var Path = "."
+			var ErrorOnResolveToNull = false
+			var ErrorOnPathCantCompute = false
+			var ErrorOnDirectLinkFail = false
+			var UpdateCogOnPathChange = true
+			var UpdatePathOnCogChange = true
+			var UpdateCogOnInitialize = true
+			var ResolvedNullErrorOccurred = false
+			var Cog = 4294967293
+			var PathPreference0 = CogPathPreference.CogRelative
+			var PathPreference1 = CogPathPreference.SpaceRelative
+			var PathPreference2 = CogPathPreference.Absolute
+		}
 		var InventoryRoot = CogPath
 		{
 			var Path = "."
@@ -143,5 +158,9 @@ Cog
 	DamageOnCollision 
 	{
 		var Damage = 1
+	}
+	CanGetTrappedInWeb 
+	{
+		var WebBreakingStrength = 1
 	}
 }

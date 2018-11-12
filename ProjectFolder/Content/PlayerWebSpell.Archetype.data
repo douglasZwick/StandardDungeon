@@ -1,12 +1,34 @@
 [Version:1]
 Cog 
 {
-	var Name = "Bat"
+	var Name = "PlayerWebSpell"
 	Transform 
 	{
-		var Translation = Real3{-26, 2, 0}
+		var Translation = Real3{0, 0, 0}
 		var Scale = Real3{1, 1, 1}
 		var Rotation = Quaternion{0, 0, 0, 1}
+	}
+	BoxCollider 
+	{
+		var Ghost = true
+		var SendsEvents = true
+		var Material = "4de020863e872da8:DefaultPhysicsMaterial"
+		var CollisionGroup = "5bcb31a31ae6d930:Player"
+		var Offset = Real3{0, 0, 0}
+		var HalfSize = Real3{0.400000006, 0.400000006, 0.400000006}
+	}
+	PlayerSwordHitboxBehavior 
+	{
+		var AttackPower = 0
+		var Lifetime = 5
+	}
+	AiTicker 
+	{
+		var BaseTickDelay = 0.25
+		var TickDelayVariance = 0
+		var RandomInitialTimer = false
+		var TickTimer = 0
+		var AwarenessRadius = 10
 	}
 	Sprite 
 	{
@@ -20,31 +42,12 @@ Cog
 		var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
 		var VertexColor = Real4{0, 0, 0, 1}
 		var GeometryMode = SpriteGeometryMode.ZPlane
-		var SpriteSource = "5bb58c26d435cbd6:Bat"
+		var SpriteSource = "5b8991394fa0890d:spiderwebplaceholder"
 		var FlipX = false
 		var FlipY = false
 		var AnimationActive = true
 		var AnimationSpeed = 1
 		var StartFrame = 0
-	}
-	BoxCollider 
-	{
-		var Ghost = false
-		var SendsEvents = true
-		var Material = "4de020863e872da8:DefaultPhysicsMaterial"
-		var CollisionGroup = "5baa5c7ae3cb18d6:Enemy"
-		var Offset = Real3{0, 0, 0}
-		var HalfSize = Real3{0.400000006, 0.400000006, 0.5}
-	}
-	RigidBody 
-	{
-		var Velocity = Real3{0, 0, 0}
-		var AngularVelocity = Real3{0, 0, 0}
-		var DynamicState = RigidBodyDynamicState.Kinematic
-		var AllowSleep = true
-		var Asleep = false
-		var RotationLocked = false
-		var Mode2D = Mode2DStates.InheritFromSpace
 	}
 	DiscreteMover 
 	{
@@ -64,42 +67,18 @@ Cog
 			var PathPreference2 = CogPathPreference.Absolute
 		}
 	}
-	AiTicker 
+	MoveInDirectionOnAiTick 
 	{
-		var BaseTickDelay = 1
-		var TickDelayVariance = 0.0500000007
-		var RandomInitialTimer = true
-		var TickTimer = 0
-		var AwarenessRadius = 10
+		var MoveDirection = Directions.Left
 	}
-	BatController 
+	DestroyOnMovementFailed 
 	{
-	}
-	MovementBlinker 
-	{
-		var GhostArchetype = "5bb5eee0a7631b8e:MovementGhost"
-	}
-	FlipSpriteOnMovementStarted 
-	{
-		var OnFailedToo = true
-		var FlipYChance = 0
-	}
-	Health 
-	{
-		var MaxHealth = 2
 	}
 	CustomCollisionEventTracker 
 	{
 	}
-	DamageOnCollision 
+	WebSpell 
 	{
-		var Damage = 1
-	}
-	CanGetTrappedInWeb 
-	{
-		var WebBreakingStrength = 1
-	}
-	Hierarchy 
-	{
+		var WebCluster = "5bb87ab56e4216cd:WebCluster3x3"
 	}
 }

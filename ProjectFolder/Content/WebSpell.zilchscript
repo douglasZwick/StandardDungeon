@@ -1,0 +1,19 @@
+class WebSpell : ZilchComponent
+{
+  [Property]
+  var WebCluster : Archetype;
+  function Initialize(init : CogInitializer)
+  {
+    Zero.Connect(this.Owner, Events.CollisionStarted, this.OnCollisionStarted);
+  }
+
+  function OnCollisionStarted(event : CollisionEvent)
+  {
+    if(event.OtherObject.Collider.CollisionGroup == CollisionGroup.Enemy)
+    {
+      this.Space.CreateAtPosition(this.WebCluster, this.Owner.Transform.Translation);
+      this.Owner.Destroy();
+    }
+  }
+}
+

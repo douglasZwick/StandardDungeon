@@ -1,0 +1,18 @@
+[Version:1]
+DataContent 
+{
+	DataBuilder 
+	{
+		var Name = "WandOfWebs"
+		var ResourceId = 0x5bb84330246ce80f
+		var LoaderType = "Cog"
+		var Version = 0
+	}
+	ContentTags 
+	{
+		var Tags = Array
+		{
+			"Archetype"
+		}
+	}
+}

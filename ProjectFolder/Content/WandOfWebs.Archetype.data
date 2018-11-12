@@ -1,10 +1,10 @@
 [Version:1]
 Cog 
 {
-	var Name = "Skelly"
+	var Name = "WandOfWebs"
 	Transform 
 	{
-		var Translation = Real3{-39, 8, 0}
+		var Translation = Real3{-7, 6, 0}
 		var Scale = Real3{1, 1, 1}
 		var Rotation = Quaternion{0, 0, 0, 1}
 	}
@@ -20,7 +20,7 @@ Cog
 		var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
 		var VertexColor = Real4{0, 0, 0, 1}
 		var GeometryMode = SpriteGeometryMode.ZPlane
-		var SpriteSource = "5be2578bfdba37e6:Skelly"
+		var SpriteSource = "5bcb53354c7d670e:BellIcon"
 		var FlipX = false
 		var FlipY = false
 		var AnimationActive = true
@@ -29,25 +29,37 @@ Cog
 	}
 	BoxCollider 
 	{
-		var Ghost = false
+		var Ghost = true
 		var SendsEvents = true
 		var Material = "4de020863e872da8:DefaultPhysicsMaterial"
-		var CollisionGroup = "5baa5c7ae3cb18d6:Enemy"
+		var CollisionGroup = "4e740859314e5515:DefaultGroup"
 		var Offset = Real3{0, 0, 0}
-		var HalfSize = Real3{0.400000006, 0.400000006, 0.5}
+		var HalfSize = Real3{0.449999988, 0.449999988, 0.449999988}
 	}
-	RigidBody 
+	Collectable 
 	{
-		var Velocity = Real3{0, 0, 0}
-		var AngularVelocity = Real3{0, 0, 0}
-		var DynamicState = RigidBodyDynamicState.Kinematic
-		var AllowSleep = true
-		var Asleep = false
-		var RotationLocked = false
-		var Mode2D = Mode2DStates.InheritFromSpace
+		var Gold = 0
+		var Keys = 0
 	}
-	DiscreteMover 
+	ItemBase 
 	{
+		var Article = "Tim and Eric's"
+		var Name = "Awesome Wand (Great Job)"
+		var BaseSpritePath = CogPath
+		{
+			var Path = "."
+			var ErrorOnResolveToNull = false
+			var ErrorOnPathCantCompute = false
+			var ErrorOnDirectLinkFail = false
+			var UpdateCogOnPathChange = true
+			var UpdatePathOnCogChange = true
+			var UpdateCogOnInitialize = true
+			var ResolvedNullErrorOccurred = false
+			var Cog = 4294967293
+			var PathPreference0 = CogPathPreference.CogRelative
+			var PathPreference1 = CogPathPreference.SpaceRelative
+			var PathPreference2 = CogPathPreference.Absolute
+		}
 		var ColliderPath = CogPath
 		{
 			var Path = "."
@@ -64,53 +76,9 @@ Cog
 			var PathPreference2 = CogPathPreference.Absolute
 		}
 	}
-	AiTicker 
+	InventoryItem 
 	{
-		var BaseTickDelay = 1
-		var TickDelayVariance = 0
-		var RandomInitialTimer = false
-		var TickTimer = 0
-		var AwarenessRadius = 10
-	}
-	SkellyController 
-	{
-	}
-	MovementBlinker 
-	{
-		var GhostArchetype = "5bb5eee0a7631b8e:MovementGhost"
-	}
-	FlipSpriteOnMovementStarted 
-	{
-		var OnFailedToo = true
-		var FlipYChance = 0.100000001
-	}
-	Health 
-	{
-		var MaxHealth = 5
-	}
-	Inventory 
-	{
-		var Gold = 5
-		var Keys = 0
-		var DropOnDeath = true
-		var MultiplyGoldDropOnDeath = 1
-		var LootArchetype = "5bab4e400484619f:Loot"
-		var WeaponRoot = CogPath
-		{
-			var Path = "."
-			var ErrorOnResolveToNull = false
-			var ErrorOnPathCantCompute = false
-			var ErrorOnDirectLinkFail = false
-			var UpdateCogOnPathChange = true
-			var UpdatePathOnCogChange = true
-			var UpdateCogOnInitialize = true
-			var ResolvedNullErrorOccurred = false
-			var Cog = 4294967293
-			var PathPreference0 = CogPathPreference.CogRelative
-			var PathPreference1 = CogPathPreference.SpaceRelative
-			var PathPreference2 = CogPathPreference.Absolute
-		}
-		var InventoryRoot = CogPath
+		var SpritePath = CogPath
 		{
 			var Path = "."
 			var ErrorOnResolveToNull = false
@@ -126,16 +94,13 @@ Cog
 			var PathPreference2 = CogPathPreference.Absolute
 		}
 	}
-	CustomCollisionEventTracker 
+	Wand 
 	{
 	}
-	DamageOnCollision 
+	WandOfKilling 
 	{
-		var Damage = 1
-	}
-	CanGetTrappedInWeb 
-	{
-		var WebBreakingStrength = 1
+		var CostToUse = 5
+		var HitBoxArchetype = "5bb8435e4e8c9a37:PlayerWebSpell"
 	}
 	Hierarchy 
 	{

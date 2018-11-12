@@ -1,0 +1,95 @@
+[Version:1]
+Cog 
+{
+	var Name = "WebCluster3x3"
+	Transform 
+	{
+		var Translation = Real3{-17, 1, 0}
+		var Scale = Real3{1, 1, 1}
+		var Rotation = Quaternion{0, 0, 0, 1}
+	}
+	Hierarchy 
+	{
+		Cog [Id:0x5bb87abb509209e8][InheritId:"5b898d6b1874102d:SpiderWeb"]
+		{
+			Transform 
+			{
+				var Translation = Real3{-1, 1, 0}
+				var Rotation = Quaternion{0, 0, 0, 1}
+				var Scale = Real3{1, 1, 1}
+			}
+		}
+		Cog [Id:0x5bb87abb50920a20][InheritId:"5b898d6b1874102d:SpiderWeb"]
+		{
+			Transform 
+			{
+				var Translation = Real3{0, 1, 0}
+				var Rotation = Quaternion{0, 0, 0, 1}
+				var Scale = Real3{1, 1, 1}
+			}
+		}
+		Cog [Id:0x5bb87abb50920a47][InheritId:"5b898d6b1874102d:SpiderWeb"]
+		{
+			Transform 
+			{
+				var Translation = Real3{1, 1, 0}
+				var Rotation = Quaternion{0, 0, 0, 1}
+				var Scale = Real3{1, 1, 1}
+			}
+		}
+		Cog [Id:0x5bb87abb50920a6a][InheritId:"5b898d6b1874102d:SpiderWeb"]
+		{
+			Transform 
+			{
+				var Translation = Real3{1, 0, 0}
+				var Rotation = Quaternion{0, 0, 0, 1}
+				var Scale = Real3{1, 1, 1}
+			}
+		}
+		Cog [Id:0x5bb87abb50920a8c][InheritId:"5b898d6b1874102d:SpiderWeb"]
+		{
+			Transform 
+			{
+				var Translation = Real3{0, 0, 0}
+				var Rotation = Quaternion{0, 0, 0, 1}
+				var Scale = Real3{1, 1, 1}
+			}
+		}
+		Cog [Id:0x5bb87abb50920ab1][InheritId:"5b898d6b1874102d:SpiderWeb"]
+		{
+			Transform 
+			{
+				var Translation = Real3{-1, 0, 0}
+				var Rotation = Quaternion{0, 0, 0, 1}
+				var Scale = Real3{1, 1, 1}
+			}
+		}
+		Cog [Id:0x5bb87abb50920ad4][InheritId:"5b898d6b1874102d:SpiderWeb"]
+		{
+			Transform 
+			{
+				var Translation = Real3{-1, -1, 0}
+				var Rotation = Quaternion{0, 0, 0, 1}
+				var Scale = Real3{1, 1, 1}
+			}
+		}
+		Cog [Id:0x5bb87abb50920af5][InheritId:"5b898d6b1874102d:SpiderWeb"]
+		{
+			Transform 
+			{
+				var Translation = Real3{0, -1, 0}
+				var Rotation = Quaternion{0, 0, 0, 1}
+				var Scale = Real3{1, 1, 1}
+			}
+		}
+		Cog [Id:0x5bb87abb50920b18][InheritId:"5b898d6b1874102d:SpiderWeb"]
+		{
+			Transform 
+			{
+				var Translation = Real3{1, -1, 0}
+				var Rotation = Quaternion{0, 0, 0, 1}
+				var Scale = Real3{1, 1, 1}
+			}
+		}
+	}
+}

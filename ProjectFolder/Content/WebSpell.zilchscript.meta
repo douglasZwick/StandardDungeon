@@ -1,0 +1,9 @@
+[Version:1]
+TextContent 
+{
+	ZilchScriptBuilder 
+	{
+		var Name = "WebSpell"
+		var ResourceId = 0x5bb84550b93d56b2
+	}
+}
