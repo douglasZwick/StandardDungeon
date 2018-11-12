@@ -1,0 +1,33 @@
+class MoveInDirectionOnAiTick : ZilchComponent
+{
+  [Dependency]
+  var Mover : DiscreteMover;
+  [Property]
+  var MoveDirection : Directions;
+  function Initialize(init : CogInitializer)
+  {
+    Zero.Connect(this.Owner, Events.AiTick, this.OnAiTick);
+    
+    this.Mover = this.Owner.DiscreteMover;
+  }
+
+  function OnAiTick(event : TickEvent)
+  {
+    if(this.MoveDirection == Directions.Left)
+    {
+      this.Mover.Move(-Real3.XAxis);
+    }
+    if(this.MoveDirection == Directions.Right)
+    {
+      this.Mover.Move(Real3.XAxis);
+    }
+    if(this.MoveDirection == Directions.Up)
+    {
+      this.Mover.Move(Real3.YAxis);
+    }
+    if(this.MoveDirection == Directions.Down)
+    {
+      this.Mover.Move(-Real3.YAxis);
+    }
+  }
+}

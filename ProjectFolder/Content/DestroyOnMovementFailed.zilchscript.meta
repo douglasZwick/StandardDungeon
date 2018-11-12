@@ -1,0 +1,9 @@
+[Version:1]
+TextContent 
+{
+	ZilchScriptBuilder 
+	{
+		var Name = "DestroyOnMovementFailed"
+		var ResourceId = 0x5bb84b055d4de0f9
+	}
+}

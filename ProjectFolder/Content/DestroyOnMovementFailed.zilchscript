@@ -1,0 +1,12 @@
+class DestroyOnMovementFailed : ZilchComponent
+{
+  function Initialize(init : CogInitializer)
+  {
+    Zero.Connect(this.Owner, Events.MovementFailed, this.OnMovementFailed);
+  }
+
+  function OnMovementFailed(event : MovementEvent)
+  {
+    this.Owner.Destroy();
+  }
+}

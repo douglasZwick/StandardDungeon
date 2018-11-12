@@ -1,0 +1,49 @@
+class WandOfKilling : ZilchComponent
+{
+  [Property]
+  var CostToUse : Integer = 5;
+  [Property]
+  var HitBoxArchetype : Archetype;
+  
+  function Initialize(init : CogInitializer)
+  {
+    Zero.Connect(this.Owner, Events.RequestFireWand, this.OnRequestFireWand);
+  }
+
+  function OnRequestFireWand(event : WandEvent)
+  {
+    if(event.WandUserInventory.Gold >= this.CostToUse)
+    {
+      var oldGold : Integer = event.WandUserInventory.Gold;
+      event.WandUserInventory.Gold -= this.CostToUse;
+      var ie = InventoryEvent();
+      if (oldGold != event.WandUserInventory.Gold)
+      {
+        ie.OldTotal = oldGold;
+        ie.NewTotal = event.WandUserInventory.Gold;
+        event.WandUserInventory.Owner.DispatchEvent(Events.GoldTotalChanged, ie);
+      }
+      var spawnPosition : Real3 = event.WandUserInventory.Owner.Transform.Translation;
+      if(event.AimingDirection == Directions.Down)
+      {
+        var hitBoxRef = this.Space.CreateAtPosition(this.HitBoxArchetype, spawnPosition);
+        hitBoxRef.MoveInDirectionOnAiTick.MoveDirection = Directions.Down;
+      }
+      else if(event.AimingDirection == Directions.Up)
+      {
+        var hitBoxRef = this.Space.CreateAtPosition(this.HitBoxArchetype, spawnPosition);
+        hitBoxRef.MoveInDirectionOnAiTick.MoveDirection = Directions.Up;
+      }
+      else if(event.AimingDirection == Directions.Left)
+      {
+        var hitBoxRef = this.Space.CreateAtPosition(this.HitBoxArchetype, spawnPosition);
+        hitBoxRef.MoveInDirectionOnAiTick.MoveDirection = Directions.Left;
+      }
+      else if(event.AimingDirection == Directions.Right)
+      {
+        var hitBoxRef = this.Space.CreateAtPosition(this.HitBoxArchetype, spawnPosition);
+        hitBoxRef.MoveInDirectionOnAiTick.MoveDirection = Directions.Right;
+      }
+    }
+  }
+}

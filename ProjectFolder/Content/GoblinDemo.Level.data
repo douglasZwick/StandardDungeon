@@ -85,7 +85,7 @@ Level
 		var Name = "EditorCamera"
 		Transform 
 		{
-			var Translation = Real3{-18, 15, 34.9798584}
+			var Translation = Real3{-21.3973141, 7.71258402, 34.9798584}
 			var Scale = Real3{1, 1, 1}
 			var Rotation = Quaternion{0, -1.09278471e-08, 0, 1}
 		}
@@ -138,7 +138,7 @@ Level
 			var FarPlane = 500
 			var PerspectiveMode = PerspectiveMode.Orthographic
 			var FieldOfView = 45
-			var Size = 12.1306429
+			var Size = 32.9745064
 		}
 		EditorCameraController 
 		{
@@ -147,7 +147,7 @@ Level
 			var LookDistance = 34.9798584
 			var VerticalAngle = 0
 			var HorizontalAngle = 0
-			var LookTarget = Real3{-18, 15, 0}
+			var LookTarget = Real3{-21.3973141, 7.71258402, -6.29326792e-07}
 			var MoveSensitivity = 1
 		}
 	}
@@ -307,6 +307,10 @@ Level
 			var Translation = Real3{-10, 5, 0}
 			var Rotation = Quaternion{0, 0, 0, 1}
 			var Scale = Real3{1, 1, 1}
+		}
+		Inventory 
+		{
+			var Gold = 0
 		}
 	}
 	Cog [ContextId:3]
@@ -666,7 +670,7 @@ Level
 	{
 		Transform 
 		{
-			var Translation = Real3{-13, 9, 0}
+			var Translation = Real3{-9, 8, 0}
 			var Rotation = Quaternion{0, 0, 0, 1}
 			var Scale = Real3{1, 1, 1}
 		}
@@ -917,6 +921,33 @@ Level
 			var ItemToBuy = "5b991030fe3d87f2:Dag"
 			var Cost = 100
 			var SpawnLocation = Real3{-15, 14, 0}
+		}
+	}
+	Cog [InheritId:"5bb855b50600407e:WandOfKilling"][ContextId:55]
+	{
+		var Name = "WandOfKilling"
+		Transform 
+		{
+			var Translation = Real3{-7, 6, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+		WandOfKilling 
+		{
+			var HitBoxArchetype = "5bb8496becfb2d97:PlayerFireball"
+		}
+	}
+	Cog [InheritId:"5bcf022c5cc4db25:Coin"][ContextId:56]
+	{
+		Transform 
+		{
+			var Translation = Real3{-7, 5, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+		Collectable 
+		{
+			var Gold = 20
 		}
 	}
 }
