@@ -11,7 +11,7 @@ class WebSpell : ZilchComponent
   {
     if(event.OtherObject.Collider.CollisionGroup == CollisionGroup.Enemy)
     {
-      this.Space.CreateAtPosition(this.WebCluster, this.Owner.Transform.Translation);
+      this.Space.CreateAtPosition(this.WebCluster, event.OtherObject.Transform.WorldTranslation);
       this.Owner.Destroy();
     }
   }

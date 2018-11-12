@@ -4,49 +4,13 @@ Cog
 	var Name = "WebCluster3x3"
 	Transform 
 	{
-		var Translation = Real3{-17, 1, 0}
+		var Translation = Real3{-13, 9, 0}
 		var Scale = Real3{1, 1, 1}
 		var Rotation = Quaternion{0, 0, 0, 1}
 	}
 	Hierarchy 
 	{
-		Cog [Id:0x5bb87abb509209e8][InheritId:"5b898d6b1874102d:SpiderWeb"]
-		{
-			Transform 
-			{
-				var Translation = Real3{-1, 1, 0}
-				var Rotation = Quaternion{0, 0, 0, 1}
-				var Scale = Real3{1, 1, 1}
-			}
-		}
-		Cog [Id:0x5bb87abb50920a20][InheritId:"5b898d6b1874102d:SpiderWeb"]
-		{
-			Transform 
-			{
-				var Translation = Real3{0, 1, 0}
-				var Rotation = Quaternion{0, 0, 0, 1}
-				var Scale = Real3{1, 1, 1}
-			}
-		}
-		Cog [Id:0x5bb87abb50920a47][InheritId:"5b898d6b1874102d:SpiderWeb"]
-		{
-			Transform 
-			{
-				var Translation = Real3{1, 1, 0}
-				var Rotation = Quaternion{0, 0, 0, 1}
-				var Scale = Real3{1, 1, 1}
-			}
-		}
-		Cog [Id:0x5bb87abb50920a6a][InheritId:"5b898d6b1874102d:SpiderWeb"]
-		{
-			Transform 
-			{
-				var Translation = Real3{1, 0, 0}
-				var Rotation = Quaternion{0, 0, 0, 1}
-				var Scale = Real3{1, 1, 1}
-			}
-		}
-		Cog [Id:0x5bb87abb50920a8c][InheritId:"5b898d6b1874102d:SpiderWeb"]
+		Cog [Id:0x5bb873b20ebcab8b][InheritId:"5bb87ef052af28c6:WebSpawner"]
 		{
 			Transform 
 			{
@@ -55,7 +19,16 @@ Cog
 				var Scale = Real3{1, 1, 1}
 			}
 		}
-		Cog [Id:0x5bb87abb50920ab1][InheritId:"5b898d6b1874102d:SpiderWeb"]
+		Cog [Id:0x5bb8738b0c7ae505][InheritId:"5bb87ef052af28c6:WebSpawner"]
+		{
+			Transform 
+			{
+				var Translation = Real3{1, 0, 0}
+				var Rotation = Quaternion{0, 0, 0, 1}
+				var Scale = Real3{1, 1, 1}
+			}
+		}
+		Cog [Id:0x5bb8738d0c3c53d1][InheritId:"5bb87ef052af28c6:WebSpawner"]
 		{
 			Transform 
 			{
@@ -64,16 +37,43 @@ Cog
 				var Scale = Real3{1, 1, 1}
 			}
 		}
-		Cog [Id:0x5bb87abb50920ad4][InheritId:"5b898d6b1874102d:SpiderWeb"]
+		Cog [Id:0x5bb8738e0df1c388][InheritId:"5bb87ef052af28c6:WebSpawner"]
 		{
 			Transform 
 			{
-				var Translation = Real3{-1, -1, 0}
+				var Translation = Real3{-1, 1, 0}
 				var Rotation = Quaternion{0, 0, 0, 1}
 				var Scale = Real3{1, 1, 1}
 			}
 		}
-		Cog [Id:0x5bb87abb50920af5][InheritId:"5b898d6b1874102d:SpiderWeb"]
+		Cog [Id:0x5bb8738f0dad13de][InheritId:"5bb87ef052af28c6:WebSpawner"]
+		{
+			Transform 
+			{
+				var Translation = Real3{0, 1, 0}
+				var Rotation = Quaternion{0, 0, 0, 1}
+				var Scale = Real3{1, 1, 1}
+			}
+		}
+		Cog [Id:0x5bb873800d7da84f][InheritId:"5bb87ef052af28c6:WebSpawner"]
+		{
+			Transform 
+			{
+				var Translation = Real3{1, 1, 0}
+				var Rotation = Quaternion{0, 0, 0, 1}
+				var Scale = Real3{1, 1, 1}
+			}
+		}
+		Cog [Id:0x5bb873810d441eaf][InheritId:"5bb87ef052af28c6:WebSpawner"]
+		{
+			Transform 
+			{
+				var Translation = Real3{1, -1, 0}
+				var Rotation = Quaternion{0, 0, 0, 1}
+				var Scale = Real3{1, 1, 1}
+			}
+		}
+		Cog [Id:0x5bb873820af67301][InheritId:"5bb87ef052af28c6:WebSpawner"]
 		{
 			Transform 
 			{
@@ -82,11 +82,11 @@ Cog
 				var Scale = Real3{1, 1, 1}
 			}
 		}
-		Cog [Id:0x5bb87abb50920b18][InheritId:"5b898d6b1874102d:SpiderWeb"]
+		Cog [Id:0x5bb873830ac60040][InheritId:"5bb87ef052af28c6:WebSpawner"]
 		{
 			Transform 
 			{
-				var Translation = Real3{1, -1, 0}
+				var Translation = Real3{-1, -1, 0}
 				var Rotation = Quaternion{0, 0, 0, 1}
 				var Scale = Real3{1, 1, 1}
 			}

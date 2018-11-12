@@ -1,0 +1,32 @@
+class WebSpawner : ZilchComponent
+{
+  [Dependency]
+  var Collider : Collider;
+  [Dependency]
+  var Transform : Transform;
+  function Initialize(init : CogInitializer)
+  {
+    var canSpawn : Boolean = true;
+    
+    var filter : CastFilter = CastFilter();
+    filter.IgnoreGhost = false;
+    var results = this.Space.PhysicsSpace.CastCollider(Real3.Zero, this.Collider, filter);
+    
+    foreach(var result in results)
+    {
+      //TODO: Is this okay??? Collision groups???????
+      if(result.ObjectHit.Collider.CollisionGroup == CollisionGroup.DefaultGroup)
+      {
+        canSpawn = false;
+        break;
+      }
+    }
+    
+    if(canSpawn)
+    {
+      this.Space.CreateAtPosition(Archetype.SpiderWeb, this.Transform.WorldTranslation);
+    }
+    this.Owner.Destroy();
+  }
+}
+

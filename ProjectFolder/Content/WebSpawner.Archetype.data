@@ -1,12 +1,15 @@
 [Version:1]
 Cog 
 {
-	var Name = "SpiderWeb"
+	var Name = "WebSpawner"
 	Transform 
 	{
 		var Translation = Real3{0, 0, 0}
 		var Scale = Real3{1, 1, 1}
 		var Rotation = Quaternion{0, 0, 0, 1}
+	}
+	WebSpawner 
+	{
 	}
 	Sprite 
 	{
@@ -17,8 +20,8 @@ Cog
 		var LocalAabbCenter = Real3{0, 0, 0}
 		var LocalAabbHalfExtents = Real3{1, 1, 1}
 		var GroupSortValue = 0
-		var Material = "5bc26cdfe4cabc98:LCDShadowedSprite"
-		var VertexColor = Real4{0, 0, 0, 1}
+		var Material = "582c575af53d18c9:AlphaSprite"
+		var VertexColor = Real4{1, 1, 1, 1}
 		var GeometryMode = SpriteGeometryMode.ZPlane
 		var SpriteSource = "5b8991394fa0890d:spiderwebplaceholder"
 		var FlipX = false
@@ -35,19 +38,5 @@ Cog
 		var CollisionGroup = "4e740859314e5515:DefaultGroup"
 		var Offset = Real3{0, 0, 0}
 		var HalfSize = Real3{0.400000006, 0.400000006, 0.400000006}
-	}
-	RigidBody 
-	{
-		var Velocity = Real3{0, 0, 0}
-		var AngularVelocity = Real3{0, 0, 0}
-		var DynamicState = RigidBodyDynamicState.Kinematic
-		var AllowSleep = true
-		var Asleep = false
-		var RotationLocked = false
-		var Mode2D = Mode2DStates.InheritFromSpace
-	}
-	SpiderWebController 
-	{
-		var WebStrength = 5
 	}
 }

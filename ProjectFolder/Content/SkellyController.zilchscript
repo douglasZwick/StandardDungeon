@@ -16,17 +16,9 @@ class SkellyController : ZilchComponent
   function Initialize(init : CogInitializer)
   {
     Zero.Connect(this.Owner, Events.AiTick, this.OnAiTick);
-    Zero.Connect(this.Owner, Events.WasDamaged, this.OnWasDamaged);
     
     this.PlayerRef = this.Space.FindObjectByName("Hero");
-  }
-  
-  
-  function OnWasDamaged(event : HealthEvent)
-  {
-    Console.WriteLine("I just took `event.Damage` damage!!!");
-  }
-  
+  }  
   
   function OnAiTick(event : TickEvent)
   {
