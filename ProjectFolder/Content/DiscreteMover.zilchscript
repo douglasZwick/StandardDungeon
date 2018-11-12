@@ -12,6 +12,10 @@ class DiscreteMover : ZilchComponent
   
   [Property]
   var ColliderPath : CogPath = CogPath(".");
+  [Property]
+  var OddStepCue : SoundCue;
+  [Property]
+  var EvenStepCue : SoundCue;
   
   var Collider : Collider;
   var CastFilter : CastFilter = CastFilter();
@@ -89,6 +93,17 @@ class DiscreteMover : ZilchComponent
       this.Owner.DispatchEvent(Events.MovementStarted, me);
       
       this.Transform.WorldTranslation = me.NewPosition;
+      
+      var xInt = Math.Abs(me.NewPosition.X) as Integer;
+      var yInt = Math.Abs(me.NewPosition.Y) as Integer;
+      
+      var cue = this.OddStepCue;
+      
+      if (xInt % 2 == yInt % 2)
+        cue = this.EvenStepCue;
+      
+      if (cue != null)
+        this.Space.SoundSpace.PlayCue(cue);
       
       this.Owner.DispatchEvent(Events.MovementEnded, me);
     }

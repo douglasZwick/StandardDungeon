@@ -1,0 +1,11 @@
+[Version:1]
+DataContent 
+{
+	DataBuilder 
+	{
+		var Name = "SFX_Footstep_2"
+		var ResourceId = 0x5b924314973ab991
+		var LoaderType = "SoundCue"
+		var Version = 0
+	}
+}

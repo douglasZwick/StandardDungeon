@@ -4,7 +4,7 @@ Cog
 	var Name = "Hero"
 	Transform 
 	{
-		var Translation = Real3{-10, 5, 0}
+		var Translation = Real3{0, 0, 0}
 		var Scale = Real3{1, 1, 1}
 		var Rotation = Quaternion{0, 0, 0, 1}
 	}
@@ -46,6 +46,9 @@ Cog
 	PlayerSword 
 	{
 		var HitboxArchetype = "5b9917cd0cc2cb4d:UnarmedAttack"
+		var AttackCueA = "5b9243149739ede2:SFX_Hero_Attack_A"
+		var AttackCueB = "5b92431497270b21:SFX_Hero_Attack_B"
+		var AttackCueC = "5b92431497262da2:SFX_Hero_Attack_C"
 	}
 	MovementBlinker 
 	{
@@ -137,6 +140,8 @@ Cog
 			var PathPreference1 = CogPathPreference.SpaceRelative
 			var PathPreference2 = CogPathPreference.Absolute
 		}
+		var OddStepCue = "5b924314973b8cd4:SFX_Footstep_1"
+		var EvenStepCue = "5b924314973ab991:SFX_Footstep_2"
 	}
 	HeroController 
 	{
@@ -199,6 +204,7 @@ Cog
 	Health 
 	{
 		var MaxHealth = 3
+		var DamageCue = "5b92431497254ef9:SFX_Hero_Damaged"
 	}
 	ResetLevelOnDeath 
 	{

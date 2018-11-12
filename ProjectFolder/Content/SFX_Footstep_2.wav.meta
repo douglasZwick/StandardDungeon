@@ -1,0 +1,12 @@
+[Version:1]
+AudioContent 
+{
+	SoundBuilder 
+	{
+		var Name = "SFX_Footstep_2"
+		var ResourceId = 0x5b9243149731af19
+		var FileLoadType = AudioFileLoadType.Auto
+		var Normalize = false
+		var MaxVolume = 0.899999976
+	}
+}

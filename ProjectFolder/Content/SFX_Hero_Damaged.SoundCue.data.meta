@@ -1,0 +1,11 @@
+[Version:1]
+DataContent 
+{
+	DataBuilder 
+	{
+		var Name = "SFX_Hero_Damaged"
+		var ResourceId = 0x5b92431497254ef9
+		var LoaderType = "SoundCue"
+		var Version = 0
+	}
+}

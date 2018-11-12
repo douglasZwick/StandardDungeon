@@ -9,6 +9,8 @@ class Health : ZilchComponent
   
   [Property]
   var MaxHealth : Integer = 1;
+  [Property]
+  var DamageCue : SoundCue;
   
   var CurrentHealth : Integer;
   
@@ -27,6 +29,11 @@ class Health : ZilchComponent
     this.CurrentHealth -= event.Damage;
     
     this.Owner.DispatchEvent(Events.WasDamaged, event);
+    
+    if (this.DamageCue != null)
+    {
+      this.Space.SoundSpace.PlayCue(this.DamageCue);
+    }
     
     if (this.CurrentHealth <= 0)
     {

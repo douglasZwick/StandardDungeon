@@ -8,10 +8,17 @@ class PlayerSword : ZilchComponent
   
   [Property]
   var HitboxArchetype : Archetype = null;
+  [Property]
+  var AttackCueA : SoundCue;
+  [Property]
+  var AttackCueB : SoundCue;
+  [Property]
+  var AttackCueC : SoundCue;
   
   var SwordReady : Boolean = false;
   var HitboxRef : Cog;
   var Gamepad : Gamepad;
+  var OddAttack : Boolean = false;
   
   
   function Initialize(init : CogInitializer)
@@ -112,6 +119,26 @@ class PlayerSword : ZilchComponent
   
   function Slash(offset : Real3)
   {
+    if (this.HitboxRef == null)
+    {
+      this.OddAttack = false;
+      
+      if (this.AttackCueA != null)
+        this.Space.SoundSpace.PlayCue(this.AttackCueA);
+    }
+    else
+    {
+      var cue = this.AttackCueB;
+      
+      if (this.OddAttack)
+        cue = this.AttackCueC;
+      
+      if (cue != null)
+        this.Space.SoundSpace.PlayCue(cue);
+      
+      this.OddAttack = !this.OddAttack;
+    }
+    
     this.Sprite.SpriteSource = SpriteSource.PoochaAttack;
     var spawnLocation = this.Transform.WorldTranslation + offset;
     this.DestroyOldSword();
