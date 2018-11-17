@@ -1,0 +1,9 @@
+[Version:1]
+TextContent 
+{
+	ZilchScriptBuilder 
+	{
+		var Name = "DragonController"
+		var ResourceId = 0x5bbf1ca68c1256a6
+	}
+}

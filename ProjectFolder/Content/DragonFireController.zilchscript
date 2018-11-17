@@ -1,0 +1,41 @@
+class DragonFireController : ZilchComponent
+{
+  [Property]
+  var LifeTime : Real = 2.0;
+  var LifeTimer : Real = 0;
+  [Property]
+  var Speed : Real = 1.0;
+  var PlayerRef : Cog;
+  var DifferenceVector : Real3;
+  [Property]
+  var Damage : Integer = 1;
+  
+  function Initialize(init : CogInitializer)
+  {
+    Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
+    Zero.Connect(this.Owner, Events.CollisionStarted, this.OnCollisionStarted);
+    
+    this.PlayerRef = this.Space.FindObjectByName("Hero");
+    this.DifferenceVector = this.PlayerRef.Transform.Translation - this.Owner.Transform.Translation;
+  }
+
+  function OnCollisionStarted(event : CollisionEvent)
+  {
+    if(event.OtherObject == this.PlayerRef)
+    {
+      var he : HealthEvent = HealthEvent();
+      he.Damage = this.Damage;
+      event.OtherObject.DispatchEvent(Events.DamageRequest, he);
+    }
+  }
+
+  function OnLogicUpdate(event : UpdateEvent)
+  {
+    this.Owner.Transform.Translation += Math.Normalize(this.DifferenceVector) * this.Speed * event.Dt;
+    this.LifeTimer += event.Dt;
+    if(this.LifeTimer >= this.LifeTime)
+    {
+      this.Owner.Destroy();
+    }
+  }
+}

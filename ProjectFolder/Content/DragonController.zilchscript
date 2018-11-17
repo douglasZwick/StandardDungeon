@@ -1,0 +1,66 @@
+class DragonController : ZilchComponent
+{
+  [Property]
+  var Head : CogPath;
+  [Property]
+  var Body : CogPath;
+  [Property]
+  var HeadMoveSpeed : Real = 3.0;
+  [Property]
+  var HeadMoveDistance : Real = 2.0;
+  [Property]
+  var FireRate : Real = 1.0;
+  var FireTimer : Real = 0;
+  [Property]
+  var FireArchetype : Archetype;
+  
+  var CurrentHeadMoveDirection : Directions = Directions.Left;
+  
+  function Initialize(init : CogInitializer)
+  {
+    Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
+  }
+
+  function OnLogicUpdate(event : UpdateEvent)
+  {
+    if(this.Head.Cog != null)
+    {
+      this.MoveHead(event);
+      this.BreatheFire(event);
+    }
+    if(this.Head.Cog == null || this.Body.Cog == null)
+    {
+      this.Owner.Destroy();
+    }
+  }
+  
+  function MoveHead(event : UpdateEvent)
+  {
+    if(this.CurrentHeadMoveDirection == Directions.Left)
+    {
+      this.Head.Transform.Translation += -Real3.XAxis * this.HeadMoveSpeed * event.Dt;
+      if(this.Head.Transform.Translation.X <= -this.HeadMoveDistance)
+      {
+        this.CurrentHeadMoveDirection = Directions.Right;
+      }
+    }
+    else if(this.CurrentHeadMoveDirection == Directions.Right)
+    {
+      this.Head.Transform.Translation += Real3.XAxis * this.HeadMoveSpeed * event.Dt;
+      if(this.Head.Transform.Translation.X >= this.HeadMoveDistance)
+      {
+        this.CurrentHeadMoveDirection = Directions.Left;
+      }
+    }
+  }
+  
+  function BreatheFire(event : UpdateEvent)
+  {
+    this.FireTimer += event.Dt;
+    if(this.FireTimer >= this.FireRate)
+    {
+      this.FireTimer = 0;
+      this.Space.CreateAtPosition(this.FireArchetype, this.Head.Transform.WorldTranslation);
+    }
+  }
+}

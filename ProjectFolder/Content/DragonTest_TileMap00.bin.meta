@@ -1,0 +1,13 @@
+[Version:1]
+BinaryContent 
+{
+	BinaryBuilder 
+	{
+		var Name = "DragonTest_TileMap00"
+		var ResourceId = 0x5bbfe3aefc112918
+		var LoaderType = "TileMapSource"
+		var Version = 0
+		var FilterTag = ""
+		var ResourceOwner = "5bbfe303d3666e79:DragonTest"
+	}
+}

@@ -1,0 +1,11 @@
+[Version:1]
+DataContent 
+{
+	DataBuilder 
+	{
+		var Name = "DragonTest"
+		var ResourceId = 0x5bbfe303d3666e79
+		var LoaderType = "Level"
+		var Version = 0
+	}
+}

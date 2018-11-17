@@ -1,0 +1,199 @@
+[Version:1]
+Cog 
+{
+	var Name = "Dragon"
+	Transform 
+	{
+		var Translation = Real3{0, 25.5, 0}
+		var Scale = Real3{1, 1, 1}
+		var Rotation = Quaternion{0, 0, 0, 1}
+	}
+	DragonController 
+	{
+		var Head = CogPath
+		{
+			var Path = "DragonHead"
+			var ErrorOnResolveToNull = false
+			var ErrorOnPathCantCompute = false
+			var ErrorOnDirectLinkFail = false
+			var UpdateCogOnPathChange = true
+			var UpdatePathOnCogChange = true
+			var UpdateCogOnInitialize = true
+			var ResolvedNullErrorOccurred = false
+			var Cog = 4294967293
+			var PathPreference0 = CogPathPreference.CogRelative
+			var PathPreference1 = CogPathPreference.SpaceRelative
+			var PathPreference2 = CogPathPreference.Absolute
+		}
+		var Body = CogPath
+		{
+			var Path = "DragonBody"
+			var ErrorOnResolveToNull = false
+			var ErrorOnPathCantCompute = false
+			var ErrorOnDirectLinkFail = false
+			var UpdateCogOnPathChange = true
+			var UpdatePathOnCogChange = true
+			var UpdateCogOnInitialize = true
+			var ResolvedNullErrorOccurred = false
+			var Cog = 4294967293
+			var PathPreference0 = CogPathPreference.CogRelative
+			var PathPreference1 = CogPathPreference.SpaceRelative
+			var PathPreference2 = CogPathPreference.Absolute
+		}
+		var HeadMoveSpeed = 5
+		var HeadMoveDistance = 1.5
+		var FireRate = 1.5
+		var FireArchetype = "5bbf15a52c1625e8:DragonFire"
+	}
+	Hierarchy 
+	{
+		Cog [Id:0x5bbf1e69e935e569]
+		{
+			var Name = "DragonBody"
+			Transform 
+			{
+				var Translation = Real3{0, 0.5, 0}
+				var Scale = Real3{3, 1, 1}
+				var Rotation = Quaternion{0, 0, 0, 1}
+			}
+			Model 
+			{
+				var Visible = true
+				var ViewCulling = true
+				var VisibilityEvents = true
+				var OverrideBoundingBox = false
+				var LocalAabbCenter = Real3{0, 0, 0}
+				var LocalAabbHalfExtents = Real3{1, 1, 1}
+				var GroupSortValue = 0
+				var Material = "583afb5e7bf75e18:ZeroMaterial"
+				var Mesh = "4de0354322b376ae:Sphere"
+			}
+			RigidBody 
+			{
+				var Velocity = Real3{0, 0, 0}
+				var AngularVelocity = Real3{0, 0, 0}
+				var DynamicState = RigidBodyDynamicState.Kinematic
+				var AllowSleep = true
+				var Asleep = false
+				var RotationLocked = false
+				var Mode2D = Mode2DStates.InheritFromSpace
+			}
+			BoxCollider 
+			{
+				var Ghost = false
+				var SendsEvents = true
+				var Material = "4de020863e872da8:DefaultPhysicsMaterial"
+				var CollisionGroup = "5baa5c7ae3cb18d6:Enemy"
+				var Offset = Real3{0, 0, 0}
+				var HalfSize = Real3{0.5, 0.5, 0.5}
+			}
+			DamageOnCollision 
+			{
+				var Damage = 1
+			}
+			Health 
+			{
+				var MaxHealth = 30
+				var DamageCue = "null"
+			}
+			Hierarchy 
+			{
+			}
+		}
+		Cog [Id:0x5bbf1e69e935e593]
+		{
+			var Name = "DragonHead"
+			Transform 
+			{
+				var Translation = Real3{0, -0.5, 0}
+				var Scale = Real3{0.800000072, 0.800000012, 0.800000012}
+				var Rotation = Quaternion{0, 0, 0, 1}
+			}
+			Model 
+			{
+				var Visible = true
+				var ViewCulling = true
+				var VisibilityEvents = true
+				var OverrideBoundingBox = false
+				var LocalAabbCenter = Real3{0, 0, 0}
+				var LocalAabbHalfExtents = Real3{1, 1, 1}
+				var GroupSortValue = 0
+				var Material = "583afb5e7bf75e18:ZeroMaterial"
+				var Mesh = "4de0354322b376ae:Sphere"
+			}
+			RigidBody 
+			{
+				var Velocity = Real3{0, 0, 0}
+				var AngularVelocity = Real3{0, 0, 0}
+				var DynamicState = RigidBodyDynamicState.Kinematic
+				var AllowSleep = true
+				var Asleep = false
+				var RotationLocked = false
+				var Mode2D = Mode2DStates.InheritFromSpace
+			}
+			BoxCollider 
+			{
+				var Ghost = false
+				var SendsEvents = true
+				var Material = "4de020863e872da8:DefaultPhysicsMaterial"
+				var CollisionGroup = "5baa5c7ae3cb18d6:Enemy"
+				var Offset = Real3{0, 0, 0}
+				var HalfSize = Real3{0.5, 0.5, 0.5}
+			}
+			DamageOnCollision 
+			{
+				var Damage = 1
+			}
+			Health 
+			{
+				var MaxHealth = 10
+				var DamageCue = "null"
+			}
+		}
+		Cog [Id:0x5bbf1173279fa634]
+		{
+			var Name = "DragonTail"
+			Transform 
+			{
+				var Translation = Real3{0, 1.5, 0}
+				var Scale = Real3{0.400000006, 0.800000012, 0.800000012}
+				var Rotation = Quaternion{0, 0, 0, 1}
+			}
+			Model 
+			{
+				var Visible = true
+				var ViewCulling = true
+				var VisibilityEvents = true
+				var OverrideBoundingBox = false
+				var LocalAabbCenter = Real3{0, 0, 0}
+				var LocalAabbHalfExtents = Real3{1, 1, 1}
+				var GroupSortValue = 0
+				var Material = "583afb5e7bf75e18:ZeroMaterial"
+				var Mesh = "4de0354322b3572e:Cylinder"
+			}
+			RigidBody 
+			{
+				var Velocity = Real3{0, 0, 0}
+				var AngularVelocity = Real3{0, 0, 0}
+				var DynamicState = RigidBodyDynamicState.Kinematic
+				var AllowSleep = true
+				var Asleep = false
+				var RotationLocked = false
+				var Mode2D = Mode2DStates.InheritFromSpace
+			}
+			BoxCollider 
+			{
+				var Ghost = false
+				var SendsEvents = true
+				var Material = "4de020863e872da8:DefaultPhysicsMaterial"
+				var CollisionGroup = "5baa5c7ae3cb18d6:Enemy"
+				var Offset = Real3{0, 0, 0}
+				var HalfSize = Real3{0.5, 0.5, 0.5}
+			}
+			DamageOnCollision 
+			{
+				var Damage = 1
+			}
+		}
+	}
+}

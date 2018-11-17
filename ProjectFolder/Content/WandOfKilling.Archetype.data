@@ -4,7 +4,7 @@ Cog
 	var Name = "WandOfKilling"
 	Transform 
 	{
-		var Translation = Real3{-7, 6, 0}
+		var Translation = Real3{0, 0, 0}
 		var Scale = Real3{1, 1, 1}
 		var Rotation = Quaternion{0, 0, 0, 1}
 	}
@@ -100,7 +100,7 @@ Cog
 	WandOfKilling 
 	{
 		var CostToUse = 5
-		var HitBoxArchetype = "null"
+		var HitBoxArchetype = "5bb8496becfb2d97:PlayerFireball"
 	}
 	Hierarchy 
 	{
