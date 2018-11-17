@@ -97,7 +97,7 @@ Level
 		var Name = "EditorCamera"
 		Transform 
 		{
-			var Translation = Real3{0, 0, 34.9798584}
+			var Translation = Real3{1.40116358, 106.190598, 34.9798584}
 			var Scale = Real3{1, 1, 1}
 			var Rotation = Quaternion{0, -1.09278471e-08, 0, 1}
 		}
@@ -150,7 +150,7 @@ Level
 			var FarPlane = 500
 			var PerspectiveMode = PerspectiveMode.Orthographic
 			var FieldOfView = 45
-			var Size = 11.5642471
+			var Size = 23.2875576
 		}
 		EditorCameraController 
 		{
@@ -159,7 +159,7 @@ Level
 			var LookDistance = 34.9798584
 			var VerticalAngle = 0
 			var HorizontalAngle = 0
-			var LookTarget = Real3{0, 0, 0}
+			var LookTarget = Real3{1.40116358, 106.190598, 6.12468014e-08}
 			var MoveSensitivity = 1
 		}
 	}
@@ -600,6 +600,34 @@ Level
 		DartTrapController 
 		{
 			var Direction = Directions.Down
+		}
+	}
+	Cog [InheritId:"5bc134b675a9af25:Door"][ContextId:26]
+	{
+		Transform 
+		{
+			var Translation = Real3{0, 31, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+		Openable 
+		{
+			var Locks = 0
+		}
+	}
+	Cog [InheritId:"5badda82ea209ab3:Sign"][ContextId:27]
+	{
+		Transform 
+		{
+			var Translation = Real3{0, 111, 0}
+			var Rotation = Quaternion{0, 0, 0, 1}
+			var Scale = Real3{1, 1, 1}
+		}
+		PrintOnWasRead 
+		{
+			var Line0 = "nice"
+			var Line2 = ""
+			var Line3 = ""
 		}
 	}
 }
