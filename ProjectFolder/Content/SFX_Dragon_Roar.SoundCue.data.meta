@@ -1,0 +1,11 @@
+[Version:1]
+DataContent 
+{
+	DataBuilder 
+	{
+		var Name = "SFX_Dragon_Roar"
+		var ResourceId = 0x5b94e8848af10ea7
+		var LoaderType = "SoundCue"
+		var Version = 0
+	}
+}

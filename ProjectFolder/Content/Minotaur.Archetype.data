@@ -4,7 +4,7 @@ Cog
 	var Name = "Minotaur"
 	Transform 
 	{
-		var Translation = Real3{0, 15, 0}
+		var Translation = Real3{-7, 0, 0}
 		var Scale = Real3{1, 1, 1}
 		var Rotation = Quaternion{0, 0, 0, 1}
 	}
@@ -37,11 +37,12 @@ Cog
 		var TickDelayVariance = 0
 		var RandomInitialTimer = false
 		var TickTimer = 0
-		var AwarenessRadius = 10
+		var AwarenessRadius = 9
 	}
 	Health 
 	{
 		var MaxHealth = 10
+		var DamageCue = "5b94e8848af04403:SFX_Enemy_Damaged"
 	}
 	DiscreteMover 
 	{
@@ -60,6 +61,8 @@ Cog
 			var PathPreference1 = CogPathPreference.SpaceRelative
 			var PathPreference2 = CogPathPreference.Absolute
 		}
+		var OddStepCue = "null"
+		var EvenStepCue = "null"
 	}
 	MinotaurController 
 	{
@@ -85,11 +88,26 @@ Cog
 	}
 	Inventory 
 	{
-		var Gold = 100
+		var Gold = 50
 		var Keys = 0
 		var DropOnDeath = true
 		var MultiplyGoldDropOnDeath = 1
 		var LootArchetype = "5bab4e400484619f:Loot"
+		var WeaponRoot = CogPath
+		{
+			var Path = "."
+			var ErrorOnResolveToNull = false
+			var ErrorOnPathCantCompute = false
+			var ErrorOnDirectLinkFail = false
+			var UpdateCogOnPathChange = true
+			var UpdatePathOnCogChange = true
+			var UpdateCogOnInitialize = true
+			var ResolvedNullErrorOccurred = false
+			var Cog = 4294967293
+			var PathPreference0 = CogPathPreference.CogRelative
+			var PathPreference1 = CogPathPreference.SpaceRelative
+			var PathPreference2 = CogPathPreference.Absolute
+		}
 		var InventoryRoot = CogPath
 		{
 			var Path = "."

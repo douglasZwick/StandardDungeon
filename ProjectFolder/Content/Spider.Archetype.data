@@ -4,7 +4,7 @@ Cog
 	var Name = "Spider"
 	Transform 
 	{
-		var Translation = Real3{-14, -15, 0}
+		var Translation = Real3{-14, 1, 0}
 		var Scale = Real3{1, 1, 1}
 		var Rotation = Quaternion{0, 0, 0, 1}
 	}
@@ -42,6 +42,7 @@ Cog
 	Health 
 	{
 		var MaxHealth = 1
+		var DamageCue = "5b94e8848af04403:SFX_Enemy_Damaged"
 	}
 	DiscreteMover 
 	{
@@ -60,6 +61,8 @@ Cog
 			var PathPreference1 = CogPathPreference.SpaceRelative
 			var PathPreference2 = CogPathPreference.Absolute
 		}
+		var OddStepCue = "null"
+		var EvenStepCue = "null"
 	}
 	BoxCollider 
 	{

@@ -7,6 +7,10 @@ class CounterDisplay : ZilchComponent
   var CounterName : String;
   [Property]
   var DigitsRootPath : CogPath = CogPath(".");
+  [Property]
+  var SoundCue : SoundCue;
+  [Property]
+  var SoundDelay : Integer = 3;
   
   var Digits : Array[Sprite] = Array[Sprite]();
   var MaxValue : Integer;
@@ -22,8 +26,18 @@ class CounterDisplay : ZilchComponent
       this.Value_ = value;
       
       this.SetDigits(value);
+      
+      if (this.SoundCue != null)
+      {
+        if (this.TickCounter % this.SoundDelay == 0)
+          this.Space.SoundSpace.PlayCue(this.SoundCue);
+        
+        ++this.TickCounter;
+      }
     }
   }
+  
+  var TickCounter : Integer = 0;
   
   var Sequence : ActionSequence;
   var RollSpeed : Real = 103.38457; // value / sec
@@ -69,6 +83,7 @@ class CounterDisplay : ZilchComponent
   
   function SetWithRollUp(value : Integer)
   {
+    this.TickCounter = 0;
     var delta = Math.Abs(value - this.Value_);
     this.Sequence.Cancel();
     this.Sequence = Action.Sequence(this.Owner.Actions);

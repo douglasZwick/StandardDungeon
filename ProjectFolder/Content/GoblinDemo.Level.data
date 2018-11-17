@@ -85,7 +85,7 @@ Level
 		var Name = "EditorCamera"
 		Transform 
 		{
-			var Translation = Real3{-23.583395, -0.606293797, 34.9798584}
+			var Translation = Real3{-18.2550678, -7.63288069, 34.9798584}
 			var Scale = Real3{1, 1, 1}
 			var Rotation = Quaternion{0, -1.09278471e-08, 0, 1}
 		}
@@ -138,7 +138,7 @@ Level
 			var FarPlane = 500
 			var PerspectiveMode = PerspectiveMode.Orthographic
 			var FieldOfView = 45
-			var Size = 42.9069862
+			var Size = 23.5478668
 		}
 		EditorCameraController 
 		{
@@ -147,7 +147,7 @@ Level
 			var LookDistance = 34.9798584
 			var VerticalAngle = 0
 			var HorizontalAngle = 0
-			var LookTarget = Real3{-23.583395, -0.606293797, -6.37460232e-07}
+			var LookTarget = Real3{-18.2550678, -7.63288069, -4.11782622e-07}
 			var MoveSensitivity = 1
 		}
 	}
@@ -741,14 +741,6 @@ Level
 			var Translation = Real3{-7, 0, 0}
 			var Rotation = Quaternion{0, 0, 0, 1}
 			var Scale = Real3{1, 1, 1}
-		}
-		AiTicker 
-		{
-			var AwarenessRadius = 9
-		}
-		Inventory 
-		{
-			var Gold = 50
 		}
 	}
 	Cog [InheritId:"5b8f2841e989cf48:SpikeTrap"][ContextId:45]

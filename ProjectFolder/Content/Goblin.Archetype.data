@@ -76,6 +76,7 @@ Cog
 	Health 
 	{
 		var MaxHealth = 5
+		var DamageCue = "5b94e8848af04403:SFX_Enemy_Damaged"
 	}
 	AiTicker 
 	{
@@ -102,6 +103,8 @@ Cog
 			var PathPreference1 = CogPathPreference.SpaceRelative
 			var PathPreference2 = CogPathPreference.Absolute
 		}
+		var OddStepCue = "null"
+		var EvenStepCue = "null"
 	}
 	FlipSpriteOnMovementStarted 
 	{

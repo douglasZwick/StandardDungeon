@@ -216,6 +216,10 @@ Cog
 	{
 		var WebBreakingStrength = 1
 	}
+	PlayCueOnMovementFailed 
+	{
+		var SoundCue = "5b94e8848afc54e6:SFX_Wall_Bump"
+	}
 	Hierarchy 
 	{
 		Cog [Id:0x5baa61a7e6da21e3]

@@ -266,6 +266,8 @@ Level
 				var PathPreference1 = CogPathPreference.SpaceRelative
 				var PathPreference2 = CogPathPreference.Absolute
 			}
+			var SoundCue = "5b94e8848aff474c:SFX_Gold_Counter"
+			var SoundDelay = 2
 		}
 		Hierarchy 
 		{
@@ -489,6 +491,8 @@ Level
 				var PathPreference1 = CogPathPreference.SpaceRelative
 				var PathPreference2 = CogPathPreference.Absolute
 			}
+			var SoundCue = "null"
+			var SoundDelay = 3
 		}
 		Hierarchy 
 		{
@@ -763,10 +767,40 @@ Level
 		}
 		InventoryHud 
 		{
+			var WeaponSpritePath = CogPath
+			{
+				var Path = "WeaponSprite"
+				var ErrorOnResolveToNull = false
+				var ErrorOnPathCantCompute = false
+				var ErrorOnDirectLinkFail = false
+				var UpdateCogOnPathChange = true
+				var UpdatePathOnCogChange = true
+				var UpdateCogOnInitialize = true
+				var ResolvedNullErrorOccurred = false
+				var Cog = 23
+				var PathPreference0 = CogPathPreference.CogRelative
+				var PathPreference1 = CogPathPreference.SpaceRelative
+				var PathPreference2 = CogPathPreference.Absolute
+			}
+			var ToolSpritePath = CogPath
+			{
+				var Path = "ToolSprite"
+				var ErrorOnResolveToNull = false
+				var ErrorOnPathCantCompute = false
+				var ErrorOnDirectLinkFail = false
+				var UpdateCogOnPathChange = true
+				var UpdatePathOnCogChange = true
+				var UpdateCogOnInitialize = true
+				var ResolvedNullErrorOccurred = false
+				var Cog = 24
+				var PathPreference0 = CogPathPreference.CogRelative
+				var PathPreference1 = CogPathPreference.SpaceRelative
+				var PathPreference2 = CogPathPreference.Absolute
+			}
 		}
 		Hierarchy 
 		{
-			Cog [Id:0x5b80b603b99b3fac][ContextId:23]
+			Cog [Id:0x5b80b603b99b3fac][ContextId:25]
 			{
 				var Name = "InventoryLabel"
 				Transform 
@@ -794,7 +828,7 @@ Level
 					var TextAlign = TextAlign.Center
 				}
 			}
-			Cog [Id:0x5b80b603b99b3fe1][ContextId:24]
+			Cog [Id:0x5b80b603b99b3fe1][ContextId:26]
 			{
 				var Name = "WeaponLabel"
 				Transform 
@@ -822,7 +856,7 @@ Level
 					var TextAlign = TextAlign.Center
 				}
 			}
-			Cog [Id:0x5b80b603b99b4009][ContextId:25]
+			Cog [Id:0x5b80b603b99b4009][ContextId:27]
 			{
 				var Name = "ToolLabel"
 				Transform 
@@ -850,7 +884,7 @@ Level
 					var TextAlign = TextAlign.Center
 				}
 			}
-			Cog [Id:0x5b80b603b99b402d][ContextId:26]
+			Cog [Id:0x5b80b603b99b402d][ContextId:28]
 			{
 				var Name = "WeaponFrame"
 				Transform 
@@ -884,7 +918,7 @@ Level
 					var Origin = Location.Center
 				}
 			}
-			Cog [Id:0x5b80b603b99b4050][ContextId:27]
+			Cog [Id:0x5b80b603b99b4050][ContextId:29]
 			{
 				var Name = "ToolFrame"
 				Transform 
@@ -918,7 +952,7 @@ Level
 					var Origin = Location.Center
 				}
 			}
-			Cog [Id:0x5b80b603b99b4074][ContextId:28]
+			Cog [Id:0x5b80b603b99b4074][ContextId:23]
 			{
 				var Name = "WeaponSprite"
 				Transform 
@@ -947,7 +981,7 @@ Level
 					var StartFrame = 0
 				}
 			}
-			Cog [Id:0x5b80b603b99b4098][ContextId:29]
+			Cog [Id:0x5b80b603b99b4098][ContextId:24]
 			{
 				var Name = "ToolSprite"
 				Transform 

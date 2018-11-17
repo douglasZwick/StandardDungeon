@@ -4,7 +4,7 @@ Cog
 	var Name = "Skelly"
 	Transform 
 	{
-		var Translation = Real3{-39, 8, 0}
+		var Translation = Real3{-42, 5, 0}
 		var Scale = Real3{1, 1, 1}
 		var Rotation = Quaternion{0, 0, 0, 1}
 	}
@@ -63,6 +63,8 @@ Cog
 			var PathPreference1 = CogPathPreference.SpaceRelative
 			var PathPreference2 = CogPathPreference.Absolute
 		}
+		var OddStepCue = "null"
+		var EvenStepCue = "null"
 	}
 	AiTicker 
 	{
@@ -87,6 +89,7 @@ Cog
 	Health 
 	{
 		var MaxHealth = 5
+		var DamageCue = "5b94e8848af04403:SFX_Enemy_Damaged"
 	}
 	Inventory 
 	{

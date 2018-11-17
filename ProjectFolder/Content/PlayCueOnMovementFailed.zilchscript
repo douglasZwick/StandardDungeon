@@ -1,0 +1,18 @@
+class PlayCueOnMovementFailed : ZilchComponent
+{
+  [Property]
+  var SoundCue : SoundCue = SoundCue.SFX_Wall_Bump;
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    Zero.Connect(this.Owner, Events.MovementFailed, this.OnMovementFailed);
+  }
+  
+  
+  function OnMovementFailed(event : MovementEvent)
+  {
+    if (this.SoundCue != null)
+      this.Space.SoundSpace.PlayCue(this.SoundCue);
+  }
+}

@@ -1,0 +1,9 @@
+[Version:1]
+TextContent 
+{
+	ZilchScriptBuilder 
+	{
+		var Name = "PlayCueOnMovementFailed"
+		var ResourceId = 0x5b94eb9507bb5cc1
+	}
+}

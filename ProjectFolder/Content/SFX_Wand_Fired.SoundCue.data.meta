@@ -1,0 +1,11 @@
+[Version:1]
+DataContent 
+{
+	DataBuilder 
+	{
+		var Name = "SFX_Wand_Fired"
+		var ResourceId = 0x5b94e8848afb55b5
+		var LoaderType = "SoundCue"
+		var Version = 0
+	}
+}

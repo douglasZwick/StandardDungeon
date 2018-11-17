@@ -4,7 +4,7 @@ Cog
 	var Name = "HealingPotion"
 	Transform 
 	{
-		var Translation = Real3{-1, 1, 0}
+		var Translation = Real3{0, 0, 0}
 		var Scale = Real3{1, 1, 1}
 		var Rotation = Quaternion{0, 0, 0, 1}
 	}
@@ -101,6 +101,7 @@ Cog
 	ConsumeOnUse 
 	{
 		var Uses = 1
+		var SoundCue = "5b94e8848afe4945:SFX_Hero_Healed"
 	}
 	Hierarchy 
 	{

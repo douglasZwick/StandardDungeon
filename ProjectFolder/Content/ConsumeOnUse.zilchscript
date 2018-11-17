@@ -12,6 +12,8 @@ class ConsumeOnUse : ZilchComponent
   
   [Property]
   var Uses : Integer = 1;
+  [Property]
+  var SoundCue : SoundCue;
   
   
   function Initialize(init : CogInitializer)
@@ -23,6 +25,9 @@ class ConsumeOnUse : ZilchComponent
   function OnWasUsed(event : InventoryItemEvent)
   {
     --this.Uses;
+    
+    if (this.SoundCue != null)
+      this.Space.SoundSpace.PlayCue(this.SoundCue);
     
     if (this.Uses <= 0)
     {

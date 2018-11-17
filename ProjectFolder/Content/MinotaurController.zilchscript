@@ -14,6 +14,7 @@ class MinotaurController : ZilchComponent
   var AttackTime : Real = 0.85;
   var AttackTimer : Real = 0.0;
   var AttackCharging : Boolean = false;
+  var ShockwaveCue : SoundCue = SoundCue.SFX_Shockwave;
   
   function Initialize(init : CogInitializer)
   {
@@ -41,12 +42,14 @@ class MinotaurController : ZilchComponent
             //Attack left
             var shockwaveRef = this.Space.CreateAtPosition(Archetype.ShockwaveHitBox, -Real3.XAxis + this.Owner.Transform.Translation);
             shockwaveRef.ShockwaveHitBoxBehavior.Direction = Directions.Left;
+            this.PlayCue();
           }
           else if(hDiff > 0)
           {
             //Attack right
             var shockwaveRef = this.Space.CreateAtPosition(Archetype.ShockwaveHitBox, Real3.XAxis + this.Owner.Transform.Translation);
             shockwaveRef.ShockwaveHitBoxBehavior.Direction = Directions.Right;
+            this.PlayCue();
           }
         }
         else
@@ -57,12 +60,14 @@ class MinotaurController : ZilchComponent
             //Attack down
             var shockwaveRef = this.Space.CreateAtPosition(Archetype.ShockwaveHitBox, -Real3.YAxis + this.Owner.Transform.Translation);
             shockwaveRef.ShockwaveHitBoxBehavior.Direction = Directions.Down;
+            this.PlayCue();
           }
           else
           {
             //Attack up
             var shockwaveRef = this.Space.CreateAtPosition(Archetype.ShockwaveHitBox, Real3.YAxis + this.Owner.Transform.Translation);
             shockwaveRef.ShockwaveHitBoxBehavior.Direction = Directions.Up;
+            this.PlayCue();
           }
         }
         this.AttackCharging = false;
@@ -134,5 +139,11 @@ class MinotaurController : ZilchComponent
         this.AttackCharging = true;
       }
     }
+  }
+  
+  function PlayCue()
+  {
+    if (this.ShockwaveCue != null)
+      this.Space.SoundSpace.PlayCue(this.ShockwaveCue);
   }
 }

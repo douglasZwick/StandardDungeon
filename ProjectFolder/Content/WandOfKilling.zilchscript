@@ -44,6 +44,8 @@ class WandOfKilling : ZilchComponent
         var hitBoxRef = this.Space.CreateAtPosition(this.HitBoxArchetype, spawnPosition);
         hitBoxRef.MoveInDirectionOnAiTick.MoveDirection = Directions.Right;
       }
+      
+      this.Owner.DispatchEvent(Events.WandWasFired, event);
     }
   }
 }

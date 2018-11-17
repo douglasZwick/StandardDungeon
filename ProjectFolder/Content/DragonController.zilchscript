@@ -16,8 +16,17 @@ class DragonController : ZilchComponent
   
   var CurrentHeadMoveDirection : Directions = Directions.Left;
   
+  var MinRoarDelay : Real = 1;
+  var MaxRoarDelay : Real = 3;
+  var RoarSequence : ActionSequence;
+  
+  var RNG : Random = Random();
+  
   function Initialize(init : CogInitializer)
   {
+    this.RoarSequence = Action.Sequence(this.Owner.Actions);
+    this.StartRoarSequence();
+    
     Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
   }
 
@@ -62,5 +71,22 @@ class DragonController : ZilchComponent
       this.FireTimer = 0;
       this.Space.CreateAtPosition(this.FireArchetype, this.Head.Transform.WorldTranslation);
     }
+  }
+  
+  function StartRoarSequence()
+  {
+    var delay = this.RNG.Range(this.MinRoarDelay, this.MaxRoarDelay);
+    
+    this.RoarSequence.Cancel();
+    this.RoarSequence = Action.Sequence(this.Owner.Actions);
+      
+      Action.Delay(this.RoarSequence, delay);
+      Action.Call(this.RoarSequence, this.Roar);
+  }
+  
+  function Roar()
+  {
+    this.Space.SoundSpace.PlayCue(SoundCue.SFX_Dragon_Roar);
+    this.StartRoarSequence();
   }
 }

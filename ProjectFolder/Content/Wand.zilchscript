@@ -9,6 +9,9 @@ class Wand : ZilchComponent
   sends DidFireWand : WandEvent;
   
   
+  [Property]
+  var FireCue : SoundCue = SoundCue.SFX_Wand_Fired;
+  
   var WandUserInventory : Inventory;
   
   
@@ -16,6 +19,14 @@ class Wand : ZilchComponent
   {
     Zero.Connect(this.Owner, Events.RequestBeginAiming, this.OnRequestBeginAiming);
     Zero.Connect(this.Owner, Events.RequestEndAiming, this.OnRequestEndAiming);
+    Zero.Connect(this.Owner, Events.WandWasFired, this.OnWandWasFired);
+  }
+  
+  
+  function OnWandWasFired(event : WandEvent)
+  {
+    if (this.FireCue != null)
+      this.Space.SoundSpace.PlayCue(this.FireCue);
   }
   
   
